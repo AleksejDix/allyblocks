@@ -1,5 +1,4 @@
 import { create } from "@storybook/theming";
-import "./preview.css";
 
 export default create({
   base: "light",
