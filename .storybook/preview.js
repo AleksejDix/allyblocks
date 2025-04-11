@@ -11,3 +11,20 @@ export const decorators = [
     attributeName: "data-brand",
   }),
 ];
+
+export const globalTypes = {
+  locale: {
+    name: "Locale",
+    description: "Internationalization locale",
+    toolbar: {
+      icon: "globe",
+      items: [
+        { value: "de", title: "Deutsch" },
+        { value: "en", title: "English" },
+        { value: "fr", title: "Français" },
+        { value: "it", title: "Italiano" },
+      ],
+      showName: true,
+    },
+  },
+};
