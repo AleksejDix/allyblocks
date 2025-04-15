@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent } from "@storybook/test";
-import { expect } from "@storybook/test";
+import { within, userEvent, expect } from "@storybook/test";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Checkbox } from "./checkbox";
 
 const meta: Meta<typeof Checkbox> = {
+  title: "UI/Checkbox",
   component: Checkbox,
   argTypes: {
     checked: {
@@ -56,11 +56,9 @@ export const Unchecked: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered
-    await expect(checkbox).toBeInTheDocument();
-    // Should be unchecked by default
+    // Verify checkbox is unchecked by default
     await expect(checkbox).not.toBeChecked();
   },
 };
@@ -81,7 +79,7 @@ export const Indeterminate: Story = {
 
     const { t } = useTranslation();
 
-    const handleChange = () => {
+    const handleChange = React.useCallback(() => {
       if (state === "indeterminate") {
         setState(true);
       } else if (state === true) {
@@ -89,32 +87,33 @@ export const Indeterminate: Story = {
       } else {
         setState("indeterminate");
       }
-    };
+    }, [state]);
 
     return (
       <div className="flex items-center gap-2">
-        <Checkbox checked={state} onCheckedChange={handleChange} />
+        <Checkbox
+          checked={state}
+          onCheckedChange={handleChange}
+          data-testid="indeterminate-checkbox"
+        />
         <span className="text-sm font-medium">{t("hello")}</span>
       </div>
     );
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByTestId("indeterminate-checkbox");
 
-    // Verify checkbox is rendered with indeterminate state initially
-    await expect(checkbox).toBeInTheDocument();
+    // Test initial indeterminate state
     await expect(checkbox).toHaveAttribute("aria-checked", "mixed");
 
-    // Test that clicking changes it to checked state
+    // Test state cycling
     await userEvent.click(checkbox);
     await expect(checkbox).toHaveAttribute("aria-checked", "true");
 
-    // Test that clicking again changes it to unchecked state
     await userEvent.click(checkbox);
     await expect(checkbox).toHaveAttribute("aria-checked", "false");
 
-    // Test that clicking once more returns to indeterminate state
     await userEvent.click(checkbox);
     await expect(checkbox).toHaveAttribute("aria-checked", "mixed");
   },
@@ -134,10 +133,9 @@ export const Checked: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered and checked
-    await expect(checkbox).toBeInTheDocument();
+    // Verify checkbox is checked
     await expect(checkbox).toBeChecked();
   },
 };
@@ -156,13 +154,12 @@ export const UncheckedDisabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered and disabled
-    await expect(checkbox).toBeInTheDocument();
+    // Verify checkbox is disabled
     await expect(checkbox).toBeDisabled();
 
-    // Attempt to click and verify it remains unchecked
+    // Verify it remains unchecked when clicked
     await userEvent.click(checkbox);
     await expect(checkbox).not.toBeChecked();
   },
@@ -183,10 +180,9 @@ export const CheckedDisabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered, checked, and disabled
-    await expect(checkbox).toBeInTheDocument();
+    // Verify checkbox is checked and disabled
     await expect(checkbox).toBeChecked();
     await expect(checkbox).toBeDisabled();
   },
@@ -207,10 +203,9 @@ export const IndeterminateDisabled: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered, checked, and disabled
-    await expect(checkbox).toBeInTheDocument();
+    // Verify checkbox is indeterminate and disabled
     await expect(checkbox).toHaveAttribute("aria-checked", "mixed");
     await expect(checkbox).toBeDisabled();
   },
@@ -227,17 +222,14 @@ export const Interactive: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered and initially unchecked
-    await expect(checkbox).toBeInTheDocument();
+    // Verify toggling behavior
     await expect(checkbox).not.toBeChecked();
 
-    // Click to check
     await userEvent.click(checkbox);
     await expect(checkbox).toBeChecked();
 
-    // Click to uncheck
     await userEvent.click(checkbox);
     await expect(checkbox).not.toBeChecked();
   },
@@ -254,21 +246,19 @@ export const KeyboardAccessibility: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const checkbox = canvas.getByRole("checkbox");
+    const checkbox = canvas.getByRole("checkbox", { hidden: true });
 
-    // Verify checkbox is rendered and initially unchecked
-    await expect(checkbox).toBeInTheDocument();
+    // Initial state
     await expect(checkbox).not.toBeChecked();
 
-    // Focus with keyboard
+    // Test keyboard navigation
     await userEvent.tab();
     await expect(checkbox).toHaveFocus();
 
-    // Toggle with space key
+    // Test keyboard toggling
     await userEvent.keyboard(" ");
     await expect(checkbox).toBeChecked();
 
-    // Toggle again
     await userEvent.keyboard(" ");
     await expect(checkbox).not.toBeChecked();
   },

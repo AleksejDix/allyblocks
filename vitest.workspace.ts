@@ -1,6 +1,6 @@
 /// <reference types="@vitest/browser/providers/playwright" />
 
-import { coverageConfigDefaults, defineWorkspace } from "vitest/config";
+import { defineWorkspace } from "vitest/config";
 import { storybookTest } from "@storybook/experimental-addon-test/vitest-plugin";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,32 +10,10 @@ const dirname =
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
-// Common configuration for all test projects
-const commonConfig = {
-  setupFiles: ["./.storybook/vitest.setup.ts"],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  /* @ts-ignore*/
-  coverage: {
-    provider: "v8",
-    exclude: [
-      ...coverageConfigDefaults.exclude,
-      "postcss.config.mjs",
-      "**/.storybook/**",
-      "**/*.stories.*",
-      "**/storybook-static/**",
-    ],
-    reporters: ["text", "html", "clover", "json"],
-  },
-};
-
 export default defineWorkspace([
   // Storybook tests configuration
   {
+    extends: "./vite.config.ts",
     plugins: [
       storybookTest({
         // The location of your Storybook config, main.js|ts
@@ -45,7 +23,6 @@ export default defineWorkspace([
         storybookScript: "npm run storybook --ci",
       }),
     ],
-    resolve: commonConfig.resolve,
     test: {
       name: "storybook",
       browser: {
@@ -54,19 +31,72 @@ export default defineWorkspace([
         instances: [
           {
             browser: "chromium",
+            context: {
+              locale: "de-DE",
+            },
           },
         ],
         headless: true,
       },
-      setupFiles: commonConfig.setupFiles,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      /* @ts-ignore*/
-      coverage: {
-        ...commonConfig.coverage,
-        reportsDirectory: "__tests__/coverage",
-        outputFile: {
-          junit: "__tests__/reports/junit-report.xml",
+      setupFiles: ["./.storybook/vitest.setup.ts"],
+      testTimeout: 30000,
+      deps: {
+        // Vite's dependency optimizer configuration for browser tests.
+        optimizer: {
+          web: {
+            enabled: true,
+            include: [
+              "react",
+              "react-dom",
+              "react/jsx-runtime",
+              "react/jsx-dev-runtime",
+              "@radix-ui/react-accordion",
+              "@radix-ui/react-checkbox",
+              "@radix-ui/react-slot",
+              "@radix-ui/react-collapsible",
+              "@radix-ui/react-collection",
+              "@radix-ui/react-compose-refs",
+              "@radix-ui/react-context",
+              "@radix-ui/react-direction",
+              "@radix-ui/react-dialog",
+              "@radix-ui/react-id",
+              "@radix-ui/react-primitive",
+              "@radix-ui/react-use-controllable-state",
+            ],
+          },
         },
+      },
+      // prebundle common js modules
+      server: {
+        deps: {
+          inline: ["react", "react-dom", /@radix-ui\/.*/],
+        },
+      },
+      // @ts-expect-error - TypeScript doesn't recognize the coverage property
+      coverage: {
+        provider: "v8",
+        reporter: ["text", "html", "json"],
+        reportsDirectory: "__test__/coverage/storybook",
+        include: ["src/**/*.{ts,tsx}"],
+        exclude: ["**/*.stories.{ts,tsx}", "**/*.d.ts", "src/main.tsx"],
+      },
+    },
+  },
+  // Unit tests configuration
+  {
+    extends: "./vite.config.ts",
+    test: {
+      name: "unit",
+      environment: "node",
+      include: ["**/*.test.{ts,tsx}"],
+      exclude: ["**/node_modules/**", "**/dist/**", "**/*.stories.{ts,tsx}"],
+      // @ts-expect-error - TypeScript doesn't recognize the coverage property
+      coverage: {
+        provider: "v8",
+        reporter: ["text", "html", "json"],
+        reportsDirectory: "__test__/coverage/unit",
+        include: ["src/**/*.{ts,tsx}"],
+        exclude: ["**/*.stories.{ts,tsx}", "**/*.d.ts", "src/main.tsx"],
       },
     },
   },

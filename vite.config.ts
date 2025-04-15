@@ -8,6 +8,30 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force resolve React to specific paths
+      react: path.resolve(__dirname, "./node_modules/react"),
+      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
     },
+  },
+  optimizeDeps: {
+    include: [
+      "react",
+      "react-dom",
+      "react-dom/client",
+      "react/jsx-dev-runtime",
+      "@radix-ui/react-accordion",
+      "@radix-ui/react-checkbox",
+      "@radix-ui/react-slot",
+      "@radix-ui/primitive",
+      "@radix-ui/react-collapsible",
+      "@radix-ui/react-collection",
+      "@radix-ui/react-compose-refs",
+      "@radix-ui/react-context",
+      "@radix-ui/react-direction",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-id",
+      "@radix-ui/react-primitive",
+      "@radix-ui/react-use-controllable-state",
+    ],
   },
 });

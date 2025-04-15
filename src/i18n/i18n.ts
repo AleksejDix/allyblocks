@@ -5,10 +5,10 @@ i18n.use(LanguageDetector).init({
   detection: {
     order: ["htmlTag", "navigator"],
   },
-  lng: "en",
+  lng: "de",
   fallbackLng: "de",
   supportedLngs: ["de", "en", "fr", "it"],
-  debug: true,
+  debug: false,
   interpolation: {
     escapeValue: false,
   },
