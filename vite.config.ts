@@ -34,4 +34,9 @@ export default defineConfig({
       "@radix-ui/react-use-controllable-state",
     ],
   },
+  build: {
+    rollupOptions: {
+      external: ["react", "react-dom", "i18next", "react-i18next"],
+    },
+  },
 });

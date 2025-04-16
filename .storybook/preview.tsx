@@ -1,9 +1,9 @@
 import "../src/styles/index.css";
-
-import { withBrand, withScheme, withI18next, withNuqs } from "./decorators";
+import { withBrand, withScheme, withNuqs, withI18next } from "./decorators";
+import i18n from "../src/i18n/i18n";
 import { type Preview } from "@storybook/react";
 
-export const parameters: Preview["parameters"] = {
+const parameters: Preview["parameters"] = {
   backgrounds: { disable: true },
   controls: {
     matchers: {
@@ -15,12 +15,12 @@ export const parameters: Preview["parameters"] = {
     storySort: {
       method: "alphabetical",
       includeNames: true,
-      locales: ["de", "en", "fr", "it"],
     },
   },
+  i18n,
 };
 
-export const globalTypes: Preview["globalTypes"] = {
+const globalTypes: Preview["globalTypes"] = {
   locale: {
     name: "Locale",
     description: "Internationalization locale",
@@ -68,4 +68,10 @@ export const globalTypes: Preview["globalTypes"] = {
   },
 };
 
-export const decorators = [withBrand, withScheme, withI18next, withNuqs];
+const preview: Preview = {
+  decorators: [withBrand, withScheme, withNuqs, withI18next],
+  parameters,
+  globalTypes,
+};
+
+export default preview;

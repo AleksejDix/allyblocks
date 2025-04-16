@@ -151,7 +151,6 @@ export const SingleOpen: Story = {
 
     await userEvent.click(trigger2);
     await waitFor(async () => {
-      await new Promise((res) => setTimeout(res, 50));
       expect(trigger2).toHaveAttribute("aria-expanded", "true");
     });
   },
