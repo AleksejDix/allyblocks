@@ -33,6 +33,7 @@ export default defineConfig({
       "@radix-ui/react-primitive",
       "@radix-ui/react-use-controllable-state",
     ],
+    exclude: ["@storybook/*"],
   },
   build: {
     rollupOptions: {

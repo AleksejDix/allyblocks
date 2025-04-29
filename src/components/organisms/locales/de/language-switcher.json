@@ -1,6 +1,5 @@
 {
   "language_switcher_trigger_label": "Sprache ändern, aktuelle Sprache ist {{language}}",
   "select_language_label": "Sprache auswählen",
-  "change_language_to": "Sprache ändern zu {{language}}",
-  "language_selected_announcement": "Sprache auf {{language}} gesetzt"
+  "change_language_to": "Sprache ändern zu {{language}}"
 }

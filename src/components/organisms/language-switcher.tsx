@@ -10,7 +10,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "../ui/dropdown-menu";
-import { VisuallyHidden } from "../ui/visually-hidden";
 import { LanguagesIcon } from "lucide-react";
 
 // Import local translation files
@@ -18,34 +17,16 @@ import translationEN from "./locales/en/language-switcher.json";
 import translationDE from "./locales/de/language-switcher.json";
 import translationFR from "./locales/fr/language-switcher.json";
 import translationIT from "./locales/it/language-switcher.json";
+import { Label } from "../ui/label";
 
 // Local translation hook
 export function useLocalTranslation(namespace: string) {
   const { i18n } = useTranslation();
 
-  // Always load German translations synchronously
-  if (!i18n.hasResourceBundle("de", namespace)) {
-    i18n.addResourceBundle("de", namespace, translationDE, true, true);
-
-    // Preload other languages in the background
-    i18n.loadResources();
-  }
-
-  // Lazy load other languages to ensure they're eventually added
-  useEffect(() => {
-    // Load English
-    if (!i18n.hasResourceBundle("en", namespace)) {
-      i18n.addResourceBundle("en", namespace, translationEN, true, true);
-    }
-    // Load French
-    if (!i18n.hasResourceBundle("fr", namespace)) {
-      i18n.addResourceBundle("fr", namespace, translationFR, true, true);
-    }
-    // Load Italian
-    if (!i18n.hasResourceBundle("it", namespace)) {
-      i18n.addResourceBundle("it", namespace, translationIT, true, true);
-    }
-  }, [i18n, namespace]);
+  i18n.addResourceBundle("de", namespace, translationDE, true, true);
+  i18n.addResourceBundle("en", namespace, translationEN, true, true);
+  i18n.addResourceBundle("fr", namespace, translationFR, true, true);
+  i18n.addResourceBundle("it", namespace, translationIT, true, true);
 
   return useTranslation(namespace);
 }
@@ -62,44 +43,34 @@ const LANGUAGES: LanguageOption[] = [
   { code: "it", name: "Italiano" },
 ];
 
-const NAMESPACE = "language-switcher"; // Define namespace constant
+const NAMESPACE = "language-switcher";
 
 export function LanguageSwitcher() {
-  // Use the local translation hook with the specific namespace
   const { i18n, t } = useLocalTranslation(NAMESPACE);
   const [currentLanguageCode, setCurrentLanguageCode] = useState(i18n.language);
-  const [liveRegionText, setLiveRegionText] = useState("");
   const triggerId = useId();
 
   useEffect(() => {
-    // Ensure the component reflects the current i18n language
     setCurrentLanguageCode(i18n.language);
   }, [i18n.language]);
 
   const handleLanguageChange = (languageCode: string) => {
     i18n.changeLanguage(languageCode);
-    // No need to call setCurrentLanguageCode here, the useEffect above handles it
-    const newLang = LANGUAGES.find((lang) => lang.code === languageCode);
-    // Use interpolation with the translation key
-    setLiveRegionText(
-      t("language_selected_announcement", {
-        language: newLang?.name || languageCode,
-      })
-    );
   };
 
   const currentLanguage =
-    LANGUAGES.find((lang) => lang.code === currentLanguageCode) || LANGUAGES[1]; // Default to English if current not found
+    LANGUAGES.find((lang) => lang.code === currentLanguageCode) || LANGUAGES[1];
 
   return (
     <>
-      {t("select_language_label")}
+      <Label>{t("select_language_label")}</Label>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
             size="sm"
             id={triggerId}
+            lang={currentLanguage.code}
             aria-label={t("language_switcher_trigger_label", {
               language: currentLanguage.name,
             })}
@@ -138,9 +109,6 @@ export function LanguageSwitcher() {
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-      <VisuallyHidden aria-live="polite" aria-atomic="true">
-        {liveRegionText}
-      </VisuallyHidden>
     </>
   );
 }

@@ -4,8 +4,6 @@ import React from "react";
 export const withScheme: Decorator = (Story, context) => {
   const { scheme } = context.globals;
 
-  console.log("scheme", context.globals);
-
   const html = document.documentElement;
 
   const query = window.matchMedia("(prefers-color-scheme: dark)");
