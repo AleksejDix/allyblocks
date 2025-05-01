@@ -14,15 +14,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/organisms/alert-dialog";
 
 const meta: Meta<typeof ActionSplitButton> = {
-  title: "Action Menu Button",
   component: ActionSplitButton,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

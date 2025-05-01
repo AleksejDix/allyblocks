@@ -5,8 +5,16 @@ import { Input } from "./input";
 import { Label } from "./label";
 
 const meta: Meta<typeof Label> = {
-  title: "UI/Label",
   component: Label,
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "A form label component with accessibility features.",
+      },
+    },
+  },
+  tags: ["autodocs"],
   argTypes: {
     className: {
       control: "text",
@@ -20,19 +28,6 @@ const meta: Meta<typeof Label> = {
       description: "When true, component will render as its child element",
       table: {
         defaultValue: { summary: "false" },
-      },
-    },
-  },
-  tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "Renders an accessible label associated with controls. Based on [Radix UI Label](https://www.radix-ui.com/primitives/docs/components/label) and [shadcn/ui Label](https://ui.shadcn.com/docs/components/label).\n\n" +
-          "### Features\n" +
-          "- Text selection is prevented when double clicking label\n" +
-          "- Supports nested controls\n" +
-          "- Automatically applies correct labelling when wrapping controls or using `htmlFor`",
       },
     },
   },

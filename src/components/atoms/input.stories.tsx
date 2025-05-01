@@ -5,42 +5,12 @@ import { userEvent } from "@storybook/test";
 import { Input } from "./input";
 
 const meta: Meta<typeof Input> = {
-  title: "UI/Input",
   component: Input,
-  argTypes: {
-    className: {
-      control: "text",
-    },
-    type: {
-      control: "select",
-      options: [
-        "text",
-        "password",
-        "email",
-        "number",
-        "search",
-        "tel",
-        "url",
-        "file",
-      ],
-      defaultValue: "text",
-    },
-    placeholder: {
-      control: "text",
-    },
-    disabled: {
-      control: "boolean",
-      defaultValue: false,
-    },
+  parameters: {
+    layout: "centered",
   },
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: "A versatile input component for collecting user data.",
-      },
-    },
-  },
+  argTypes: {},
   // Global play function for all input stories
   play: async ({ canvasElement }) => {
     // Verify the component renders something

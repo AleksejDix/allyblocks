@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, userEvent, expect, waitFor } from "@storybook/test"; // Add testing imports
-import { Button } from "@/components/ui/button"; // Assuming Button is used for trigger
+import { Button } from "@/components/atoms/button"; // Assuming Button is used for trigger
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,17 +11,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/organisms/alert-dialog";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@/components/molecules/tooltip";
 import { Trash2 } from "lucide-react";
 
 const meta: Meta<typeof AlertDialog> = {
-  title: "UI/Alert Dialog",
   component: AlertDialog,
   parameters: {
     layout: "centered",

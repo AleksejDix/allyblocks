@@ -11,15 +11,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
   BreadcrumbEllipsis,
-} from "@/components/ui/breadcrumb";
+} from "@/components/molecules/breadcrumb";
 
 const meta: Meta<typeof Breadcrumb> = {
-  title: "UI/Breadcrumb",
   component: Breadcrumb,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

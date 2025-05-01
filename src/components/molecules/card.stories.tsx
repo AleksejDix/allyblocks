@@ -9,21 +9,15 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
+} from "@/components/molecules/card";
 
 const meta: Meta<typeof Card> = {
-  title: "UI/Card",
   component: Card,
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "A responsive card component with flexible layout options for displaying content in a contained format. For more information, see the [shadcn UI Card documentation](https://ui.shadcn.com/docs/components/card).",
-      },
-    },
   },
   tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

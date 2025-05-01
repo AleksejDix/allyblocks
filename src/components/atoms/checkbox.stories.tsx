@@ -6,8 +6,11 @@ import { useTranslation } from "react-i18next";
 import { Checkbox } from "./checkbox";
 
 const meta: Meta<typeof Checkbox> = {
-  title: "UI/Checkbox",
   component: Checkbox,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
   argTypes: {
     checked: {
       control: "select",
@@ -20,24 +23,6 @@ const meta: Meta<typeof Checkbox> = {
     },
     className: {
       control: "text",
-    },
-  },
-  tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: "A customizable checkbox component with various states",
-      },
-    },
-    a11y: {
-      config: {
-        rules: [
-          {
-            id: "button-name",
-            enabled: false,
-          },
-        ],
-      },
     },
   },
 };

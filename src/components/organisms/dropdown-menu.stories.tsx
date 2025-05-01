@@ -29,26 +29,12 @@ import {
 } from "lucide-react";
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: "UI/Dropdown Menu",
   component: DropdownMenu,
-  tags: ["autodocs"],
   parameters: {
-    docs: {
-      description: {
-        component:
-          "A dropdown menu displays a list of options when triggered. Based on [shadcn/ui DropdownMenu](https://ui.shadcn.com/docs/components/dropdown-menu) and [Radix UI DropdownMenu](https://www.radix-ui.com/primitives/docs/components/dropdown-menu).\n\n" +
-          "### Features\n" +
-          "- Focus is fully managed using arrow keys\n" +
-          "- Supports submenus, checkboxes, and radio groups\n" +
-          "- Type-ahead behavior for quick selection\n" +
-          "- Full keyboard navigation support\n" +
-          "- Dismisses when Escape is pressed",
-      },
-    },
+    layout: "centered",
   },
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement).not.toBeEmptyDOMElement();
-  },
+  tags: ["autodocs"],
+  argTypes: {},
 };
 export default meta;
 

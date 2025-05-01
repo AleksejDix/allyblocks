@@ -3,23 +3,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 import { AlertCircle, Info, Terminal, CheckCircle2 } from "lucide-react";
 
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertTitle, AlertDescription } from "@/components/molecules/alert";
 
 const meta: Meta<typeof Alert> = {
-  title: "UI/Alert",
   component: Alert,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: "select",
-      options: ["default", "destructive"],
-      description: "The visual style of the alert",
-      defaultValue: "default",
-    },
-  },
+  argTypes: {},
 };
 
 export default meta;

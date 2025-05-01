@@ -10,35 +10,12 @@ import {
 } from "./accordion";
 
 const meta: Meta<typeof Accordion> = {
-  title: "UI/Accordion",
   component: Accordion,
-  argTypes: {
-    type: {
-      control: "select",
-      options: ["single", "multiple"],
-      defaultValue: "single",
-    },
-    collapsible: {
-      control: "boolean",
-      defaultValue: false,
-    },
-    className: {
-      control: "text",
-    },
-    defaultValue: {
-      control: "text",
-    },
-  },
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "A vertically stacked set of interactive headings that each reveal an associated section of content.",
-      },
-    },
   },
+  tags: ["autodocs"],
+  argTypes: {},
 };
 export default meta;
 

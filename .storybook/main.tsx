@@ -1,7 +1,5 @@
-import { StorybookConfig } from "@storybook/react-vite";
 
-/** @type { import('@storybook/react-vite').StorybookConfig } */
-const config: StorybookConfig = {
+const config = {
   stories: ["../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@chromatic-com/storybook",

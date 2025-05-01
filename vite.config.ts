@@ -20,6 +20,7 @@ export default defineConfig({
       "react-dom/client",
       "react/jsx-dev-runtime",
       "@radix-ui/react-accordion",
+      "@radix-ui/react-alert-dialog",
       "@radix-ui/react-checkbox",
       "@radix-ui/react-slot",
       "@radix-ui/primitive",

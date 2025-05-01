@@ -3,10 +3,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect, userEvent } from "@storybook/test";
 import { addDays } from "date-fns";
 
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/components/organisms/calendar";
 
 const meta: Meta<typeof Calendar> = {
-  title: "UI/Calendar",
   component: Calendar,
   parameters: {
     layout: "centered",

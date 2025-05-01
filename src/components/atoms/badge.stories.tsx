@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/atoms/badge";
 import { CheckCircle } from "lucide-react"; // Example icon
 import { within, expect } from "@storybook/test"; // <-- Removed unused userEvent
 
@@ -12,12 +12,11 @@ const variantOptions = [
 ] as const;
 
 const meta: Meta<typeof Badge> = {
-  title: "UI/Badge",
   component: Badge,
   parameters: {
-    layout: "centered", // Centers the component in the Canvas tab
+    layout: "centered",
   },
-  tags: ["autodocs"], // Enables automatic documentation
+  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: { type: "select" },

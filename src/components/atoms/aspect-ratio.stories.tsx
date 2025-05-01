@@ -2,31 +2,15 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { AspectRatio } from "@/components/atoms/aspect-ratio";
 
 const meta: Meta<typeof AspectRatio> = {
-  title: "UI/Aspect Ratio",
-  render: (args) => (
-    <div className="max-w-xs overflow-auto resize-x text-white">
-      <AspectRatio {...args} className="border" />
-    </div>
-  ),
-  tags: ["autodocs"],
+  component: AspectRatio,
   parameters: {
-    docs: {
-      description: {
-        component:
-          "A component to maintain a consistent width-to-height ratio. We recommend using Tailwind classes for aspect ratio when possible (e.g., `aspect-video`, `aspect-square`) for simpler implementation.",
-      },
-    },
+    layout: "centered",
   },
-  argTypes: {
-    ratio: {
-      control: { type: "number" },
-      description: "The desired aspect ratio value (width/height)",
-      defaultValue: 16 / 9,
-    },
-  },
+  tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

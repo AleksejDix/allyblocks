@@ -4,25 +4,12 @@ import { within, expect } from "@storybook/test";
 import { Required } from "./required";
 
 const meta: Meta<typeof Required> = {
-  title: "UI/Required Star",
   component: Required,
-  argTypes: {
-    required: {
-      control: "boolean",
-      defaultValue: true,
-    },
-    className: {
-      control: "text",
-    },
+  parameters: {
+    layout: "centered",
   },
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: "A visual indicator for required form fields",
-      },
-    },
-  },
+  argTypes: {},
 };
 export default meta;
 

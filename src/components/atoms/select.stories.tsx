@@ -10,53 +10,17 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/atoms/select";
 import { Label } from "@radix-ui/react-label";
 
 // Define meta using the explicit Meta type annotation
 const meta: Meta<typeof Select> = {
-  title: "UI/Select",
   component: Select,
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    nuqs: false,
-    docs: {
-      description: {
-        component:
-          "A select component that allows users to choose from a list of options. **This component only supports single selection**. Learn more about [Radix UI Select](https://www.radix-ui.com/primitives/docs/components/select) and [shadcn/ui Select](https://ui.shadcn.com/docs/components/select).",
-      },
-    },
   },
-  argTypes: {
-    value: {
-      control: "text",
-      description: "The controlled value of the select",
-    },
-    defaultValue: {
-      control: "text",
-      description: "The default value of the select",
-    },
-    onValueChange: {
-      action: "valueChanged",
-      description: "Event handler called when the value changes",
-    },
-    disabled: {
-      control: "boolean",
-      description: "When true, prevents the user from interacting with select",
-      defaultValue: false,
-    },
-    name: {
-      control: "text",
-      description: "The name of the select when used in a form",
-    },
-    required: {
-      control: "boolean",
-      description:
-        "When true, indicates that the user must select a value before submitting the form",
-      defaultValue: false,
-    },
-  },
+  tags: ["autodocs"],
+  argTypes: {},
   // Add a base play function to verify component existence
   play: async ({ canvasElement }) => {
     await expect(canvasElement).not.toBeEmptyDOMElement();

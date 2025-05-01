@@ -1,23 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/avatar";
 
 const meta: Meta<typeof Avatar> = {
-  title: "UI/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    // No specific argTypes needed for the root Avatar component usually,
-    // className can be added if desired for controls
-    className: {
-      control: "text",
-      description: "Optional CSS classes for the root element.",
-    },
-  },
+  argTypes: {},
 };
 
 export default meta;

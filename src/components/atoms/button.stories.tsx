@@ -7,11 +7,20 @@ import { expect } from "@storybook/test";
 import { Button } from "./button";
 
 const meta: Meta<typeof Button> = {
-  title: "UI/Button",
   component: Button,
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "A versatile button component with multiple variants and sizes.",
+      },
+    },
+  },
+  tags: ["autodocs"],
   argTypes: {
     asChild: {
       control: "boolean",
+      description: "Whether to merge props with child element",
       defaultValue: false,
     },
     className: {
@@ -19,31 +28,20 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: "select",
-      options: [
-        "default",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
+      options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      description: "The visual style of the button",
+      defaultValue: "default",
     },
     size: {
       control: "select",
       options: ["default", "sm", "lg", "icon"],
+      description: "The size of the button",
+      defaultValue: "default",
     },
     disabled: {
       control: "boolean",
+      description: "Whether the button is disabled",
       defaultValue: false,
-    },
-  },
-  tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "A customizable button component with various styles and sizes",
-      },
     },
   },
   // Global play function for all button stories

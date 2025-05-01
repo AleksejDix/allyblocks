@@ -1,20 +1,20 @@
 import { ChevronDownIcon } from "lucide-react";
 import React, { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/atoms/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ButtonGroup } from "../ui/button-group";
+} from "@/components/organisms/dropdown-menu";
+import { ButtonGroup } from "@/components/molecules/button-group";
 import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-} from "../ui/tooltip";
+} from "@/components/molecules/tooltip";
 
 // This component is a split button that shows a main action and a dropdown menu of actions.
 // The main action is the first action in the actions arr

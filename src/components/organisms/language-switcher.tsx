@@ -1,88 +1,70 @@
 import { useState, useEffect, useId } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../ui/button";
+import { Button } from "@/components/atoms/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
+  DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-} from "../ui/dropdown-menu";
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/organisms/dropdown-menu";
 import { LanguagesIcon } from "lucide-react";
+import { Label } from "@/components/atoms/label";
 
 // Import local translation files
 import translationEN from "./locales/en/language-switcher.json";
 import translationDE from "./locales/de/language-switcher.json";
 import translationFR from "./locales/fr/language-switcher.json";
 import translationIT from "./locales/it/language-switcher.json";
-import { Label } from "../ui/label";
 
 // Local translation hook
-export function useLocalTranslation(namespace: string) {
-  const { i18n } = useTranslation();
+const useLocalTranslation = () => {
+  const { t, i18n } = useTranslation();
 
-  i18n.addResourceBundle("de", namespace, translationDE, true, true);
-  i18n.addResourceBundle("en", namespace, translationEN, true, true);
-  i18n.addResourceBundle("fr", namespace, translationFR, true, true);
-  i18n.addResourceBundle("it", namespace, translationIT, true, true);
+  useEffect(() => {
+    i18n.addResourceBundle("en", "language-switcher", translationEN);
+    i18n.addResourceBundle("de", "language-switcher", translationDE);
+    i18n.addResourceBundle("fr", "language-switcher", translationFR);
+    i18n.addResourceBundle("it", "language-switcher", translationIT);
+  }, [i18n]);
 
-  return useTranslation(namespace);
-}
+  return { t, i18n };
+};
 
-interface LanguageOption {
-  code: string;
-  name: string;
-}
-
-const LANGUAGES: LanguageOption[] = [
-  { code: "de", name: "Deutsch" },
+const LANGUAGES = [
   { code: "en", name: "English" },
+  { code: "de", name: "Deutsch" },
   { code: "fr", name: "Français" },
   { code: "it", name: "Italiano" },
 ];
 
-const NAMESPACE = "language-switcher";
-
 export function LanguageSwitcher() {
-  const { i18n, t } = useLocalTranslation(NAMESPACE);
+  const { t, i18n } = useLocalTranslation();
   const [currentLanguageCode, setCurrentLanguageCode] = useState(i18n.language);
   const triggerId = useId();
 
-  useEffect(() => {
-    setCurrentLanguageCode(i18n.language);
-  }, [i18n.language]);
-
   const handleLanguageChange = (languageCode: string) => {
+    setCurrentLanguageCode(languageCode);
     i18n.changeLanguage(languageCode);
   };
 
-  const currentLanguage =
-    LANGUAGES.find((lang) => lang.code === currentLanguageCode) || LANGUAGES[1];
-
   return (
     <>
-      <Label>{t("select_language_label")}</Label>
+      <Label htmlFor={triggerId} className="sr-only">
+        {t("language_switcher_label")}
+      </Label>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="outline"
-            size="sm"
+            variant="ghost"
+            size="icon"
             id={triggerId}
-            lang={currentLanguage.code}
-            aria-label={t("language_switcher_trigger_label", {
-              language: currentLanguage.name,
-            })}
-            className="flex items-center gap-2 min-w-[100px] justify-start text-left"
+            aria-label={t("open_language_menu")}
           >
-            <LanguagesIcon className="size-4 shrink-0" aria-hidden="true" />
-            <span
-              className="text-sm font-medium truncate"
-              lang={currentLanguage.code}
-            >
-              {currentLanguage.name}
-            </span>
+            <LanguagesIcon className="h-5 w-5" aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-[180px]">

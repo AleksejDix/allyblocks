@@ -3,12 +3,12 @@ import { expect, userEvent, within, waitFor } from "@storybook/test";
 import { NuqsInput } from "./nuqs-demo";
 
 const meta: Meta<typeof NuqsInput> = {
-  title: "UI/NuqsInput",
   component: NuqsInput,
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
   },
+  tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

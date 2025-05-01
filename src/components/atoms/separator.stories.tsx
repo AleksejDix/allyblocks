@@ -4,24 +4,31 @@ import { expect, within } from "@storybook/test";
 import { Separator } from "./separator";
 
 const meta: Meta<typeof Separator> = {
-  title: "UI/Separator",
   component: Separator,
+  parameters: {
+    layout: "centered",
+    docs: {
+      description: {
+        component: "Visually or semantically separates content. Based on [shadcn/ui Separator](https://ui.shadcn.com/docs/components/separator) and [Radix UI Separator](https://www.radix-ui.com/primitives/docs/components/separator).\n\n" +
+          "### Features\n" +
+          "- Supports horizontal and vertical orientations\n" +
+          "- Can be decorative or semantic for accessibility\n" +
+          "- Adheres to the separator role requirements",
+      },
+    },
+  },
+  tags: ["autodocs"],
   argTypes: {
     orientation: {
       control: "radio",
       options: ["horizontal", "vertical"],
+      defaultValue: "horizontal",
       description: "The orientation of the separator.",
-      table: {
-        defaultValue: { summary: "horizontal" },
-      },
     },
     decorative: {
       control: "boolean",
-      description:
-        "Whether the separator is purely decorative or semantically separates content.",
-      table: {
-        defaultValue: { summary: "true" },
-      },
+      defaultValue: true,
+      description: "Whether the separator is purely decorative.",
     },
     asChild: {
       control: "boolean",
@@ -33,19 +40,6 @@ const meta: Meta<typeof Separator> = {
     className: {
       control: "text",
       description: "Additional CSS classes to apply to the separator.",
-    },
-  },
-  tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "Visually or semantically separates content. Based on [shadcn/ui Separator](https://ui.shadcn.com/docs/components/separator) and [Radix UI Separator](https://www.radix-ui.com/primitives/docs/components/separator).\n\n" +
-          "### Features\n" +
-          "- Supports horizontal and vertical orientations\n" +
-          "- Can be decorative or semantic for accessibility\n" +
-          "- Adheres to the separator role requirements",
-      },
     },
   },
   play: async ({ canvasElement }) => {

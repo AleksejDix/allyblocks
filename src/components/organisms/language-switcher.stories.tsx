@@ -4,16 +4,12 @@ import LanguageSwitcher from "@/components/organisms/language-switcher";
 import i18n from "@/i18n/i18n";
 
 const meta: Meta<typeof LanguageSwitcher> = {
-  title: "Organisms/LanguageSwitcher",
   component: LanguageSwitcher,
   parameters: {
-    docs: {
-      description: {
-        component: "A dropdown component to switch between available languages",
-      },
-    },
+    layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

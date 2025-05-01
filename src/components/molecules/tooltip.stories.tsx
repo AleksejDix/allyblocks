@@ -1,24 +1,18 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/atoms/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 import { PlusIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/atoms/label";
+import { Checkbox } from "@/components/atoms/checkbox";
 
 const meta: Meta<typeof Tooltip> = {
-  title: "UI/Tooltip",
   component: Tooltip,
-  tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it. Built on top of [Radix UI Tooltip](https://www.radix-ui.com/primitives/docs/components/tooltip). See also [shadcn/ui Tooltip](https://ui.shadcn.com/docs/components/tooltip).",
-      },
-    },
   },
+  tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;

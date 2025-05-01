@@ -1,15 +1,15 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ButtonGroup } from "./button-group";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/atoms/button";
 import { ChevronDown } from "lucide-react";
 
 const meta: Meta<typeof ButtonGroup> = {
-  title: "UI/ButtonGroup",
   component: ButtonGroup,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {},
 };
 
 export default meta;
