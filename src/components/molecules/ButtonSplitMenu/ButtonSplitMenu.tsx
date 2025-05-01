@@ -7,7 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/organisms/dropdown-menu";
+} from "@/components/molecules/DropdownMenu";
 import { ButtonSplit } from "../ButtonSplit";
 
 import {
@@ -47,7 +47,7 @@ const firstAction = (actions: Action[]) => actions[0];
 const isFirstActionDisabled = (actions: Action[]) =>
   firstAction(actions).props?.disabled;
 
-export function ActionSplitButton(props: Props) {
+export function ActionButtonSplit(props: Props) {
   const first = firstAction(props.actions);
   const [pendingAction, setPendingAction] = useState<{
     type: string;

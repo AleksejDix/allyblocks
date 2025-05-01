@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 import * as React from "react";
-import { Button } from "./button";
+import { Button } from "@/components/atoms/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
-} from "./dropdown-menu";
+} from "./DropdownMenu";
 import {
   User,
   Settings,
