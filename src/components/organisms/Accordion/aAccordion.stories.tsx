@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "./accordion";
+} from "./Accordion";
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
@@ -199,37 +199,4 @@ export const KeyboardNavigation: Story = {
       expect(trigger2).toHaveAttribute("aria-expanded", "true");
     });
   },
-};
-
-export const CustomStyle: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: "Accordion with custom styling applied to its components.",
-      },
-    },
-  },
-  render: () => (
-    <Accordion type="single" collapsible className="w-full max-w-sm">
-      <AccordionItem
-        value="item-1"
-        className="rounded-md border border-primary p-1"
-      >
-        <AccordionTrigger className="px-4 text-primary">
-          Custom Styled Accordion
-        </AccordionTrigger>
-        <AccordionContent className="bg-secondary/20 rounded p-4 mt-2">
-          This accordion has custom styling applied to demonstrate the
-          flexibility of the component.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2" className="rounded-md border mt-2 p-1">
-        <AccordionTrigger className="px-4">Additional Section</AccordionTrigger>
-        <AccordionContent className="p-4 mt-2">
-          You can style each accordion item differently if needed.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  ),
-  // Visual test only - no interaction testing needed
 };
