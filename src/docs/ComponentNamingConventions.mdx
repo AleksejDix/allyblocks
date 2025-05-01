@@ -1,0 +1,50 @@
+import { Title, Subtitle, Description } from '@storybook/blocks';
+
+## Component Naming Conventions
+
+We follow a simple, HTML-like naming approach. Component names should be as short and intuitive as possible, mirroring native HTML elements where applicable.
+
+### Core Principles
+
+1. **Keep Names Simple**
+   - Use the most obvious, shortest name that describes the component
+   - If a native HTML element exists, use its name (e.g., `Button`, `Input`, `Select`)
+   - Avoid unnecessary prefixes or categorization
+
+2. **File Structure**
+   - Files and folders match the component name exactly
+   - Example: `Button` component lives in `Button/Button.tsx`
+   - All exports are through `index.ts` files
+
+### Examples
+
+```tsx
+// ✅ Good
+Button
+Input
+Select
+Label
+Avatar
+Badge
+Card
+Modal
+Tooltip
+SplitButton
+ButtonGroup
+
+// ❌ Avoid
+ActionButton
+InputText
+DisplayBadge
+LayoutContainer
+FormSelect
+```
+
+### Compound Names
+
+When additional context is needed, combine words naturally:
+- `SplitButton` for a button with dropdown
+- `ButtonGroup` for grouped buttons
+- `FormField` for a form input container
+
+Remember: Always choose the simplest name that clearly describes the component's purpose. 

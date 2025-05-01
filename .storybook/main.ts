@@ -30,7 +30,7 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
-    defaultName: 'Documentation',
+    defaultName: '@Documentation',
   },
   staticDirs: ["../public"],
   typescript: {

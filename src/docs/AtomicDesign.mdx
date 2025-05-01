@@ -15,26 +15,26 @@ Our design system is built using Atomic Design methodology, a systematic approac
 ### Input Components
 Input components are the building blocks for user interaction and data collection.
 
-- **InputText**: Basic text input field
-- **InputCheckbox**: Checkbox input for boolean values
-- **InputSelect**: Dropdown selection component
-- **InputLabel**: Form label component
-- **InputRequired**: Required field indicator
+- **Input**: Basic text input field
+- **Checkbox**: Checkbox input for boolean values
+- **Select**: Dropdown selection component
+- **Label**: Form label component
+- **Required**: Required field indicator
 - **InputForm**: Form wrapper component
 
 ### Action Components
 Action components are interactive elements that trigger specific behaviors.
 
-- **ActionButton**: Primary interactive button component
+- **Button**: Primary interactive button component
 - **ActionAvatar**: User avatar with interactive capabilities
 - **ActionSplitButton**: Button with multiple actions
 
 ### Display Components
 Display components are used to present information and status.
 
-- **DisplayBadge**: Small status indicators
+- **Badge**: Small status indicators
 - **DisplayAlert**: Notification and alert messages
-- **DisplayTooltip**: Contextual information tooltips
+- **Tooltip**: Contextual information tooltips
 
 ### Layout Components
 Layout components help structure the page and manage spacing.
@@ -49,7 +49,7 @@ Atoms are the smallest, most basic components that can't be broken down further 
 
 ```tsx
 // Example of an atom component
-<InputText
+<Input
   name="username"
   label="Username"
   placeholder="Enter your username"
@@ -62,9 +62,9 @@ Molecules are combinations of atoms that form more complex components.
 ```tsx
 // Example of a molecule component
 <InputForm>
-  <InputLabel htmlFor="username">Username</InputLabel>
-  <InputText id="username" />
-  <InputRequired required />
+  <Label htmlFor="username">Username</Label>
+  <Input id="username" />
+  <Required required />
 </InputForm>
 ```
 
@@ -75,11 +75,11 @@ Organisms are complex UI components composed of groups of molecules and/or atoms
 // Example of an organism component
 <LoginForm>
   <InputForm>
-    <InputLabel htmlFor="username">Username</InputLabel>
-    <InputText id="username" />
-    <InputRequired required />
+    <Label htmlFor="username">Username</Label>
+    <Input id="username" />
+    <Required required />
   </InputForm>
-  <ActionButton>Login</ActionButton>
+  <Button>Login</Button>
 </LoginForm>
 ```
 
@@ -98,7 +98,7 @@ All components in our design system are built with accessibility in mind:
 
 ### Input Components
 - Always pair inputs with labels
-- Use InputRequired for required fields
+- Use Required for required fields
 - Provide clear error messages
 - Support keyboard navigation
 
@@ -142,12 +142,12 @@ To use components from our design system:
 
 1. Import the required component:
 ```tsx
-import { InputText } from '@/components/atoms/InputText';
+import { Input } from '@/components/atoms/Input';
 ```
 
 2. Use the component with appropriate props:
 ```tsx
-<InputText
+<Input
   name="username"
   label="Username"
   placeholder="Enter your username"
