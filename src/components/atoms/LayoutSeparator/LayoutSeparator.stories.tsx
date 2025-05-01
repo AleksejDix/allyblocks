@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { expect, within } from "@storybook/test";
 
-import { Separator } from "./separator";
+import { LayoutSeparator } from "./LayoutSeparator";
 
-const meta: Meta<typeof Separator> = {
-  component: Separator,
+const meta: Meta<typeof LayoutSeparator> = {
+  component: LayoutSeparator,
   parameters: {
     layout: "centered",
     docs: {
@@ -48,7 +48,7 @@ const meta: Meta<typeof Separator> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof Separator>;
+type Story = StoryObj<typeof LayoutSeparator>;
 
 export const HorizontalSeparator: Story = {
   args: {
@@ -57,7 +57,7 @@ export const HorizontalSeparator: Story = {
   render: (args) => (
     <div className="space-y-4">
       <div>Content above</div>
-      <Separator {...args} />
+      <LayoutSeparator {...args} />
       <div>Content below</div>
     </div>
   ),
@@ -85,7 +85,7 @@ export const VerticalSeparator: Story = {
   render: (args) => (
     <div className="flex h-16 items-center">
       <div className="px-4">Left content</div>
-      <Separator {...args} />
+      <LayoutSeparator {...args} />
       <div className="px-4">Right content</div>
     </div>
   ),
@@ -116,7 +116,7 @@ export const NonDecorativeSeparator: Story = {
         <h2 className="text-lg font-semibold">First Section</h2>
         <p>Some content in the first section</p>
       </section>
-      <Separator {...args} />
+      <LayoutSeparator {...args} />
       <section>
         <h2 className="text-lg font-semibold">Second Section</h2>
         <p>Some content in the second section</p>
@@ -148,7 +148,7 @@ export const CustomStyledSeparator: Story = {
   render: (args) => (
     <div className="space-y-4">
       <div>Above the custom separator</div>
-      <Separator {...args} />
+      <LayoutSeparator {...args} />
       <div>Below the custom separator</div>
     </div>
   ),
@@ -170,12 +170,12 @@ export const AsChildSeparator: Story = {
   render: (args) => (
     <div className="space-y-4">
       <div>Content above</div>
-      <Separator {...args}>
+      <LayoutSeparator {...args}>
         <hr
           className="border-t-2 border-dashed border-primary my-4"
           aria-label="Section divider"
         />
-      </Separator>
+      </LayoutSeparator>
       <div>Content below</div>
     </div>
   ),

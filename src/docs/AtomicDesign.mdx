@@ -1,0 +1,168 @@
+# Atomic Design System
+
+## Introduction
+
+Our design system is built using Atomic Design methodology, a systematic approach to creating design systems. This methodology breaks down interfaces into five distinct levels. For detailed guidance on how to classify components, please refer to our [Decision Flow Guide](./AtomicDesignDecisionFlow.mdx).
+
+1. **Atoms**: The basic building blocks of matter, applied to web interfaces, atoms are our HTML tags, such as a form label, an input, or a button.
+2. **Molecules**: Groups of atoms bonded together and are the smallest fundamental units of a compound.
+3. **Organisms**: Groups of molecules joined together to form a relatively complex, distinct section of an interface.
+4. **Templates**: Page-level objects that place components into a layout and articulate the design's underlying content structure.
+5. **Pages**: Specific instances of templates that show what a UI looks like with real representative content in place.
+
+## Component Categories
+
+### Input Components
+Input components are the building blocks for user interaction and data collection.
+
+- **InputText**: Basic text input field
+- **InputCheckbox**: Checkbox input for boolean values
+- **InputSelect**: Dropdown selection component
+- **InputLabel**: Form label component
+- **InputRequired**: Required field indicator
+- **InputForm**: Form wrapper component
+
+### Action Components
+Action components are interactive elements that trigger specific behaviors.
+
+- **ActionButton**: Primary interactive button component
+- **ActionAvatar**: User avatar with interactive capabilities
+- **ActionSplitButton**: Button with multiple actions
+
+### Display Components
+Display components are used to present information and status.
+
+- **DisplayBadge**: Small status indicators
+- **DisplayAlert**: Notification and alert messages
+- **DisplayTooltip**: Contextual information tooltips
+
+### Layout Components
+Layout components help structure the page and manage spacing.
+
+- **LayoutAspectRatio**: Component for maintaining aspect ratios
+- **LayoutSeparator**: Visual divider between content
+
+## Component Hierarchy
+
+### Atoms
+Atoms are the smallest, most basic components that can't be broken down further without losing their functionality.
+
+```tsx
+// Example of an atom component
+<InputText
+  name="username"
+  label="Username"
+  placeholder="Enter your username"
+/>
+```
+
+### Molecules
+Molecules are combinations of atoms that form more complex components.
+
+```tsx
+// Example of a molecule component
+<InputForm>
+  <InputLabel htmlFor="username">Username</InputLabel>
+  <InputText id="username" />
+  <InputRequired required />
+</InputForm>
+```
+
+### Organisms
+Organisms are complex UI components composed of groups of molecules and/or atoms.
+
+```tsx
+// Example of an organism component
+<LoginForm>
+  <InputForm>
+    <InputLabel htmlFor="username">Username</InputLabel>
+    <InputText id="username" />
+    <InputRequired required />
+  </InputForm>
+  <ActionButton>Login</ActionButton>
+</LoginForm>
+```
+
+## Accessibility Considerations
+
+All components in our design system are built with accessibility in mind:
+
+- Proper ARIA attributes
+- Keyboard navigation support
+- Screen reader compatibility
+- Color contrast compliance
+- Focus management
+- Error handling and messaging
+
+## Usage Guidelines
+
+### Input Components
+- Always pair inputs with labels
+- Use InputRequired for required fields
+- Provide clear error messages
+- Support keyboard navigation
+
+### Action Components
+- Use appropriate button variants
+- Provide clear feedback on interaction
+- Ensure sufficient touch targets
+- Support keyboard activation
+
+### Display Components
+- Use appropriate color schemes
+- Provide alternative text for images
+- Ensure sufficient contrast
+- Support responsive layouts
+
+## Best Practices
+
+1. **Component Composition**
+   - Build complex components by composing simpler ones
+   - Maintain clear component hierarchy
+   - Keep components focused and single-purpose
+
+2. **State Management**
+   - Use controlled components where appropriate
+   - Provide clear state management patterns
+   - Document component state requirements
+
+3. **Styling**
+   - Use consistent spacing and sizing
+   - Follow the design system's color palette
+   - Maintain responsive design principles
+
+4. **Documentation**
+   - Document component props and usage
+   - Provide clear examples
+   - Include accessibility considerations
+
+## Getting Started
+
+To use components from our design system:
+
+1. Import the required component:
+```tsx
+import { InputText } from '@/components/atoms/InputText';
+```
+
+2. Use the component with appropriate props:
+```tsx
+<InputText
+  name="username"
+  label="Username"
+  placeholder="Enter your username"
+  required
+/>
+```
+
+3. Customize as needed using the provided props and styling options.
+
+## Contributing
+
+When contributing to the design system:
+
+1. Follow the atomic design methodology
+2. Maintain accessibility standards
+3. Add comprehensive documentation
+4. Include appropriate tests
+5. Follow the established naming conventions 

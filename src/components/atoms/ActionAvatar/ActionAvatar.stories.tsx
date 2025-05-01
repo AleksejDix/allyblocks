@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ActionAvatar";
 
 const meta: Meta<typeof Avatar> = {
   component: Avatar,

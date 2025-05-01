@@ -2,10 +2,10 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 
-import { AspectRatio } from "@/components/atoms/aspect-ratio";
+import { LayoutAspectRatio } from "./LayoutAspectRatio";
 
-const meta: Meta<typeof AspectRatio> = {
-  component: AspectRatio,
+const meta: Meta<typeof LayoutAspectRatio> = {
+  component: LayoutAspectRatio,
   parameters: {
     layout: "centered",
   },
@@ -14,7 +14,7 @@ const meta: Meta<typeof AspectRatio> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof AspectRatio>;
+type Story = StoryObj<typeof LayoutAspectRatio>;
 
 // Standard 16:9 Video Aspect Ratio
 export const VideoAspectRatio169: Story = {
@@ -30,13 +30,13 @@ export const VideoAspectRatio169: Story = {
     const content = canvas.getByText("16:9 Video");
     await expect(content).toBeInTheDocument();
 
-    // Get the AspectRatio root element
+    // Get the LayoutAspectRatio root element
     const aspectRatioEl = content.closest(
       '[data-slot="aspect-ratio"]'
     ) as HTMLElement;
     await expect(aspectRatioEl).not.toBeNull();
 
-    // The Radix AspectRatio component creates a child div with position:relative that sets
+    // The Radix LayoutAspectRatio component creates a child div with position:relative that sets
     // the padding-bottom based on the ratio (for 16:9, it's 9/16 or ~56.25%)
     const paddingContainer = aspectRatioEl.firstElementChild as HTMLElement;
     if (paddingContainer) {
@@ -81,7 +81,7 @@ export const SquareAspectRatio: Story = {
     const content = canvas.getByText("1:1 Square");
     await expect(content).toBeInTheDocument();
 
-    // Get the AspectRatio container
+    // Get the LayoutAspectRatio container
     const aspectRatioEl = content.closest(
       '[data-slot="aspect-ratio"]'
     ) as HTMLElement;
@@ -119,7 +119,7 @@ export const PortraitAspectRatio: Story = {
     const content = canvas.getByText("9:16 Portrait Aspect Ratio");
     await expect(content).toBeInTheDocument();
 
-    // Get the AspectRatio container
+    // Get the LayoutAspectRatio container
     const aspectRatioEl = content.closest(
       '[data-slot="aspect-ratio"]'
     ) as HTMLElement;

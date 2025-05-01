@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ButtonGroup } from "./button-group";
-import { Button } from "@/components/atoms/button";
+import { ButtonGroup } from "./ActionButtonGroup";
+import { Button } from "@/components/atoms/ActionButton/ActionButton";
 import { ChevronDown } from "lucide-react";
 
 const meta: Meta<typeof ButtonGroup> = {

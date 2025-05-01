@@ -1,23 +1,44 @@
 import "../src/styles/index.css";
 import { withBrand, withScheme, withNuqs, withI18next } from "./decorators";
 import i18n from "../src/i18n/i18n";
-import { type Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react";
+import { themes } from "@storybook/theming";
+import { withThemeByClassName } from "@storybook/addon-themes";
 
 const parameters: Preview["parameters"] = {
   backgrounds: { disable: true },
   controls: {
     matchers: {
       color: /(background|color)$/i,
-      date: /Date$/,
+      date: /Date$/i,
     },
+  },
+  docs: {
+    theme: themes.normal,
   },
   options: {
     storySort: {
-      method: "alphabetical",
-      includeNames: true,
+      order: [
+        "Docs",
+        ["Introduction", "Atomic Design", "Component Categories"],
+        "Atoms",
+        ["Input", "Action", "Display", "Layout"],
+        "Molecules",
+        "Organisms",
+      ],
     },
   },
   i18n,
+  a11y: {
+    config: {
+      rules: [
+        {
+          id: "color-contrast",
+          enabled: true,
+        },
+      ],
+    },
+  },
 };
 
 const globalTypes: Preview["globalTypes"] = {
@@ -69,7 +90,19 @@ const globalTypes: Preview["globalTypes"] = {
 };
 
 const preview: Preview = {
-  decorators: [withBrand, withScheme, withNuqs, withI18next],
+  decorators: [
+    withThemeByClassName({
+      themes: {
+        light: "",
+        dark: "dark",
+      },
+      defaultTheme: "light",
+    }),
+    withBrand,
+    withScheme,
+    withNuqs,
+    withI18next,
+  ],
   parameters,
   globalTypes,
 };
