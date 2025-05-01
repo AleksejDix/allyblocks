@@ -105,11 +105,7 @@ export const WithBorder: Story = {
       <CardFooter>
         <ButtonGroup>
           <Button variant="secondary" asChild>
-            <a
-              href="#"
-              >
-              Learn more →
-            </a>
+            <a href="#">Learn more →</a>
           </Button>
         </ButtonGroup>
       </CardFooter>
@@ -133,7 +129,6 @@ export const WithBorder: Story = {
   },
 };
 
-
 export const WithImage: Story = {
   render: () => (
     <Card className="w-[350px]">
@@ -147,7 +142,6 @@ export const WithImage: Story = {
     </Card>
   ),
 };
-
 
 export const WithFooterActions: Story = {
   render: () => (
@@ -168,7 +162,6 @@ export const WithFooterActions: Story = {
     </Card>
   ),
 };
-
 
 export const WithHeaderActions: Story = {
   render: () => (
@@ -196,14 +189,14 @@ export const WithHeaderActions: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    
+
     // Verify content is present
     const title = canvas.getByText("Featured Content");
     await expect(title).toBeInTheDocument();
-    
-    // Verify buttons are present
-    const addButton = canvas.getByLabelText("Add item");
-    const shareButton = canvas.getByLabelText("Share");
+
+    // Verify buttons are present by finding their screen reader text
+    const addButton = canvas.getByText("Add item", { selector: ".sr-only" });
+    const shareButton = canvas.getByText("Share", { selector: ".sr-only" });
     await expect(addButton).toBeInTheDocument();
     await expect(shareButton).toBeInTheDocument();
   },

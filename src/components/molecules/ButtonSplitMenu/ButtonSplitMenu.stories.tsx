@@ -14,7 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/organisms/alert-dialog";
+} from "@/components/organisms/AlertDialog";
 
 const meta: Meta<typeof ActionButtonSplit> = {
   component: ActionButtonSplit,

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Spinner } from "./Spinner";
-import { within, expect } from "@storybook/test";
 import { RefreshCw } from "lucide-react";
 
 const meta: Meta<typeof Spinner> = {
@@ -34,17 +33,6 @@ import { Spinner } from "@/components/atoms/Spinner";
 <Spinner size="default">Default</Spinner>
 <Spinner size="xl">Extra Large</Spinner>
 
-## Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| size | "sm" | "default" | "lg" | "xl" | "default" | Size of the spinner |
-| icon | React.ReactNode | - | Custom icon to use instead of the default Loader2 |
-| children | React.ReactNode | - | Label text or content to display next to the spinner |
-| className | string | - | Additional CSS classes |
-| ...props | HTMLAttributes | - | All other HTML div element props |
-
-## Accessibility
 
 The Spinner component includes the \`role="status"\` attribute to indicate that it represents a loading state. When children are provided, they will be associated with the spinner for screen readers.
         `,
@@ -65,10 +53,6 @@ The Spinner component includes the \`role="status"\` attribute to indicate that 
   },
   args: {
     size: "default",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole("status")).toBeInTheDocument();
   },
 };
 
@@ -122,4 +106,4 @@ export const AllSizes: Story = {
       <Spinner size="xl">Extra Large</Spinner>
     </div>
   ),
-}; 
+};

@@ -2,57 +2,46 @@ import React, { Suspense, useEffect, ReactNode } from "react";
 import type { Decorator } from "@storybook/react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n/i18n";
-import { i18n as I18nInstance } from "i18next";
 
 interface I18nProviderProps {
   children: ReactNode;
   locale: string;
-  i18nInstance: I18nInstance;
 }
 
 // React component that will be used in the decorator
-const I18nProvider = ({
-  children,
-  locale,
-  i18nInstance,
-}: I18nProviderProps) => {
+const I18nProvider = ({ children, locale }: I18nProviderProps) => {
   // Handle language changes from Storybook toolbar
   useEffect(() => {
-    if (i18nInstance.language !== locale) {
-      i18nInstance.changeLanguage(locale);
+    if (i18n.language !== locale) {
+      i18n.changeLanguage(locale);
     }
-  }, [locale, i18nInstance]);
+  }, [locale]);
 
   // Handle document updates and initialization
   useEffect(() => {
     const onChange = (lng: string) => {
       document.documentElement.lang = lng;
-      document.dir = i18nInstance.dir(lng);
-      // reload the page
-      if (lng !== i18nInstance.language) {
-        window.location.reload();
-      }
+      document.dir = i18n.dir(lng);
     };
 
-    i18nInstance.on("languageChanged", onChange);
-    onChange(i18nInstance.language); // initial apply
+    i18n.on("languageChanged", onChange);
+    onChange(i18n.language); // initial apply
 
-    return () => i18nInstance.off("languageChanged", onChange);
-  }, [i18nInstance]);
+    return () => i18n.off("languageChanged", onChange);
+  }, []);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <I18nextProvider i18n={i18nInstance}>{children}</I18nextProvider>
+      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
     </Suspense>
   );
 };
 
 export const withI18next: Decorator = (StoryFn, context) => {
-  const locale = context.globals.locale;
-  const i18nInstance = context.parameters.i18n || i18n;
+  const locale = context.globals.locale || "de";
 
   return (
-    <I18nProvider locale={locale} i18nInstance={i18nInstance}>
+    <I18nProvider locale={locale}>
       <StoryFn />
     </I18nProvider>
   );

@@ -1,9 +1,8 @@
-import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect, userEvent } from "@storybook/test";
 import { addDays } from "date-fns";
 
-import { Calendar } from "@/components/organisms/calendar";
+import { Calendar } from "@/components/organisms/Calendar/";
 
 const meta: Meta<typeof Calendar> = {
   component: Calendar,

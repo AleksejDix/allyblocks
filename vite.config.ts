@@ -42,9 +42,27 @@ export default defineConfig({
       "@radix-ui/react-avatar",
       "@radix-ui/react-dropdown-menu",
       "@radix-ui/react-tooltip",
-      "@radix-ui/react-aspect-ratio"
+      "@radix-ui/react-aspect-ratio",
+      "lucide-react",
+      "date-fns",
+      "react-day-picker"
     ],
-    exclude: ["@storybook/*"],
+    exclude: [
+      "@storybook/*",
+      "storybook/*",
+      "storybook/internal/*",
+      "@mdx-js/react",
+      "@storybook/addon-*",
+      "@storybook/blocks",
+      "@storybook/theming",
+      "@storybook/test"
+    ],
+    esbuildOptions: {
+      target: 'esnext',
+      supported: {
+        'top-level-await': true
+      }
+    }
   },
   build: {
     rollupOptions: {

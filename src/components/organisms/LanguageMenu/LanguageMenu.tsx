@@ -1,18 +1,17 @@
 import { useState, useEffect, useId } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@/components/atoms/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-} from "@/components/organisms/dropdown-menu";
+} from "@/components/molecules/DropdownMenu";
 import { LanguagesIcon } from "lucide-react";
-import { Label } from "@/components/atoms/label";
+import { Label } from "@/components/atoms/Label";
 
 // Import local translation files
 import translationEN from "./locales/en/language-switcher.json";
@@ -22,7 +21,7 @@ import translationIT from "./locales/it/language-switcher.json";
 
 // Local translation hook
 const useLocalTranslation = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("language-switcher");
 
   useEffect(() => {
     i18n.addResourceBundle("en", "language-switcher", translationEN);
@@ -41,7 +40,7 @@ const LANGUAGES = [
   { code: "it", name: "Italiano" },
 ];
 
-export function LanguageSwitcher() {
+export function LanguageMenu() {
   const { t, i18n } = useLocalTranslation();
   const [currentLanguageCode, setCurrentLanguageCode] = useState(i18n.language);
   const triggerId = useId();
@@ -51,10 +50,14 @@ export function LanguageSwitcher() {
     i18n.changeLanguage(languageCode);
   };
 
+  const currentLanguage = LANGUAGES.find(
+    (lang) => lang.code === currentLanguageCode
+  )?.name;
+
   return (
     <>
       <Label htmlFor={triggerId} className="sr-only">
-        {t("language_switcher_label")}
+        {t("language_switcher_trigger_label", { language: currentLanguage })}
       </Label>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -62,7 +65,9 @@ export function LanguageSwitcher() {
             variant="ghost"
             size="icon"
             id={triggerId}
-            aria-label={t("open_language_menu")}
+            aria-label={t("language_switcher_trigger_label", {
+              language: currentLanguage,
+            })}
           >
             <LanguagesIcon className="h-5 w-5" aria-hidden="true" />
           </Button>
@@ -94,5 +99,3 @@ export function LanguageSwitcher() {
     </>
   );
 }
-
-export default LanguageSwitcher;

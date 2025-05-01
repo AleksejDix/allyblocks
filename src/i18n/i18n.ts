@@ -12,28 +12,30 @@ i18n.use(LanguageDetector).init({
   interpolation: {
     escapeValue: false,
   },
+  defaultNS: "translation",
+  ns: ["translation", "language-switcher"],
   resources: {
     en: {
       translation: {
         hello: "Hello",
-      },
+      }
     },
     de: {
       translation: {
         hello: "Hallo",
-      },
+      }
     },
     fr: {
       translation: {
         hello: "Bonjour",
-      },
+      }
     },
     it: {
       translation: {
         hello: "Ciao",
-      },
-    },
-  },
+      }
+    }
+  }
 });
 
 export default i18n;
