@@ -1,11 +1,12 @@
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { DataGrid } from "./DataGrid";
-import { DataTable } from "./DataTable";
-import { User, users } from "./data";
 import {
-  //createDateCell,
-  useDataGrid,
-} from "./DataGrid.types";
+  DataGrid,
+  DataGridTable,
+  DataGridColumnVisibility,
+  DataGridColumnSorter,
+} from "./";
+import { useDataGrid } from "./DataGrid.types";
+import { User, users } from "./data";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -46,13 +47,24 @@ export const BasicCase = () => {
       data={users}
       totalCount={users.length}
     >
-      <DataTable />
+      <DataGridColumnVisibility label="Toggle Columns" />
+      <DataGridTable />
       <CountLabel />
     </DataGrid>
   );
 };
 
 import type { Meta, StoryObj } from "@storybook/react";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/molecules/Card/Card";
+import { ButtonGroup } from "@/components/molecules/ButtonGroup";
 
 const meta = {
   component: BasicCase,
@@ -62,3 +74,32 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
+
+export const WithColumnSorter: Story = {
+  render: () => (
+    <DataGrid
+      columns={columns as ColumnDef<User>[]}
+      data={users}
+      totalCount={users.length}
+    >
+      <Card>
+        <CardHeader>
+          <CardTitle>Users</CardTitle>
+          <CardDescription>
+            A list of users with their name, email, role, and status.
+          </CardDescription>
+          <CardAction>
+            <ButtonGroup>
+              <DataGridColumnVisibility label="Toggle Columns" />
+              <DataGridColumnSorter />
+            </ButtonGroup>
+          </CardAction>
+        </CardHeader>
+        <DataGridTable />
+        <CardFooter>
+          <CountLabel />
+        </CardFooter>
+      </Card>
+    </DataGrid>
+  ),
+};

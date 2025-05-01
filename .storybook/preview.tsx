@@ -2,7 +2,6 @@ import "../src/styles/index.css";
 import { withBrand, withScheme, withNuqs, withI18next } from "./decorators";
 import i18n from "../src/i18n/i18n";
 import type { Preview } from "@storybook/react";
-import { themes } from "@storybook/theming";
 import { withThemeByClassName } from "@storybook/addon-themes";
 
 const parameters: Preview["parameters"] = {
@@ -13,9 +12,7 @@ const parameters: Preview["parameters"] = {
       date: /Date$/i,
     },
   },
-  docs: {
-    theme: themes.normal,
-  },
+
   options: {
     storySort: {
       order: [
