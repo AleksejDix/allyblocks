@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/atoms/Input";
+import { Required } from "@/components/atoms/Required";
 import {
   FormField,
   FormItem,
@@ -14,33 +15,25 @@ export function FieldEmail({
   name,
   label = "Email",
   description,
-  required = true,
+  required = false,
   ...props
 }: InputFieldProps) {
-  const { control } = useFormContext();
+  const context = useFormContext();
 
   return (
     <FormField
-      control={control}
+      control={context.control}
       name={name}
-      rules={{
-        required: required ? "Email is required" : false,
-        pattern: {
-          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-          message: "Please enter a valid email address",
-        },
-      }}
-      render={({ field }) => (
+      render={(fieldContext) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>
+            <div className="flex items-center gap-2">
+              {label}
+              {required && <Required required={required} />}
+            </div>
+          </FormLabel>
           <FormControl>
-            <Input
-              type="email"
-              autoComplete="email"
-              placeholder="Enter your email"
-              {...field}
-              {...props}
-            />
+            <Input {...fieldContext.field} type="email" {...props} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

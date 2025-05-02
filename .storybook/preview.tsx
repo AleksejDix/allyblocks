@@ -58,7 +58,7 @@ const globalTypes: Preview["globalTypes"] = {
   brand: {
     name: "Brand",
     description: "Brand",
-    defaultValue: "medidata",
+    defaultValue: "schadcn",
     toolbar: {
       icon: "contrast",
       items: [

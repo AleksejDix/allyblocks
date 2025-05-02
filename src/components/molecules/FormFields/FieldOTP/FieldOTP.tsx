@@ -16,13 +16,15 @@ import { OTPFieldProps } from "../Field";
 
 export function FieldOTP({
   name,
-  label = "One-time password",
+  label = "Verification Code",
   description,
   required = true,
   disabled = false,
   maxLength = 6,
+  ...props
 }: OTPFieldProps) {
-  const { control } = useFormContext();
+  const { control, getFieldState } = useFormContext();
+  const fieldState = getFieldState(name);
 
   const renderOTP = () => {
     const slots = [];
@@ -37,21 +39,29 @@ export function FieldOTP({
       control={control}
       name={name}
       rules={{
-        required: required ? "OTP is required" : false,
+        required: required ? "Verification code is required" : false,
       }}
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <InputOTP
-              maxLength={maxLength}
-              disabled={disabled}
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
+            <div
+              className="relative"
+              role="group"
+              aria-labelledby={`${field.name}-label`}
+              aria-invalid={!!fieldState.error}
             >
-              <InputOTPGroup>{renderOTP()}</InputOTPGroup>
-            </InputOTP>
+              <InputOTP
+                maxLength={maxLength}
+                disabled={disabled}
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                {...props}
+              >
+                <InputOTPGroup>{renderOTP()}</InputOTPGroup>
+              </InputOTP>
+            </div>
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

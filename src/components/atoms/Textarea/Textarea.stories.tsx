@@ -181,21 +181,6 @@ export const WithMaxLength: Story = {
   },
 };
 
-export const WithCustomStyling: Story = {
-  args: {
-    placeholder: "Custom styled textarea",
-    className: "border-2 border-primary",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Textarea with custom styling applied through className.",
-      },
-    },
-  },
-  // No play function needed - just visual verification
-};
-
 export const ReadOnly: Story = {
   args: {
     defaultValue:

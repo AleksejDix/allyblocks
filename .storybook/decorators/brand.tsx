@@ -10,7 +10,10 @@ export const withBrand: Decorator = (Story, context) => {
       html.setAttribute("data-brand", "medidata");
       break;
     case "schadcn":
-      html.removeAttribute("data-brand");
+      html.setAttribute("data-brand", "schadcn");
+      break;
+    default:
+      html.setAttribute("data-brand", "schadcn");
       break;
   }
   return <Story />;

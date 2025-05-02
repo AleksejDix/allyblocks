@@ -10,7 +10,7 @@ export const Required = ({ required, className }: Props) => {
   return (
     <span className={cn("text-destructive", className)}>
       <span aria-hidden="true">*</span>
-      <span className="sr-only">(required)</span>
+      <span className="sr-only">is required</span>
     </span>
   );
 };

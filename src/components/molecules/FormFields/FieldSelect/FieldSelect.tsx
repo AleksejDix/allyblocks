@@ -26,7 +26,8 @@ export function FieldSelect({
   options,
   disabled = false,
 }: SelectFieldProps) {
-  const { control } = useFormContext();
+  const { control, getFieldState } = useFormContext();
+  const fieldState = getFieldState(name);
 
   return (
     <FormField
@@ -44,7 +45,7 @@ export function FieldSelect({
             disabled={disabled}
           >
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger aria-invalid={!!fieldState.error}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

@@ -53,11 +53,17 @@ export function FieldPassword({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <div className="relative">
+            <div
+              className="relative"
+              role="group"
+              aria-labelledby={`${field.name}-label`}
+            >
               <Input
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 placeholder="Enter your password"
+                id={`${field.name}-input`}
+                aria-labelledby={`${field.name}-label`}
                 {...field}
                 {...props}
               />
