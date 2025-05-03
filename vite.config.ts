@@ -1,10 +1,16 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -65,8 +71,24 @@ export default defineConfig({
     }
   },
   build: {
+    lib: {
+      entry: path.resolve(__dirname, "src/index.ts"),
+      name: "A11yShadcnUI",
+      formats: ["es", "umd"],
+      fileName: (format) => `index.${format === "es" ? "mjs" : "js"}`,
+    },
     rollupOptions: {
       external: ["react", "react-dom", "i18next", "react-i18next"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          i18next: "i18next",
+          "react-i18next": "reactI18next",
+        },
+      },
     },
+    sourcemap: true,
+    emptyOutDir: true,
   },
 });

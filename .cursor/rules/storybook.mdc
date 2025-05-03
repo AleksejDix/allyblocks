@@ -1,0 +1,41 @@
+---
+description: Rules for writing Storybook stories
+globs: "**/*.stories.tsx"
+alwaysApply: true
+---
+
+# Storybook Story Rules
+
+1. Never add explicit title to stories component metadata
+2. All stories should be named after the file hierarchy automatically
+3. Use the component name for the default export
+4. Use descriptive names for story variants
+
+# Testing Rules
+
+5. Never test implementation details
+6. Never test visual features
+7. Tests should be semantic and treat components like a black box
+
+# Component Development Rules
+
+8. Before creating a new component, check if a suitable component already exists in the components folder (atoms, molecules, organisms)
+
+# Documentation Rules
+
+9. Document all props with their types, defaults, and descriptions
+10. Include usage examples in component documentation
+11. Document any accessibility considerations specific to the component
+
+# Design Principles
+
+12. Follow atomic design principles - atoms for basic elements, molecules for combinations, and organisms for complex components
+13. Ensure components are responsive and work across all target device sizes
+14. Maintain consistent styling with the design system
+15. Reuse existing design tokens instead of hardcoding values
+
+# Performance Rules
+
+16. Keep components focused on a single responsibility
+17. Avoid unnecessary re-renders by using memoization where appropriate
+18. Lazy load large components when possible

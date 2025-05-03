@@ -100,8 +100,6 @@ const preview: Preview = {
     withNuqs,
     withI18next,
   ],
-  parameters,
-  globalTypes,
 };
 
 export default preview;

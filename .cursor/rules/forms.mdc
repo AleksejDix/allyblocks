@@ -1,0 +1,7 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+useForm hook must always have default values
+on form always use noValidate

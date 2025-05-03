@@ -1,3 +1,4 @@
+import * as a11yAddonAnnotations from "@storybook/addon-a11y/preview";
 import { beforeAll } from "vitest";
 import { setProjectAnnotations } from "@storybook/react";
 import * as projectAnnotations from "./preview";
@@ -20,6 +21,6 @@ import * as projectAnnotations from "./preview";
 //   I18nextProvider: ({ children }: { children: React.ReactNode }) => children,
 // }));
 
-const annotations = setProjectAnnotations([projectAnnotations]);
+const annotations = setProjectAnnotations([a11yAddonAnnotations, projectAnnotations]);
 
 beforeAll(annotations.beforeAll);

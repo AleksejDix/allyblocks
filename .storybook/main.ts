@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/react-vite";
+import type { StorybookConfig } from "@storybook/experimental-nextjs-vite";
 import remarkGfm from 'remark-gfm';
 import mdxMermaid from 'mdx-mermaid';
 
@@ -26,12 +26,11 @@ const config: StorybookConfig = {
     }
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: "@storybook/experimental-nextjs-vite",
     options: {},
   },
   docs: {
-    autodocs: "tag",
-    defaultName: '@Documentation',
+    defaultName: '@Documentation'
   },
   staticDirs: ["../public"],
   typescript: {
