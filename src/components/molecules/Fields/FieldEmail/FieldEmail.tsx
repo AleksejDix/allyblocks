@@ -38,6 +38,7 @@ export function FieldEmail({
               type="email"
               {...props}
               required={required}
+              aria-invalid={!!fieldContext.fieldState.error}
             />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}

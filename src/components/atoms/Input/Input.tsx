@@ -2,19 +2,78 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-export function Input({
-  className,
-  type,
-  ...props
-}: React.ComponentProps<"input">) {
+const basedClass = `
+md:text-sm
+selection:bg-primary 
+selection:text-primary-foreground
+dark:bg-input/30 flex h-9 w-full min-w-0 
+rounded-md  bg-background px-3 py-1 text-base 
+border
+border-input
+outline-1
+outline-zinc-950/5
+transition-[color,outline]
+ring-offset-background
+`;
+
+const placeholderClass = `
+placeholder:text-muted-foreground
+`;
+
+const invalidClass = `
+[aria-invalid=true]:outline-destructive/10
+[aria-invalid=true]:border-destructive
+[aria-invalid=true]:bg-destructive/5
+[aria-invalid=true]:text-destructive
+[aria-invalid=true]:focus-visible:ring-2
+[aria-invalid=true]:focus-visible:ring-destructive/50
+[aria-invalid=true]:focus-visible:ring-offset-2
+[aria-invalid=true]:focus-visible:ring-opacity-100
+`;
+
+const focusVisibleClass = `
+focus-visible:ring-2
+focus-visible:ring-offset-2
+focus-visible:ring-primary
+focus-visible:ring-opacity-100
+focus-visible:transition-colors
+`;
+
+const disabledClass = `
+disabled:pointer-events-none
+disabled:cursor-not-allowed 
+disabled:opacity-50
+disabled:text-muted-foreground
+disabled:bg-muted-background
+`;
+
+const fileClass = `
+file:text-foreground 
+file:inline-flex 
+file:h-7 
+file:border-0 
+file:bg-transparent
+file:text-sm 
+file:font-medium   
+`;
+
+type Props = React.ComponentProps<"input"> & {
+  required?: boolean;
+};
+
+export function Input({ className, type, required, ...props }: Props) {
   return (
     <input
       type={type}
       data-slot="input"
+      aria-required={required ? "true" : undefined}
       className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        basedClass,
+        placeholderClass,
+        disabledClass,
+        focusVisibleClass,
+        invalidClass,
+        fileClass,
         className
       )}
       {...props}

@@ -1,12 +1,6 @@
-import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/atoms/Select";
+import { SelectFieldProps } from "../Field";
+import { Required } from "@/components/atoms/Required";
 import {
   FormField,
   FormItem,
@@ -15,16 +9,23 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { SelectFieldProps } from "../Field";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/atoms/Select";
 
 export function FieldSelect({
   name,
   label,
   description,
-  required = false,
-  placeholder = "Select an option",
   options,
+  placeholder,
+  required = false,
   disabled = false,
+  className,
 }: SelectFieldProps) {
   const { control, getFieldState } = useFormContext();
   const fieldState = getFieldState(name);
@@ -33,30 +34,35 @@ export function FieldSelect({
     <FormField
       control={control}
       name={name}
-      rules={{
-        required: required ? `${label || "This field"} is required` : false,
-      }}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
-          <Select
-            onValueChange={field.onChange}
-            defaultValue={field.value}
-            disabled={disabled}
-          >
-            <FormControl>
-              <SelectTrigger aria-invalid={!!fieldState.error}>
+          <FormLabel>
+            <div className="flex items-center">
+              {label}
+              {required && <Required required={required} />}
+            </div>
+          </FormLabel>
+          <FormControl>
+            <Select
+              onValueChange={field.onChange}
+              defaultValue={field.value}
+              disabled={disabled}
+            >
+              <SelectTrigger
+                className={className}
+                aria-invalid={!!fieldState.error}
+              >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-              {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+              <SelectContent>
+                {options.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>

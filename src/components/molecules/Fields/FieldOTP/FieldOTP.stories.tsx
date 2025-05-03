@@ -3,6 +3,7 @@ import { within, userEvent, expect } from "@storybook/test";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/molecules/Form/Form";
 import { FieldOTP } from "./FieldOTP";
+import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldOTP> = {
   component: FieldOTP,
@@ -35,81 +36,103 @@ const meta: Meta<typeof FieldOTP> = {
       control: "number",
       description: "Maximum length of the OTP",
     },
-    pattern: {
-      control: "text",
-      description: "Regex pattern for allowed characters",
-    },
-    showSeparator: {
-      control: "boolean",
-      description: "Whether to show the separator",
-    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof FieldOTP>;
 
+type OTPFormValues = {
+  otp: string;
+};
+
+type PINFormValues = {
+  pin: string;
+};
+
 function OTPForm() {
-  const form = useForm({
+  const form = useForm<OTPFormValues>({
     defaultValues: {
       otp: "",
     },
   });
 
+  function onSubmit(values: OTPFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldOTP
           name="otp"
           label="Verification Code"
           description="Enter the 6-digit code sent to your phone"
           required
         />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function FourDigitForm() {
-  const form = useForm();
+  const form = useForm<PINFormValues>();
+
+  function onSubmit(values: PINFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldOTP
           name="pin"
           label="PIN Code"
           maxLength={4}
-          showSeparator={false}
           description="Enter your 4-digit PIN"
           required
         />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function DisabledForm() {
-  const form = useForm();
+  const form = useForm<OTPFormValues>();
+
+  function onSubmit(values: OTPFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldOTP name="otp" label="Verification Code" disabled />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function OptionalForm() {
-  const form = useForm();
+  const form = useForm<OTPFormValues>();
+
+  function onSubmit(values: OTPFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldOTP
           name="otp"
           label="Backup Code"
           description="Enter your backup code (optional)"
           required={false}
         />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

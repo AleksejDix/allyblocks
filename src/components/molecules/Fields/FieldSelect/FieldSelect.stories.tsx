@@ -3,6 +3,9 @@ import { within, userEvent, expect } from "@storybook/test";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/molecules/Form/Form";
 import { FieldSelect } from "./FieldSelect";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldSelect> = {
   component: FieldSelect,
@@ -50,21 +53,35 @@ const fruitOptions = [
 ];
 
 function SelectForm() {
-  const form = useForm({
+  const schema = z.object({
+    fruit: z.string().min(1, "Please select a fruit"),
+  });
+
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: {
       fruit: "",
     },
   });
 
+  function onSubmit(values: z.infer<typeof schema>) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 w-[300px]"
+      >
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
           options={fruitOptions}
+          placeholder="Select a fruit"
           required
         />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
@@ -74,11 +91,12 @@ function CustomLabelForm() {
   const form = useForm();
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4 w-[300px]">
         <FieldSelect
           name="fruit"
           label="Select Your Favorite Fruit"
           options={fruitOptions}
+          placeholder="Choose an option"
         />
       </form>
     </Form>
@@ -89,12 +107,13 @@ function DescriptionForm() {
   const form = useForm();
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4 w-[300px]">
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
           description="Choose your favorite fruit from the list"
           options={fruitOptions}
+          placeholder="Select a fruit"
         />
       </form>
     </Form>
@@ -105,11 +124,12 @@ function DisabledForm() {
   const form = useForm();
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4 w-[300px]">
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
           options={fruitOptions}
+          placeholder="Select a fruit"
           disabled
         />
       </form>
@@ -117,16 +137,21 @@ function DisabledForm() {
   );
 }
 
-function OptionalForm() {
-  const form = useForm();
+function PreselectedForm() {
+  const form = useForm({
+    defaultValues: {
+      fruit: "banana",
+    },
+  });
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4 w-[300px]">
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
           options={fruitOptions}
-          required={false}
+          placeholder="Select a fruit"
         />
       </form>
     </Form>
@@ -140,18 +165,19 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     // Test empty submission
-    const trigger = canvas.getByRole("combobox");
-    await userEvent.click(trigger);
-    await userEvent.tab();
+    const submitButton = canvas.getByRole("button", { name: /submit/i });
+    await userEvent.click(submitButton);
 
-    // Check for required error
-    const error = canvas.getByText(/favorite fruit is required/i);
+    // Check for validation error
+    const error = canvas.getByText(/please select a fruit/i);
     await expect(error).toBeVisible();
 
     // Test selecting an option
-    await userEvent.click(trigger);
-    const option = canvas.getByText("Apple");
-    await userEvent.click(option);
+    const select = canvas.getByRole("combobox");
+    await userEvent.selectOptions(select, "apple");
+
+    // Submit again
+    await userEvent.click(submitButton);
 
     // Verify no error message
     await expect(error).not.toBeVisible();
@@ -175,24 +201,19 @@ export const Disabled: Story = {
     const canvas = within(canvasElement);
 
     // Test disabled state
-    const trigger = canvas.getByRole("combobox");
-    await expect(trigger).toBeDisabled();
+    const select = canvas.getByRole("combobox");
+    await expect(select).toBeDisabled();
   },
 };
 
-// Optional select field
-export const Optional: Story = {
-  render: () => <OptionalForm />,
+// Select field with preselected value
+export const Preselected: Story = {
+  render: () => <PreselectedForm />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    // Test empty submission
-    const trigger = canvas.getByRole("combobox");
-    await userEvent.click(trigger);
-    await userEvent.tab();
-
-    // Verify no required error
-    const error = canvas.queryByText(/favorite fruit is required/i);
-    await expect(error).not.toBeInTheDocument();
+    // Check if "Banana" is selected
+    const select = canvas.getByRole("combobox") as HTMLSelectElement;
+    await expect(select.value).toBe("banana");
   },
 };

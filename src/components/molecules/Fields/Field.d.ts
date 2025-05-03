@@ -1,4 +1,5 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import React from "react";
 
 /**
  * Base type for all form field props
@@ -22,9 +23,22 @@ export type BaseFieldProps = {
 export type InputFieldProps = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
 
 /**
+ * Type for textarea-based form fields
+ */
+export type TextareaFieldProps = BaseFieldProps & 
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  /** Minimum height of the textarea */
+  minHeight?: number;
+  /** Maximum height of the textarea (for auto-resize) */
+  maxHeight?: number;
+  /** Whether the textarea should auto-resize */
+  autoResize?: boolean;
+};
+
+/**
  * Type for select-based form fields
  */
-export type SelectFieldProps = BaseFieldProps & {
+export type SelectFieldProps = BaseFieldProps & React.SelectHTMLAttributes<HTMLSelectElement> & {
   /** Placeholder text for the select field */
   placeholder?: string;
   /** Array of options for the select field */
@@ -48,6 +62,23 @@ export type PasswordFieldProps = InputFieldProps & {
 };
 
 /**
+ * Type for upload-based form fields 
+ */
+export type UploadFieldProps = BaseFieldProps & 
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
+  /** Accepted file types */
+  accept?: string;
+  /** Allow multiple file uploads */
+  multiple?: boolean;
+  /** Maximum file size in bytes */
+  maxSize?: number;
+  /** Custom validation function */
+  validateFile?: (file: File) => string | null;
+  /** Help text for upload instructions */
+  helpText?: string;
+};
+
+/**
  * Type for select options
  */
 export type SelectOption = {
@@ -55,4 +86,10 @@ export type SelectOption = {
   value: string;
   /** The display label of the option */
   label: string;
-}; 
+};
+
+/**
+ * Type for checkbox-based form fields
+ */
+export type CheckboxFieldProps = BaseFieldProps & 
+  InputHTMLAttributes<HTMLInputElement>; 

@@ -1,3 +1,7 @@
 export * from "./FieldEmail";
 export * from "./FieldPassword";
 export * from "./FieldSelect";
+export * from "./FieldTextarea";
+export * from "./FieldCheckbox";
+export * from "./FieldOTP";
+export * from "./FieldUpload";

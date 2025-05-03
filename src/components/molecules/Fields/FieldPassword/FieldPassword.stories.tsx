@@ -3,6 +3,7 @@ import { within, userEvent, expect } from "@storybook/test";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/molecules/Form/Form";
 import { FieldPassword } from "./FieldPassword";
+import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldPassword> = {
   component: FieldPassword,
@@ -37,64 +38,97 @@ const meta: Meta<typeof FieldPassword> = {
 export default meta;
 type Story = StoryObj<typeof FieldPassword>;
 
+type PasswordFormValues = {
+  password: string;
+};
+
 function PasswordForm() {
-  const form = useForm({
+  const form = useForm<PasswordFormValues>({
     defaultValues: {
       password: "",
     },
   });
 
+  function onSubmit(values: PasswordFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldPassword name="password" />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function CustomLabelForm() {
-  const form = useForm();
+  const form = useForm<PasswordFormValues>();
+
+  function onSubmit(values: PasswordFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldPassword name="password" label="Create Password" />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function DescriptionForm() {
-  const form = useForm();
+  const form = useForm<PasswordFormValues>();
+
+  function onSubmit(values: PasswordFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldPassword
           name="password"
           description="Use a strong password with at least 8 characters, including uppercase, lowercase, numbers, and special characters."
         />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function StrengthIndicatorForm() {
-  const form = useForm();
+  const form = useForm<PasswordFormValues>();
+
+  function onSubmit(values: PasswordFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldPassword name="password" showStrength />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
 }
 
 function OptionalForm() {
-  const form = useForm();
+  const form = useForm<PasswordFormValues>();
+
+  function onSubmit(values: PasswordFormValues) {
+    alert(JSON.stringify(values));
+  }
+
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FieldPassword name="password" required={false} />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

@@ -61,6 +61,25 @@ export const Disabled: Story = {
   ),
 };
 
+export const InvalidState: Story = {
+  render: () => (
+    <InputOTP maxLength={6}>
+      <InputOTPGroup>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <InputOTPSlot index={i} aria-invalid={true} />
+        ))}
+      </InputOTPGroup>
+    </InputOTP>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "OTP input in an error state, indicated by red highlighting.",
+      },
+    },
+  },
+};
+
 export const WithAutoFocus: Story = {
   render: () => (
     <InputOTP maxLength={6} autoFocus>
@@ -88,5 +107,24 @@ export const WithOnComplete: Story = {
         </InputOTPGroup>
       </InputOTP>
     );
+  },
+};
+
+export const WithPlaceholders: Story = {
+  render: () => (
+    <InputOTP maxLength={6}>
+      <InputOTPGroup>
+        {Array.from({ length: 6 }).map((_, i) => (
+          <InputOTPSlot index={i} key={i} placeholder="X" />
+        ))}
+      </InputOTPGroup>
+    </InputOTP>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "OTP input with numbered placeholders to indicate position.",
+      },
+    },
   },
 };

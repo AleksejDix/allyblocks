@@ -142,7 +142,7 @@ export const SupportsInvalidState: Story = {
 export const SupportsCustomClasses: Story = {
   args: {
     placeholder: "Custom styled input",
-    className: "border-2 border-primary",
+    className: "border-2 border-green-500 rounded-none",
   },
   parameters: {
     docs: {
