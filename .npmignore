@@ -1,0 +1,38 @@
+# Development files
+node_modules/
+src/
+test/
+tests/
+.storybook/
+storybook-static/
+.github/
+coverage/
+vitest.config.ts
+playwright.config.ts
+.eslintrc*
+.prettier*
+tsconfig*.json
+vite.config.ts
+
+# Git related
+.git/
+.gitignore
+
+# Editor related
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build tools
+rollup.config.js
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml 

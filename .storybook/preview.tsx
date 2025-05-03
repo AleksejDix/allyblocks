@@ -4,7 +4,7 @@ import i18n from "../src/i18n/i18n";
 import type { Preview } from "@storybook/react";
 import { withThemeByClassName } from "@storybook/addon-themes";
 
-const parameters: Preview["parameters"] = {
+export const parameters: Preview["parameters"] = {
   backgrounds: { disable: true },
   controls: {
     matchers: {
@@ -38,7 +38,7 @@ const parameters: Preview["parameters"] = {
   },
 };
 
-const globalTypes: Preview["globalTypes"] = {
+export const globalTypes: Preview["globalTypes"] = {
   locale: {
     name: "Locale",
     description: "Internationalization locale",

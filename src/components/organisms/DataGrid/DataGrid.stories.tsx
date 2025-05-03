@@ -58,7 +58,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import {
   Card,
   CardAction,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,

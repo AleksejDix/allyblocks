@@ -24,31 +24,81 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default tseslint.config({
   plugins: {
     // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+    "react-x": reactX,
+    "react-dom": reactDom,
   },
   rules: {
     // other rules...
     // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
+    ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
 ```
+
+# @allyship/allyblocks
+
+Accessible UI components built with ShadcnUI, designed for seamless integration with Tailwind CSS v4.
+
+## Installation
+
+### 1. Install the package and peer dependencies
+
+```sh
+npm install @allyship/allyblocks tailwindcss@^4.0.0 react@^19.0.0 react-dom@^19.0.0 i18next@^25.0.0 react-i18next@^15.5.1
+```
+
+### 2. Configure Tailwind CSS v4
+
+Add the preset to your `tailwind.config.js`:
+
+```js
+// tailwind.config.js
+module.exports = {
+  presets: [require("@allyship/allyblocks/tailwind.preset")],
+  // ...your config
+};
+```
+
+### 3. Import and use components
+
+```tsx
+import { Button } from "@allyship/allyblocks";
+
+export default function Example() {
+  return <Button>Click me</Button>;
+}
+```
+
+## Documentation
+
+- [Installation Guide](./docs/installation.md)
+- [Component Usage](./docs/components.md)
+- [Accessibility](./docs/accessibility.md)
+
+## Troubleshooting
+
+- Ensure all peer dependencies are installed in your project.
+- Make sure your Tailwind config includes the provided preset.
+- If you use Storybook, ensure your config supports Tailwind v4.
+
+## License
+
+MIT

@@ -79,7 +79,7 @@ export const WrappingControl: Story = {
   render: () => (
     <div className="flex items-center space-x-2">
       <Label>
-        <Checkbox type="checkbox" className="mr-2 h-4 w-4" />
+        <Checkbox className="mr-2 h-4 w-4" />
         Accept terms and conditions
       </Label>
     </div>

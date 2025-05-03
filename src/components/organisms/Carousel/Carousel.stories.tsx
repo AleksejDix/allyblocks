@@ -5,7 +5,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./carousel";
+} from "./Carousel";
 
 const meta: Meta<typeof Carousel> = {
   component: Carousel,

@@ -10,6 +10,19 @@ const boxVariants = cva("", {
       secondary: "bg-secondary",
       accent: "bg-accent",
       transparent: "bg-transparent",
+      card: "bg-card",
+      popover: "bg-popover",
+      destructive: "bg-destructive",
+      sidebar: "bg-sidebar",
+      "sidebar-primary": "bg-sidebar-primary",
+      "sidebar-accent": "bg-sidebar-accent",
+    },
+    elevation: {
+      none: "shadow-none",
+      sm: "shadow-sm",
+      md: "shadow-md",
+      lg: "shadow-lg",
+      xl: "shadow-xl",
     },
   },
   defaultVariants: {
@@ -37,4 +50,4 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
 
 Box.displayName = "Box";
 
-export { Box }; 
+export { Box };

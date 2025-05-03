@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AuthForm } from "./AuthForm";
-import { userEvent, within } from "@storybook/test";
-import { expect } from "@storybook/jest";
+import { userEvent, within, expect } from "@storybook/test";
 
 const meta = {
   component: AuthForm,

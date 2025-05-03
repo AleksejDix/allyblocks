@@ -26,7 +26,7 @@ export const Default: Story = {
 
 export const Secondary: Story = {
   render: () => (
-    <ButtonGroup variant="secondary">
+    <ButtonGroup>
       <Button variant="secondary">Previous</Button>
       <Button variant="secondary">Next</Button>
     </ButtonGroup>
@@ -44,7 +44,7 @@ export const Destructive: Story = {
 
 export const Outline: Story = {
   render: () => (
-    <ButtonGroup variant="outline">
+    <ButtonGroup>
       <Button variant="outline">Previous</Button>
       <Button variant="outline">Next</Button>
     </ButtonGroup>

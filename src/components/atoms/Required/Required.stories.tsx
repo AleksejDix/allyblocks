@@ -36,7 +36,7 @@ export const Default: Story = {
     await expect(asterisk).toHaveAttribute("aria-hidden", "true");
 
     // Verify screen reader text
-    const srText = canvas.getByText("(required)");
+    const srText = canvas.getByText("is required");
     await expect(srText).toHaveClass("sr-only");
   },
 };
@@ -58,6 +58,6 @@ export const NotRequired: Story = {
 
     // Verify nothing is rendered
     await expect(canvas.queryByText("*")).not.toBeInTheDocument();
-    await expect(canvas.queryByText("(required)")).not.toBeInTheDocument();
+    await expect(canvas.queryByText("is required")).not.toBeInTheDocument();
   },
 };

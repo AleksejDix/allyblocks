@@ -27,96 +27,52 @@ const meta: Meta<typeof Box> = {
   },
   args: {
     surface: "default",
-  }
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Box>;
 
 export const Default: Story = {
-  render: () => (
-    <Box>
-      Default surface
-    </Box>
-  ),
+  render: () => <Box>Default surface</Box>,
 };
 
 export const Card: Story = {
-  render: () => (
-    <Box surface="card">
-      Card surface
-    </Box>
-  ),
+  render: () => <Box surface="card">Card surface</Box>,
 };
 
 export const Popover: Story = {
-  render: () => (
-    <Box surface="popover">
-      Popover surface
-    </Box>
-  ),
+  render: () => <Box surface="popover">Popover surface</Box>,
 };
 
 export const Primary: Story = {
-  render: () => (
-    <Box surface="primary">
-      Primary surface
-    </Box>
-  ),
+  render: () => <Box surface="primary">Primary surface</Box>,
 };
 
 export const Secondary: Story = {
-  render: () => (
-    <Box surface="secondary">
-      Secondary surface
-    </Box>
-  ),
+  render: () => <Box surface="secondary">Secondary surface</Box>,
 };
 
 export const Muted: Story = {
-  render: () => (
-    <Box surface="muted">
-      Muted surface
-    </Box>
-  ),
+  render: () => <Box surface="muted">Muted surface</Box>,
 };
 
 export const Accent: Story = {
-  render: () => (
-    <Box surface="accent">
-      Accent surface
-    </Box>
-  ),
+  render: () => <Box surface="accent">Accent surface</Box>,
 };
 
 export const Destructive: Story = {
-  render: () => (
-    <Box surface="destructive">
-      Destructive surface
-    </Box>
-  ),
+  render: () => <Box surface="destructive">Destructive surface</Box>,
 };
 
 export const Sidebar: Story = {
-  render: () => (
-    <Box surface="sidebar">
-      Sidebar surface
-    </Box>
-  ),
+  render: () => <Box surface="sidebar">Sidebar surface</Box>,
 };
 
 export const SidebarPrimary: Story = {
-  render: () => (
-    <Box surface="sidebar-primary">
-      Sidebar primary surface
-    </Box>
-  ),
+  render: () => <Box surface="sidebar-primary">Sidebar primary surface</Box>,
 };
 
 export const SidebarAccent: Story = {
-  render: () => (
-    <Box surface="sidebar-accent">
-      Sidebar accent surface
-    </Box>
-  ),
-}; 
+  render: () => <Box surface="sidebar-accent">Sidebar accent surface</Box>,
+};

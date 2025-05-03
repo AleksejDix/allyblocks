@@ -1,10 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Button } from "@/components/atoms/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
+import { Button } from "@/components/atoms/Button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./Tooltip";
 import { PlusIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { Label } from "@/components/atoms/label";
-import { Checkbox } from "@/components/atoms/checkbox";
+import { Label } from "@/components/atoms/Label";
+import { Checkbox } from "@/components/atoms/Checkbox";
 
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,

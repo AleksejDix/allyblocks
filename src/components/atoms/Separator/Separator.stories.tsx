@@ -9,7 +9,8 @@ const meta: Meta<typeof Separator> = {
     layout: "centered",
     docs: {
       description: {
-        component: "Visually or semantically separates content. Based on [shadcn/ui Separator](https://ui.shadcn.com/docs/components/separator) and [Radix UI Separator](https://www.radix-ui.com/primitives/docs/components/separator).\n\n" +
+        component:
+          "Visually or semantically separates content. Based on [shadcn/ui Separator](https://ui.shadcn.com/docs/components/separator) and [Radix UI Separator](https://www.radix-ui.com/primitives/docs/components/separator).\n\n" +
           "### Features\n" +
           "- Supports horizontal and vertical orientations\n" +
           "- Can be decorative or semantic for accessibility\n" +
@@ -131,7 +132,7 @@ export const NonDecorativeSeparator: Story = {
       },
     },
   },
-  play: async ({ canvasElement }: { canvasElement: HTMLCanvasElement }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // For non-decorative separator we can verify content and check for the separator role
@@ -145,7 +146,7 @@ export const CustomStyledSeparator: Story = {
   args: {
     className: "bg-primary h-1 rounded-full my-4",
   },
-  render: (args: { className: string }) => (
+  render: (args) => (
     <div className="space-y-4">
       <div>Above the custom separator</div>
       <Separator {...args} />

@@ -2,6 +2,7 @@ import path from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,9 +15,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Force resolve React to specific paths
-      react: path.resolve(__dirname, "./node_modules/react"),
-      "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
     },
   },
   optimizeDeps: {
@@ -73,20 +71,30 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "A11yShadcnUI",
-      formats: ["es", "umd"],
+      name: "allyblocks",
+      formats: ["es"],
       fileName: (format) => `index.${format === "es" ? "mjs" : "js"}`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "i18next", "react-i18next"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          i18next: "i18next",
-          "react-i18next": "reactI18next",
-        },
-      },
+      // Externalize peer and UI dependencies so they are not bundled
+      external: [
+        "react",
+        "react-dom",
+        "i18next",
+        "react-i18next",
+        "lucide-react",
+        /@radix-ui\/.+/
+      ],
+      plugins: process.env.ANALYZE
+        ? [
+            visualizer({
+              open: true,
+              filename: "bundle-analysis.html",
+              gzipSize: true,
+              brotliSize: true,
+            }),
+          ]
+        : [],
     },
     sourcemap: true,
     emptyOutDir: true,

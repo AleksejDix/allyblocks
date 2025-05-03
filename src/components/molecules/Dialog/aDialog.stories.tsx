@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./dialog";
+} from "./aDialog";
 
 const meta: Meta<typeof Dialog> = {
   component: Dialog,

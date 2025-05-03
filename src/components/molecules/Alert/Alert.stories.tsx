@@ -26,7 +26,7 @@ export const Default: Story = {
       </AlertDescription>
     </Alert>
   ),
-  play: async ({ canvasElement }: { canvasElement: HTMLCanvasElement }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Verify alert role and structure
@@ -53,7 +53,7 @@ export const Destructive: Story = {
       </AlertDescription>
     </Alert>
   ),
-  play: async ({ canvasElement }: { canvasElement: HTMLCanvasElement }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Verify alert has the destructive variant
@@ -85,7 +85,7 @@ export const WithInfoIcon: Story = {
       </AlertDescription>
     </Alert>
   ),
-  play: async ({ canvasElement }: { canvasElement: HTMLCanvasElement }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Verify alert has the correct grid structure for icon
@@ -111,7 +111,7 @@ export const TitleOnly: Story = {
       <AlertTitle>Alert with title only</AlertTitle>
     </Alert>
   ),
-  play: async ({ canvasElement }: { canvasElement: HTMLCanvasElement }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Verify alert structure
@@ -135,7 +135,7 @@ export const DescriptionOnly: Story = {
       <AlertDescription>This alert has only a description.</AlertDescription>
     </Alert>
   ),
-  play: async ({ canvasElement }: { canvasElement: HTMLCanvasElement }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     // Verify alert structure
@@ -212,4 +212,4 @@ export const SuccessAlert: Story = {
     const svg = alert.querySelector("svg");
     await expect(svg).not.toBeNull();
   },
-}; 
+};

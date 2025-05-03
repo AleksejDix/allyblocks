@@ -1,6 +1,5 @@
-import type { StorybookConfig } from "@storybook/experimental-nextjs-vite";
+import type { StorybookConfig } from "@storybook/react-vite";
 import remarkGfm from 'remark-gfm';
-import mdxMermaid from 'mdx-mermaid';
 
 const config: StorybookConfig = {
   stories: [
@@ -19,14 +18,14 @@ const config: StorybookConfig = {
         mdxPluginOptions: {
           mdxCompileOptions: {
             providerImportSource: "@mdx-js/react",
-            remarkPlugins: [remarkGfm, [mdxMermaid, { output: 'svg' }]]
+            remarkPlugins: [remarkGfm]
           }
         }
       }
     }
   ],
   framework: {
-    name: "@storybook/experimental-nextjs-vite",
+    name: "@storybook/react-vite",
     options: {},
   },
   docs: {
@@ -47,7 +46,7 @@ const config: StorybookConfig = {
         global: "window",
       },
       optimizeDeps: {
-        include: ['remark-gfm', 'mermaid'],
+        include: ['remark-gfm'],
       },
     };
   },
