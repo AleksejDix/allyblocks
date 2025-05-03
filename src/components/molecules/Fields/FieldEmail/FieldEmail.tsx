@@ -27,13 +27,18 @@ export function FieldEmail({
       render={(fieldContext) => (
         <FormItem>
           <FormLabel>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center">
               {label}
               {required && <Required required={required} />}
             </div>
           </FormLabel>
           <FormControl>
-            <Input {...fieldContext.field} type="email" {...props} />
+            <Input
+              {...fieldContext.field}
+              type="email"
+              {...props}
+              required={required}
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

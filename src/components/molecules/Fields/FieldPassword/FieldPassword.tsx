@@ -2,7 +2,9 @@ import * as React from "react";
 import { useFormContext, ControllerRenderProps } from "react-hook-form";
 import { Input } from "@/components/atoms/Input";
 import { Button } from "@/components/atoms/Button";
-import { Eye, EyeOff } from "lucide-react";
+import { Required } from "@/components/atoms/Required";
+import { Icon } from "@/components/atoms/Icon";
+
 import {
   FormField,
   FormItem,
@@ -36,36 +38,25 @@ export function FieldPassword({
     <FormField
       control={control}
       name={name}
-      rules={{
-        required: required ? "Password is required" : false,
-        minLength: {
-          value: 8,
-          message: "Password must be at least 8 characters",
-        },
-        pattern: {
-          value:
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-          message:
-            "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
-        },
-      }}
       render={({ field }: { field: ControllerRenderProps }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>
+            <div className="flex items-center">
+              {label}
+              {required && <Required required={required} />}
+            </div>
+          </FormLabel>
           <FormControl>
-            <div
-              className="relative"
-              role="group"
-              aria-labelledby={`${field.name}-label`}
-            >
+            <div className="relative">
               <Input
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 placeholder="Enter your password"
                 id={`${field.name}-input`}
-                aria-labelledby={`${field.name}-label`}
+                className="pr-10"
                 {...field}
                 {...props}
+                required={required}
               />
               <Button
                 type="button"
@@ -74,11 +65,7 @@ export function FieldPassword({
                 className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
-                ) : (
-                  <Eye className="h-4 w-4" />
-                )}
+                {showPassword ? <Icon name="eye-off" /> : <Icon name="eye" />}
                 <span className="sr-only">
                   {showPassword ? "Hide password" : "Show password"}
                 </span>

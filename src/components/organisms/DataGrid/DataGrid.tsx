@@ -10,7 +10,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/molecules/Table";
+} from "@/components/atoms/Table";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,

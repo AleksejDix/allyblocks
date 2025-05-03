@@ -1,8 +1,22 @@
 {
-  "name": "vite-project",
+  "name": "a11y-shadcnui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "sideEffects": false,
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -43,6 +57,7 @@
     "@radix-ui/react-toggle-group": "^1.1.7",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@tanstack/react-table": "^8.21.3",
+    "ajv": "^8.17.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
@@ -51,6 +66,7 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.487.0",
     "mermaid": "^11.6.0",
+    "next": "^15.3.1",
     "nuqs": "^2.4.2",
     "react-day-picker": "^8.10.1",
     "react-hook-form": "^7.56.1",
@@ -107,6 +123,7 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
     "vitest": "^3.1.2"
   },
   "overrides": {

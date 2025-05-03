@@ -3,6 +3,7 @@ import { within, userEvent } from "@storybook/test";
 import { Plus } from "lucide-react";
 import { expect } from "@storybook/test";
 import { Button } from "./Button";
+import { useState, useEffect } from "react";
 
 const meta: Meta<typeof Button> = {
   component: Button,
@@ -10,7 +11,8 @@ const meta: Meta<typeof Button> = {
     layout: "centered",
     docs: {
       description: {
-        component: "A versatile button component with multiple variants and sizes.",
+        component:
+          "A versatile button component with multiple variants and sizes.",
       },
     },
   },
@@ -25,13 +27,20 @@ const meta: Meta<typeof Button> = {
       control: "text",
     },
     variant: {
-      control: "select",
-      options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      control: { type: "select" },
+      options: [
+        "default",
+        "destructive",
+        "outline",
+        "secondary",
+        "ghost",
+        "link",
+      ],
       description: "The visual style of the button",
       defaultValue: "default",
     },
     size: {
-      control: "select",
+      control: { type: "select" },
       options: ["default", "sm", "lg", "icon"],
       description: "The size of the button",
       defaultValue: "default",
@@ -50,7 +59,7 @@ const meta: Meta<typeof Button> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
 export const RendersText: Story = {
   args: {
@@ -196,5 +205,40 @@ export const SupportsFocusNavigation: Story = {
     await userEvent.tab();
     const firstButton = canvas.getByRole("button", { name: "First Button" });
     await expect(firstButton).toHaveFocus();
+  },
+};
+
+// Server Component Story (using client-side simulation)
+export const ServerRendered = {
+  render: () => {
+    // Create a component that simulates server data fetching
+    function SimulatedServerComponent() {
+      const [data, setData] = useState<{ label: string } | null>(null);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const fetchData = async () => {
+          // Simulate server delay
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          setData({ label: "Server Rendered Button" });
+          setLoading(false);
+        };
+
+        fetchData();
+      }, []);
+
+      if (loading) {
+        return <div>Loading server component...</div>;
+      }
+
+      return (
+        <div className="space-y-4">
+          <p>This button simulates data fetched from the server:</p>
+          <Button variant="default">{data?.label}</Button>
+        </div>
+      );
+    }
+
+    return <SimulatedServerComponent />;
   },
 };

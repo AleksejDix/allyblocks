@@ -8,4 +8,6 @@ export * from "./Select";
 export * from "./Input";
 export * from "./Hidden";
 export * from "./Separator";
-export * from "./Switch"; 
+export * from "./Switch";
+
+// Add other atom components as needed 
