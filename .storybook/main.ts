@@ -22,7 +22,8 @@ const config: StorybookConfig = {
           }
         }
       }
-    }
+    },
+    'storybook-dark-mode',
   ],
   framework: {
     name: "@storybook/react-vite",

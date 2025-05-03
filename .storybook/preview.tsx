@@ -1,17 +1,20 @@
 import "../src/styles/index.css";
-import { withBrand, withScheme, withNuqs, withI18next } from "./decorators";
+import { withBrand, withNuqs, withI18next } from "./decorators";
 import i18n from "../src/i18n/i18n";
 import type { Preview } from "@storybook/react";
 
 export const parameters: Preview["parameters"] = {
-  backgrounds: { disable: true },
+  darkMode: {
+    classTarget: "html",
+    darkClass: "dark",
+    lightClass: "",
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/i,
     },
   },
-
   options: {
     storySort: {
       order: [
@@ -68,25 +71,10 @@ export const globalTypes: Preview["globalTypes"] = {
       dynamicTitle: true,
     },
   },
-  scheme: {
-    name: "scheme",
-    description: "scheme",
-    defaultValue: "auto",
-    toolbar: {
-      icon: "mirror",
-      items: [
-        { value: "light", title: "Light" },
-        { value: "dark", title: "Dark" },
-        { value: "auto", title: "Auto" },
-      ],
-      showName: true,
-      dynamicTitle: true,
-    },
-  },
 };
 
 const preview: Preview = {
-  decorators: [withBrand, withScheme, withNuqs, withI18next],
+  decorators: [withBrand, withNuqs, withI18next],
 };
 
 export default preview;

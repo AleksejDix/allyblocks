@@ -4,7 +4,14 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Accessible UI components built with ShadcnUI",
-  "keywords": ["accessibility", "a11y", "react", "components", "ui", "shadcn"],
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "react",
+    "components",
+    "ui",
+    "shadcn"
+  ],
   "license": "MIT",
   "author": {
     "name": "Aleksej Dix",
@@ -124,22 +131,23 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "i18next": "^25.0.0",
     "jsdom": "^26.0.0",
+    "lucide-react": "^0.487.0",
     "playwright": "^1.51.1",
     "postcss": "^8.5.3",
     "prop-types": "^15.8.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^15.5.1",
+    "rollup-plugin-visualizer": "^5.12.1",
     "storybook": "^8.6.12",
+    "storybook-dark-mode": "^4.0.2",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^4.5.3",
-    "vitest": "^3.1.2",
-    "rollup-plugin-visualizer": "^5.12.1",
-    "i18next": "^25.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-i18next": "^15.5.1",
-    "lucide-react": "^0.487.0"
+    "vitest": "^3.1.2"
   },
   "overrides": {
     "react-day-picker": {
