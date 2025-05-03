@@ -2,7 +2,6 @@ import "../src/styles/index.css";
 import { withBrand, withScheme, withNuqs, withI18next } from "./decorators";
 import i18n from "../src/i18n/i18n";
 import type { Preview } from "@storybook/react";
-import { withThemeByClassName } from "@storybook/addon-themes";
 
 export const parameters: Preview["parameters"] = {
   backgrounds: { disable: true },
@@ -87,19 +86,7 @@ export const globalTypes: Preview["globalTypes"] = {
 };
 
 const preview: Preview = {
-  decorators: [
-    withThemeByClassName({
-      themes: {
-        light: "",
-        dark: "dark",
-      },
-      defaultTheme: "light",
-    }),
-    withBrand,
-    withScheme,
-    withNuqs,
-    withI18next,
-  ],
+  decorators: [withBrand, withScheme, withNuqs, withI18next],
 };
 
 export default preview;
