@@ -15,6 +15,8 @@ This directory contains a collection of form field components built with React H
 | `FieldUpload`   | File upload component                                                |
 | `FieldPhone`    | Phone number input with international format and country selection   |
 | `FieldText`     | Basic text input field                                               |
+| `FieldNumber`   | Numeric input with validation                                        |
+| `FieldInteger`  | Integer input with validation                                        |
 
 ## Usage
 
@@ -66,7 +68,8 @@ Most field components share these common props:
 Based on modern form requirements and common shadcn/ui components, we should implement the following field types:
 
 - [x] `FieldText` - Basic text input field
-- [ ] `FieldNumber` - Numeric input with validation
+- [x] `FieldNumber` - Numeric input with validation
+- [x] `FieldInteger` - Integer input with validation
 - [x] `FieldPhone` - Phone number input with formatting
 - [ ] `FieldDatePicker` - Date selection field
 - [ ] `FieldRadioGroup` - Radio button group
