@@ -1,13 +1,15 @@
 import "../src/styles/index.css";
-import { withBrand, withNuqs, withI18next } from "./decorators";
+import { withBrand, withNuqs, withI18next, withDarkMode } from "./decorators";
 import i18n from "../src/i18n/i18n";
 import type { Preview } from "@storybook/react";
+import { themes } from "@storybook/theming";
 
-export const parameters: Preview["parameters"] = {
-  darkMode: {
-    classTarget: "html",
-    darkClass: "dark",
-    lightClass: "",
+const parameters: Preview["parameters"] = {
+  backgrounds: {
+    disable: true,
+  },
+  docs: {
+    theme: themes.normal,
   },
   controls: {
     matchers: {
@@ -40,7 +42,7 @@ export const parameters: Preview["parameters"] = {
   },
 };
 
-export const globalTypes: Preview["globalTypes"] = {
+const globalTypes: Preview["globalTypes"] = {
   locale: {
     name: "Locale",
     description: "Internationalization locale",
@@ -52,6 +54,21 @@ export const globalTypes: Preview["globalTypes"] = {
         { value: "en", title: "English" },
         { value: "fr", title: "Français" },
         { value: "it", title: "Italiano" },
+      ],
+      showName: true,
+      dynamicTitle: true,
+    },
+  },
+  scheme: {
+    name: "Scheme",
+    description: "Scheme",
+    defaultValue: "system",
+    toolbar: {
+      icon: "globe",
+      items: [
+        { value: "light", title: "Light" },
+        { value: "dark", title: "Dark" },
+        { value: "system", title: "System" },
       ],
       showName: true,
       dynamicTitle: true,
@@ -74,7 +91,9 @@ export const globalTypes: Preview["globalTypes"] = {
 };
 
 const preview: Preview = {
-  decorators: [withBrand, withNuqs, withI18next],
+  decorators: [withBrand, withDarkMode, withNuqs, withI18next],
+  globalTypes,
+  parameters,
 };
 
 export default preview;

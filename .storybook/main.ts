@@ -1,6 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
 import remarkGfm from 'remark-gfm';
-
 const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
@@ -20,10 +19,9 @@ const config: StorybookConfig = {
             providerImportSource: "@mdx-js/react",
             remarkPlugins: [remarkGfm]
           }
-        }
-      }
+        },
+      },
     },
-    'storybook-dark-mode',
   ],
   framework: {
     name: "@storybook/react-vite",
