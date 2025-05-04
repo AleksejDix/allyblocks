@@ -5,3 +5,5 @@ export * from "./FieldTextarea";
 export * from "./FieldCheckbox";
 export * from "./FieldOTP";
 export * from "./FieldUpload";
+export * from "./FieldPhone";
+export * from "./FieldText";
