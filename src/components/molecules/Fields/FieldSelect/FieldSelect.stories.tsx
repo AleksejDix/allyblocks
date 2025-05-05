@@ -73,6 +73,7 @@ function SelectForm() {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[300px]"
+        noValidate
       >
         <FieldSelect
           name="fruit"
@@ -87,11 +88,54 @@ function SelectForm() {
   );
 }
 
+function WithPlaceholderForm() {
+  const schema = z.object({
+    city: z.string().min(1, "Please select a city"),
+  });
+
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      city: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof schema>) {
+    alert(JSON.stringify(values));
+  }
+
+  const cityOptions = [
+    { value: "new-york", label: "New York" },
+    { value: "san-francisco", label: "San Francisco" },
+    { value: "london", label: "London" },
+    { value: "tokyo", label: "Tokyo" },
+    { value: "paris", label: "Paris" },
+  ];
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 w-[300px]"
+        noValidate
+      >
+        <FieldSelect
+          name="city"
+          label="Select Your City"
+          options={cityOptions}
+          placeholder="Where are you located?"
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
+  );
+}
+
 function CustomLabelForm() {
   const form = useForm();
   return (
     <Form {...form}>
-      <form className="space-y-4 w-[300px]">
+      <form className="space-y-4 w-[300px]" noValidate>
         <FieldSelect
           name="fruit"
           label="Select Your Favorite Fruit"
@@ -107,7 +151,7 @@ function DescriptionForm() {
   const form = useForm();
   return (
     <Form {...form}>
-      <form className="space-y-4 w-[300px]">
+      <form className="space-y-4 w-[300px]" noValidate>
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
@@ -124,7 +168,7 @@ function DisabledForm() {
   const form = useForm();
   return (
     <Form {...form}>
-      <form className="space-y-4 w-[300px]">
+      <form className="space-y-4 w-[300px]" noValidate>
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
@@ -146,7 +190,7 @@ function PreselectedForm() {
 
   return (
     <Form {...form}>
-      <form className="space-y-4 w-[300px]">
+      <form className="space-y-4 w-[300px]" noValidate>
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
@@ -174,13 +218,43 @@ export const Default: Story = {
 
     // Test selecting an option
     const select = canvas.getByRole("combobox");
-    await userEvent.selectOptions(select, "apple");
+    await userEvent.click(select);
+    const option = canvas.getByText("Apple");
+    await userEvent.click(option);
 
     // Submit again
     await userEvent.click(submitButton);
 
     // Verify no error message
-    await expect(error).not.toBeVisible();
+    await expect(error).not.toBeInTheDocument();
+  },
+};
+
+// Select field with placeholder
+export const WithPlaceholder: Story = {
+  render: () => <WithPlaceholderForm />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Check placeholder is visible
+    const placeholder = canvas.getByText(/where are you located\?/i);
+    await expect(placeholder).toBeVisible();
+
+    // Open the select
+    const select = canvas.getByRole("combobox");
+    await userEvent.click(select);
+
+    // Verify options are available
+    await expect(canvas.getByText("New York")).toBeVisible();
+    await expect(canvas.getByText("Tokyo")).toBeVisible();
+
+    // Select an option
+    const option = canvas.getByText("Paris");
+    await userEvent.click(option);
+
+    // Verify the placeholder is replaced by the selection
+    await expect(canvas.getByText("Paris")).toBeVisible();
+    await expect(placeholder).not.toBeInTheDocument();
   },
 };
 
@@ -213,7 +287,6 @@ export const Preselected: Story = {
     const canvas = within(canvasElement);
 
     // Check if "Banana" is selected
-    const select = canvas.getByRole("combobox") as HTMLSelectElement;
-    await expect(select.value).toBe("banana");
+    await expect(canvas.getByText("Banana")).toBeVisible();
   },
 };

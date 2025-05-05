@@ -12,13 +12,12 @@ import {
   SelectValue,
 } from "@/components/atoms/Select/Select";
 import { Label } from "../Label";
+import { Icon } from "@/components/atoms/Icon";
 
 // Define meta using the explicit Meta type annotation
 const meta: Meta<typeof Select> = {
   component: Select,
-  parameters: {
-    layout: "centered",
-  },
+
   tags: ["autodocs"],
   argTypes: {},
   // Add a base play function to verify component existence
@@ -78,6 +77,138 @@ export const Default: Story = {
     await waitFor(() => {
       const selectItem = screen.getByRole("option", { name: "Apple" });
       expect(selectItem).toBeInTheDocument();
+    });
+  },
+};
+
+export const WithPlaceholder: Story = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [selected, setSelected] = useState<string>("");
+
+    return (
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label>Selected city: {selected || "None"}</Label>
+        <Select onValueChange={setSelected}>
+          <SelectTrigger>
+            <SelectValue placeholder="Where do you live?" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Cities</SelectLabel>
+              <SelectItem value="new-york">New York</SelectItem>
+              <SelectItem value="london">London</SelectItem>
+              <SelectItem value="tokyo">Tokyo</SelectItem>
+              <SelectItem value="paris">Paris</SelectItem>
+              <SelectItem value="sydney">Sydney</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Select with a descriptive placeholder that guides the user.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const selectTrigger = canvas.getByRole("combobox");
+
+    // Verify placeholder text is visible
+    expect(canvas.getByText("Where do you live?")).toBeInTheDocument();
+
+    // Click to open the select
+    await userEvent.click(selectTrigger);
+
+    // Select an option
+    await waitFor(() => {
+      const selectItem = screen.getByRole("option", { name: "London" });
+      expect(selectItem).toBeInTheDocument();
+    });
+
+    const londonOption = screen.getByRole("option", { name: "London" });
+    await userEvent.click(londonOption);
+
+    // Verify the placeholder is replaced with the selection
+    await waitFor(() => {
+      expect(canvas.queryByText("Where do you live?")).not.toBeInTheDocument();
+      expect(canvas.getByText("London")).toBeInTheDocument();
+    });
+  },
+};
+
+export const WithIcons: Story = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [selected, setSelected] = useState<string>("");
+
+    return (
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+        <Label>Weather: {selected || "Select weather"}</Label>
+        <Select onValueChange={setSelected}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select weather" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Weather Conditions</SelectLabel>
+              <SelectItem value="sunny">
+                <Icon name="sun" className="text-yellow-500" />
+                Sunny
+              </SelectItem>
+              <SelectItem value="cloudy">
+                <Icon name="cloud" className="text-gray-400" />
+                Cloudy
+              </SelectItem>
+              <SelectItem value="rainy">
+                <Icon name="umbrella" className="text-gray-400" />
+                Rainy
+              </SelectItem>
+              <SelectItem value="snowy">
+                <Icon name="snowflake" className="text-blue-400" />
+                Snowy
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Select with icons in the options to provide visual cues.",
+      },
+    },
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const selectTrigger = canvas.getByRole("combobox");
+
+    // Click to open the select
+    await userEvent.click(selectTrigger);
+
+    // Verify icons are visible in the options
+    await waitFor(() => {
+      const sunnyOption = screen.getByRole("option", { name: "Sunny" });
+      expect(sunnyOption).toBeInTheDocument();
+
+      // Verify the Lucide icon is present (checking SVG)
+      const icons = document.querySelectorAll("svg");
+      expect(icons.length).toBeGreaterThan(0);
+    });
+
+    // Select an option with icon
+    const rainyOption = screen.getByRole("option", { name: "Rainy" });
+    await userEvent.click(rainyOption);
+
+    // Verify the selection is displayed
+    await waitFor(() => {
+      expect(canvas.getByText("Rainy")).toBeInTheDocument();
     });
   },
 };

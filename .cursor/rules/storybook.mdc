@@ -39,3 +39,7 @@ alwaysApply: true
 16. Keep components focused on a single responsibility
 17. Avoid unnecessary re-renders by using memoization where appropriate
 18. Lazy load large components when possible
+
+# Icons 
+
+Always user `<Icon name="<NAME of the ICON>/>` instead of <Snowy>

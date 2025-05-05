@@ -9,3 +9,4 @@ export * from "./FieldPhone";
 export * from "./FieldText";
 export * from "./FieldNumber";
 export * from "./FieldInteger";
+export * from "./FieldSelectNative";
