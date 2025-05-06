@@ -11,5 +11,6 @@ export * from "./Separator";
 export * from "./Switch";
 export * from "./Bullet";
 export * from "./Terms";
+export * from "./MultiSelect";
 
 // Add other atom components as needed
