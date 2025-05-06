@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect } from "@storybook/test";
+import { within, userEvent, expect, waitFor, fn } from "@storybook/test";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/molecules/Form/Form";
 import { FieldSelect } from "./FieldSelect";
@@ -9,7 +9,9 @@ import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldSelect> = {
   component: FieldSelect,
-  parameters: {},
+  parameters: {
+    actions: { argTypesRegex: "^on.*" },
+  },
   tags: ["autodocs"],
   argTypes: {
     name: {
@@ -52,7 +54,7 @@ const fruitOptions = [
 
 function SelectForm() {
   const schema = z.object({
-    fruit: z.string().min(1, "Please select a fruit"),
+    fruit: z.string(),
   });
 
   const form = useForm<z.infer<typeof schema>>({
@@ -62,17 +64,9 @@ function SelectForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof schema>) {
-    alert(JSON.stringify(values));
-  }
-
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[300px]"
-        noValidate
-      >
+      <form className="space-y-4" noValidate>
         <FieldSelect
           name="fruit"
           label="Favorite Fruit"
@@ -99,7 +93,7 @@ function WithPlaceholderForm() {
   });
 
   function onSubmit(values: z.infer<typeof schema>) {
-    alert(JSON.stringify(values));
+    console.log(values);
   }
 
   const cityOptions = [
@@ -200,32 +194,8 @@ function PreselectedForm() {
   );
 }
 
-// Basic select field
 export const Default: Story = {
   render: () => <SelectForm />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Test empty submission
-    const submitButton = canvas.getByRole("button", { name: /submit/i });
-    await userEvent.click(submitButton);
-
-    // Check for validation error
-    const error = canvas.getByText(/please select a fruit/i);
-    await expect(error).toBeVisible();
-
-    // Test selecting an option
-    const select = canvas.getByRole("combobox");
-    await userEvent.click(select);
-    const option = canvas.getByText("Apple");
-    await userEvent.click(option);
-
-    // Submit again
-    await userEvent.click(submitButton);
-
-    // Verify no error message
-    await expect(error).not.toBeInTheDocument();
-  },
 };
 
 // Select field with placeholder

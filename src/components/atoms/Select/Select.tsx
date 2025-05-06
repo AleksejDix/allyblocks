@@ -1,6 +1,5 @@
-import * as React from "react";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
+import { Icon } from "@/components/atoms/Icon";
 
 import { cn } from "@/lib/utils";
 import {
@@ -53,7 +52,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 opacity-50" />
+        <Icon name="chevron-down" className="size-4 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -78,7 +77,7 @@ function SelectContent({
           className={cn(
             "p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1",
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
           )}
         >
           {children}
@@ -111,9 +110,9 @@ function SelectItem({
       className={cn(selectItemVariants({ variant, className }))}
       {...props}
     >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
+      <span className="absolute left-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <CheckIcon className="size-4" />
+          <Icon name="check" className="size-4" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -140,11 +139,11 @@ function SelectScrollUpButton({
       data-slot="select-scroll-up-button"
       className={cn(
         "flex cursor-default items-center justify-center py-1",
-        className,
+        className
       )}
       {...props}
     >
-      <ChevronUpIcon className="size-4" />
+      <Icon name="chevron-up" className="size-4" />
     </SelectPrimitive.ScrollUpButton>
   );
 }
@@ -158,11 +157,11 @@ function SelectScrollDownButton({
       data-slot="select-scroll-down-button"
       className={cn(
         "flex cursor-default items-center justify-center py-1",
-        className,
+        className
       )}
       {...props}
     >
-      <ChevronDownIcon className="size-4" />
+      <Icon name="chevron-down" className="size-4" />
     </SelectPrimitive.ScrollDownButton>
   );
 }

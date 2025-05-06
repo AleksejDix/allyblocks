@@ -37,9 +37,12 @@ export function FieldSelect({
       render={({ field }) => (
         <FormItem>
           <FormLabel>
-            <div className="flex items-center">
-              {label}
-              {required && <Required required={required} />}
+            <div>
+              <div className="flex items-center">
+                {label}
+                {required && <Required required={required} />}
+              </div>
+              {description && <FormDescription>{description}</FormDescription>}
             </div>
           </FormLabel>
           <FormControl>
@@ -63,7 +66,7 @@ export function FieldSelect({
               </SelectContent>
             </Select>
           </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+
           <FormMessage />
         </FormItem>
       )}

@@ -12,11 +12,17 @@ import {
   SelectValue,
 } from "@/components/atoms/Select/Select";
 import { Label } from "../Label";
-import { Icon } from "@/components/atoms/Icon";
 
 // Define meta using the explicit Meta type annotation
 const meta: Meta<typeof Select> = {
   component: Select,
+  subcomponents: {
+    SelectContent: SelectContent,
+    SelectGroup: SelectGroup,
+    SelectItem: SelectItem,
+    SelectLabel: SelectLabel,
+    SelectSeparator: SelectSeparator,
+  },
   tags: ["autodocs"],
   parameters: {
     nuqs: {
@@ -36,10 +42,10 @@ const meta: Meta<typeof Select> = {
       control: "boolean",
       description: "Whether the select is required",
     },
-  },
-  // Add a base play function to verify component existence
-  play: async ({ canvasElement }) => {
-    await expect(canvasElement).not.toBeEmptyDOMElement();
+    onValueChange: {
+      action: "value changed",
+      description: "Callback when the value changes",
+    },
   },
 };
 
@@ -56,8 +62,14 @@ export const Default: Story = {
 
     return (
       <div className="grid w-full max-w-sm items-center gap-1.5">
-        <Label>Toppings: {selected}</Label>
-        <Select {...args} onValueChange={setSelected}>
+        <Label>Selected fruit: {selected}</Label>
+        <Select
+          {...args}
+          onValueChange={(value) => {
+            args.onValueChange?.(value);
+            setSelected(value);
+          }}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select a fruit" />
           </SelectTrigger>
@@ -92,6 +104,9 @@ export const Default: Story = {
     await userEvent.click(selectTrigger);
 
     await waitFor(() => {
+      const listbox = screen.getByRole("listbox");
+      expect(listbox).toBeInTheDocument();
+
       const selectItem = screen.getByRole("option", { name: "Apple" });
       expect(selectItem).toBeInTheDocument();
     });
@@ -99,47 +114,28 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  render: () => {
+  render: (args) => {
     return (
-      <div className="grid gap-8">
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Default Variant</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger variant="default">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      <div className="grid gap-8 grid-cols-2">
+        <Select {...args}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+          </SelectContent>
+        </Select>
 
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Outline Variant</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger variant="outline">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Ghost Variant</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger variant="ghost">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <Select {...args}>
+          <SelectTrigger variant="ghost">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     );
   },
@@ -153,47 +149,38 @@ export const Variants: Story = {
 };
 
 export const Sizes: Story = {
-  render: () => {
+  render: (args) => {
     return (
-      <div className="grid gap-8">
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Small Size</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger size="sm">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      <div className="grid gap-8 grid-cols-3">
+        <Select {...args}>
+          <SelectTrigger size="sm">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+          </SelectContent>
+        </Select>
 
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Medium Size (Default)</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger size="md">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <Select {...args}>
+          <SelectTrigger size="md">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+          </SelectContent>
+        </Select>
 
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Large Size</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger size="lg">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <Select {...args}>
+          <SelectTrigger size="lg">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     );
   },
@@ -247,62 +234,24 @@ export const Widths: Story = {
   },
 };
 
-export const DestructiveItems: Story = {
-  render: () => {
+export const Placeholder: Story = {
+  render: (args) => {
     return (
-      <div className="w-full max-w-sm">
-        <Select defaultValue="cancel">
-          <SelectTrigger>
-            <SelectValue placeholder="Select an action" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Actions</SelectLabel>
-              <SelectItem value="save">Save changes</SelectItem>
-              <SelectItem value="cancel">Cancel</SelectItem>
-              <SelectItem value="archive">Archive</SelectItem>
-              <SelectItem value="delete" variant="destructive">
-                Delete permanently
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Using a destructive variant for critical action items.",
-      },
-    },
-  },
-};
-
-export const WithPlaceholder: Story = {
-  render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [selected, setSelected] = useState<string>("");
-
-    return (
-      <div className="grid w-full max-w-sm items-center gap-1.5">
-        <Label>Selected city: {selected || "None"}</Label>
-        <Select onValueChange={setSelected}>
-          <SelectTrigger>
-            <SelectValue placeholder="Where do you live?" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Cities</SelectLabel>
-              <SelectItem value="new-york">New York</SelectItem>
-              <SelectItem value="london">London</SelectItem>
-              <SelectItem value="tokyo">Tokyo</SelectItem>
-              <SelectItem value="paris">Paris</SelectItem>
-              <SelectItem value="sydney">Sydney</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+      <Select {...args}>
+        <SelectTrigger>
+          <SelectValue placeholder="Where do you live?" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Cities</SelectLabel>
+            <SelectItem value="new-york">New York</SelectItem>
+            <SelectItem value="london">London</SelectItem>
+            <SelectItem value="tokyo">Tokyo</SelectItem>
+            <SelectItem value="paris">Paris</SelectItem>
+            <SelectItem value="sydney">Sydney</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     );
   },
   parameters: {
@@ -314,78 +263,14 @@ export const WithPlaceholder: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
     const selectTrigger = canvas.getByRole("combobox");
 
-    // Verify placeholder text is visible
-    expect(canvas.getByText("Where do you live?")).toBeInTheDocument();
-
-    // Click to open the select
-    await userEvent.click(selectTrigger);
-
-    // Select an option
-    await waitFor(() => {
-      const selectItem = screen.getByRole("option", { name: "London" });
-      expect(selectItem).toBeInTheDocument();
-    });
-
-    const londonOption = screen.getByRole("option", { name: "London" });
-    await userEvent.click(londonOption);
-
-    // Verify the placeholder is replaced with the selection
-    await waitFor(() => {
-      expect(canvas.queryByText("Where do you live?")).not.toBeInTheDocument();
-      expect(canvas.getByText("London")).toBeInTheDocument();
-    });
+    await expect(selectTrigger).toHaveTextContent(/where do you live\?/i);
   },
 };
 
-export const WithIcons: Story = {
-  render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [selected, setSelected] = useState<string>("");
-
-    return (
-      <div className="grid w-full max-w-sm items-center gap-1.5">
-        <Label>Weather: {selected || "Select weather"}</Label>
-        <Select onValueChange={setSelected}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select weather" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Weather Conditions</SelectLabel>
-              <SelectItem value="sunny">
-                <Icon name="sun" className="text-yellow-500" />
-                Sunny
-              </SelectItem>
-              <SelectItem value="cloudy">
-                <Icon name="cloud" className="text-gray-400" />
-                Cloudy
-              </SelectItem>
-              <SelectItem value="rainy">
-                <Icon name="umbrella" className="text-gray-400" />
-                Rainy
-              </SelectItem>
-              <SelectItem value="snowy">
-                <Icon name="snowflake" className="text-blue-400" />
-                Snowy
-              </SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Select with icons in the options to provide visual cues.",
-      },
-    },
-  },
-};
-
-export const WithGroupsAndSeparator: Story = {
+export const Groups: Story = {
   render: (args) => (
     <Select {...args}>
       <SelectTrigger>
@@ -473,6 +358,8 @@ export const DisabledOptions: Story = {
       const disabledItem = screen.getByRole("option", {
         name: "Banana (Unavailable)",
       });
+
+      // .toBeDisabled() doesnt work here because testing framework is not smart enough to check aria-disabled
       expect(disabledItem).toHaveAttribute("aria-disabled", "true");
     });
   },

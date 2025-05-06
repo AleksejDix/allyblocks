@@ -68,7 +68,7 @@ export const selectContentVariants = cva(
 
 export const selectItemVariants = cva(
   [
-    "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden",
+    "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-8 pl-8 text-sm outline-hidden",
     "focus:bg-accent focus:text-accent-foreground",
     "[&_svg:not([class*='text-'])]:text-muted-foreground",
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
@@ -79,7 +79,6 @@ export const selectItemVariants = cva(
     variants: {
       variant: {
         default: "",
-        destructive: "focus:bg-destructive focus:text-destructive-foreground",
       },
     },
     defaultVariants: {

@@ -48,9 +48,12 @@ export function FieldRadioGroup({
       render={({ field }) => (
         <FormItem className="space-y-2">
           <FormLabel>
-            <div className="flex items-center">
-              {label}
-              {required && <Required required={required} />}
+            <div>
+              <div className="flex items-center">
+                {label}
+                {required && <Required required={required} />}
+              </div>
+              {description && <FormDescription>{description}</FormDescription>}
             </div>
           </FormLabel>
           <FormControl>
@@ -109,7 +112,7 @@ export function FieldRadioGroup({
               })}
             </RadioGroup>
           </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+
           <FormMessage />
         </FormItem>
       )}
