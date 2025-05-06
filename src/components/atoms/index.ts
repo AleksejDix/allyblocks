@@ -10,6 +10,6 @@ export * from "./Hidden";
 export * from "./Separator";
 export * from "./Switch";
 export * from "./Bullet";
-export * from "./Des";
+export * from "./Terms";
 
 // Add other atom components as needed 

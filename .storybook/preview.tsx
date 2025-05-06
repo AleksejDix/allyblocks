@@ -10,6 +10,7 @@ const parameters: Preview["parameters"] = {
   },
   docs: {
     theme: themes.normal,
+    toc: true,
   },
   controls: {
     matchers: {
