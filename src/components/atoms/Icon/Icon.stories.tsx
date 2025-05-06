@@ -34,13 +34,10 @@ Icons are decorative by default and have \`aria-hidden="true"\`. If an icon is m
       description: "The name of the Lucide icon to display",
     },
     size: {
-      control: "number",
+      control: "select",
+      options: [12, 16, 20, 24, 32, 40, 48, 72, 96],
       description: "The size of the icon in pixels",
-      defaultValue: 24,
-    },
-    color: {
-      control: "color",
-      description: "The color of the icon",
+      defaultValue: 16,
     },
     strokeWidth: {
       control: "number",
@@ -55,7 +52,7 @@ Icons are decorative by default and have \`aria-hidden="true"\`. If an icon is m
   },
   args: {
     name: "check",
-    size: 24,
+    size: 16,
     strokeWidth: 2,
   },
 };
@@ -76,25 +73,32 @@ export const WithAriaLabel: Story = {
   },
 };
 
-export const DifferentSize: Story = {
-  args: {
-    name: "check",
-    size: 32,
-  },
-};
-
 export const DifferentColor: Story = {
   args: {
     name: "check",
-    color: "red",
+    className: "text-red-500",
   },
 };
 
 export const DifferentStrokeWidth: Story = {
   args: {
     name: "check",
-    strokeWidth: 3,
+    strokeWidth: 5,
   },
+};
+
+export const AllSizeVariants: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Icon name="check" size={12} />
+      <Icon name="check" size={16} />
+      <Icon name="check" size={20} />
+      <Icon name="check" size={24} />
+      <Icon name="check" size={32} />
+      <Icon name="check" size={40} />
+      <Icon name="check" size={48} />
+    </div>
+  ),
 };
 
 export const DifferentIcons: Story = {
