@@ -27,4 +27,4 @@ export type ButtonSplitMenuProps = {
   className?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
-}; 
+};

@@ -39,7 +39,7 @@ export function FieldSelectNative({
       render={({ field }) => {
         // Handle multiple select values
         const handleMultipleChange = (
-          e: React.ChangeEvent<HTMLSelectElement>
+          e: React.ChangeEvent<HTMLSelectElement>,
         ) => {
           const options = Array.from(e.target.selectedOptions);
           const values = options.map((option) => option.value);

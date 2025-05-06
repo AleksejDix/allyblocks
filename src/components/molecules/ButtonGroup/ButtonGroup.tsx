@@ -9,9 +9,5 @@ const basicClasses = `
 `;
 
 export function ButtonGroup(props: Props) {
-  return (
-    <div className={cn(basicClasses)}>
-      {props.children}
-    </div>
-  );
+  return <div className={cn(basicClasses)}>{props.children}</div>;
 }

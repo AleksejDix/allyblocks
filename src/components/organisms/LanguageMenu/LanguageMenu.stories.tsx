@@ -15,7 +15,7 @@ type Story = StoryObj<typeof LanguageMenu>;
 
 const withLanguageCleanup = async (
   testFn: () => Promise<void>,
-  originalLanguage = "de"
+  originalLanguage = "de",
 ): Promise<void> => {
   try {
     // Wait for i18n to be initialized and set to German
@@ -49,7 +49,7 @@ export const Interactive: Story = {
         const button = canvas.getByRole("button");
         expect(button).toHaveAttribute(
           "aria-label",
-          "Sprache ändern, aktuelle Sprache ist Deutsch"
+          "Sprache ändern, aktuelle Sprache ist Deutsch",
         );
       });
 
@@ -65,7 +65,7 @@ export const Interactive: Story = {
           expect(
             screen.getByRole("menuitemradio", {
               name: new RegExp(`Sprache ändern zu ${language}`, "i"),
-            })
+            }),
           ).toBeVisible();
         }
       });
@@ -81,7 +81,7 @@ export const Interactive: Story = {
         expect(document.documentElement.lang).toBe("en");
         expect(button).toHaveAttribute(
           "aria-label",
-          "Change language, current language is English"
+          "Change language, current language is English",
         );
       });
     });

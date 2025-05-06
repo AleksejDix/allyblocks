@@ -49,7 +49,7 @@ export default defineConfig({
       "@radix-ui/react-aspect-ratio",
       "lucide-react",
       "date-fns",
-      "react-day-picker"
+      "react-day-picker",
     ],
     exclude: [
       "@storybook/*",
@@ -59,14 +59,14 @@ export default defineConfig({
       "@storybook/addon-*",
       "@storybook/blocks",
       "@storybook/theming",
-      "@storybook/test"
+      "@storybook/test",
     ],
     esbuildOptions: {
-      target: 'esnext',
+      target: "esnext",
       supported: {
-        'top-level-await': true
-      }
-    }
+        "top-level-await": true,
+      },
+    },
   },
   build: {
     lib: {
@@ -83,7 +83,7 @@ export default defineConfig({
         "i18next",
         "react-i18next",
         "lucide-react",
-        /@radix-ui\/.+/
+        /@radix-ui\/.+/,
       ],
       plugins: process.env.ANALYZE
         ? [

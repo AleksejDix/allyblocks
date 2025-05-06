@@ -1,4 +1,4 @@
-import { Title, Subtitle, Description } from '@storybook/blocks';
+import { Title, Subtitle, Description } from "@storybook/blocks";
 
 ## Component Naming Conventions
 
@@ -7,6 +7,7 @@ We follow a simple, HTML-like naming approach. Component names should be as shor
 ### Core Principles
 
 1. **Keep Names Simple**
+
    - Use the most obvious, shortest name that describes the component
    - If a native HTML element exists, use its name (e.g., `Button`, `Input`, `Select`)
    - Avoid unnecessary prefixes or categorization
@@ -20,31 +21,32 @@ We follow a simple, HTML-like naming approach. Component names should be as shor
 
 ```tsx
 // ✅ Good
-Button
-Input
-Select
-Label
-Avatar
-Badge
-Card
-Modal
-Tooltip
-ButtonSplit
-ButtonGroup
+Button;
+Input;
+Select;
+Label;
+Avatar;
+Badge;
+Card;
+Modal;
+Tooltip;
+ButtonSplit;
+ButtonGroup;
 
 // ❌ Avoid
-ActionButton
-InputText
-DisplayBadge
-LayoutContainer
-FormSelect
+ActionButton;
+InputText;
+DisplayBadge;
+LayoutContainer;
+FormSelect;
 ```
 
 ### Compound Names
 
 When additional context is needed, combine words naturally:
+
 - `ButtonSplit` for a button with dropdown
 - `ButtonGroup` for grouped buttons
 - `FormField` for a form input container
 
-Remember: Always choose the simplest name that clearly describes the component's purpose. 
+Remember: Always choose the simplest name that clearly describes the component's purpose.

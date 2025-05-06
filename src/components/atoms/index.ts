@@ -12,4 +12,4 @@ export * from "./Switch";
 export * from "./Bullet";
 export * from "./Terms";
 
-// Add other atom components as needed 
+// Add other atom components as needed

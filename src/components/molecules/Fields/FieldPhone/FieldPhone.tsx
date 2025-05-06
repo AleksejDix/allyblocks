@@ -75,7 +75,7 @@ const PhoneInput = ({ className, ...props }: React.ComponentProps<"input">) => {
       data-slot="phone-input"
       className={cn(
         "-ms-px rounded-s-none shadow-none focus-visible:z-10",
-        className
+        className,
       )}
       {...props}
     />

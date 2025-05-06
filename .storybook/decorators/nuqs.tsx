@@ -11,7 +11,7 @@ interface NuqsParams {
 // Enhanced decorator for nuqs with react-router that supports initial URL parameters
 export const withNuqs = (
   Story: React.ComponentType,
-  context: { parameters?: { nuqs?: NuqsParams } }
+  context: { parameters?: { nuqs?: NuqsParams } },
 ) => {
   // Get nuqs parameters or set defaults
   const nuqsParams = context.parameters?.nuqs || {};

@@ -96,7 +96,7 @@ export function DataGridHeader() {
                 ? null
                 : flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
+                    header.getContext(),
                   )}
             </TableHead>
           ))}
@@ -185,7 +185,7 @@ export function DataGridFooter() {
                 ? null
                 : flexRender(
                     header.column.columnDef.footer,
-                    header.getContext()
+                    header.getContext(),
                   )}
             </TableCell>
           ))}
@@ -255,9 +255,9 @@ export function DataGridColumnVisibility({
             >
               <div className="flex items-center justify-between w-full">
                 {typeof column.columnDef.header !== "string"
-                  ? (
+                  ? ((
                       column.columnDef as LblColumnDef<never>
-                    ).headerLabel?.toString() ?? column.id
+                    ).headerLabel?.toString() ?? column.id)
                   : column.columnDef.header?.toString()}
               </div>
             </DropdownMenuCheckboxItem>

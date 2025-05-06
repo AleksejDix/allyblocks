@@ -21,7 +21,7 @@ export const useDataGrid = () => {
   const context = useContext(DataGridContext);
   if (!context) {
     throw new Error(
-      "useDataGrid must be used within a DataGridContextProvider"
+      "useDataGrid must be used within a DataGridContextProvider",
     );
   }
   return context;

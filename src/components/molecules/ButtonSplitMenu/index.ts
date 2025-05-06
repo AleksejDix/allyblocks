@@ -1,1 +1,1 @@
-export * from "./ButtonSplitMenu"; 
+export * from "./ButtonSplitMenu";

@@ -56,7 +56,7 @@ export const WithInitialValue: Story = {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText("Enter text...");
     await expect(textarea).toHaveValue(
-      "This is some initial text in the textarea."
+      "This is some initial text in the textarea.",
     );
   },
 };
@@ -77,7 +77,7 @@ export const WithRowsAndCols: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText(
-      "This textarea has custom dimensions..."
+      "This textarea has custom dimensions...",
     );
     await expect(textarea).toHaveAttribute("rows", "8");
     await expect(textarea).toHaveAttribute("cols", "40");
@@ -167,7 +167,7 @@ export const WithMaxLength: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByPlaceholderText(
-      "This textarea has a character limit..."
+      "This textarea has a character limit...",
     );
     await expect(textarea).toHaveAttribute("maxlength", "50");
 
@@ -195,14 +195,14 @@ export const ReadOnly: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const textarea = canvas.getByDisplayValue(
-      "This content cannot be edited because the textarea is read-only."
+      "This content cannot be edited because the textarea is read-only.",
     );
     await expect(textarea).toHaveAttribute("readonly");
 
     // Try typing and verify the value doesn't change
     await userEvent.type(textarea, "Attempting to add text");
     await expect(textarea).toHaveValue(
-      "This content cannot be edited because the textarea is read-only."
+      "This content cannot be edited because the textarea is read-only.",
     );
   },
 };

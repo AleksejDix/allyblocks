@@ -51,7 +51,7 @@ export function LanguageMenu() {
   };
 
   const currentLanguage = LANGUAGES.find(
-    (lang) => lang.code === currentLanguageCode
+    (lang) => lang.code === currentLanguageCode,
   )?.name;
 
   return (

@@ -22,30 +22,32 @@ export type BaseFieldProps = {
 /**
  * Type for input-based form fields (extends HTML input attributes)
  */
-export type InputFieldProps = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>;
+export type InputFieldProps = BaseFieldProps &
+  InputHTMLAttributes<HTMLInputElement>;
 
 /**
  * Type for textarea-based form fields
  */
-export type TextareaFieldProps = BaseFieldProps & 
+export type TextareaFieldProps = BaseFieldProps &
   TextareaHTMLAttributes<HTMLTextAreaElement> & {
-  /** Minimum height of the textarea */
-  minHeight?: number;
-  /** Maximum height of the textarea (for auto-resize) */
-  maxHeight?: number;
-  /** Whether the textarea should auto-resize */
-  autoResize?: boolean;
-};
+    /** Minimum height of the textarea */
+    minHeight?: number;
+    /** Maximum height of the textarea (for auto-resize) */
+    maxHeight?: number;
+    /** Whether the textarea should auto-resize */
+    autoResize?: boolean;
+  };
 
 /**
  * Type for select-based form fields
  */
-export type SelectFieldProps = BaseFieldProps & React.SelectHTMLAttributes<HTMLSelectElement> & {
-  /** Placeholder text for the select field */
-  placeholder?: string;
-  /** Array of options for the select field */
-  options: SelectOption[];
-};
+export type SelectFieldProps = BaseFieldProps &
+  React.SelectHTMLAttributes<HTMLSelectElement> & {
+    /** Placeholder text for the select field */
+    placeholder?: string;
+    /** Array of options for the select field */
+    options: SelectOption[];
+  };
 
 /**
  * Type for OTP-based form fields
@@ -64,21 +66,21 @@ export type PasswordFieldProps = InputFieldProps & {
 };
 
 /**
- * Type for upload-based form fields 
+ * Type for upload-based form fields
  */
-export type UploadFieldProps = BaseFieldProps & 
-  Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
-  /** Accepted file types */
-  accept?: string;
-  /** Allow multiple file uploads */
-  multiple?: boolean;
-  /** Maximum file size in bytes */
-  maxSize?: number;
-  /** Custom validation function */
-  validateFile?: (file: File) => string | null;
-  /** Help text for upload instructions */
-  helpText?: string;
-};
+export type UploadFieldProps = BaseFieldProps &
+  Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
+    /** Accepted file types */
+    accept?: string;
+    /** Allow multiple file uploads */
+    multiple?: boolean;
+    /** Maximum file size in bytes */
+    maxSize?: number;
+    /** Custom validation function */
+    validateFile?: (file: File) => string | null;
+    /** Help text for upload instructions */
+    helpText?: string;
+  };
 
 /**
  * Type for select options
@@ -93,5 +95,5 @@ export type SelectOption = {
 /**
  * Type for checkbox-based form fields
  */
-export type CheckboxFieldProps = BaseFieldProps & 
-  InputHTMLAttributes<HTMLInputElement>; 
+export type CheckboxFieldProps = BaseFieldProps &
+  InputHTMLAttributes<HTMLInputElement>;

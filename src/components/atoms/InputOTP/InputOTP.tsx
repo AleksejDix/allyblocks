@@ -66,7 +66,7 @@ function InputOTP({
       data-slot="input-otp"
       containerClassName={cn(
         "flex items-center gap-2 has-disabled:opacity-50 ",
-        containerClassName
+        containerClassName,
       )}
       className={cn("disabled:cursor-not-allowed", className)}
       {...props}
@@ -106,7 +106,7 @@ function InputOTPSlot({
         focusVisibleClass,
         invalidClass,
         disabledClass,
-        className
+        className,
       )}
       {...props}
     >

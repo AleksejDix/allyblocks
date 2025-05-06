@@ -9,4 +9,4 @@ export type IconButtonProps = Omit<React.ComponentProps<"button">, "children"> &
     asChild?: boolean;
     children: React.ReactNode;
     "aria-label": string; // Force providing an accessible label
-  }; 
+  };

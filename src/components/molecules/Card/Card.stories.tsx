@@ -38,7 +38,7 @@ export const Basic: Story = {
 
     // Verify content is rendered
     const content = canvas.getByText(
-      "This is a basic card with just some content inside."
+      "This is a basic card with just some content inside.",
     );
     await expect(content).toBeInTheDocument();
   },
@@ -75,12 +75,12 @@ export const Complete: Story = {
     await expect(title).toBeInTheDocument();
 
     const description = canvas.getByText(
-      "This is the card description that provides additional context."
+      "This is the card description that provides additional context.",
     );
     await expect(description).toBeInTheDocument();
 
     const content = canvas.getByText(
-      "This is the main content area of the card where the primary information is displayed."
+      "This is the main content area of the card where the primary information is displayed.",
     );
     await expect(content).toBeInTheDocument();
 
@@ -117,7 +117,7 @@ export const WithBorder: Story = {
     await expect(title).toBeInTheDocument();
 
     const content = canvas.getByText(
-      "This card has a custom border color to draw attention to it."
+      "This card has a custom border color to draw attention to it.",
     );
     await expect(content).toBeInTheDocument();
 

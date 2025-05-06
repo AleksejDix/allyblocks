@@ -104,7 +104,7 @@ export const Multiple: Story = {
 
     await userEvent.selectOptions(select, ["option1", "option3"]);
     const selectedOptions = Array.from(select.selectedOptions).map(
-      (option: HTMLOptionElement) => option.value
+      (option: HTMLOptionElement) => option.value,
     );
     expect(selectedOptions).toContain("option1");
     expect(selectedOptions).toContain("option3");

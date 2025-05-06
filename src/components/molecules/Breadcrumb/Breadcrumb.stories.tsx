@@ -184,7 +184,7 @@ export const CustomSeparator: Story = {
 
     // Check that at least one separator has the expected attributes
     const separatorWithText = separators[0].closest(
-      '[data-slot="breadcrumb-separator"]'
+      '[data-slot="breadcrumb-separator"]',
     ) as HTMLElement;
     await expect(separatorWithText).not.toBeNull();
     await expect(separatorWithText).toHaveAttribute("aria-hidden", "true");

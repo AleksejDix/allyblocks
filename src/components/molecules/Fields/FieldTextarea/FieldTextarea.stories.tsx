@@ -160,7 +160,7 @@ export const Basic: Story = {
     const textarea = canvas.getByRole("textbox");
     await userEvent.type(
       textarea,
-      "This is a long enough message to pass validation"
+      "This is a long enough message to pass validation",
     );
 
     // Submit and check that error is gone

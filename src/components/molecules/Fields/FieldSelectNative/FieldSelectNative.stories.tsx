@@ -233,7 +233,7 @@ export const WithValidation: Story = {
 
     // Validation error should appear
     await expect(
-      canvas.getByText("This field is required")
+      canvas.getByText("This field is required"),
     ).toBeInTheDocument();
 
     // Select a value and validation should pass
@@ -245,7 +245,7 @@ export const WithValidation: Story = {
 
     // Error should be gone
     await expect(
-      canvas.queryByText("This field is required")
+      canvas.queryByText("This field is required"),
     ).not.toBeInTheDocument();
   },
 };
@@ -320,7 +320,7 @@ export const MultiSelect: Story = {
 
     // Check that the form contains the description
     expect(
-      canvas.getByText("Hold Ctrl/Cmd to select multiple options")
+      canvas.getByText("Hold Ctrl/Cmd to select multiple options"),
     ).toBeInTheDocument();
   },
 };

@@ -11,7 +11,7 @@ export const withDarkMode: Decorator = (Story, context) => {
 
   // Check if we should use dark mode
   const systemIsDark = window.matchMedia(
-    "(prefers-color-scheme: dark)"
+    "(prefers-color-scheme: dark)",
   ).matches;
   const shouldBeDark = scheme === "system" ? systemIsDark : scheme === "dark";
 

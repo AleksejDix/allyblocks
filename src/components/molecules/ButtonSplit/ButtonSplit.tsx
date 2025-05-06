@@ -32,7 +32,7 @@ export function ButtonSplit(props: Props) {
       className={cn(
         basicClasses,
         variantClasses[props.variant || "default"],
-        props.className
+        props.className,
       )}
     >
       {props.children}

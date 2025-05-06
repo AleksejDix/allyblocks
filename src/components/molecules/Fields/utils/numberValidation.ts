@@ -9,8 +9,8 @@ interface NumberValidationOptions {
  * Handles keyboard input to prevent invalid characters
  */
 export function handleNumberKeyDown(
-  e: KeyboardEvent<HTMLInputElement>, 
-  options: NumberValidationOptions = {}
+  e: KeyboardEvent<HTMLInputElement>,
+  options: NumberValidationOptions = {},
 ) {
   const { integerOnly = false } = options;
 
@@ -43,11 +43,11 @@ export function handleNumberKeyDown(
  */
 export function handleNumberChange<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends Path<TFieldValues> = Path<TFieldValues>
+  TName extends Path<TFieldValues> = Path<TFieldValues>,
 >(
   e: ChangeEvent<HTMLInputElement>,
   field: ControllerRenderProps<TFieldValues, TName>,
-  options: NumberValidationOptions = {}
+  options: NumberValidationOptions = {},
 ) {
   const { integerOnly = false } = options;
 
@@ -79,11 +79,11 @@ export function handleNumberChange<
  */
 export function handleNumberPaste<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends Path<TFieldValues> = Path<TFieldValues>
+  TName extends Path<TFieldValues> = Path<TFieldValues>,
 >(
   e: ClipboardEvent<HTMLInputElement>,
   field: ControllerRenderProps<TFieldValues, TName>,
-  options: NumberValidationOptions = {}
+  options: NumberValidationOptions = {},
 ) {
   const { integerOnly = false } = options;
 
@@ -92,28 +92,28 @@ export function handleNumberPaste<
 
   // Get pasted text
   const pastedText = e.clipboardData.getData("text");
-  
+
   // Prepare regex pattern based on mode (integer or float)
   const charPattern = integerOnly ? /[^\d-]/g : /[^\d.-]/g;
 
   // Clean pasted text
   const sanitized = pastedText
     .replace(charPattern, "") // Remove invalid chars
-    .replace(/^-?/, match => match) // Keep first minus if exists
+    .replace(/^-?/, (match) => match) // Keep first minus if exists
     .replace(/-/g, ""); // Remove any other minus
 
   // For float, ensure only one decimal point
-  const finalSanitized = !integerOnly 
-    ? sanitized.replace(/\.(?=.*\.)/g, "") 
+  const finalSanitized = !integerOnly
+    ? sanitized.replace(/\.(?=.*\.)/g, "")
     : sanitized;
 
   // Combine with existing value
   const inputEl = e.target as HTMLInputElement;
   const cursorPos = inputEl.selectionStart || 0;
   const currentValue = inputEl.value;
-  const newValue = 
-    currentValue.substring(0, cursorPos) + 
-    finalSanitized + 
+  const newValue =
+    currentValue.substring(0, cursorPos) +
+    finalSanitized +
     currentValue.substring(inputEl.selectionEnd || cursorPos);
 
   // Update field value
@@ -128,7 +128,11 @@ export function handleNumberPaste<
     const finalValue = parseFloat(newValue);
     if (!isNaN(finalValue)) {
       field.onChange(finalValue);
-    } else if (newValue === "." || newValue.endsWith(".") || newValue.startsWith(".")) {
+    } else if (
+      newValue === "." ||
+      newValue.endsWith(".") ||
+      newValue.startsWith(".")
+    ) {
       // Handle case of typing just a decimal point or starting with one
       field.onChange(newValue);
     }
@@ -140,18 +144,22 @@ export function handleNumberPaste<
  */
 export function handleNumberBlur<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends Path<TFieldValues> = Path<TFieldValues>
+  TName extends Path<TFieldValues> = Path<TFieldValues>,
 >(
   e: FocusEvent<HTMLInputElement>,
   field: ControllerRenderProps<TFieldValues, TName>,
-  options: NumberValidationOptions = {}
+  options: NumberValidationOptions = {},
 ) {
   const { integerOnly = false } = options;
-  
+
   field.onBlur();
 
   // Handle empty or just a minus sign
-  if (e.target.value === "-" || e.target.value === "" || e.target.value === ".") {
+  if (
+    e.target.value === "-" ||
+    e.target.value === "" ||
+    e.target.value === "."
+  ) {
     field.onChange("");
     return;
   }
@@ -172,4 +180,4 @@ export function handleNumberBlur<
       field.onChange("");
     }
   }
-} 
+}

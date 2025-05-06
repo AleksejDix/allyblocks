@@ -1,10 +1,7 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import remarkGfm from 'remark-gfm';
+import remarkGfm from "remark-gfm";
 const config: StorybookConfig = {
-  stories: [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
-  ],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@chromatic-com/storybook",
     "@storybook/addon-essentials",
@@ -13,13 +10,13 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-console",
     {
-      name: '@storybook/addon-docs',
+      name: "@storybook/addon-docs",
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
             providerImportSource: "@mdx-js/react",
-            remarkPlugins: [remarkGfm]
-          }
+            remarkPlugins: [remarkGfm],
+          },
         },
       },
     },
@@ -29,7 +26,7 @@ const config: StorybookConfig = {
     options: {},
   },
   docs: {
-    defaultName: '@Documentation'
+    defaultName: "@Documentation",
   },
   staticDirs: ["../public"],
   typescript: {
@@ -46,10 +43,10 @@ const config: StorybookConfig = {
         global: "window",
       },
       optimizeDeps: {
-        include: ['remark-gfm'],
+        include: ["remark-gfm"],
       },
     };
   },
 };
 
-export default config; 
+export default config;

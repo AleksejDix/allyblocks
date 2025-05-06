@@ -268,7 +268,7 @@ export const Required: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByText("*", { selector: ".text-destructive" })
+      canvas.getByText("*", { selector: ".text-destructive" }),
     ).toBeInTheDocument();
   },
 };

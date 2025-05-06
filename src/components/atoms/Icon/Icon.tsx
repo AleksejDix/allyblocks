@@ -28,7 +28,7 @@ export function Icon({
               size: size as 12 | 16 | 20 | 24 | 32 | 40 | 48,
             })
           : "flex items-center justify-center",
-        className
+        className,
       )}
     >
       <DynamicIcon

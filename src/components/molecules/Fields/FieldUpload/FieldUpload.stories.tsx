@@ -77,7 +77,10 @@ function BasicUploadForm() {
 
   function onSubmit(values: z.infer<typeof schema>) {
     alert(
-      JSON.stringify({ name: values.document.name, size: values.document.size })
+      JSON.stringify({
+        name: values.document.name,
+        size: values.document.size,
+      }),
     );
   }
 
@@ -167,7 +170,7 @@ function CustomUploadForm() {
     alert(
       values.document
         ? JSON.stringify({ name: values.document.name })
-        : "No file"
+        : "No file",
     );
   }
 

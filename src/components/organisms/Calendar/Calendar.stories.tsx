@@ -221,7 +221,7 @@ export const Navigation: Story = {
 
     // Find the caption element with a more specific selector - the month and year display
     const captionElement = canvas.getByText(
-      /^(January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}$/
+      /^(January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}$/,
     );
 
     // Ensure we found the correct element - it should have aria-live attribute
@@ -242,7 +242,7 @@ export const Navigation: Story = {
     // Verify month has changed
     await expect(initialMonthLabel).not.toEqual(updatedMonthLabel);
     await expect(updatedMonthLabel).toMatch(
-      /^(January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}$/
+      /^(January|February|March|April|May|June|July|August|September|October|November|December)\s\d{4}$/,
     );
   },
 };

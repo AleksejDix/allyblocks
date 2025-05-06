@@ -47,9 +47,9 @@ const Prose = React.forwardRef<HTMLElement, ProseProps>(
         {...props}
       />
     );
-  }
+  },
 );
 
 Prose.displayName = "Prose";
 
-export { Prose }; 
+export { Prose };

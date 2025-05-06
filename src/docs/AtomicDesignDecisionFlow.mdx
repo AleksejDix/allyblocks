@@ -2,13 +2,13 @@
 
 ## Component Classification Table
 
-| Level | Characteristics | Examples | Decision Criteria | When to Use |
-|-------|----------------|----------|-------------------|-------------|
-| **Atoms** | - Single, indivisible UI element<br/>- No dependencies on other components<br/>- Serves a single purpose<br/>- Can have variants/states | - Buttons<br/>- Input fields<br/>- Labels<br/>- Icons<br/>- Badges | - Can it be broken down further?<br/>- Does it rely on other components?<br/>- Does it have a single responsibility? | - When you need a basic UI element<br/>- When the component is self-contained<br/>- When it's frequently reused |
-| **Molecules** | - Combination of atoms<br/>- Has a single functionality<br/>- Reusable across different contexts | - Form fields (label + input)<br/>- Search bar<br/>- Button groups<br/>- Navigation items | - Does it combine multiple atoms?<br/>- Does it have a specific function?<br/>- Is it still relatively simple? | - When atoms need to work together<br/>- When you need a reusable compound component<br/>- When functionality requires multiple elements |
-| **Organisms** | - Complex UI sections<br/>- Contains molecules and/or atoms<br/>- Represents a distinct section<br/>- Context-specific | - Header<br/>- Footer<br/>- Form<br/>- Product card<br/>- Navigation menu | - Is it a major UI section?<br/>- Does it combine multiple molecules?<br/>- Is it context-dependent? | - When building major UI sections<br/>- When components need to work as a cohesive unit<br/>- When functionality is complex |
-| **Templates** | - Page-level layouts<br/>- No specific content<br/>- Focus on content structure<br/>- Contains multiple organisms | - Blog post layout<br/>- Product page layout<br/>- Dashboard layout | - Is it a page layout?<br/>- Does it define content areas?<br/>- Is it content-agnostic? | - When defining page structures<br/>- When creating reusable layouts<br/>- When establishing content patterns |
-| **Pages** | - Specific instances of templates<br/>- Contains actual content<br/>- Final, user-facing views | - Home page<br/>- Contact page<br/>- Product detail page | - Is it a specific implementation?<br/>- Does it contain real content?<br/>- Is it the final UI? | - When implementing specific views<br/>- When adding real content<br/>- When creating final pages |
+| Level         | Characteristics                                                                                                                         | Examples                                                                                  | Decision Criteria                                                                                                    | When to Use                                                                                                                              |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Atoms**     | - Single, indivisible UI element<br/>- No dependencies on other components<br/>- Serves a single purpose<br/>- Can have variants/states | - Buttons<br/>- Input fields<br/>- Labels<br/>- Icons<br/>- Badges                        | - Can it be broken down further?<br/>- Does it rely on other components?<br/>- Does it have a single responsibility? | - When you need a basic UI element<br/>- When the component is self-contained<br/>- When it's frequently reused                          |
+| **Molecules** | - Combination of atoms<br/>- Has a single functionality<br/>- Reusable across different contexts                                        | - Form fields (label + input)<br/>- Search bar<br/>- Button groups<br/>- Navigation items | - Does it combine multiple atoms?<br/>- Does it have a specific function?<br/>- Is it still relatively simple?       | - When atoms need to work together<br/>- When you need a reusable compound component<br/>- When functionality requires multiple elements |
+| **Organisms** | - Complex UI sections<br/>- Contains molecules and/or atoms<br/>- Represents a distinct section<br/>- Context-specific                  | - Header<br/>- Footer<br/>- Form<br/>- Product card<br/>- Navigation menu                 | - Is it a major UI section?<br/>- Does it combine multiple molecules?<br/>- Is it context-dependent?                 | - When building major UI sections<br/>- When components need to work as a cohesive unit<br/>- When functionality is complex              |
+| **Templates** | - Page-level layouts<br/>- No specific content<br/>- Focus on content structure<br/>- Contains multiple organisms                       | - Blog post layout<br/>- Product page layout<br/>- Dashboard layout                       | - Is it a page layout?<br/>- Does it define content areas?<br/>- Is it content-agnostic?                             | - When defining page structures<br/>- When creating reusable layouts<br/>- When establishing content patterns                            |
+| **Pages**     | - Specific instances of templates<br/>- Contains actual content<br/>- Final, user-facing views                                          | - Home page<br/>- Contact page<br/>- Product detail page                                  | - Is it a specific implementation?<br/>- Does it contain real content?<br/>- Is it the final UI?                     | - When implementing specific views<br/>- When adding real content<br/>- When creating final pages                                        |
 
 ## Decision Flow Chart
 
@@ -30,16 +30,16 @@ flowchart TD
     A[New Component] --> B{Can it be broken down?}
     B -->|Yes| C{Is it page-specific?}
     B -->|No| D[Atom]
-    
+
     C -->|Yes| E{Contains real content?}
     C -->|No| F{Combines multiple components?}
-    
+
     E -->|Yes| G[Page]
     E -->|No| H[Template]
-    
+
     F -->|Yes| I{Is it a major section?}
     F -->|No| J[Molecule]
-    
+
     I -->|Yes| K[Organism]
     I -->|No| J
 ```
@@ -49,18 +49,22 @@ flowchart TD
 Ask these questions in sequence:
 
 1. **Is it indivisible?**
+
    - Yes → Likely an **Atom**
    - No → Continue to next question
 
 2. **Does it combine only Atoms?**
+
    - Yes → Likely a **Molecule**
    - No → Continue to next question
 
 3. **Is it a distinct section of the interface?**
+
    - Yes → Likely an **Organism**
    - No → Continue to next question
 
 4. **Is it a page layout without specific content?**
+
    - Yes → Likely a **Template**
    - No → Continue to next question
 
@@ -71,6 +75,7 @@ Ask these questions in sequence:
 ## Examples with Reasoning
 
 ### Atom Examples
+
 - **Button**
   - ✓ Cannot be broken down further
   - ✓ Single responsibility
@@ -78,6 +83,7 @@ Ask these questions in sequence:
   - ✓ Highly reusable
 
 ### Molecule Examples
+
 - **Search Bar**
   - ✓ Combines input and button atoms
   - ✓ Single functionality
@@ -85,6 +91,7 @@ Ask these questions in sequence:
   - ✓ Clear relationship between components
 
 ### Organism Examples
+
 - **Navigation Menu**
   - ✓ Complex functionality
   - ✓ Contains multiple molecules
@@ -92,6 +99,7 @@ Ask these questions in sequence:
   - ✓ Context-specific implementation
 
 ### Template Examples
+
 - **Article Layout**
   - ✓ Defines content structure
   - ✓ Contains multiple organisms
@@ -99,6 +107,7 @@ Ask these questions in sequence:
   - ✓ Reusable across similar pages
 
 ### Page Examples
+
 - **Blog Post**
   - ✓ Uses template structure
   - ✓ Contains actual content
@@ -107,27 +116,30 @@ Ask these questions in sequence:
 
 ## Common Pitfalls
 
-| Pitfall | Example | Solution |
-|---------|----------|----------|
-| Over-atomization | Breaking down a button into separate label and container atoms | Keep elements that always work together as a single atom |
-| Complex atoms | Adding business logic to a basic input component | Move logic to molecules or organisms |
-| Tightly coupled molecules | Creating a molecule that only works in one specific organism | Design molecules to be reusable and context-independent |
-| Monolithic organisms | Creating an organism that handles too many responsibilities | Break down into smaller, focused organisms |
-| Inflexible templates | Creating templates that are too specific to one use case | Design templates to be adaptable to various content types |
+| Pitfall                   | Example                                                        | Solution                                                  |
+| ------------------------- | -------------------------------------------------------------- | --------------------------------------------------------- |
+| Over-atomization          | Breaking down a button into separate label and container atoms | Keep elements that always work together as a single atom  |
+| Complex atoms             | Adding business logic to a basic input component               | Move logic to molecules or organisms                      |
+| Tightly coupled molecules | Creating a molecule that only works in one specific organism   | Design molecules to be reusable and context-independent   |
+| Monolithic organisms      | Creating an organism that handles too many responsibilities    | Break down into smaller, focused organisms                |
+| Inflexible templates      | Creating templates that are too specific to one use case       | Design templates to be adaptable to various content types |
 
 ## Best Practices
 
 1. **Start Small**
+
    - Begin with atoms and build up
    - Focus on reusability
    - Keep components focused
 
 2. **Maintain Independence**
+
    - Atoms should be self-contained
    - Molecules should be context-independent
    - Templates should be content-agnostic
 
 3. **Consider Reusability**
+
    - More reusable = Lower level (atom/molecule)
    - More specific = Higher level (organism/template/page)
    - Balance specificity with reusability
@@ -136,4 +148,4 @@ Ask these questions in sequence:
    - Atoms: Internal state only
    - Molecules: Minimal state
    - Organisms: Complex state management
-   - Pages: Application state 
+   - Pages: Application state

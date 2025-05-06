@@ -90,7 +90,7 @@ export function FieldMultiSelect({
                       variant="outline"
                       className={cn(
                         "h-10",
-                        !selectedCount && "text-muted-foreground"
+                        !selectedCount && "text-muted-foreground",
                       )}
                       aria-invalid={!!context.getFieldState(name).error}
                       style={width ? { width } : undefined}

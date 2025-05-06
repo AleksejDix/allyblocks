@@ -5,4 +5,4 @@ import { buttonVariants } from "./Button.variants";
 export type ButtonProps = React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
-  }; 
+  };

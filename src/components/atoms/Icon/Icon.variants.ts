@@ -15,4 +15,4 @@ export const iconVariants = cva("flex items-center justify-center", {
   defaultVariants: {
     size: 16,
   },
-}); 
+});

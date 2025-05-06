@@ -22,7 +22,7 @@ const emptyStateVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 function EmptyState({

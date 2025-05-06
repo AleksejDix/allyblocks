@@ -1,1 +1,4 @@
-export { FieldSelectNative as default, type FieldSelectNativeProps } from "./FieldSelectNative"; 
+export {
+  FieldSelectNative as default,
+  type FieldSelectNativeProps,
+} from "./FieldSelectNative";

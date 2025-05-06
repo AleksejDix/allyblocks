@@ -13,6 +13,7 @@ Our design system is built using Atomic Design methodology, a systematic approac
 ## Component Categories
 
 ### Input Components
+
 Input components are the building blocks for user interaction and data collection.
 
 - **Input**: Basic text input field
@@ -23,6 +24,7 @@ Input components are the building blocks for user interaction and data collectio
 - **InputForm**: Form wrapper component
 
 ### Action Components
+
 Action components are interactive elements that trigger specific behaviors.
 
 - **Button**: Primary interactive button component
@@ -30,6 +32,7 @@ Action components are interactive elements that trigger specific behaviors.
 - **ActionButtonSplit**: Button with multiple actions
 
 ### Display Components
+
 Display components are used to present information and status.
 
 - **Badge**: Small status indicators
@@ -37,6 +40,7 @@ Display components are used to present information and status.
 - **Tooltip**: Contextual information tooltips
 
 ### Layout Components
+
 Layout components help structure the page and manage spacing.
 
 - **LayoutAspectRatio**: Component for maintaining aspect ratios
@@ -45,18 +49,16 @@ Layout components help structure the page and manage spacing.
 ## Component Hierarchy
 
 ### Atoms
+
 Atoms are the smallest, most basic components that can't be broken down further without losing their functionality.
 
 ```tsx
 // Example of an atom component
-<Input
-  name="username"
-  label="Username"
-  placeholder="Enter your username"
-/>
+<Input name="username" label="Username" placeholder="Enter your username" />
 ```
 
 ### Molecules
+
 Molecules are combinations of atoms that form more complex components.
 
 ```tsx
@@ -69,6 +71,7 @@ Molecules are combinations of atoms that form more complex components.
 ```
 
 ### Organisms
+
 Organisms are complex UI components composed of groups of molecules and/or atoms.
 
 ```tsx
@@ -97,18 +100,21 @@ All components in our design system are built with accessibility in mind:
 ## Usage Guidelines
 
 ### Input Components
+
 - Always pair inputs with labels
 - Use Required for required fields
 - Provide clear error messages
 - Support keyboard navigation
 
 ### Action Components
+
 - Use appropriate button variants
 - Provide clear feedback on interaction
 - Ensure sufficient touch targets
 - Support keyboard activation
 
 ### Display Components
+
 - Use appropriate color schemes
 - Provide alternative text for images
 - Ensure sufficient contrast
@@ -117,16 +123,19 @@ All components in our design system are built with accessibility in mind:
 ## Best Practices
 
 1. **Component Composition**
+
    - Build complex components by composing simpler ones
    - Maintain clear component hierarchy
    - Keep components focused and single-purpose
 
 2. **State Management**
+
    - Use controlled components where appropriate
    - Provide clear state management patterns
    - Document component state requirements
 
 3. **Styling**
+
    - Use consistent spacing and sizing
    - Follow the design system's color palette
    - Maintain responsive design principles
@@ -141,11 +150,13 @@ All components in our design system are built with accessibility in mind:
 To use components from our design system:
 
 1. Import the required component:
+
 ```tsx
-import { Input } from '@/components/atoms/Input';
+import { Input } from "@/components/atoms/Input";
 ```
 
 2. Use the component with appropriate props:
+
 ```tsx
 <Input
   name="username"
@@ -165,4 +176,4 @@ When contributing to the design system:
 2. Maintain accessibility standards
 3. Add comprehensive documentation
 4. Include appropriate tests
-5. Follow the established naming conventions 
+5. Follow the established naming conventions

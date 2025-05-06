@@ -14,7 +14,7 @@ function Term({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
     <dt
       className={cn(
         "md:col-span-3 text-sm text-foreground font-medium",
-        className
+        className,
       )}
       {...props}
     />

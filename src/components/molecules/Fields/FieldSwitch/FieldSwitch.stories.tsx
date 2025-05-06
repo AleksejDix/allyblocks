@@ -277,7 +277,7 @@ export const Required: Story = {
 
     // Check required indicator
     await expect(
-      canvas.getByText("*", { selector: ".text-destructive" })
+      canvas.getByText("*", { selector: ".text-destructive" }),
     ).toBeInTheDocument();
 
     // Submit form to trigger validation

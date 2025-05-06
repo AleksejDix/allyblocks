@@ -65,7 +65,7 @@ type TableTemplatePropsWithRowData<TData extends RowData> =
   TableTemplateProps<TData>;
 
 export function TableTemplate<TData extends RowData>(
-  props: TableTemplatePropsWithRowData<TData>
+  props: TableTemplatePropsWithRowData<TData>,
 ) {
   const {
     columns,

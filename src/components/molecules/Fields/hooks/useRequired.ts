@@ -16,18 +16,22 @@ function isOptionalField(fieldSchema: z.ZodTypeAny): boolean {
     return fieldSchema._def.options.some(
       (option: z.ZodTypeAny) =>
         option._def.typeName === "ZodUndefined" ||
-        option._def.typeName === "ZodNull"
+        option._def.typeName === "ZodNull",
     );
   }
 
   return false;
 }
 
-export function isRequired(schema: z.ZodObject<ZodRawShape>, fieldName: string): boolean {
+export function isRequired(
+  schema: z.ZodObject<ZodRawShape>,
+  fieldName: string,
+): boolean {
   try {
-    const shape = typeof schema._def.shape === "function" 
-      ? schema._def.shape() 
-      : schema._def.shape;
+    const shape =
+      typeof schema._def.shape === "function"
+        ? schema._def.shape()
+        : schema._def.shape;
 
     if (!shape || !(fieldName in shape)) {
       return false;

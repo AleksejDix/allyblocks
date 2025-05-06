@@ -23,7 +23,7 @@ const authSchema = z
     {
       message: "Passwords don't match",
       path: ["confirmPassword"],
-    }
+    },
   );
 
 type AuthFormData = z.infer<typeof authSchema>;

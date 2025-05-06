@@ -320,7 +320,7 @@ export const WithValidation: Story = {
 
     // Validation error should appear
     await expect(
-      canvas.getByText("This field is required")
+      canvas.getByText("This field is required"),
     ).toBeInTheDocument();
 
     // Select an option
@@ -332,7 +332,7 @@ export const WithValidation: Story = {
 
     // Error should be gone
     await expect(
-      canvas.queryByText("This field is required")
+      canvas.queryByText("This field is required"),
     ).not.toBeInTheDocument();
   },
 };

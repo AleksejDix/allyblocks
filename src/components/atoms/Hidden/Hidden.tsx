@@ -9,9 +9,8 @@ export const Hidden = ({
     className={cn(
       "absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0",
       "clip-rect-0 not-sr-only",
-      className
+      className,
     )}
     {...props}
   />
 );
-

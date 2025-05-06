@@ -11,4 +11,4 @@ export type InputProps = Omit<React.ComponentProps<"input">, "size"> &
     required?: boolean;
     // Make size explicitly typed rather than relying on VariantProps inference
     size?: InputSize;
-  }; 
+  };

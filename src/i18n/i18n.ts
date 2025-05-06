@@ -18,24 +18,24 @@ i18n.use(LanguageDetector).init({
     en: {
       translation: {
         hello: "Hello",
-      }
+      },
     },
     de: {
       translation: {
         hello: "Hallo",
-      }
+      },
     },
     fr: {
       translation: {
         hello: "Bonjour",
-      }
+      },
     },
     it: {
       translation: {
         hello: "Ciao",
-      }
-    }
-  }
+      },
+    },
+  },
 });
 
 export default i18n;

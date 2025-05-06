@@ -417,7 +417,7 @@ export const Default: Story = {
 
     // Check for validation messages
     const usernameError = canvas.getByText(
-      /username must be at least 2 characters/i
+      /username must be at least 2 characters/i,
     );
     await expect(usernameError).toBeVisible();
 
@@ -425,7 +425,7 @@ export const Default: Story = {
     await expect(emailError).toBeVisible();
 
     const passwordError = canvas.getByText(
-      /password must be at least 8 characters/i
+      /password must be at least 8 characters/i,
     );
     await expect(passwordError).toBeVisible();
 
@@ -469,12 +469,12 @@ export const WithCustomValidation: Story = {
     await expect(ageError).toBeVisible();
 
     const termsError = canvas.getByText(
-      /you must accept the terms and conditions/i
+      /you must accept the terms and conditions/i,
     );
     await expect(termsError).toBeVisible();
 
     const feedbackError = canvas.getByText(
-      /feedback must be at least 20 characters long/i
+      /feedback must be at least 20 characters long/i,
     );
     await expect(feedbackError).toBeVisible();
 
@@ -484,11 +484,11 @@ export const WithCustomValidation: Story = {
     await userEvent.type(ageInput, "21");
 
     const feedbackTextarea = canvas.getByPlaceholderText(
-      /tell us what you think/i
+      /tell us what you think/i,
     );
     await userEvent.type(
       feedbackTextarea,
-      "This is a detailed feedback that is more than 20 characters long."
+      "This is a detailed feedback that is more than 20 characters long.",
     );
 
     const termsCheckbox = canvas.getByRole("checkbox");

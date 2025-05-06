@@ -57,7 +57,7 @@ export const Indeterminate: Story = {
   },
   render: function Render() {
     const [state, setState] = React.useState<"indeterminate" | boolean>(
-      "indeterminate"
+      "indeterminate",
     );
 
     const { t } = useTranslation();

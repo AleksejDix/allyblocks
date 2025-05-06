@@ -34,12 +34,14 @@ const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>(
         {...props}
       >
         {icon || <Loader2 className={cn(spinnerVariants({ size }))} />}
-        {children && <span className="text-sm text-muted-foreground">{children}</span>}
+        {children && (
+          <span className="text-sm text-muted-foreground">{children}</span>
+        )}
       </div>
     );
-  }
+  },
 );
 
 Spinner.displayName = "Spinner";
 
-export { Spinner }; 
+export { Spinner };

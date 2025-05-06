@@ -18,7 +18,7 @@ const BulletVariants = cva(
     defaultVariants: {
       status: "offline",
     },
-  }
+  },
 );
 
 export interface BulletProps
@@ -34,12 +34,12 @@ export function Bullet({ className, status, label, ...props }: BulletProps) {
     (status === "online"
       ? "Online"
       : status === "offline"
-      ? "Offline"
-      : status === "away"
-      ? "Away"
-      : status === "busy"
-      ? "Do not disturb"
-      : "");
+        ? "Offline"
+        : status === "away"
+          ? "Away"
+          : status === "busy"
+            ? "Do not disturb"
+            : "");
 
   return (
     <span

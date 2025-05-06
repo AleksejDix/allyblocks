@@ -48,7 +48,7 @@ export function FieldSingleSelect({
       name={name}
       render={({ field }) => {
         const selectedOption = options.find(
-          (option) => option.value === field.value
+          (option) => option.value === field.value,
         );
 
         return (

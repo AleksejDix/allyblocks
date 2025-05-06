@@ -62,7 +62,7 @@ export const Default: Story = {
     const triggerButton = canvas.getByRole("button", { name: /show dialog/i });
 
     expect(
-      canvas.queryByRole("heading", { name: /are you absolutely sure/i })
+      canvas.queryByRole("heading", { name: /are you absolutely sure/i }),
     ).not.toBeInTheDocument();
 
     await userEvent.click(triggerButton);
@@ -72,7 +72,7 @@ export const Default: Story = {
     await waitFor(() => {
       // Use document.querySelector as it might be portaled outside the canvas
       contentElement = document.querySelector(
-        '[data-slot="alert-dialog-content"]'
+        '[data-slot="alert-dialog-content"]',
       );
       expect(contentElement).toBeInTheDocument();
     });
@@ -88,7 +88,7 @@ export const Default: Story = {
         within(contentElement!).getByRole("heading", {
           name: /are you absolutely sure/i,
           level: 2, // Assuming AlertDialogTitle renders an h2
-        })
+        }),
       ).toBeVisible();
     });
 
@@ -101,7 +101,7 @@ export const Default: Story = {
     await expect(title).toBeVisible();
 
     const description = within(contentElement).getByText(
-      /This action cannot be undone/i
+      /This action cannot be undone/i,
     );
     await expect(description).toBeVisible();
 
@@ -112,7 +112,7 @@ export const Default: Story = {
 
     await waitFor(() => {
       expect(
-        document.querySelector('[data-slot="alert-dialog-content"]')
+        document.querySelector('[data-slot="alert-dialog-content"]'),
       ).not.toBeInTheDocument();
     });
 
@@ -123,14 +123,14 @@ export const Default: Story = {
     let reopenedContentElement: HTMLElement | null = null;
     await waitFor(() => {
       reopenedContentElement = document.querySelector(
-        '[data-slot="alert-dialog-content"]'
+        '[data-slot="alert-dialog-content"]',
       );
       expect(reopenedContentElement).toBeInTheDocument();
     });
 
     if (!reopenedContentElement) {
       throw new Error(
-        "Alert dialog content element not found after re-open wait."
+        "Alert dialog content element not found after re-open wait.",
       );
     }
 
@@ -140,7 +140,7 @@ export const Default: Story = {
         within(reopenedContentElement!).getByRole("heading", {
           name: /are you absolutely sure/i,
           level: 2,
-        })
+        }),
       ).toBeVisible();
     });
 
@@ -151,7 +151,7 @@ export const Default: Story = {
 
     await waitFor(() => {
       expect(
-        document.querySelector('[data-slot="alert-dialog-content"]')
+        document.querySelector('[data-slot="alert-dialog-content"]'),
       ).not.toBeInTheDocument();
     });
   },
@@ -237,7 +237,7 @@ export const FocusManagement: Story = {
     let contentElement: HTMLElement | null = null;
     await waitFor(() => {
       contentElement = document.querySelector(
-        '[data-slot="alert-dialog-content"]'
+        '[data-slot="alert-dialog-content"]',
       );
       expect(contentElement).toBeInTheDocument();
     });
@@ -268,7 +268,7 @@ export const FocusManagement: Story = {
     await userEvent.click(cancelButton);
     await waitFor(() => {
       expect(
-        document.querySelector('[data-slot="alert-dialog-content"]')
+        document.querySelector('[data-slot="alert-dialog-content"]'),
       ).not.toBeInTheDocument();
     });
     await expect(triggerButton).toHaveFocus();
@@ -279,7 +279,7 @@ export const FocusManagement: Story = {
     await userEvent.click(triggerButton);
     await waitFor(() => {
       contentElement = document.querySelector(
-        '[data-slot="alert-dialog-content"]'
+        '[data-slot="alert-dialog-content"]',
       );
       expect(contentElement).toBeInTheDocument();
     });
@@ -292,8 +292,8 @@ export const FocusManagement: Story = {
     // Wait for focus to settle (e.g., on Cancel button)
     await waitFor(() =>
       expect(
-        reopenedDialogWithin.getByRole("button", { name: /cancel/i })
-      ).toHaveFocus()
+        reopenedDialogWithin.getByRole("button", { name: /cancel/i }),
+      ).toHaveFocus(),
     );
 
     // Click Continue button
@@ -302,7 +302,7 @@ export const FocusManagement: Story = {
     // 6. Test focus restore on Continue
     await waitFor(() => {
       expect(
-        document.querySelector('[data-slot="alert-dialog-content"]')
+        document.querySelector('[data-slot="alert-dialog-content"]'),
       ).not.toBeInTheDocument();
     });
     await expect(triggerButton).toHaveFocus();

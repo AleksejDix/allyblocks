@@ -19,7 +19,7 @@ const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
             props.multiple
               ? "[&_option:checked]:bg-accent py-1 *:px-3 *:py-1"
               : "h-9 ps-3 pe-8",
-            className
+            className,
           )}
           {...props}
         >
@@ -35,7 +35,7 @@ const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 SelectNative.displayName = "SelectNative";

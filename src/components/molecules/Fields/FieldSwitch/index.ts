@@ -1,1 +1,1 @@
-export * from './FieldSwitch'; 
+export * from "./FieldSwitch";

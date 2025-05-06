@@ -153,7 +153,7 @@ export const Default: Story = {
 
     // Check for length error
     const lengthError = canvas.getByText(
-      /password must be at least 8 characters/i
+      /password must be at least 8 characters/i,
     );
     await expect(lengthError).toBeVisible();
 
@@ -164,7 +164,7 @@ export const Default: Story = {
 
     // Check for pattern error
     const patternError = canvas.getByText(
-      /password must contain at least one uppercase letter/i
+      /password must contain at least one uppercase letter/i,
     );
     await expect(patternError).toBeVisible();
 
@@ -239,7 +239,7 @@ export const Optional: Story = {
 
     // Check for length error
     const lengthError = canvas.getByText(
-      /password must be at least 8 characters/i
+      /password must be at least 8 characters/i,
     );
     await expect(lengthError).toBeVisible();
   },

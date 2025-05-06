@@ -92,7 +92,7 @@ const InteractiveTemplate = (props: Record<string, unknown>) => {
     (item) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
       item.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.role.toLowerCase().includes(searchValue.toLowerCase())
+      item.role.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   return (

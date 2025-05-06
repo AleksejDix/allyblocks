@@ -5,4 +5,4 @@ import { badgeVariants } from "./Badge.variants";
 export type BadgeProps = React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & {
     asChild?: boolean;
-  }; 
+  };

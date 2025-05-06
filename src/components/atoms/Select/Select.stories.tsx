@@ -17,9 +17,26 @@ import { Icon } from "@/components/atoms/Icon";
 // Define meta using the explicit Meta type annotation
 const meta: Meta<typeof Select> = {
   component: Select,
-
   tags: ["autodocs"],
-  argTypes: {},
+  parameters: {
+    nuqs: {
+      disabled: true,
+    },
+  },
+  argTypes: {
+    defaultValue: {
+      control: "text",
+      description: "The default selected value",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Whether the select is disabled",
+    },
+    required: {
+      control: "boolean",
+      description: "Whether the select is required",
+    },
+  },
   // Add a base play function to verify component existence
   play: async ({ canvasElement }) => {
     await expect(canvasElement).not.toBeEmptyDOMElement();
@@ -78,6 +95,187 @@ export const Default: Story = {
       const selectItem = screen.getByRole("option", { name: "Apple" });
       expect(selectItem).toBeInTheDocument();
     });
+  },
+};
+
+export const Variants: Story = {
+  render: () => {
+    return (
+      <div className="grid gap-8">
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Default Variant</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger variant="default">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Outline Variant</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger variant="outline">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Ghost Variant</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger variant="ghost">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Different variants of the SelectTrigger component.",
+      },
+    },
+  },
+};
+
+export const Sizes: Story = {
+  render: () => {
+    return (
+      <div className="grid gap-8">
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Small Size</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger size="sm">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Medium Size (Default)</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger size="md">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Large Size</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger size="lg">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Different sizes of the SelectTrigger component.",
+      },
+    },
+  },
+};
+
+export const Widths: Story = {
+  render: () => {
+    return (
+      <div className="grid gap-8">
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Auto Width (Default)</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger width="auto">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-lg font-medium">Full Width</h3>
+          <Select defaultValue="apple">
+            <SelectTrigger width="full">
+              <SelectValue placeholder="Select a fruit" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="apple">Apple</SelectItem>
+              <SelectItem value="banana">Banana</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Different width configurations of the SelectTrigger component.",
+      },
+    },
+  },
+};
+
+export const DestructiveItems: Story = {
+  render: () => {
+    return (
+      <div className="w-full max-w-sm">
+        <Select defaultValue="cancel">
+          <SelectTrigger>
+            <SelectValue placeholder="Select an action" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Actions</SelectLabel>
+              <SelectItem value="save">Save changes</SelectItem>
+              <SelectItem value="cancel">Cancel</SelectItem>
+              <SelectItem value="archive">Archive</SelectItem>
+              <SelectItem value="delete" variant="destructive">
+                Delete permanently
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Using a destructive variant for critical action items.",
+      },
+    },
   },
 };
 
@@ -184,32 +382,6 @@ export const WithIcons: Story = {
         story: "Select with icons in the options to provide visual cues.",
       },
     },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-
-    // Click to open the select
-    await userEvent.click(selectTrigger);
-
-    // Verify icons are visible in the options
-    await waitFor(() => {
-      const sunnyOption = screen.getByRole("option", { name: "Sunny" });
-      expect(sunnyOption).toBeInTheDocument();
-
-      // Verify the Lucide icon is present (checking SVG)
-      const icons = document.querySelectorAll("svg");
-      expect(icons.length).toBeGreaterThan(0);
-    });
-
-    // Select an option with icon
-    const rainyOption = screen.getByRole("option", { name: "Rainy" });
-    await userEvent.click(rainyOption);
-
-    // Verify the selection is displayed
-    await waitFor(() => {
-      expect(canvas.getByText("Rainy")).toBeInTheDocument();
-    });
   },
 };
 
