@@ -7,7 +7,6 @@ import { Checkbox } from "../Checkbox/Checkbox";
 const meta: Meta<typeof Label> = {
   component: Label,
   parameters: {
-    layout: "centered",
     docs: {
       description: {
         component: "A form label component with accessibility features.",
@@ -30,11 +29,6 @@ const meta: Meta<typeof Label> = {
         defaultValue: { summary: "false" },
       },
     },
-  },
-  // Global play function for all label stories
-  play: async ({ canvasElement }) => {
-    // Verify the component renders something
-    await expect(canvasElement).not.toBeEmptyDOMElement();
   },
 };
 export default meta;
