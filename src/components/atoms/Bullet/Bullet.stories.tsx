@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { StatusIndicator } from "./StatusIndicator";
+import { Bullet } from "./Bullet";
 import { Avatar } from "../Avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 
-const meta: Meta<typeof StatusIndicator> = {
-  component: StatusIndicator,
+const meta: Meta<typeof Bullet> = {
+  component: Bullet,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
@@ -19,7 +19,7 @@ const meta: Meta<typeof StatusIndicator> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof StatusIndicator>;
+type Story = StoryObj<typeof Bullet>;
 
 export const Default: Story = {
   args: {
@@ -32,23 +32,23 @@ export const Statuses: Story = {
     <div className="flex items-center gap-6 p-4 bg-white dark:bg-slate-900 rounded-md">
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Online</span>
-        <StatusIndicator status="online" />
+        <Bullet status="online" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Offline</span>
-        <StatusIndicator status="offline" />
+        <Bullet status="offline" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Away</span>
-        <StatusIndicator status="away" />
+        <Bullet status="away" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Busy</span>
-        <StatusIndicator status="busy" />
+        <Bullet status="busy" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Invisible</span>
-        <StatusIndicator status="offline" />
+        <Bullet status="offline" />
       </div>
     </div>
   ),
@@ -63,7 +63,7 @@ export const WithAvatar: Story = {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div className="absolute -bottom-0.5 -right-0.5 h-4 w-4 flex items-end justify-end overflow-hidden">
-          <StatusIndicator status="online" />
+          <Bullet status="online" />
         </div>
       </div>
       <div className="relative w-8 h-8">
@@ -72,7 +72,7 @@ export const WithAvatar: Story = {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div className="absolute -bottom-0.5 -right-0.5 h-4 w-4 flex items-end justify-end overflow-hidden">
-          <StatusIndicator status="offline" />
+          <Bullet status="offline" />
         </div>
       </div>
     </div>

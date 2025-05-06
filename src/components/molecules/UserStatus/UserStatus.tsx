@@ -5,7 +5,7 @@ import {
   DisplayAvatarImage,
   DisplayAvatarFallback,
 } from "@/components/atoms/Avatar";
-import { StatusIndicator, StatusType } from "@/components/atoms";
+import { Bullet, StatusType } from "@/components/atoms";
 
 export type Status = StatusType;
 
@@ -13,7 +13,7 @@ interface UserStatusProps extends React.HTMLAttributes<HTMLDivElement> {
   status?: Status;
   avatarSrc?: string;
   avatarFallback?: string;
-  hideStatusIndicator?: boolean;
+  hideBullet?: boolean;
 }
 
 export function UserStatus({
@@ -21,7 +21,7 @@ export function UserStatus({
   status = "offline",
   avatarSrc,
   avatarFallback,
-  hideStatusIndicator = false,
+  hideBullet = false,
   ...props
 }: UserStatusProps) {
   // Get first letter of name for avatar fallback if needed
@@ -34,9 +34,9 @@ export function UserStatus({
         <DisplayAvatarFallback>{initials}</DisplayAvatarFallback>
       </Avatar>
 
-      {!hideStatusIndicator && (
+      {!hideBullet && (
         <div className="absolute -bottom-0.5 -right-0.5 h-4 w-4 flex items-end justify-end overflow-hidden">
-          <StatusIndicator status={status} />
+          <Bullet status={status} />
         </div>
       )}
     </div>

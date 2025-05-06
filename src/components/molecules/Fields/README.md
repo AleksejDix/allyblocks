@@ -4,19 +4,24 @@ This directory contains a collection of form field components built with React H
 
 ## Available Fields
 
-| Component       | Description                                                          |
-| --------------- | -------------------------------------------------------------------- |
-| `FieldEmail`    | Email input field with validation                                    |
-| `FieldPassword` | Password input with show/hide toggle and optional strength indicator |
-| `FieldSelect`   | Dropdown select component with options                               |
-| `FieldTextarea` | Multi-line text input                                                |
-| `FieldCheckbox` | Checkbox component                                                   |
-| `FieldOTP`      | One-time password input for verification codes                       |
-| `FieldUpload`   | File upload component                                                |
-| `FieldPhone`    | Phone number input with international format and country selection   |
-| `FieldText`     | Basic text input field                                               |
-| `FieldNumber`   | Numeric input with validation                                        |
-| `FieldInteger`  | Integer input with validation                                        |
+| Component           | Description                                                          |
+| ------------------- | -------------------------------------------------------------------- |
+| `FieldEmail`        | Email input field with validation                                    |
+| `FieldPassword`     | Password input with show/hide toggle and optional strength indicator |
+| `FieldSelect`       | Dropdown select component with options                               |
+| `FieldSelectNative` | Native HTML select element with options                              |
+| `FieldTextarea`     | Multi-line text input                                                |
+| `FieldCheckbox`     | Checkbox component                                                   |
+| `FieldOTP`          | One-time password input for verification codes                       |
+| `FieldUpload`       | File upload component                                                |
+| `FieldPhone`        | Phone number input with international format and country selection   |
+| `FieldText`         | Basic text input field                                               |
+| `FieldNumber`       | Numeric input with validation                                        |
+| `FieldInteger`      | Integer input with validation                                        |
+| `FieldSingleSelect` | Single option selection dropdown menu                                |
+| `FieldMultiSelect`  | Multiple option selection dropdown menu                              |
+| `FieldSwitch`       | Toggle switch component                                              |
+| `FieldAsyncSelect`  | Asynchronous select component for loading options from an API        |
 
 ## Usage
 
@@ -71,12 +76,16 @@ Based on modern form requirements and common shadcn/ui components, we should imp
 - [x] `FieldNumber` - Numeric input with validation
 - [x] `FieldInteger` - Integer input with validation
 - [x] `FieldPhone` - Phone number input with formatting
+- [x] `FieldSelect` - Dropdown select component
+- [x] `FieldSelectNative` - Native HTML select component
 - [ ] `FieldDatePicker` - Date selection field
 - [ ] `FieldRadioGroup` - Radio button group
-- [ ] `FieldSwitch` - Toggle switch
+- [x] `FieldSwitch` - Toggle switch
 - [ ] `FieldSlider` - Range slider component
 - [ ] `FieldCombobox` - Autocomplete input field
-- [ ] `FieldMultiSelect` - Multiple selection component
+- [x] `FieldMultiSelect` - Multiple selection component
+- [x] `FieldSingleSelect` - Single selection dropdown component
+- [ ] `FieldAsyncSelect` - Asynchronous select component
 - [ ] `FieldColorPicker` - Color selection field
 - [ ] `FieldRating` - Star/rating input component
 - [ ] `FieldAutocomplete` - Address or search autocomplete

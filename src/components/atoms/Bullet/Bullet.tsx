@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export type StatusType = "online" | "offline" | "away" | "busy";
 
-const statusIndicatorVariants = cva(
+const BulletVariants = cva(
   "inline-block rounded-full border-2 border-background shrink-0 w-3 h-3",
   {
     variants: {
@@ -21,18 +21,13 @@ const statusIndicatorVariants = cva(
   }
 );
 
-export interface StatusIndicatorProps
+export interface BulletProps
   extends React.HTMLAttributes<HTMLSpanElement>,
-    VariantProps<typeof statusIndicatorVariants> {
+    VariantProps<typeof BulletVariants> {
   label?: string;
 }
 
-export function StatusIndicator({
-  className,
-  status,
-  label,
-  ...props
-}: StatusIndicatorProps) {
+export function Bullet({ className, status, label, ...props }: BulletProps) {
   // Determine the appropriate aria label if not provided
   const ariaLabel =
     label ||
@@ -50,7 +45,7 @@ export function StatusIndicator({
     <span
       role="status"
       aria-label={ariaLabel}
-      className={cn(statusIndicatorVariants({ status }), className)}
+      className={cn(BulletVariants({ status }), className)}
       {...props}
     />
   );

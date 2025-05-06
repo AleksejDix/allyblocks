@@ -7,9 +7,6 @@ import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldPhone> = {
   component: FieldPhone,
-  parameters: {
-    layout: "centered",
-  },
   tags: ["autodocs"],
   argTypes: {
     name: {

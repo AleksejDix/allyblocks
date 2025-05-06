@@ -104,6 +104,7 @@
     "@mdx-js/react": "^3.1.0",
     "@mdx-js/rollup": "^3.1.0",
     "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-console": "^3.0.0",
     "@storybook/addon-docs": "^8.6.12",
     "@storybook/addon-essentials": "^8.6.12",
     "@storybook/addon-links": "^8.6.12",

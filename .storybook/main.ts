@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     "@storybook/experimental-addon-test",
     "@storybook/addon-links",
     "@storybook/addon-a11y",
+    "@storybook/addon-console",
     {
       name: '@storybook/addon-docs',
       options: {

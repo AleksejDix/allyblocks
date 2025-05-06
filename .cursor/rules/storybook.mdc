@@ -43,3 +43,5 @@ alwaysApply: true
 # Icons 
 
 Always user `<Icon name="<NAME of the ICON>/>` instead of <Snowy>
+
+# React use ForwardRef only if nessesary we are using react 19

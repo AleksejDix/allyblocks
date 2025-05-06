@@ -9,6 +9,7 @@ export * from "./Input";
 export * from "./Hidden";
 export * from "./Separator";
 export * from "./Switch";
-export * from "./StatusIndicator";
+export * from "./Bullet";
+export * from "./Des";
 
 // Add other atom components as needed 

@@ -9,12 +9,14 @@ export function Icon({
   ...props
 }: LucideProps & { name: IconName }) {
   return (
-    <DynamicIcon
-      name={name}
-      data-testid="icon"
-      aria-hidden={!ariaLabel}
-      aria-label={ariaLabel}
-      {...props}
-    />
+    <div className="flex items-center justify-center size-4">
+      <DynamicIcon
+        name={name}
+        data-testid="icon"
+        aria-hidden={!ariaLabel}
+        aria-label={ariaLabel}
+        {...props}
+      />
+    </div>
   );
 }
