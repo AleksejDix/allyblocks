@@ -10,9 +10,7 @@ import { Button } from "@/components/atoms/Button";
 
 const meta: Meta<typeof EmptyState> = {
   component: EmptyState,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

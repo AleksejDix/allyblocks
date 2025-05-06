@@ -15,9 +15,7 @@ import {
 
 const meta: Meta<typeof Breadcrumb> = {
   component: Breadcrumb,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

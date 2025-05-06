@@ -7,9 +7,7 @@ import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldOTP> = {
   component: FieldOTP,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     name: {

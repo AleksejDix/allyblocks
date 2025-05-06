@@ -9,9 +9,7 @@ import { Button } from "@/components/atoms/Button/Button";
 
 const meta: Meta<typeof FieldText> = {
   component: FieldText,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     name: {

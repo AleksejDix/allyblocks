@@ -11,9 +11,7 @@ import {
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

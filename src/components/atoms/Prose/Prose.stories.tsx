@@ -3,9 +3,7 @@ import { Prose } from "./Prose";
 
 const meta: Meta<typeof Prose> = {
   component: Prose,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     size: {
@@ -14,13 +12,25 @@ const meta: Meta<typeof Prose> = {
     },
     maxWidth: {
       control: "select",
-      options: ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "none"],
+      options: [
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+        "4xl",
+        "5xl",
+        "6xl",
+        "7xl",
+        "none",
+      ],
     },
   },
   args: {
     size: "default",
     maxWidth: "xl",
-  }
+  },
 };
 
 export default meta;
@@ -56,9 +66,16 @@ export const WithChildren: Story = {
   render: () => (
     <Prose>
       <h1>Heading 1</h1>
-      <p>This is a paragraph with some text. It includes <strong>bold text</strong>, <em>italic text</em>, and <a href="#">a link</a>.</p>
+      <p>
+        This is a paragraph with some text. It includes{" "}
+        <strong>bold text</strong>, <em>italic text</em>, and{" "}
+        <a href="#">a link</a>.
+      </p>
       <h2>Heading 2</h2>
-      <p>Another paragraph with some more text. This one includes <code>inline code</code> and a <a href="#">link</a>.</p>
+      <p>
+        Another paragraph with some more text. This one includes{" "}
+        <code>inline code</code> and a <a href="#">link</a>.
+      </p>
       <h3>Heading 3</h3>
       <ul>
         <li>List item 1</li>
@@ -66,7 +83,10 @@ export const WithChildren: Story = {
         <li>List item 3</li>
       </ul>
       <blockquote>
-        <p>This is a blockquote. It can be used to highlight important information or quotes.</p>
+        <p>
+          This is a blockquote. It can be used to highlight important
+          information or quotes.
+        </p>
       </blockquote>
       <pre>
         <code>
@@ -120,4 +140,4 @@ export const ExtraWide: Story = {
     maxWidth: "3xl",
     html: sampleContent,
   },
-}; 
+};

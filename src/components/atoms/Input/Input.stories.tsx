@@ -1,20 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 import { userEvent } from "@storybook/test";
+import { InputSize } from "./Input.types";
+import { Button } from "../Button";
 
 import { Input } from "./Input";
 
 const meta: Meta<typeof Input> = {
   component: Input,
   parameters: {
-    layout: "centered",
+    nuqs: {
+      disabled: true,
+    },
   },
   tags: ["autodocs"],
-  argTypes: {},
-  // Global play function for all input stories
-  play: async ({ canvasElement }) => {
-    // Verify the component renders something
-    await expect(canvasElement).not.toBeEmptyDOMElement();
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "The size of the input",
+    },
   },
 };
 export default meta;
@@ -39,6 +44,116 @@ export const RendersTextInput: Story = {
     // Test typing behavior
     await userEvent.type(input, "Hello, world!");
     await expect(input).toHaveValue("Hello, world!");
+  },
+};
+
+// Size variants
+export const SmallSize: Story = {
+  args: {
+    placeholder: "Small input",
+    size: "sm" as InputSize,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Small sized input.",
+      },
+    },
+  },
+};
+
+export const MediumSize: Story = {
+  args: {
+    placeholder: "Medium input (default)",
+    size: "md" as InputSize,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Medium sized input (default).",
+      },
+    },
+  },
+};
+
+export const LargeSize: Story = {
+  args: {
+    placeholder: "Large input",
+    size: "lg" as InputSize,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Large sized input.",
+      },
+    },
+  },
+};
+
+// Input with Button combinations
+export const EmailSubscriptionLayouts: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 w-[600px] max-w-full">
+      <div>
+        <h3 className="text-sm font-medium mb-3">Small Size</h3>
+        <div className="">
+          <Input
+            placeholder="Enter email..."
+            size="sm"
+            className="flex-1"
+            type="email"
+          />
+          <Button size="sm">Subscribe</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3">Medium Size (Default)</h3>
+        <div className="">
+          <Input
+            placeholder="Enter email..."
+            size="md"
+            className="flex-1"
+            type="email"
+          />
+          <Button size="default">Subscribe</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3">Large Size</h3>
+        <div className="">
+          <Input
+            placeholder="Enter email..."
+            size="lg"
+            className="flex-1"
+            type="email"
+          />
+          <Button size="lg">Subscribe</Button>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-sm font-medium mb-3">Stacked Layout</h3>
+        <div className="space-y-2 max-w-md">
+          <Input
+            placeholder="Enter email..."
+            size="md"
+            className="w-full"
+            type="email"
+          />
+          <Button className="w-full">Subscribe</Button>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Email subscription layouts with matching input and button sizes.",
+      },
+    },
   },
 };
 

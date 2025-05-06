@@ -1,7 +1,8 @@
-import { ChevronDownIcon } from "lucide-react";
 import React, { useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
+import { IconButton } from "@/components/atoms/IconButton";
+import { Icon } from "@/components/atoms/Icon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +10,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/molecules/DropdownMenu";
 import { ButtonSplit } from "../ButtonSplit";
+import { cn } from "@/lib/utils";
+import {
+  Action,
+  ActionEvent,
+  ButtonSplitMenuProps,
+} from "./ButtonSplitMenu.types";
 
 import {
   TooltipProvider,
@@ -21,34 +28,19 @@ import {
 // The main action is the first action in the actions arr
 // Each action has a type and payload and original event object
 
-export type ActionEvent = {
-  type: string;
-  event: Event | React.SyntheticEvent;
-  payload?: Record<string, string>;
-};
-
-export type Action = {
-  label: string;
-  type: string;
-  action: (action: ActionEvent) => void;
-  props?: Record<string, string> & { disabled?: boolean };
-  before?: React.ReactNode;
-  after?: React.ReactNode;
-  payload?: Record<string, string>;
-};
-
-type Props = {
-  actions: Action[];
-  children: React.ReactNode;
-  moreButtonRef?: React.Ref<HTMLButtonElement>;
-};
-
 const firstAction = (actions: Action[]) => actions[0];
 const isFirstActionDisabled = (actions: Action[]) =>
   firstAction(actions).props?.disabled;
 
-export function ActionButtonSplit(props: Props) {
-  const first = firstAction(props.actions);
+export function ActionButtonSplit({
+  actions,
+  children,
+  moreButtonRef,
+  variant = "default",
+  size = "default",
+  className,
+}: ButtonSplitMenuProps) {
+  const first = firstAction(actions);
   const [pendingAction, setPendingAction] = useState<{
     type: string;
     event: Event | React.SyntheticEvent;
@@ -56,9 +48,14 @@ export function ActionButtonSplit(props: Props) {
     action: (action: ActionEvent) => void;
   } | null>(null);
 
+  // Map Button size to IconButton size
+  const iconSize = size === "sm" ? "sm" : size === "lg" ? "lg" : "md";
+
   return (
-    <ButtonSplit>
+    <ButtonSplit variant={variant} className={cn(className)}>
       <Button
+        variant={variant}
+        size={size}
         onClick={(event) =>
           first.action({
             type: first.type,
@@ -66,10 +63,10 @@ export function ActionButtonSplit(props: Props) {
             payload: first.payload,
           })
         }
-        disabled={isFirstActionDisabled(props.actions)}
+        disabled={isFirstActionDisabled(actions)}
       >
         {first.before}
-        {first.label}
+        {first.label || children}
         {first.after}
       </Button>
       <TooltipProvider>
@@ -77,13 +74,14 @@ export function ActionButtonSplit(props: Props) {
           <DropdownMenu>
             <TooltipTrigger asChild>
               <DropdownMenuTrigger asChild>
-                <Button
-                  size="icon"
+                <IconButton
+                  variant={variant}
+                  size={iconSize}
                   aria-label="Select action"
-                  ref={props.moreButtonRef}
+                  ref={moreButtonRef}
                 >
-                  <ChevronDownIcon size={16} aria-hidden="true" />
-                </Button>
+                  <Icon name="chevron-down" size={16} />
+                </IconButton>
               </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
@@ -108,7 +106,7 @@ export function ActionButtonSplit(props: Props) {
                 }
               }}
             >
-              {props.actions.map((action, index) => (
+              {actions.map((action, index) => (
                 <DropdownMenuItem
                   key={index}
                   onSelect={(event) => {
@@ -131,3 +129,10 @@ export function ActionButtonSplit(props: Props) {
     </ButtonSplit>
   );
 }
+
+export type {
+  Action,
+  ActionEvent,
+  ButtonVariant,
+  ButtonSize,
+} from "./ButtonSplitMenu.types";

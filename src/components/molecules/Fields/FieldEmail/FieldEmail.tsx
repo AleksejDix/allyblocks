@@ -24,24 +24,32 @@ export function FieldEmail({
     <FormField
       control={context.control}
       name={name}
-      render={(fieldContext) => (
+      render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel>
-            <div className="flex items-center">
-              {label}
-              {required && <Required required={required} />}
+            <div>
+              <div className="flex items-center">
+                {label}
+                {required && <Required required={required} />}
+              </div>
+
+              {description && <FormDescription>{description}</FormDescription>}
             </div>
           </FormLabel>
           <FormControl>
             <Input
-              {...fieldContext.field}
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              name={field.name}
+              ref={field.ref}
               type="email"
               {...props}
               required={required}
-              aria-invalid={!!fieldContext.fieldState.error}
+              aria-invalid={!!fieldState.error}
             />
           </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+
           <FormMessage />
         </FormItem>
       )}

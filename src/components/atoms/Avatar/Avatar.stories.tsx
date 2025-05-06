@@ -4,9 +4,7 @@ import { Avatar, DisplayAvatarFallback, DisplayAvatarImage } from "./Avatar";
 
 const meta: Meta<typeof Avatar> = {
   component: Avatar,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };
@@ -19,10 +17,7 @@ export const WithImage: Story = {
   args: {
     children: (
       <>
-        <DisplayAvatarImage
-          src="https://github.com/shadcn.png"
-          alt="@shadcn"
-        />
+        <DisplayAvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
         <DisplayAvatarFallback>CN</DisplayAvatarFallback>
       </>
     ),
@@ -49,10 +44,7 @@ export const ImageLoadError: Story = {
   args: {
     children: (
       <>
-        <DisplayAvatarImage
-          src="invalid-image-url.jpg"
-          alt="Invalid Image"
-        />
+        <DisplayAvatarImage src="invalid-image-url.jpg" alt="Invalid Image" />
         <DisplayAvatarFallback>ERR</DisplayAvatarFallback>
       </>
     ),

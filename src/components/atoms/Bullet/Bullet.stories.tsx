@@ -7,9 +7,7 @@ import { AvatarFallback } from "@radix-ui/react-avatar";
 const meta: Meta<typeof Bullet> = {
   component: Bullet,
   tags: ["autodocs"],
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   argTypes: {
     status: {
       control: "select",

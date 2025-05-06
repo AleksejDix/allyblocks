@@ -17,6 +17,7 @@ export function FieldText({
   description,
   required = false,
   disabled = false,
+  size = "md",
   placeholder,
   ...props
 }: InputFieldProps) {
@@ -29,13 +30,17 @@ export function FieldText({
       render={({ field }) => (
         <FormItem>
           <FormLabel>
-            <div className="flex items-center">
-              {label}
-              {required && <Required required={required} />}
+            <div>
+              <div className="flex items-center">
+                {label}
+                {required && <Required required={required} />}
+              </div>
+              {description && <FormDescription>{description}</FormDescription>}
             </div>
           </FormLabel>
           <FormControl>
             <Input
+              size={size}
               {...field}
               {...props}
               placeholder={placeholder}
@@ -44,7 +49,7 @@ export function FieldText({
               aria-invalid={!!context.getFieldState(name).error}
             />
           </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+
           <FormMessage />
         </FormItem>
       )}

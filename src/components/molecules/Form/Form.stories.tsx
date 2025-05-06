@@ -20,6 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "./Form";
+import { FieldText } from "../Fields/FieldText/FieldText";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -37,9 +38,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 const meta: Meta<typeof Form> = {
   component: Form,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };
@@ -316,19 +315,12 @@ function AllFieldTypesForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 w-[400px]"
       >
-        <FormField
-          control={form.control}
+        <FieldText
           name="text"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Text Input</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter text" {...field} />
-              </FormControl>
-              <FormDescription>Standard text input field</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Text Input"
+          description="Standard text input field"
+          placeholder="Enter text..."
+          required
         />
 
         <FieldEmail

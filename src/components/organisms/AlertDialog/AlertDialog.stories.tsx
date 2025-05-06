@@ -23,9 +23,7 @@ import { Trash2 } from "lucide-react";
 
 const meta: Meta<typeof AlertDialog> = {
   component: AlertDialog,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

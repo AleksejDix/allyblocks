@@ -4,7 +4,6 @@ import { Icon } from "./Icon";
 const meta: Meta<typeof Icon> = {
   component: Icon,
   parameters: {
-    layout: "centered",
     docs: {
       description: {
         component: `

@@ -5,9 +5,7 @@ import { Required } from "./Required";
 
 const meta: Meta<typeof Required> = {
   component: Required,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

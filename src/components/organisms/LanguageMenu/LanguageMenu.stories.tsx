@@ -5,9 +5,7 @@ import i18n from "@/i18n/i18n";
 
 const meta: Meta<typeof LanguageMenu> = {
   component: LanguageMenu,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

@@ -11,9 +11,7 @@ import { useEffect } from "react";
 
 const meta: Meta<typeof FieldEmail> = {
   component: FieldEmail,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     name: {

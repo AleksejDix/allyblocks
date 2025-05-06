@@ -4,7 +4,6 @@ import { ToggleGroup, ToggleGroupItem } from "./ToggleGroup";
 const meta = {
   component: ToggleGroup,
   parameters: {
-    layout: "centered",
     nuqs: {
       disable: true,
     },

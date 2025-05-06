@@ -6,7 +6,6 @@ import { Separator } from "./Separator";
 const meta: Meta<typeof Separator> = {
   component: Separator,
   parameters: {
-    layout: "centered",
     docs: {
       description: {
         component:

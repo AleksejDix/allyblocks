@@ -13,9 +13,7 @@ import {
 
 const meta: Meta<typeof Dialog> = {
   component: Dialog,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

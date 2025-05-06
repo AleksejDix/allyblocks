@@ -8,9 +8,7 @@ import { Checkbox } from "@/components/atoms/Checkbox";
 
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

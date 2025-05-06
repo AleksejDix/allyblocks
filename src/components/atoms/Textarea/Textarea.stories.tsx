@@ -6,9 +6,7 @@ import { Textarea } from "./Textarea";
 
 const meta: Meta<typeof Textarea> = {
   component: Textarea,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
   // Global play function for all textarea stories

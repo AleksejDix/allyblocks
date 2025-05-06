@@ -5,9 +5,7 @@ import { ChevronDown } from "lucide-react";
 
 const meta: Meta<typeof ButtonSplit> = {
   component: ButtonSplit,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

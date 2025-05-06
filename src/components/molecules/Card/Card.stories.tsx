@@ -16,9 +16,7 @@ import { ButtonGroup } from "../ButtonGroup";
 
 const meta: Meta<typeof Card> = {
   component: Card,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {},
 };

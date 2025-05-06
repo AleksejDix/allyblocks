@@ -7,7 +7,6 @@ import { Label } from "../Label";
 const meta: Meta<typeof Switch> = {
   component: Switch,
   parameters: {
-    layout: "centered",
     docs: {
       description: {
         component: "A switch component for toggling between states.",
@@ -79,4 +78,4 @@ export const WithLabel: Story = {
     const switchElement = canvas.getByRole("switch");
     await expect(switchElement).toBeInTheDocument();
   },
-}; 
+};

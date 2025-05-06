@@ -3,6 +3,8 @@ import {
   ActionButtonSplit,
   type Action,
   type ActionEvent,
+  type ButtonVariant,
+  type ButtonSize,
 } from "./ButtonSplitMenu";
 import { useReducer, useRef, useEffect } from "react";
 import {
@@ -18,11 +20,20 @@ import {
 
 const meta: Meta<typeof ActionButtonSplit> = {
   component: ActionButtonSplit,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "outline", "secondary"],
+      description: "The style variant of the split button",
+    },
+    size: {
+      control: "select",
+      options: ["default", "sm", "lg"],
+      description: "The size of the split button",
+    },
+  },
 };
 
 export default meta;
@@ -50,7 +61,38 @@ const reducer = (state: State, action: ActionEvent) => {
   }
 };
 
-const CounterDemo = () => {
+const createActions = (
+  handleAction: (event: ActionEvent) => void
+): Action[] => [
+  {
+    label: "Increment",
+    type: "increment",
+    action: handleAction,
+  },
+  {
+    label: "Decrement",
+    type: "decrement",
+    action: handleAction,
+  },
+  {
+    label: "Reset",
+    type: "reset",
+    action: handleAction,
+  },
+  {
+    label: "Double",
+    type: "double",
+    action: handleAction,
+  },
+];
+
+const CounterDemo = ({
+  variant,
+  size,
+}: {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+}) => {
   const [state, dispatch] = useReducer(reducer, { count: 0, lastAction: null });
   const dialogTriggerRef = useRef<HTMLButtonElement>(null);
   const moreButtonRef = useRef<HTMLButtonElement>(null);
@@ -65,28 +107,7 @@ const CounterDemo = () => {
     }
   }, [state]);
 
-  const actions: Action[] = [
-    {
-      label: "Increment",
-      type: "increment",
-      action: handleAction,
-    },
-    {
-      label: "Decrement",
-      type: "decrement",
-      action: handleAction,
-    },
-    {
-      label: "Reset",
-      type: "reset",
-      action: handleAction,
-    },
-    {
-      label: "Double",
-      type: "double",
-      action: handleAction,
-    },
-  ];
+  const actions = createActions(handleAction);
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -98,7 +119,12 @@ const CounterDemo = () => {
           </div>
         )}
       </div>
-      <ActionButtonSplit actions={actions} moreButtonRef={moreButtonRef}>
+      <ActionButtonSplit
+        actions={actions}
+        moreButtonRef={moreButtonRef}
+        variant={variant}
+        size={size}
+      >
         Count Actions
       </ActionButtonSplit>
 
@@ -119,7 +145,7 @@ const CounterDemo = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Action Completed</AlertDialogTitle>
             <AlertDialogDescription>
-              Your export should arrive in your email inbox shortly.
+              Action {state.lastAction} completed
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -133,4 +159,67 @@ const CounterDemo = () => {
 
 export const Default: Story = {
   render: () => <CounterDemo />,
+};
+
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      <div>
+        <h3 className="text-lg font-medium mb-4">Variant: Default</h3>
+        <CounterDemo variant="default" />
+      </div>
+      <div>
+        <h3 className="text-lg font-medium mb-4">Variant: Outline</h3>
+        <CounterDemo variant="outline" />
+      </div>
+      <div>
+        <h3 className="text-lg font-medium mb-4">Variant: Secondary</h3>
+        <CounterDemo variant="secondary" />
+      </div>
+    </div>
+  ),
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      <div>
+        <h3 className="text-lg font-medium mb-4">Size: Default</h3>
+        <CounterDemo size="default" />
+      </div>
+      <div>
+        <h3 className="text-lg font-medium mb-4">Size: Small</h3>
+        <CounterDemo size="sm" />
+      </div>
+      <div>
+        <h3 className="text-lg font-medium mb-4">Size: Large</h3>
+        <CounterDemo size="lg" />
+      </div>
+    </div>
+  ),
+};
+
+export const VariantsAndSizes: Story = {
+  render: () => {
+    const variants: ButtonVariant[] = ["default", "outline", "secondary"];
+    const sizes: ButtonSize[] = ["default", "sm", "lg"];
+
+    return (
+      <div className="grid grid-cols-3 gap-8">
+        {variants.flatMap((variant) =>
+          sizes.map((size) => (
+            <div
+              key={`${variant}-${size}`}
+              className="flex flex-col items-center p-4 border rounded"
+            >
+              <p className="text-sm font-medium mb-4">
+                {variant} / {size}
+              </p>
+              <CounterDemo variant={variant} size={size} />
+            </div>
+          ))
+        )}
+      </div>
+    );
+  },
 };

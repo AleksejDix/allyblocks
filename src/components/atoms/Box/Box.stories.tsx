@@ -3,9 +3,7 @@ import { Box } from "./Box";
 
 const meta: Meta<typeof Box> = {
   component: Box,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     surface: {

@@ -15,6 +15,8 @@ export type BaseFieldProps = {
   required?: boolean;
   /** Whether the field is disabled */
   disabled?: boolean;
+  /** The size of the field */
+  size?: InputSize;
 };
 
 /**

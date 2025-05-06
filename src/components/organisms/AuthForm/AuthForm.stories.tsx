@@ -5,7 +5,6 @@ import { userEvent, within, expect } from "@storybook/test";
 const meta = {
   component: AuthForm,
   parameters: {
-    layout: "centered",
     docs: {
       description: {
         component:

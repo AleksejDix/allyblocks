@@ -4,9 +4,7 @@ import { UserStatus } from "./UserStatus";
 const meta: Meta<typeof UserStatus> = {
   component: UserStatus,
   tags: ["autodocs"],
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   argTypes: {
     status: {
       control: "select",

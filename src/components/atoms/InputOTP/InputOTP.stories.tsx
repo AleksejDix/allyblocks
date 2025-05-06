@@ -4,9 +4,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "./InputOTP";
 
 const meta: Meta<typeof InputOTP> = {
   component: InputOTP,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     maxLength: {

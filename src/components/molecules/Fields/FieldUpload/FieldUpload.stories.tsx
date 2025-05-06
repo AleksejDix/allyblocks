@@ -9,9 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const meta: Meta<typeof FieldUpload> = {
   component: FieldUpload,
-  parameters: {
-    layout: "centered",
-  },
+  parameters: {},
   tags: ["autodocs"],
   argTypes: {
     name: {
