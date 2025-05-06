@@ -77,7 +77,7 @@ function SelectContent({
           className={cn(
             "p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1",
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
           )}
         >
           {children}
@@ -112,7 +112,7 @@ function SelectItem({
     >
       <span className="absolute left-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Icon name="check" className="size-4" />
+          <Icon name="check" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -139,11 +139,11 @@ function SelectScrollUpButton({
       data-slot="select-scroll-up-button"
       className={cn(
         "flex cursor-default items-center justify-center py-1",
-        className,
+        className
       )}
       {...props}
     >
-      <Icon name="chevron-up" className="size-4" />
+      <Icon name="chevron-up" />
     </SelectPrimitive.ScrollUpButton>
   );
 }
@@ -157,11 +157,11 @@ function SelectScrollDownButton({
       data-slot="select-scroll-down-button"
       className={cn(
         "flex cursor-default items-center justify-center py-1",
-        className,
+        className
       )}
       {...props}
     >
-      <Icon name="chevron-down" className="size-4" />
+      <Icon name="chevron-down" />
     </SelectPrimitive.ScrollDownButton>
   );
 }

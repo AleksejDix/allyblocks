@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
 import { expect, userEvent, waitFor, within, screen } from "@storybook/test";
 import {
   Select,
@@ -11,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/atoms/Select/Select";
-import { Label } from "../Label";
 
 // Define meta using the explicit Meta type annotation
 const meta: Meta<typeof Select> = {
@@ -57,33 +55,21 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   render: (args) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [selected, setSelected] = useState("");
-
     return (
-      <div className="grid w-full max-w-sm items-center gap-1.5">
-        <Label>Selected fruit: {selected}</Label>
-        <Select
-          {...args}
-          onValueChange={(value) => {
-            args.onValueChange?.(value);
-            setSelected(value);
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="orange">Orange</SelectItem>
-              <SelectItem value="grape">Grape</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+      <Select {...args}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select a fruit" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="orange">Orange</SelectItem>
+            <SelectItem value="grape">Grape</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
     );
   },
   args: {
@@ -272,7 +258,7 @@ export const Placeholder: Story = {
 
 export const Groups: Story = {
   render: (args) => (
-    <Select {...args}>
+    <Select {...args} value="spinach">
       <SelectTrigger>
         <SelectValue placeholder="Select a food" />
       </SelectTrigger>

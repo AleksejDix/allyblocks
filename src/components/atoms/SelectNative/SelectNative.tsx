@@ -1,25 +1,30 @@
 import * as React from "react";
 import { Icon } from "@/components/atoms/Icon";
-
 import { cn } from "@/lib/utils";
-
-export type SelectNativeProps = React.ComponentPropsWithoutRef<"select"> & {
-  icon?: React.ReactNode;
-};
+import { selectNativeVariants } from "./SelectNative.variants";
+import { SelectNativeProps } from "./SelectNative.types";
 
 const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
-  ({ className, children, icon, ...props }, ref) => {
+  (
+    { className, children, icon, variant, sizeVariant, width, ...props },
+    ref
+  ) => {
     return (
-      <div className="relative max-w-fit">
+      <div
+        className={cn("relative", width === "full" ? "w-full" : "max-w-fit")}
+      >
         <select
           ref={ref}
           data-slot="select-native"
           className={cn(
-            "peer border-input text-foreground focus-visible:border-ring focus-visible:ring-ring/50 has-[option[disabled]:checked]:text-muted-foreground aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex cursor-pointer appearance-none items-center rounded-md border text-sm shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-            props.multiple
-              ? "[&_option:checked]:bg-accent py-1 *:px-3 *:py-1"
-              : "h-9 ps-3 pe-8",
-            className,
+            selectNativeVariants({
+              variant,
+              sizeVariant,
+              width,
+              multiple: !!props.multiple,
+              className,
+            }),
+            props.multiple && "[&_option:checked]:bg-accent py-1 *:px-3 *:py-1"
           )}
           {...props}
         >
@@ -35,7 +40,7 @@ const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
         )}
       </div>
     );
-  },
+  }
 );
 
 SelectNative.displayName = "SelectNative";

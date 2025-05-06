@@ -6,7 +6,27 @@ import { Icon } from "@/components/atoms/Icon";
 const meta: Meta<typeof SelectNative> = {
   component: SelectNative,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    sizeVariant: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "The size of the select",
+    },
+    variant: {
+      control: "select",
+      options: ["default", "ghost"],
+      description: "The variant of the select",
+    },
+    width: {
+      control: "select",
+      options: ["auto", "full"],
+      description: "The width of the select",
+    },
+    onChange: {
+      action: "value changed",
+      description: "Callback when the value changes",
+    },
+  },
   play: async ({ canvasElement }) => {
     await expect(canvasElement).not.toBeEmptyDOMElement();
   },
@@ -39,6 +59,108 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const select = canvas.getByRole("combobox");
     await expect(select).toBeInTheDocument();
+  },
+};
+
+export const Variants: Story = {
+  render: () => (
+    <div className="grid gap-4 grid-cols-2">
+      <div>
+        <p className="mb-2 text-sm">Default</p>
+        <SelectNative variant="default">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm">Ghost</p>
+        <SelectNative variant="ghost">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Different visual variants of the select.",
+      },
+    },
+  },
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="grid gap-4 grid-cols-3">
+      <div>
+        <p className="mb-2 text-sm">Small</p>
+        <SelectNative sizeVariant="sm">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm">Medium (Default)</p>
+        <SelectNative sizeVariant="md">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm">Large</p>
+        <SelectNative sizeVariant="lg">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Different size options for the select.",
+      },
+    },
+  },
+};
+
+export const Widths: Story = {
+  render: () => (
+    <div className="grid gap-4">
+      <div>
+        <p className="mb-2 text-sm">Auto Width (Default)</p>
+        <SelectNative width="auto">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+
+      <div>
+        <p className="mb-2 text-sm">Full Width</p>
+        <SelectNative width="full">
+          <option value="">Select an option</option>
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+        </SelectNative>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Different width configurations.",
+      },
+    },
   },
 };
 
@@ -104,7 +226,7 @@ export const Multiple: Story = {
 
     await userEvent.selectOptions(select, ["option1", "option3"]);
     const selectedOptions = Array.from(select.selectedOptions).map(
-      (option: HTMLOptionElement) => option.value,
+      (option: HTMLOptionElement) => option.value
     );
     expect(selectedOptions).toContain("option1");
     expect(selectedOptions).toContain("option3");
@@ -115,7 +237,7 @@ export const CustomIcon: Story = {
   render: (args) => (
     <SelectNative
       {...args}
-      icon={<Icon name="chevron-down-circle" className="text-primary" />}
+      icon={<Icon name="chevrons-up-down" size={16} className="text-primary" />}
     >
       <option value="">Select with custom icon</option>
       <option value="option1">Option 1</option>
