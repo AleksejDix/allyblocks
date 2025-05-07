@@ -1,11 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import {
-  Avatar,
-  DisplayAvatarImage,
-  DisplayAvatarFallback,
-} from "@/components/atoms/Avatar";
-import { Bullet, StatusType } from "@/components/atoms";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/atoms/Avatar";
+import { Bullet, type StatusType } from "@/components/atoms";
 
 export type Status = StatusType;
 
@@ -30,8 +26,8 @@ export function UserStatus({
   return (
     <div className={cn("relative w-8 h-8", className)} {...props}>
       <Avatar className="inset-0 absolute">
-        {avatarSrc && <DisplayAvatarImage src={avatarSrc} alt="" />}
-        <DisplayAvatarFallback>{initials}</DisplayAvatarFallback>
+        {avatarSrc && <AvatarImage src={avatarSrc} alt="" />}
+        <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
 
       {!hideBullet && (

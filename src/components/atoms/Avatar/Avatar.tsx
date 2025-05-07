@@ -24,30 +24,21 @@ export function Avatar({ className, size, shape, ...props }: AvatarProps) {
   );
 }
 
-export function DisplayAvatarImage({
-  className,
-  size,
-  ...props
-}: AvatarImageProps) {
+export function AvatarImage({ className, ...props }: AvatarImageProps) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
-      className={cn(avatarImageVariants({ size }), className)}
+      className={cn(avatarImageVariants(), className)}
       {...props}
     />
   );
 }
 
-export function DisplayAvatarFallback({
-  className,
-  size,
-  shape,
-  ...props
-}: AvatarFallbackProps) {
+export function AvatarFallback({ className, ...props }: AvatarFallbackProps) {
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
-      className={cn(avatarFallbackVariants({ size, shape }), className)}
+      className={cn(avatarFallbackVariants(), className)}
       {...props}
     />
   );

@@ -23,40 +23,9 @@ export const avatarVariants = cva(
 );
 
 export const avatarImageVariants = cva(
-  "aspect-square size-full",
-  {
-    variants: {
-      size: {
-        sm: "size-6",
-        md: "size-8",
-        lg: "size-10",
-        xl: "size-12",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-    },
-  },
+  "aspect-square size-full"
 );
 
 export const avatarFallbackVariants = cva(
-  "flex size-full items-center justify-center bg-muted",
-  {
-    variants: {
-      size: {
-        sm: "size-6 text-xs",
-        md: "size-8 text-sm",
-        lg: "size-10 text-base",
-        xl: "size-12 text-lg",
-      },
-      shape: {
-        circle: "rounded-full",
-        square: "rounded-md",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-      shape: "circle",
-    },
-  },
+  "absolute inset-0 flex items-center justify-center bg-muted",
 ); 

@@ -6,8 +6,12 @@ import { avatarVariants, avatarImageVariants, avatarFallbackVariants } from "./A
 export type AvatarProps = React.ComponentProps<typeof AvatarPrimitive.Root> &
   VariantProps<typeof avatarVariants>;
 
-export type AvatarImageProps = React.ComponentProps<typeof AvatarPrimitive.Image> &
-  VariantProps<typeof avatarImageVariants>;
+export type AvatarImageProps = Omit<React.ComponentProps<typeof AvatarPrimitive.Image>, 'src' | 'alt'> &
+  VariantProps<typeof avatarImageVariants> &
+  {
+    src: string;
+    alt: string;
+  };
 
 export type AvatarFallbackProps = React.ComponentProps<typeof AvatarPrimitive.Fallback> &
   VariantProps<typeof avatarFallbackVariants>; 
