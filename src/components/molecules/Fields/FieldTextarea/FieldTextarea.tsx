@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { TextareaFieldProps } from "../Field";
+import type { TextareaFieldProps } from "../Field";
 import {
   FormField,
   FormItem,

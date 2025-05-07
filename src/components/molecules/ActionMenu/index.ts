@@ -11,11 +11,16 @@ export {
   ActionMenuRadioItem,
 } from "./ActionMenu";
 
-export { actionMenuVariants } from "./ActionMenu.variants";
-
 export type {
-  Action,
-  ActionEvent,
   ActionMenuProps,
   ActionMenuRootProps,
+  ActionMenuTriggerProps,
+  ActionMenuContentProps,
+  ActionMenuItemProps,
+  ActionMenuGroupProps,
+  ActionMenuLabelProps,
+  ActionMenuSeparatorProps,
+  ActionMenuCheckboxItemProps,
+  ActionMenuRadioGroupProps,
+  ActionMenuRadioItemProps,
 } from "./ActionMenu.types";

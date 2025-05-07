@@ -1,4 +1,6 @@
-import React, { useState, createContext, useContext } from "react";
+"use client";
+
+import { useState, createContext, useContext } from "react";
 import { cn } from "@/lib/utils";
 
 import {
@@ -14,25 +16,20 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/molecules/DropdownMenu";
 
-import type { ActionMenuRootProps } from "./ActionMenu.types";
-
-// Context to share state across the compound component
-type PendingAction = {
-  callback?: (e: Event) => void;
-  value?: string;
-  context?: Record<string, unknown>;
-  event: Event;
-} | null;
-
-type ActionMenuContextType = {
-  pendingAction: PendingAction;
-  setPendingAction: React.Dispatch<React.SetStateAction<PendingAction>>;
-  onValueChange?: (
-    value: string,
-    event: Event,
-    context?: Record<string, unknown>
-  ) => void;
-};
+import type {
+  ActionMenuRootProps,
+  ActionMenuTriggerProps,
+  ActionMenuContentProps,
+  ActionMenuItemProps,
+  ActionMenuGroupProps,
+  ActionMenuLabelProps,
+  ActionMenuSeparatorProps,
+  ActionMenuCheckboxItemProps,
+  ActionMenuRadioGroupProps,
+  ActionMenuRadioItemProps,
+  PendingAction,
+  ActionMenuContextType,
+} from "./ActionMenu.types";
 
 const ActionMenuContext = createContext<ActionMenuContextType | undefined>(
   undefined
@@ -68,10 +65,7 @@ export function ActionMenu({ children, onValueChange }: ActionMenuRootProps) {
 export function ActionMenuTrigger({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+}: ActionMenuTriggerProps) {
   return (
     <DropdownMenuTrigger asChild className={className}>
       {children}
@@ -86,14 +80,16 @@ export function ActionMenuContent({
   children,
   className,
   align = "end",
+  collisionPadding = 16,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuContent>) {
+}: ActionMenuContentProps) {
   const { pendingAction, setPendingAction, onValueChange } = useActionMenu();
 
   return (
     <DropdownMenuContent
       className={className}
       align={align}
+      collisionPadding={collisionPadding}
       onAnimationEnd={() => {
         if (pendingAction) {
           // Execute the item-specific action if provided
@@ -132,12 +128,7 @@ export function ActionMenuItem({
   value,
   context,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuItem> & {
-  action?: (e: Event) => void;
-  onAction?: (e: Event) => void;
-  value?: string;
-  context?: Record<string, unknown>;
-}) {
+}: ActionMenuItemProps) {
   const { setPendingAction } = useActionMenu();
 
   // Handle the selection
@@ -177,7 +168,7 @@ export function ActionMenuGroup({
   children,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuGroup>) {
+}: ActionMenuGroupProps) {
   return (
     <DropdownMenuGroup className={cn(className)} {...props}>
       {children}
@@ -192,7 +183,7 @@ export function ActionMenuLabel({
   children,
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuLabel>) {
+}: ActionMenuLabelProps) {
   return (
     <DropdownMenuLabel className={cn(className)} {...props}>
       {children}
@@ -206,7 +197,7 @@ export function ActionMenuLabel({
 export function ActionMenuSeparator({
   className,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuSeparator>) {
+}: ActionMenuSeparatorProps) {
   return <DropdownMenuSeparator className={cn(className)} {...props} />;
 }
 
@@ -223,12 +214,7 @@ export function ActionMenuCheckboxItem({
   value,
   context,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuCheckboxItem> & {
-  action?: (checked: boolean, e: Event) => void;
-  onAction?: (checked: boolean, e: Event) => void;
-  value?: string;
-  context?: Record<string, unknown>;
-}) {
+}: ActionMenuCheckboxItemProps) {
   const { setPendingAction } = useActionMenu();
 
   const handleCheckedChange = (checked: boolean) => {
@@ -280,7 +266,7 @@ export function ActionMenuRadioGroup({
   value,
   onValueChange: onRadioValueChange,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuRadioGroup>) {
+}: ActionMenuRadioGroupProps) {
   return (
     <DropdownMenuRadioGroup
       className={cn(className)}
@@ -305,12 +291,7 @@ export function ActionMenuRadioItem({
   value, // Action value, different from radio value
   context,
   ...props
-}: React.ComponentPropsWithoutRef<typeof DropdownMenuRadioItem> & {
-  action?: (e: Event) => void;
-  onAction?: (e: Event) => void;
-  value?: string; // Action value (different from radio value)
-  context?: Record<string, unknown>;
-}) {
+}: ActionMenuRadioItemProps) {
   const { setPendingAction } = useActionMenu();
 
   const handleSelect = (event: Event) => {

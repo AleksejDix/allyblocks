@@ -11,7 +11,7 @@ import {
   ActionMenuRadioGroup,
   ActionMenuRadioItem,
 } from "./ActionMenu";
-import type { Action } from "./ActionMenu.types";
+import type { ReactNode } from "react";
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
@@ -41,8 +41,18 @@ const meta: Meta<typeof ActionMenu> = {
 export default meta;
 type Story = StoryObj<typeof ActionMenu>;
 
+// Local type for story examples only
+type MenuAction = {
+  label: string;
+  type: string;
+  before?: ReactNode;
+  after?: ReactNode;
+  payload?: Record<string, unknown>;
+  props?: Record<string, unknown> & { disabled?: boolean; className?: string };
+};
+
 // Example actions
-const sampleActions: Action[] = [
+const sampleActions: MenuAction[] = [
   {
     label: "Edit",
     type: "edit",
@@ -141,7 +151,7 @@ export const WithIndividualItems: Story = {
 // With Payload
 export const WithPayload: Story = {
   render: () => {
-    const itemActions: Action[] = [
+    const itemActions: MenuAction[] = [
       {
         label: "Edit Item #123",
         type: "edit",
@@ -188,7 +198,7 @@ export const WithPayload: Story = {
 // With Disabled Item
 export const WithDisabledItem: Story = {
   render: () => {
-    const actionsWithDisabled: Action[] = [
+    const actionsWithDisabled: MenuAction[] = [
       ...sampleActions.slice(0, 3),
       {
         label: "Premium Feature",

@@ -1,66 +1,43 @@
 import type { ReactNode } from "react";
-import type { VariantProps } from "class-variance-authority";
-import { actionMenuVariants } from "./ActionMenu.variants";
+import type { Dispatch, SetStateAction, ComponentPropsWithoutRef } from "react";
+import type {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/molecules/DropdownMenu";
 
 /**
- * Event object for action handlers
+ * Internal type for tracking pending actions
  */
-export type ActionEvent = {
-  /**
-   * Type identifier for the action
-   */
-  type: string;
-
-  /**
-   * Original event that triggered the action
-   */
-  event: Event | React.SyntheticEvent;
-
-  /**
-   * Optional payload data for the action
-   */
-  payload?: Record<string, unknown>;
-};
+export type PendingAction = {
+  callback?: (e: Event) => void;
+  value?: string;
+  context?: Record<string, unknown>;
+  event: Event;
+} | null;
 
 /**
- * Action object configuration
+ * Context type for the ActionMenu
  */
-export type Action = {
-  /**
-   * Label text for the action
-   */
-  label: string;
-
-  /**
-   * Type identifier for the action
-   */
-  type: string;
-
-  /**
-   * Optional props to pass to the menu item
-   */
-  props?: Record<string, unknown> & { disabled?: boolean };
-
-  /**
-   * Content to render before the label
-   */
-  before?: ReactNode;
-
-  /**
-   * Content to render after the label
-   */
-  after?: ReactNode;
-
-  /**
-   * Optional payload data for the action
-   */
-  payload?: Record<string, unknown>;
+export type ActionMenuContextType = {
+  pendingAction: PendingAction;
+  setPendingAction: Dispatch<SetStateAction<PendingAction>>;
+  onValueChange?: (
+    value: string,
+    event: Event,
+    context?: Record<string, unknown>
+  ) => void;
 };
 
 /**
  * Common props for ActionMenu components
  */
-export type ActionMenuProps = VariantProps<typeof actionMenuVariants> & {
+export type ActionMenuProps = {
   /**
    * Optional custom class name
    */
@@ -85,4 +62,83 @@ export type ActionMenuRootProps = ActionMenuProps & {
     event: Event,
     context?: Record<string, unknown>
   ) => void;
+};
+
+/**
+ * Props for ActionMenuTrigger component
+ */
+export type ActionMenuTriggerProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+/**
+ * Props for ActionMenuContent component
+ */
+export type ActionMenuContentProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuContent
+>;
+
+/**
+ * Props for ActionMenuItem component
+ */
+export type ActionMenuItemProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuItem
+> & {
+  action?: (e: Event) => void;
+  onAction?: (e: Event) => void;
+  value?: string;
+  context?: Record<string, unknown>;
+};
+
+/**
+ * Props for ActionMenuGroup component
+ */
+export type ActionMenuGroupProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuGroup
+>;
+
+/**
+ * Props for ActionMenuLabel component
+ */
+export type ActionMenuLabelProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuLabel
+>;
+
+/**
+ * Props for ActionMenuSeparator component
+ */
+export type ActionMenuSeparatorProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuSeparator
+>;
+
+/**
+ * Props for ActionMenuCheckboxItem component
+ */
+export type ActionMenuCheckboxItemProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuCheckboxItem
+> & {
+  action?: (checked: boolean, e: Event) => void;
+  onAction?: (checked: boolean, e: Event) => void;
+  value?: string;
+  context?: Record<string, unknown>;
+};
+
+/**
+ * Props for ActionMenuRadioGroup component
+ */
+export type ActionMenuRadioGroupProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuRadioGroup
+>;
+
+/**
+ * Props for ActionMenuRadioItem component
+ */
+export type ActionMenuRadioItemProps = ComponentPropsWithoutRef<
+  typeof DropdownMenuRadioItem
+> & {
+  action?: (e: Event) => void;
+  onAction?: (e: Event) => void;
+  value?: string; // Action value (different from radio value)
+  context?: Record<string, unknown>;
 };
