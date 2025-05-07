@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ButtonSplit } from "./ButtonSplit";
+import { ActionSplit } from "./ActionSplit";
 import { Button } from "@/components/atoms/Button";
 import { IconButton } from "@/components/atoms/IconButton";
 import { Icon } from "@/components/atoms/Icon";
+import { Input } from "@/components/atoms/Input";
 
-const meta: Meta<typeof ButtonSplit> = {
-  component: ButtonSplit,
+const meta: Meta<typeof ActionSplit> = {
+  component: ActionSplit,
   parameters: {
     nuqs: {
       disabled: true,
@@ -16,60 +17,80 @@ const meta: Meta<typeof ButtonSplit> = {
     variant: {
       control: "select",
       options: ["default", "secondary", "outline", "destructive"],
-      description: "The visual style variant of the ButtonSplit",
+      description: "The visual style variant of the ActionSplit",
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof ButtonSplit>;
+type Story = StoryObj<typeof ActionSplit>;
 
 export const Default: Story = {
   render: () => (
-    <ButtonSplit>
+    <ActionSplit>
       <Button>Previous</Button>
       <Button>Next</Button>
-    </ButtonSplit>
+    </ActionSplit>
+  ),
+};
+
+export const Search: Story = {
+  render: () => (
+    <ActionSplit>
+      <Input placeholder="Search" />
+      <Button>Search</Button>
+    </ActionSplit>
+  ),
+};
+
+export const DateInput: Story = {
+  render: () => (
+    <ActionSplit>
+      <IconButton aria-label="Calendar" variant="outline">
+        <Icon name="calendar" />
+      </IconButton>
+      <Input type="date" />
+    </ActionSplit>
   ),
 };
 
 export const Secondary: Story = {
   render: () => (
-    <ButtonSplit variant="secondary">
+    <ActionSplit variant="secondary">
       <Button variant="secondary">Previous</Button>
       <Button variant="secondary">Next</Button>
-    </ButtonSplit>
+    </ActionSplit>
   ),
 };
 
 export const Destructive: Story = {
   render: () => (
-    <ButtonSplit variant="destructive">
+    <ActionSplit variant="destructive">
       <Button variant="destructive">Previous</Button>
       <Button variant="destructive">Next</Button>
-    </ButtonSplit>
+    </ActionSplit>
   ),
 };
 
 export const Outline: Story = {
   render: () => (
-    <ButtonSplit variant="outline">
+    <ActionSplit variant="outline">
       <Button variant="outline">Previous</Button>
       <Button variant="outline">1</Button>
       <Button variant="outline">2</Button>
       <Button variant="outline">3</Button>
       <Button variant="outline">Next</Button>
-    </ButtonSplit>
+    </ActionSplit>
   ),
 };
 
-export const ButtonSplitMenu: Story = {
+export const ActionSplitMenu: Story = {
   render: () => (
-    <ButtonSplit>
+    <ActionSplit>
       <Button>Export</Button>
       <IconButton aria-label="Open menu">
         <Icon name="chevron-down" />
       </IconButton>
-    </ButtonSplit>
+    </ActionSplit>
   ),
 };

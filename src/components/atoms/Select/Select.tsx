@@ -7,7 +7,7 @@ import {
   selectContentVariants,
   selectItemVariants,
 } from "./Select.variants";
-import {
+import type {
   SelectProps,
   SelectGroupProps,
   SelectValueProps,

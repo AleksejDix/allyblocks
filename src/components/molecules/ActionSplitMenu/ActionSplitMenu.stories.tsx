@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
-  ActionButtonSplit,
+  ActionActionSplit,
   type Action,
   type ActionEvent,
   type ButtonVariant,
   type ButtonSize,
-} from "./ButtonSplitMenu";
+} from "./ActionSplitMenu";
 import { useReducer, useRef, useEffect } from "react";
 import {
   AlertDialog,
@@ -18,8 +18,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/organisms/AlertDialog";
 
-const meta: Meta<typeof ActionButtonSplit> = {
-  component: ActionButtonSplit,
+const meta: Meta<typeof ActionActionSplit> = {
+  component: ActionActionSplit,
   parameters: {},
   tags: ["autodocs"],
   argTypes: {
@@ -37,7 +37,7 @@ const meta: Meta<typeof ActionButtonSplit> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof ActionButtonSplit>;
+type Story = StoryObj<typeof ActionActionSplit>;
 
 type State = {
   count: number;
@@ -119,14 +119,14 @@ const CounterDemo = ({
           </div>
         )}
       </div>
-      <ActionButtonSplit
+      <ActionActionSplit
         actions={actions}
         moreButtonRef={moreButtonRef}
         variant={variant}
         size={size}
       >
         Count Actions
-      </ActionButtonSplit>
+      </ActionActionSplit>
 
       <AlertDialog>
         <AlertDialogTrigger asChild>

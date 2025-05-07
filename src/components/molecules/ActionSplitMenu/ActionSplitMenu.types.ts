@@ -16,11 +16,11 @@ export type Action = {
   payload?: Record<string, string>;
 };
 
-// ButtonSplit only supports these variants
+// ActionSplit only supports these variants
 export type ButtonVariant = "default" | "outline" | "secondary";
 export type ButtonSize = "default" | "sm" | "lg" | "icon";
 
-export type ButtonSplitMenuProps = {
+export type ActionSplitMenuProps = {
   actions: Action[];
   children: React.ReactNode;
   moreButtonRef?: React.Ref<HTMLButtonElement>;

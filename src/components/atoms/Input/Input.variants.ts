@@ -4,7 +4,7 @@ export const inputVariants = cva(
   [
     "md:text-sm selection:bg-primary selection:text-primary-foreground",
     "dark:bg-input/30 inline-flex h-9 w-max min-w-0 rounded-md bg-background px-3 py-1 text-base",
-    "border border-input outline-1 outline-zinc-950/5 transition-[color,outline]",
+    "border border-input outline-none transition-[color,outline]",
     "ring-offset-background",
     "placeholder:text-muted-foreground",
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:text-muted-foreground disabled:bg-muted-background",

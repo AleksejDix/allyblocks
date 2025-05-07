@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const buttonSplitMenuVariants = cva("inline-flex", {
+export const ActionSplitMenuVariants = cva("inline-flex", {
   variants: {
     variant: {
       default: "",

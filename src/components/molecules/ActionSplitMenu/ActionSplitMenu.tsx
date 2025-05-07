@@ -9,13 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/molecules/DropdownMenu";
-import { ButtonSplit } from "../ButtonSplit";
+import { ActionSplit } from "../ActionSplit";
 import { cn } from "@/lib/utils";
 import type {
   Action,
   ActionEvent,
-  ButtonSplitMenuProps,
-} from "./ButtonSplitMenu.types";
+  ActionSplitMenuProps,
+} from "./ActionSplitMenu.types";
 
 import {
   TooltipProvider,
@@ -32,14 +32,14 @@ const firstAction = (actions: Action[]) => actions[0];
 const isFirstActionDisabled = (actions: Action[]) =>
   firstAction(actions).props?.disabled;
 
-export function ActionButtonSplit({
+export function ActionActionSplit({
   actions,
   children,
   moreButtonRef,
   variant = "default",
   size = "default",
   className,
-}: ButtonSplitMenuProps) {
+}: ActionSplitMenuProps) {
   const first = firstAction(actions);
   const [pendingAction, setPendingAction] = useState<{
     type: string;
@@ -52,7 +52,7 @@ export function ActionButtonSplit({
   const iconSize = size === "sm" ? "sm" : size === "lg" ? "lg" : "md";
 
   return (
-    <ButtonSplit variant={variant} className={cn(className)}>
+    <ActionSplit variant={variant} className={cn(className)}>
       <Button
         variant={variant}
         size={size}
@@ -126,7 +126,7 @@ export function ActionButtonSplit({
           </DropdownMenu>
         </Tooltip>
       </TooltipProvider>
-    </ButtonSplit>
+    </ActionSplit>
   );
 }
 
@@ -135,4 +135,4 @@ export type {
   ActionEvent,
   ButtonVariant,
   ButtonSize,
-} from "./ButtonSplitMenu.types";
+} from "./ActionSplitMenu.types";
