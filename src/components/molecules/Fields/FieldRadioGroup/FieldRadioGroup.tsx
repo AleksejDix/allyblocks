@@ -10,7 +10,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { BaseFieldProps } from "../Field";
+import { type BaseFieldProps } from "../Field.types";
 
 export type RadioOption = {
   label: string;

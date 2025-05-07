@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "@/components/atoms/Button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./Tooltip";
 import { PlusIcon } from "lucide-react";

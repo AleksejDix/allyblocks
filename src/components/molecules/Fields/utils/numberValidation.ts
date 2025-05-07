@@ -1,5 +1,14 @@
-import { ChangeEvent, ClipboardEvent, KeyboardEvent, FocusEvent } from "react";
-import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
+import {
+  type ChangeEvent,
+  type ClipboardEvent,
+  type KeyboardEvent,
+  type FocusEvent,
+} from "react";
+import {
+  type ControllerRenderProps,
+  type FieldValues,
+  type Path,
+} from "react-hook-form";
 
 interface NumberValidationOptions {
   integerOnly?: boolean;
@@ -10,7 +19,7 @@ interface NumberValidationOptions {
  */
 export function handleNumberKeyDown(
   e: KeyboardEvent<HTMLInputElement>,
-  options: NumberValidationOptions = {},
+  options: NumberValidationOptions = {}
 ) {
   const { integerOnly = false } = options;
 
@@ -47,7 +56,7 @@ export function handleNumberChange<
 >(
   e: ChangeEvent<HTMLInputElement>,
   field: ControllerRenderProps<TFieldValues, TName>,
-  options: NumberValidationOptions = {},
+  options: NumberValidationOptions = {}
 ) {
   const { integerOnly = false } = options;
 
@@ -83,7 +92,7 @@ export function handleNumberPaste<
 >(
   e: ClipboardEvent<HTMLInputElement>,
   field: ControllerRenderProps<TFieldValues, TName>,
-  options: NumberValidationOptions = {},
+  options: NumberValidationOptions = {}
 ) {
   const { integerOnly = false } = options;
 
@@ -148,7 +157,7 @@ export function handleNumberBlur<
 >(
   e: FocusEvent<HTMLInputElement>,
   field: ControllerRenderProps<TFieldValues, TName>,
-  options: NumberValidationOptions = {},
+  options: NumberValidationOptions = {}
 ) {
   const { integerOnly = false } = options;
 

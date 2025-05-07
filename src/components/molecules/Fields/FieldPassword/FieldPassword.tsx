@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useFormContext, ControllerRenderProps } from "react-hook-form";
+import { useFormContext, type ControllerRenderProps } from "react-hook-form";
 import { Input } from "@/components/atoms/Input";
 import { Button } from "@/components/atoms/Button";
 import { Required } from "@/components/atoms/Required";
@@ -14,14 +14,17 @@ import {
   FormMessage,
 } from "@/components/molecules/Form/Form";
 
-interface FieldPasswordProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+type FieldPasswordProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> & {
   name: string;
   label?: string;
   description?: string;
   required?: boolean;
   showStrength?: boolean;
-}
+  size?: "sm" | "md" | "lg";
+};
 
 export function FieldPassword({
   name,

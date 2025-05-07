@@ -2,7 +2,6 @@ export {
   Combobox,
   ComboboxRoot,
   ComboboxTrigger,
-  ComboboxValue,
   ComboboxContent,
   ComboboxInput,
   ComboboxEmpty,
@@ -21,4 +20,4 @@ export type {
   ComboboxEmptyProps,
   ComboboxGroupProps,
   ComboboxItemProps,
-} from "./Combobox.types"; 
+} from "./Combobox.types";

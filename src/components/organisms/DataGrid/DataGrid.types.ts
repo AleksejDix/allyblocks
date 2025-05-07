@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { Table, ColumnDef } from "@tanstack/react-table";
+import type { Table, ColumnDef } from "@tanstack/react-table";
 
 export type RowData = {
   id: string | number;
@@ -21,7 +21,7 @@ export const useDataGrid = () => {
   const context = useContext(DataGridContext);
   if (!context) {
     throw new Error(
-      "useDataGrid must be used within a DataGridContextProvider",
+      "useDataGrid must be used within a DataGridContextProvider"
     );
   }
   return context;

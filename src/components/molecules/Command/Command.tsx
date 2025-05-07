@@ -11,15 +11,15 @@ import {
 import { Icon } from "@/components/atoms/Icon";
 
 import {
-  CommandProps,
-  CommandDialogProps,
-  CommandInputProps,
-  CommandListProps,
-  CommandEmptyProps,
-  CommandGroupProps,
-  CommandSeparatorProps,
-  CommandItemProps,
-  CommandShortcutProps,
+  type CommandProps,
+  type CommandDialogProps,
+  type CommandInputProps,
+  type CommandListProps,
+  type CommandEmptyProps,
+  type CommandGroupProps,
+  type CommandSeparatorProps,
+  type CommandItemProps,
+  type CommandShortcutProps,
 } from "./Command.types";
 
 import {

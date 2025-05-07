@@ -9,7 +9,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { InputFieldProps } from "../Field";
+import { type InputFieldProps } from "../Field.types";
 import {
   handleNumberKeyDown,
   handleNumberChange,

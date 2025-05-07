@@ -17,10 +17,10 @@ type Story = StoryObj<typeof FieldSwitch>;
 
 type SwitchFormValues = {
   notifications: boolean;
-  darkMode: boolean;
-  maintenance: boolean;
-  subscribed: boolean;
-  advanced: boolean;
+  darkMode?: boolean;
+  maintenance?: boolean;
+  subscribed?: boolean;
+  advanced?: boolean;
 };
 
 function BasicSwitchForm() {
@@ -277,7 +277,7 @@ export const Required: Story = {
 
     // Check required indicator
     await expect(
-      canvas.getByText("*", { selector: ".text-destructive" }),
+      canvas.getByText("*", { selector: ".text-destructive" })
     ).toBeInTheDocument();
 
     // Submit form to trigger validation

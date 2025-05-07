@@ -8,7 +8,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { BaseFieldProps } from "../Field";
+import { type BaseFieldProps } from "../Field.types";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,7 +48,7 @@ export function FieldSingleSelect({
       name={name}
       render={({ field }) => {
         const selectedOption = options.find(
-          (option) => option.value === field.value,
+          (option) => option.value === field.value
         );
 
         return (

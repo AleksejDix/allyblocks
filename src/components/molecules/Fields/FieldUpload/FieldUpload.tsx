@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { UploadFieldProps } from "../Field";
+import { type UploadFieldProps } from "../Field.types";
 import { Required } from "@/components/atoms/Required";
 import {
   FormField,

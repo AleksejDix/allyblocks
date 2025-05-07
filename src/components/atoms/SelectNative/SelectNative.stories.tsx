@@ -202,7 +202,7 @@ export const WithGroups: Story = {
 
 export const Multiple: Story = {
   render: (args) => (
-    <SelectNative {...args} multiple size={4}>
+    <SelectNative {...args} multiple>
       <option value="option1">Option 1</option>
       <option value="option2">Option 2</option>
       <option value="option3">Option 3</option>

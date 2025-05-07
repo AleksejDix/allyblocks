@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Input } from "../../atoms/Input";
 import {
   DataGrid,
   DataGridTable,
   DataGridColumnVisibility,
 } from "../../organisms/DataGrid";
-import { ColumnDef } from "@tanstack/react-table";
-import { RowData } from "../../organisms/DataGrid/DataGrid.types";
+import type { ColumnDef } from "@tanstack/react-table";
+import type { RowData } from "../../organisms/DataGrid/DataGrid.types";
 
 // Generic interface for TableTemplate props
 interface TableTemplateProps<TData> {
@@ -65,7 +65,7 @@ type TableTemplatePropsWithRowData<TData extends RowData> =
   TableTemplateProps<TData>;
 
 export function TableTemplate<TData extends RowData>(
-  props: TableTemplatePropsWithRowData<TData>,
+  props: TableTemplatePropsWithRowData<TData>
 ) {
   const {
     columns,

@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { CheckboxFieldProps } from "../Field";
+import type { CheckboxFieldProps } from "../Field.types";
 import { Required } from "@/components/atoms/Required";
 
 import {

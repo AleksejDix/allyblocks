@@ -8,7 +8,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { BaseFieldProps } from "../Field";
+import { type BaseFieldProps } from "../Field.types";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -90,7 +90,7 @@ export function FieldMultiSelect({
                       variant="outline"
                       className={cn(
                         "h-10",
-                        !selectedCount && "text-muted-foreground",
+                        !selectedCount && "text-muted-foreground"
                       )}
                       aria-invalid={!!context.getFieldState(name).error}
                       style={width ? { width } : undefined}

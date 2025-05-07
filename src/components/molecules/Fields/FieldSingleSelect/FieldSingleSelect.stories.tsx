@@ -164,12 +164,7 @@ function CustomWidthForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
       >
-        <FieldSingleSelect
-          name="category"
-          label="Category"
-          options={options}
-          width={300}
-        />
+        <FieldSingleSelect name="category" label="Category" options={options} />
         <Button type="submit">Submit</Button>
       </form>
     </Form>
@@ -268,7 +263,7 @@ export const Required: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(
-      canvas.getByText("*", { selector: ".text-destructive" }),
+      canvas.getByText("*", { selector: ".text-destructive" })
     ).toBeInTheDocument();
   },
 };

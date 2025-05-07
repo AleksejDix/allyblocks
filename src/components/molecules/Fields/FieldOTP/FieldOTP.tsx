@@ -12,7 +12,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { OTPFieldProps } from "../Field";
+import { type OTPFieldProps } from "../Field.types";
 
 export function FieldOTP({
   name,

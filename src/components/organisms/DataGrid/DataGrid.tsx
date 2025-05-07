@@ -1,7 +1,7 @@
 import { type ColumnDef, flexRender, type Row } from "@tanstack/react-table";
-import { ReactNode, PropsWithChildren } from "react";
+import { type ReactNode, type PropsWithChildren } from "react";
 import { DataGridContextProvider } from "./DataGrid.context";
-import { type RowData, useDataGrid, LblColumnDef } from "./DataGrid.types";
+import { type RowData, useDataGrid, type LblColumnDef } from "./DataGrid.types";
 import {
   Table,
   TableBody,
@@ -27,7 +27,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DynamicIcon, IconName } from "lucide-react/dynamic";
+import { DynamicIcon, type IconName } from "lucide-react/dynamic";
 
 // Main DataGrid Component
 type DataGridProps<TData extends RowData> = {
@@ -96,7 +96,7 @@ export function DataGridHeader() {
                 ? null
                 : flexRender(
                     header.column.columnDef.header,
-                    header.getContext(),
+                    header.getContext()
                   )}
             </TableHead>
           ))}
@@ -185,7 +185,7 @@ export function DataGridFooter() {
                 ? null
                 : flexRender(
                     header.column.columnDef.footer,
-                    header.getContext(),
+                    header.getContext()
                   )}
             </TableCell>
           ))}

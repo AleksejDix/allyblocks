@@ -9,7 +9,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { BaseFieldProps } from "../Field";
+import { type BaseFieldProps } from "../Field.types";
 import React from "react";
 
 export type FieldSelectNativeProps = BaseFieldProps &
@@ -39,7 +39,7 @@ export function FieldSelectNative({
       render={({ field }) => {
         // Handle multiple select values
         const handleMultipleChange = (
-          e: React.ChangeEvent<HTMLSelectElement>,
+          e: React.ChangeEvent<HTMLSelectElement>
         ) => {
           const options = Array.from(e.target.selectedOptions);
           const values = options.map((option) => option.value);

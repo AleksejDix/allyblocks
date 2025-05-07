@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import type { InputSize } from "@/components/atoms/Input/Input.types";
+import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 import React from "react";
 
 /**

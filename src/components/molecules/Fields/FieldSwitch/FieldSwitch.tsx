@@ -8,7 +8,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { BaseFieldProps } from "../Field";
+import { type BaseFieldProps } from "../Field.types";
 import { Switch } from "@/components/atoms/Switch/Switch";
 
 export type FieldSwitchProps = BaseFieldProps & {

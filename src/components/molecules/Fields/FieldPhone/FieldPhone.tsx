@@ -17,11 +17,11 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
-import { BaseFieldProps } from "../Field";
+import { type BaseFieldProps } from "../Field.types";
 
-export interface PhoneFieldProps extends BaseFieldProps {
+export type PhoneFieldProps = BaseFieldProps & {
   defaultCountry?: Country;
-}
+};
 
 export function FieldPhone({
   name,
@@ -69,13 +69,16 @@ export function FieldPhone({
   );
 }
 
-const PhoneInput = ({ className, ...props }: React.ComponentProps<"input">) => {
+const PhoneInput = ({
+  className,
+  ...props
+}: Omit<React.ComponentProps<"input">, "size">) => {
   return (
     <Input
       data-slot="phone-input"
       className={cn(
         "-ms-px rounded-s-none shadow-none focus-visible:z-10",
-        className,
+        className
       )}
       {...props}
     />

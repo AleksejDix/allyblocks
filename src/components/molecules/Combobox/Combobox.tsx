@@ -14,9 +14,9 @@ import {
   CommandShortcut,
 } from "@/components/molecules/Command";
 import {
-  ComboboxTriggerProps,
-  ComboboxContentProps,
-  ComboboxInputProps,
+  type ComboboxTriggerProps,
+  type ComboboxContentProps,
+  type ComboboxInputProps,
 } from "./Combobox.types";
 import {
   comboboxContentVariants,

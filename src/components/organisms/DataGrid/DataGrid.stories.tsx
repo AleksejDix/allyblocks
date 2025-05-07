@@ -6,7 +6,7 @@ import {
   DataGridColumnSorter,
 } from "./";
 import { useDataGrid } from "./DataGrid.types";
-import { User, users } from "./data";
+import { type User, users } from "./data";
 
 const columnHelper = createColumnHelper<User>();
 

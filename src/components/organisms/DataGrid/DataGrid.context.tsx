@@ -3,8 +3,8 @@ import {
   useReactTable,
   getCoreRowModel,
   getFilteredRowModel,
-  VisibilityState,
-  ColumnResizeMode,
+  type VisibilityState,
+  type ColumnResizeMode,
 } from "@tanstack/react-table";
 import {
   DataGridContext,

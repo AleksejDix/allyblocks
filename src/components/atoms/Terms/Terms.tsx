@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { termsVariants } from "./Terms.variants";
-import { TermsProps } from "./Terms.types";
+import { type TermsProps } from "./Terms.types";
 
 function Terms({ className, variant, ...props }: TermsProps) {
   return (
@@ -14,7 +14,7 @@ function Term({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
     <dt
       className={cn(
         "md:col-span-3 text-sm text-foreground font-medium",
-        className,
+        className
       )}
       {...props}
     />

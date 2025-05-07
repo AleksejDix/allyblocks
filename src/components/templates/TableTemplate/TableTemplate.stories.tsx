@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TableTemplate } from "./TableTemplate";
 import { Button } from "../../atoms/Button";
 import { useState } from "react";
-import { RowData } from "../../organisms/DataGrid/DataGrid.types";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { RowData } from "../../organisms/DataGrid/DataGrid.types";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
 // Define the data type that extends RowData
 interface User extends RowData {
@@ -92,7 +92,7 @@ const InteractiveTemplate = (props: Record<string, unknown>) => {
     (item) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
       item.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.role.toLowerCase().includes(searchValue.toLowerCase()),
+      item.role.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   return (

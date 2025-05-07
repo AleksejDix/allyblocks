@@ -1,4 +1,4 @@
-import { z, ZodRawShape } from "zod";
+import { z, type ZodRawShape } from "zod";
 
 function isOptionalField(fieldSchema: z.ZodTypeAny): boolean {
   // If the field is wrapped with .optional()
@@ -16,7 +16,7 @@ function isOptionalField(fieldSchema: z.ZodTypeAny): boolean {
     return fieldSchema._def.options.some(
       (option: z.ZodTypeAny) =>
         option._def.typeName === "ZodUndefined" ||
-        option._def.typeName === "ZodNull",
+        option._def.typeName === "ZodNull"
     );
   }
 
@@ -25,7 +25,7 @@ function isOptionalField(fieldSchema: z.ZodTypeAny): boolean {
 
 export function isRequired(
   schema: z.ZodObject<ZodRawShape>,
-  fieldName: string,
+  fieldName: string
 ): boolean {
   try {
     const shape =

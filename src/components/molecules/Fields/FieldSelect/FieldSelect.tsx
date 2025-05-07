@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { SelectFieldProps } from "../Field";
+import { type SelectFieldProps } from "../Field.types";
 import { Required } from "@/components/atoms/Required";
 import {
   FormField,
