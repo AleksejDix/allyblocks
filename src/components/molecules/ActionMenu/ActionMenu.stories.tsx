@@ -4,11 +4,18 @@ import {
   ActionMenuTrigger,
   ActionMenuContent,
   ActionMenuItem,
+  ActionMenuGroup,
+  ActionMenuLabel,
+  ActionMenuSeparator,
+  ActionMenuCheckboxItem,
+  ActionMenuRadioGroup,
+  ActionMenuRadioItem,
 } from "./ActionMenu";
 import type { Action } from "./ActionMenu.types";
 import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
+import React from "react";
 
 const notify = (message: string) => {
   console.log(message);
@@ -510,5 +517,132 @@ export const TableRowActions: Story = {
         </table>
       </div>
     );
+  },
+};
+
+// Advanced Menu with Groups, Separators, Checkboxes and Radio Items
+export const AdvancedMenuStructure: Story = {
+  render: () => {
+    function AdvancedMenuDemo() {
+      const [smartFiltering, setSmartFiltering] = React.useState(true);
+      const [notificationsEnabled, setNotificationsEnabled] =
+        React.useState(true);
+      const [sortOrder, setSortOrder] = React.useState("newest");
+
+      // Log all actions centrally
+      const handleValueChange = (
+        value: string,
+        _event: Event,
+        context?: Record<string, unknown>
+      ) => {
+        console.log(value, context);
+        if (value === "filter:toggle") {
+          notify(
+            `Global handler: Smart filtering ${context?.checked ? "enabled" : "disabled"}`
+          );
+        } else if (value === "sort:change") {
+          notify(
+            `Global handler: Sort order changed to ${context?.radioValue}`
+          );
+        }
+      };
+
+      // Local action handlers
+      const handleNotificationToggle = (checked: boolean) => {
+        notify(
+          `Local handler: Notifications ${checked ? "enabled" : "disabled"}`
+        );
+      };
+
+      return (
+        <ActionMenu onValueChange={handleValueChange}>
+          <ActionMenuTrigger>
+            <Button>
+              Advanced Menu
+              <Icon name="chevron-down" className="ml-2" />
+            </Button>
+          </ActionMenuTrigger>
+          <ActionMenuContent>
+            <ActionMenuLabel>Items</ActionMenuLabel>
+            <ActionMenuGroup>
+              <ActionMenuItem
+                value="refresh"
+                action={() => notify("Refreshing items...")}
+              >
+                <Icon name="refresh-ccw" />
+                Refresh
+              </ActionMenuItem>
+              <ActionMenuItem
+                value="duplicate"
+                action={() => notify("Duplicating...")}
+              >
+                <Icon name="copy" />
+                Duplicate
+              </ActionMenuItem>
+            </ActionMenuGroup>
+
+            <ActionMenuSeparator />
+
+            <ActionMenuLabel>Preferences</ActionMenuLabel>
+            <ActionMenuGroup>
+              <ActionMenuCheckboxItem
+                checked={smartFiltering}
+                onCheckedChange={setSmartFiltering}
+                value="filter:toggle"
+                context={{ setting: "smartFilter" }}
+              >
+                Smart Filtering (global handler)
+              </ActionMenuCheckboxItem>
+              <ActionMenuCheckboxItem
+                checked={notificationsEnabled}
+                onCheckedChange={setNotificationsEnabled}
+                action={handleNotificationToggle}
+              >
+                Notifications (local handler)
+              </ActionMenuCheckboxItem>
+            </ActionMenuGroup>
+
+            <ActionMenuSeparator />
+
+            <ActionMenuLabel>Sort Order</ActionMenuLabel>
+            <ActionMenuRadioGroup
+              value={sortOrder}
+              onValueChange={setSortOrder}
+            >
+              <ActionMenuRadioItem
+                value="newest"
+                action={() => notify(`Sorted by newest first`)}
+              >
+                Newest First
+              </ActionMenuRadioItem>
+              <ActionMenuRadioItem
+                value="oldest"
+                action={() => notify(`Sorted by oldest first`)}
+              >
+                Oldest First
+              </ActionMenuRadioItem>
+              <ActionMenuRadioItem
+                value="alphabetical"
+                action={() => notify(`Sorted alphabetically`)}
+              >
+                Alphabetical
+              </ActionMenuRadioItem>
+            </ActionMenuRadioGroup>
+
+            <ActionMenuSeparator />
+
+            <ActionMenuItem
+              value="help"
+              action={() => notify("Opening help...")}
+            >
+              <Icon name="help-circle" />
+              Help & Documentation
+            </ActionMenuItem>
+          </ActionMenuContent>
+        </ActionMenu>
+      );
+    }
+
+    return <AdvancedMenuDemo />;
   },
 };

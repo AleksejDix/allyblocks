@@ -6,6 +6,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
 } from "@/components/molecules/DropdownMenu";
 
 import type { ActionMenuRootProps } from "./ActionMenu.types";
@@ -162,5 +168,166 @@ export function ActionMenuItem({
     >
       {children}
     </DropdownMenuItem>
+  );
+}
+
+/**
+ * ActionMenuGroup - Logical grouping of related menu items
+ */
+export function ActionMenuGroup({
+  children,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuGroup>) {
+  return (
+    <DropdownMenuGroup className={cn(className)} {...props}>
+      {children}
+    </DropdownMenuGroup>
+  );
+}
+
+/**
+ * ActionMenuLabel - Non-interactive label within the menu
+ */
+export function ActionMenuLabel({
+  children,
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuLabel>) {
+  return (
+    <DropdownMenuLabel className={cn(className)} {...props}>
+      {children}
+    </DropdownMenuLabel>
+  );
+}
+
+/**
+ * ActionMenuSeparator - Visual separator between menu items
+ */
+export function ActionMenuSeparator({
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuSeparator>) {
+  return <DropdownMenuSeparator className={cn(className)} {...props} />;
+}
+
+/**
+ * ActionMenuCheckboxItem - Menu item with checkbox functionality
+ */
+export function ActionMenuCheckboxItem({
+  children,
+  className,
+  checked,
+  onCheckedChange,
+  action,
+  value,
+  context,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuCheckboxItem> & {
+  action?: (checked: boolean, e: Event) => void;
+  value?: string;
+  context?: Record<string, unknown>;
+}) {
+  const { setPendingAction } = useActionMenu();
+
+  const handleCheckedChange = (checked: boolean) => {
+    if (onCheckedChange) {
+      onCheckedChange(checked);
+    }
+  };
+
+  const handleSelect = (event: Event) => {
+    const newChecked = !checked;
+
+    // Schedule the action to run after animation
+    setPendingAction({
+      callback: action ? (e) => action(newChecked, e) : undefined,
+      value,
+      // Include the new checked state in the context
+      context: { ...context, checked: newChecked },
+      event,
+    });
+
+    // Update the checked state through the original handler
+    handleCheckedChange(newChecked);
+  };
+
+  return (
+    <DropdownMenuCheckboxItem
+      className={cn("flex items-center", className)}
+      checked={checked}
+      // Use the original onCheckedChange for controlled behavior
+      onCheckedChange={handleCheckedChange}
+      // But intercept the selection to handle actions
+      onSelect={handleSelect}
+      {...props}
+    >
+      {children}
+    </DropdownMenuCheckboxItem>
+  );
+}
+
+/**
+ * ActionMenuRadioGroup - Container for radio items
+ */
+export function ActionMenuRadioGroup({
+  children,
+  className,
+  value,
+  onValueChange: onRadioValueChange,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuRadioGroup>) {
+  return (
+    <DropdownMenuRadioGroup
+      className={cn(className)}
+      value={value}
+      onValueChange={onRadioValueChange}
+      {...props}
+    >
+      {children}
+    </DropdownMenuRadioGroup>
+  );
+}
+
+/**
+ * ActionMenuRadioItem - Menu item with radio selection functionality
+ */
+export function ActionMenuRadioItem({
+  children,
+  className,
+  value: radioValue,
+  action,
+  value, // Action value, different from radio value
+  context,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof DropdownMenuRadioItem> & {
+  action?: (e: Event) => void;
+  value?: string; // Action value (different from radio value)
+  context?: Record<string, unknown>;
+}) {
+  const { setPendingAction } = useActionMenu();
+
+  const handleSelect = (event: Event) => {
+    // Schedule the action to run after animation
+    if (action || value) {
+      setPendingAction({
+        callback: action,
+        value: value, // Use the action value if provided
+        // Include the radio value in the context
+        context: { ...context, radioValue },
+        event,
+      });
+    }
+  };
+
+  return (
+    <DropdownMenuRadioItem
+      className={cn("flex items-center", className)}
+      value={radioValue}
+      onSelect={handleSelect}
+      {...props}
+    >
+      {children}
+    </DropdownMenuRadioItem>
   );
 }

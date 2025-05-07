@@ -3,6 +3,12 @@ export {
   ActionMenuTrigger,
   ActionMenuContent,
   ActionMenuItem,
+  ActionMenuGroup,
+  ActionMenuLabel,
+  ActionMenuSeparator,
+  ActionMenuCheckboxItem,
+  ActionMenuRadioGroup,
+  ActionMenuRadioItem,
 } from "./ActionMenu";
 
 export { actionMenuVariants } from "./ActionMenu.variants";
