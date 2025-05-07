@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import {
   ActionButtonSplit,
   type Action,
@@ -62,7 +62,7 @@ const reducer = (state: State, action: ActionEvent) => {
 };
 
 const createActions = (
-  handleAction: (event: ActionEvent) => void,
+  handleAction: (event: ActionEvent) => void
 ): Action[] => [
   {
     label: "Increment",
@@ -217,7 +217,7 @@ export const VariantsAndSizes: Story = {
               </p>
               <CounterDemo variant={variant} size={size} />
             </div>
-          )),
+          ))
         )}
       </div>
     );

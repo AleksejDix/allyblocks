@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { within, expect } from "@storybook/test";
 import { userEvent } from "@storybook/test";
-import { InputSize } from "./Input.types";
+import type { InputSize } from "./Input.types";
 import { Button } from "../Button";
 
 import { Input } from "./Input";

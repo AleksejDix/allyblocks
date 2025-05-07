@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { inputVariants } from "./Input.variants";
-import { InputProps, InputSize } from "./Input.types";
+import type { InputProps, InputSize } from "./Input.types";
 
 export function Input({
   className,

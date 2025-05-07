@@ -1,13 +1,20 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ButtonSplit } from "./ButtonSplit";
 import { Button } from "@/components/atoms/Button";
-import { ChevronDown } from "lucide-react";
+import { IconButton } from "@/components/atoms/IconButton";
+import { Icon } from "@/components/atoms/Icon";
 
 const meta: Meta<typeof ButtonSplit> = {
   component: ButtonSplit,
   parameters: {},
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "secondary", "outline", "destructive"],
+      description: "The visual style variant of the ButtonSplit",
+    },
+  },
 };
 
 export default meta;
@@ -33,7 +40,7 @@ export const Secondary: Story = {
 
 export const Destructive: Story = {
   render: () => (
-    <ButtonSplit>
+    <ButtonSplit variant="destructive">
       <Button variant="destructive">Previous</Button>
       <Button variant="destructive">Next</Button>
     </ButtonSplit>
@@ -53,9 +60,9 @@ export const ButtonSplitMenu: Story = {
   render: () => (
     <ButtonSplit>
       <Button>Export</Button>
-      <Button size="icon">
-        <ChevronDown />
-      </Button>
+      <IconButton aria-label="Open menu">
+        <Icon name="chevron-down" />
+      </IconButton>
     </ButtonSplit>
   ),
 };

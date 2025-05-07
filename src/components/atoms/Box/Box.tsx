@@ -45,7 +45,7 @@ const Box = React.forwardRef<HTMLElement, BoxProps>(
         {...props}
       />
     );
-  },
+  }
 );
 
 Box.displayName = "Box";

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Icon } from "@/components/atoms/Icon";
 import { cn } from "@/lib/utils";
 import { selectNativeVariants } from "./SelectNative.variants";
-import { SelectNativeProps } from "./SelectNative.types";
+import type { SelectNativeProps } from "./SelectNative.types";
 
 const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
   (

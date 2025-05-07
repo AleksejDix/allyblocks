@@ -25,5 +25,5 @@ export const inputVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  },
+  }
 );

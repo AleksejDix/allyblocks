@@ -11,7 +11,7 @@ import {
 } from "@/components/molecules/DropdownMenu";
 import { Button } from "@/components/atoms/Button";
 
-import {
+import type {
   MultiSelectProps,
   MultiSelectTriggerProps,
   MultiSelectContentProps,

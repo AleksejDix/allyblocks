@@ -1,7 +1,7 @@
 import { DynamicIcon } from "lucide-react/dynamic";
 import { cn } from "@/lib/utils";
 import { iconVariants } from "./Icon.variants";
-import { IconProps } from "./Icon.types";
+import type { IconProps } from "./Icon.types";
 
 export function Icon({
   name,
@@ -28,7 +28,7 @@ export function Icon({
               size: size as 12 | 16 | 20 | 24 | 32 | 40 | 48,
             })
           : "flex items-center justify-center",
-        className,
+        className
       )}
     >
       <DynamicIcon

@@ -11,7 +11,7 @@ import {
 } from "@/components/molecules/DropdownMenu";
 import { ButtonSplit } from "../ButtonSplit";
 import { cn } from "@/lib/utils";
-import {
+import type {
   Action,
   ActionEvent,
   ButtonSplitMenuProps,

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import { iconButtonVariants } from "./IconButton.variants";
-import { IconButtonProps } from "./IconButton.types";
+import type { IconButtonProps } from "./IconButton.types";
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ className, variant, size, asChild = false, children, ...props }, ref) => {
@@ -24,7 +24,7 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         {children}
       </Comp>
     );
-  },
+  }
 );
 
 IconButton.displayName = "IconButton";
