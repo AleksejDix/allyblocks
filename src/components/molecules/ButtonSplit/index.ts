@@ -1,3 +1,3 @@
-export * from "./ButtonSplit";
-export * from "./ButtonSplit.types";
-export * from "./ButtonSplit.variants";
+export { ButtonSplit } from "./ButtonSplit";
+export { buttonSplitVariants } from "./ButtonSplit.variants";
+export type { ButtonSplitProps } from "./ButtonSplit.types";

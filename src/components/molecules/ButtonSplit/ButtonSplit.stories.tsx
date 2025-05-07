@@ -6,7 +6,11 @@ import { Icon } from "@/components/atoms/Icon";
 
 const meta: Meta<typeof ButtonSplit> = {
   component: ButtonSplit,
-  parameters: {},
+  parameters: {
+    nuqs: {
+      disabled: true,
+    },
+  },
   tags: ["autodocs"],
   argTypes: {
     variant: {
@@ -51,6 +55,9 @@ export const Outline: Story = {
   render: () => (
     <ButtonSplit variant="outline">
       <Button variant="outline">Previous</Button>
+      <Button variant="outline">1</Button>
+      <Button variant="outline">2</Button>
+      <Button variant="outline">3</Button>
       <Button variant="outline">Next</Button>
     </ButtonSplit>
   ),

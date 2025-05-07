@@ -1,13 +1,27 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { ButtonGroup } from "./ButtonGroup";
 import { Button } from "@/components/atoms/Button";
 import { ChevronDown } from "lucide-react";
 
 const meta: Meta<typeof ButtonGroup> = {
   component: ButtonGroup,
-  parameters: {},
+  parameters: {
+    nuqs: {
+      disabled: true,
+    },
+  },
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    direction: {
+      control: "radio",
+      options: ["horizontal", "vertical"],
+      description: "Controls the layout direction of buttons",
+    },
+    className: {
+      control: "text",
+      description: "Custom CSS classes to apply custom styling",
+    },
+  },
 };
 
 export default meta;
@@ -22,29 +36,49 @@ export const Default: Story = {
   ),
 };
 
-export const Secondary: Story = {
+export const Centered: Story = {
   render: () => (
-    <ButtonGroup>
+    <ButtonGroup className="justify-center w-full">
       <Button variant="secondary">Previous</Button>
       <Button variant="secondary">Next</Button>
     </ButtonGroup>
   ),
 };
 
-export const Destructive: Story = {
+export const EndAlignment: Story = {
   render: () => (
-    <ButtonGroup>
-      <Button variant="destructive">Previous</Button>
-      <Button variant="destructive">Next</Button>
+    <ButtonGroup className="justify-end w-full">
+      <Button variant="destructive">Cancel</Button>
+      <Button>Save</Button>
     </ButtonGroup>
   ),
 };
 
-export const Outline: Story = {
+export const SpaceBetween: Story = {
   render: () => (
-    <ButtonGroup>
-      <Button variant="outline">Previous</Button>
-      <Button variant="outline">Next</Button>
+    <ButtonGroup className="justify-between w-full">
+      <Button variant="destructive">Cancel</Button>
+      <Button>Save</Button>
+    </ButtonGroup>
+  ),
+};
+
+export const CustomSpacing: Story = {
+  render: () => (
+    <ButtonGroup className="gap-4">
+      <Button variant="outline">First</Button>
+      <Button variant="outline">Second</Button>
+      <Button variant="outline">Third</Button>
+    </ButtonGroup>
+  ),
+};
+
+export const VerticalLayout: Story = {
+  render: () => (
+    <ButtonGroup direction="vertical" className="gap-4">
+      <Button variant="outline">First Option</Button>
+      <Button variant="outline">Second Option</Button>
+      <Button variant="outline">Third Option</Button>
     </ButtonGroup>
   ),
 };
@@ -54,7 +88,7 @@ export const ActionButtons: Story = {
     <ButtonGroup>
       <Button>Export</Button>
       <Button size="icon">
-        <ChevronDown />
+        <ChevronDown className="h-4 w-4" />
       </Button>
     </ButtonGroup>
   ),

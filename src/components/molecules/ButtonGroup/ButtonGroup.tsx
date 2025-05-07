@@ -1,13 +1,22 @@
 import { cn } from "@/lib/utils";
+import type { ButtonGroupProps } from "./ButtonGroup.types";
+import { buttonGroupVariants } from "./ButtonGroup.variants";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const basicClasses = `
-    gap-2 inline-flex
-`;
-
-export function ButtonGroup(props: Props) {
-  return <div className={cn(basicClasses)}>{props.children}</div>;
+export function ButtonGroup({
+  children,
+  className,
+  direction,
+}: ButtonGroupProps) {
+  return (
+    <div
+      className={cn(
+        buttonGroupVariants({
+          direction,
+        }),
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 }
