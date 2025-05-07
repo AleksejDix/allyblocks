@@ -16,6 +16,7 @@ import { Button } from "@/components/atoms/Button";
 import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
 import React from "react";
+import { ActionSplit } from "@/components/molecules/ActionSplit";
 
 const notify = (message: string) => {
   console.log(message);
@@ -25,7 +26,9 @@ const meta: Meta<typeof ActionMenu> = {
   component: ActionMenu,
   tags: ["autodocs"],
   parameters: {
-    layout: "centered",
+    nuqs: {
+      disabled: true,
+    },
   },
   argTypes: {
     onValueChange: {
@@ -92,7 +95,7 @@ export const Basic: Story = {
               key={index}
               className={action.props?.className as string}
               disabled={action.props?.disabled as boolean}
-              action={() => handleAction(action.type, action.payload)}
+              onAction={() => handleAction(action.type, action.payload)}
             >
               {action.before && <span>{action.before}</span>}
               {action.label}
@@ -114,17 +117,17 @@ export const WithIndividualItems: Story = {
           <Button>More Options</Button>
         </ActionMenuTrigger>
         <ActionMenuContent>
-          <ActionMenuItem action={() => notify("Edit action triggered")}>
+          <ActionMenuItem onAction={() => notify("Edit action triggered")}>
             <Icon name="edit" />
             Edit Document
           </ActionMenuItem>
-          <ActionMenuItem action={() => notify("Download action triggered")}>
+          <ActionMenuItem onAction={() => notify("Download action triggered")}>
             <Icon name="download" />
             Download
           </ActionMenuItem>
           <ActionMenuItem
             className="text-destructive"
-            action={() => notify("Delete action triggered")}
+            onAction={() => notify("Delete action triggered")}
           >
             <Icon name="trash" />
             Delete
@@ -165,7 +168,7 @@ export const WithPayload: Story = {
               key={index}
               className={action.props?.className as string}
               disabled={action.props?.disabled as boolean}
-              action={() => {
+              onAction={() => {
                 notify(
                   `${action.type} action triggered for item: ${action.payload?.id}`
                 );
@@ -207,7 +210,7 @@ export const WithDisabledItem: Story = {
               key={index}
               className={action.props?.className as string}
               disabled={action.props?.disabled as boolean}
-              action={() => notify(`${action.type} action triggered`)}
+              onAction={() => notify(`${action.type} action triggered`)}
             >
               {action.before && <span>{action.before}</span>}
               {action.label}
@@ -236,7 +239,7 @@ export const WithIconButtonTrigger: Story = {
               key={index}
               className={action.props?.className as string}
               disabled={action.props?.disabled as boolean}
-              action={() => notify(`${action.type} action triggered`)}
+              onAction={() => notify(`${action.type} action triggered`)}
             >
               {action.before && <span>{action.before}</span>}
               {action.label}
@@ -315,7 +318,7 @@ export const WithBothActionHandlers: Story = {
           <ActionMenuItem
             value="edit"
             context={{ itemId: "doc-123" }}
-            action={() => console.log("Local edit handler executed")}
+            onAction={() => console.log("Local edit handler executed")}
           >
             <Icon name="edit" />
             Edit Document (both handlers)
@@ -331,7 +334,7 @@ export const WithBothActionHandlers: Story = {
           <ActionMenuItem
             className="text-destructive"
             // No value, only local handler
-            action={() => notify("Local delete handler executed")}
+            onAction={() => notify("Local delete handler executed")}
           >
             <Icon name="trash" />
             Delete Document (local handler only)
@@ -390,9 +393,13 @@ export const CentralizedActionHandling: Story = {
               </div>
               <ActionMenu onValueChange={handleValueChange}>
                 <ActionMenuTrigger>
-                  <Button size="sm" variant="ghost">
+                  <IconButton
+                    size="sm"
+                    variant="ghost"
+                    aria-label="More options"
+                  >
                     <Icon name="more-horizontal" />
-                  </Button>
+                  </IconButton>
                 </ActionMenuTrigger>
                 <ActionMenuContent>
                   <ActionMenuItem
@@ -480,19 +487,25 @@ export const TableRowActions: Story = {
                 <td className="p-2 text-right">
                   <ActionMenu>
                     <ActionMenuTrigger>
-                      <Button size="sm" variant="ghost">
+                      <IconButton
+                        size="sm"
+                        variant="ghost"
+                        aria-label="More options"
+                      >
                         <Icon name="more-vertical" />
-                      </Button>
+                      </IconButton>
                     </ActionMenuTrigger>
                     <ActionMenuContent>
                       <ActionMenuItem
-                        action={() => handleAction("edit", user.id, user.name)}
+                        onAction={() =>
+                          handleAction("edit", user.id, user.name)
+                        }
                       >
                         <Icon name="edit" />
                         Edit User
                       </ActionMenuItem>
                       <ActionMenuItem
-                        action={() =>
+                        onAction={() =>
                           handleAction("permissions", user.id, user.name)
                         }
                       >
@@ -501,7 +514,7 @@ export const TableRowActions: Story = {
                       </ActionMenuItem>
                       <ActionMenuItem
                         className="text-destructive"
-                        action={() =>
+                        onAction={() =>
                           handleAction("delete", user.id, user.name)
                         }
                       >
@@ -567,14 +580,14 @@ export const AdvancedMenuStructure: Story = {
             <ActionMenuGroup>
               <ActionMenuItem
                 value="refresh"
-                action={() => notify("Refreshing items...")}
+                onAction={() => notify("Refreshing items...")}
               >
                 <Icon name="refresh-ccw" />
                 Refresh
               </ActionMenuItem>
               <ActionMenuItem
                 value="duplicate"
-                action={() => notify("Duplicating...")}
+                onAction={() => notify("Duplicating...")}
               >
                 <Icon name="copy" />
                 Duplicate
@@ -596,7 +609,7 @@ export const AdvancedMenuStructure: Story = {
               <ActionMenuCheckboxItem
                 checked={notificationsEnabled}
                 onCheckedChange={setNotificationsEnabled}
-                action={handleNotificationToggle}
+                onAction={handleNotificationToggle}
               >
                 Notifications (local handler)
               </ActionMenuCheckboxItem>
@@ -611,19 +624,19 @@ export const AdvancedMenuStructure: Story = {
             >
               <ActionMenuRadioItem
                 value="newest"
-                action={() => notify(`Sorted by newest first`)}
+                onAction={() => notify(`Sorted by newest first`)}
               >
                 Newest First
               </ActionMenuRadioItem>
               <ActionMenuRadioItem
                 value="oldest"
-                action={() => notify(`Sorted by oldest first`)}
+                onAction={() => notify(`Sorted by oldest first`)}
               >
                 Oldest First
               </ActionMenuRadioItem>
               <ActionMenuRadioItem
                 value="alphabetical"
-                action={() => notify(`Sorted alphabetically`)}
+                onAction={() => notify(`Sorted alphabetically`)}
               >
                 Alphabetical
               </ActionMenuRadioItem>
@@ -633,7 +646,7 @@ export const AdvancedMenuStructure: Story = {
 
             <ActionMenuItem
               value="help"
-              action={() => notify("Opening help...")}
+              onAction={() => notify("Opening help...")}
             >
               <Icon name="help-circle" />
               Help & Documentation
@@ -644,5 +657,133 @@ export const AdvancedMenuStructure: Story = {
     }
 
     return <AdvancedMenuDemo />;
+  },
+};
+
+// Split Button Pattern
+export const SplitButtonPattern: Story = {
+  render: () => {
+    function SplitButtonDemo() {
+      // Example actions with handlers
+      const handleEdit = () => notify("Editing document");
+      const handleShare = () => notify("Sharing document");
+      const handleCopy = () => notify("Copying document");
+      const handleDelete = () => notify("Deleting document");
+
+      // Handle primary onAction (the main button)
+      const handlePrimaryAction = () => {
+        notify("Primary action: Saving document");
+      };
+
+      return (
+        <div className="space-y-6">
+          <h3 className="text-lg font-medium">Split Button Pattern</h3>
+
+          <ActionSplit className="w-fit">
+            <Button onClick={handlePrimaryAction}>
+              <Icon name="save" className="mr-2" />
+              Save
+            </Button>
+
+            <ActionMenu>
+              <ActionMenuTrigger>
+                <IconButton
+                  variant="default"
+                  size="md"
+                  aria-label="More options"
+                >
+                  <Icon name="chevron-down" />
+                </IconButton>
+              </ActionMenuTrigger>
+              <ActionMenuContent>
+                <ActionMenuItem onAction={handleEdit}>
+                  <Icon name="edit" />
+                  Edit
+                </ActionMenuItem>
+                <ActionMenuItem onAction={handleShare}>
+                  <Icon name="share" />
+                  Share
+                </ActionMenuItem>
+                <ActionMenuItem onAction={handleCopy}>
+                  <Icon name="copy" />
+                  Duplicate
+                </ActionMenuItem>
+                <ActionMenuSeparator />
+                <ActionMenuItem
+                  className="text-destructive"
+                  onAction={handleDelete}
+                >
+                  <Icon name="trash" />
+                  Delete
+                </ActionMenuItem>
+              </ActionMenuContent>
+            </ActionMenu>
+          </ActionSplit>
+
+          <h3 className="text-lg font-medium mt-8">With Different Variants</h3>
+          <div className="flex gap-4">
+            <ActionSplit variant="outline">
+              <Button
+                variant="outline"
+                onClick={() => notify("Primary outline action")}
+              >
+                <Icon name="save" className="mr-2" />
+                Save
+              </Button>
+              <ActionMenu>
+                <ActionMenuTrigger>
+                  <IconButton
+                    variant="outline"
+                    size="md"
+                    aria-label="More options"
+                  >
+                    <Icon name="chevron-down" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent>
+                  <ActionMenuItem onAction={() => notify("Edit clicked")}>
+                    <Icon name="edit" />
+                    Edit
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => notify("Share clicked")}>
+                    <Icon name="share" />
+                    Share
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </ActionSplit>
+
+            <ActionSplit variant="secondary">
+              <Button
+                variant="secondary"
+                onClick={() => notify("Primary secondary action")}
+              >
+                <Icon name="save" className="mr-2" />
+                Save
+              </Button>
+              <ActionMenu>
+                <ActionMenuTrigger>
+                  <IconButton variant="secondary" aria-label="More options">
+                    <Icon name="chevron-down" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent>
+                  <ActionMenuItem onAction={() => notify("Edit clicked")}>
+                    <Icon name="edit" />
+                    Edit
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => notify("Share clicked")}>
+                    <Icon name="share" />
+                    Share
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </ActionSplit>
+          </div>
+        </div>
+      );
+    }
+
+    return <SplitButtonDemo />;
   },
 };

@@ -13,7 +13,7 @@ export const ActionSplitVariants = cva(
     "divide-x",
     "[&>*:first-child]:rounded-s-md",
     "[&>*:last-child]:rounded-e-md",
-    "inline-flex rounded-md shadow-xs rtl:space-x-reverse",
+    "inline-flex rounded-md rtl:space-x-reverse",
   ],
   {
     variants: {

@@ -4,7 +4,7 @@ import { ActionSplitVariants } from "./ActionSplit.variants";
 
 export function ActionSplit({
   children,
-  variant = "default",
+  variant,
   className,
 }: ActionSplitProps) {
   return (

@@ -50,20 +50,14 @@ const useActionMenu = () => {
 /**
  * ActionMenu - Root component for the menu system
  */
-export function ActionMenu({
-  children,
-  className,
-  onValueChange,
-}: ActionMenuRootProps) {
+export function ActionMenu({ children, onValueChange }: ActionMenuRootProps) {
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
 
   return (
     <ActionMenuContext.Provider
       value={{ pendingAction, setPendingAction, onValueChange }}
     >
-      <DropdownMenu>
-        <div className={cn("inline-flex", className)}>{children}</div>
-      </DropdownMenu>
+      <DropdownMenu>{children}</DropdownMenu>
     </ActionMenuContext.Provider>
   );
 }
@@ -134,11 +128,13 @@ export function ActionMenuItem({
   className,
   onSelect,
   action,
+  onAction,
   value,
   context,
   ...props
 }: React.ComponentPropsWithoutRef<typeof DropdownMenuItem> & {
   action?: (e: Event) => void;
+  onAction?: (e: Event) => void;
   value?: string;
   context?: Record<string, unknown>;
 }) {
@@ -146,10 +142,13 @@ export function ActionMenuItem({
 
   // Handle the selection
   const handleSelect = (event: Event) => {
+    // Support both action and onAction for backward compatibility
+    const actionHandler = onAction || action;
+
     // If a value is provided or there's a local action, use the pending action mechanism
-    if (value || action) {
+    if (value || actionHandler) {
       setPendingAction({
-        callback: action,
+        callback: actionHandler,
         value,
         context,
         event,
@@ -220,11 +219,13 @@ export function ActionMenuCheckboxItem({
   checked,
   onCheckedChange,
   action,
+  onAction,
   value,
   context,
   ...props
 }: React.ComponentPropsWithoutRef<typeof DropdownMenuCheckboxItem> & {
   action?: (checked: boolean, e: Event) => void;
+  onAction?: (checked: boolean, e: Event) => void;
   value?: string;
   context?: Record<string, unknown>;
 }) {
@@ -239,9 +240,12 @@ export function ActionMenuCheckboxItem({
   const handleSelect = (event: Event) => {
     const newChecked = !checked;
 
+    // Support both action and onAction for backward compatibility
+    const actionHandler = onAction || action;
+
     // Schedule the action to run after animation
     setPendingAction({
-      callback: action ? (e) => action(newChecked, e) : undefined,
+      callback: actionHandler ? (e) => actionHandler(newChecked, e) : undefined,
       value,
       // Include the new checked state in the context
       context: { ...context, checked: newChecked },
@@ -297,21 +301,26 @@ export function ActionMenuRadioItem({
   className,
   value: radioValue,
   action,
+  onAction,
   value, // Action value, different from radio value
   context,
   ...props
 }: React.ComponentPropsWithoutRef<typeof DropdownMenuRadioItem> & {
   action?: (e: Event) => void;
+  onAction?: (e: Event) => void;
   value?: string; // Action value (different from radio value)
   context?: Record<string, unknown>;
 }) {
   const { setPendingAction } = useActionMenu();
 
   const handleSelect = (event: Event) => {
+    // Support both action and onAction for backward compatibility
+    const actionHandler = onAction || action;
+
     // Schedule the action to run after animation
-    if (action || value) {
+    if (actionHandler || value) {
       setPendingAction({
-        callback: action,
+        callback: actionHandler,
         value: value, // Use the action value if provided
         // Include the radio value in the context
         context: { ...context, radioValue },
