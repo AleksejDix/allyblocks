@@ -12,7 +12,7 @@ import {
   CardAction,
 } from "./Card";
 import { Button } from "@/components/atoms/Button";
-import { ButtonGroup } from "../ButtonGroup";
+import { ActionGroup } from "../ActionGroup";
 
 const meta: Meta<typeof Card> = {
   component: Card,
@@ -38,7 +38,7 @@ export const Basic: Story = {
 
     // Verify content is rendered
     const content = canvas.getByText(
-      "This is a basic card with just some content inside.",
+      "This is a basic card with just some content inside."
     );
     await expect(content).toBeInTheDocument();
   },
@@ -75,12 +75,12 @@ export const Complete: Story = {
     await expect(title).toBeInTheDocument();
 
     const description = canvas.getByText(
-      "This is the card description that provides additional context.",
+      "This is the card description that provides additional context."
     );
     await expect(description).toBeInTheDocument();
 
     const content = canvas.getByText(
-      "This is the main content area of the card where the primary information is displayed.",
+      "This is the main content area of the card where the primary information is displayed."
     );
     await expect(content).toBeInTheDocument();
 
@@ -101,11 +101,11 @@ export const WithBorder: Story = {
         <p>This card has a custom border color to draw attention to it.</p>
       </CardContent>
       <CardFooter>
-        <ButtonGroup>
+        <ActionGroup>
           <Button variant="secondary" asChild>
             <a href="#">Learn more →</a>
           </Button>
-        </ButtonGroup>
+        </ActionGroup>
       </CardFooter>
     </Card>
   ),
@@ -117,7 +117,7 @@ export const WithBorder: Story = {
     await expect(title).toBeInTheDocument();
 
     const content = canvas.getByText(
-      "This card has a custom border color to draw attention to it.",
+      "This card has a custom border color to draw attention to it."
     );
     await expect(content).toBeInTheDocument();
 
@@ -152,10 +152,10 @@ export const WithFooterActions: Story = {
         <p>This card has a custom border color to draw attention to it.</p>
       </CardContent>
       <CardFooter>
-        <ButtonGroup>
+        <ActionGroup>
           <Button>Action 1</Button>
           <Button>Action 2</Button>
-        </ButtonGroup>
+        </ActionGroup>
       </CardFooter>
     </Card>
   ),
@@ -168,7 +168,7 @@ export const WithHeaderActions: Story = {
         <CardTitle>Featured Content</CardTitle>
         <CardDescription>Highlighted information</CardDescription>
         <CardAction>
-          <ButtonGroup>
+          <ActionGroup>
             <Button size="icon" variant="ghost">
               <Plus className="h-4 w-4" />
               <span className="sr-only">Add item</span>
@@ -177,7 +177,7 @@ export const WithHeaderActions: Story = {
               <Share className="h-4 w-4" />
               <span className="sr-only">Share</span>
             </Button>
-          </ButtonGroup>
+          </ActionGroup>
         </CardAction>
       </CardHeader>
       <CardContent>

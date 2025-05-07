@@ -1,16 +1,16 @@
 import { cn } from "@/lib/utils";
-import type { ButtonGroupProps } from "./ButtonGroup.types";
-import { buttonGroupVariants } from "./ButtonGroup.variants";
+import type { ActionGroupProps } from "./ActionGroup.types";
+import { ActionGroupVariants } from "./ActionGroup.variants";
 
-export function ButtonGroup({
+export function ActionGroup({
   children,
   className,
   direction,
-}: ButtonGroupProps) {
+}: ActionGroupProps) {
   return (
     <div
       className={cn(
-        buttonGroupVariants({
+        ActionGroupVariants({
           direction,
         }),
         className

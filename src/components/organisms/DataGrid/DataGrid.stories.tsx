@@ -63,7 +63,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/molecules/Card/Card";
-import { ButtonGroup } from "@/components/molecules/ButtonGroup";
+import { ActionGroup } from "@/components/molecules/ActionGroup";
 
 const meta = {
   component: BasicCase,
@@ -88,10 +88,10 @@ export const WithColumnSorter: Story = {
             A list of users with their name, email, role, and status.
           </CardDescription>
           <CardAction>
-            <ButtonGroup>
+            <ActionGroup>
               <DataGridColumnVisibility label="Toggle Columns" />
               <DataGridColumnSorter />
-            </ButtonGroup>
+            </ActionGroup>
           </CardAction>
         </CardHeader>
         <DataGridTable />

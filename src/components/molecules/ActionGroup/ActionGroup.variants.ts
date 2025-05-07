@@ -1,9 +1,9 @@
 import { cva } from "class-variance-authority";
 
 /**
- * ButtonGroup component styling using class-variance-authority
+ * ActionGroup component styling using class-variance-authority
  */
-export const buttonGroupVariants = cva(
+export const ActionGroupVariants = cva(
   // Base styles that apply to all variants
   ["inline-flex", "gap-2"],
   {

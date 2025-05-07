@@ -17,6 +17,13 @@ import { Icon } from "@/components/atoms/Icon";
 import { IconButton } from "@/components/atoms/IconButton";
 import React from "react";
 import { ActionSplit } from "@/components/molecules/ActionSplit";
+import { ActionGroup } from "@/components/molecules/ActionGroup";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardAction,
+} from "@/components/molecules/Card";
 
 const notify = (message: string) => {
   console.log(message);
@@ -477,8 +484,83 @@ export const TableRowActions: Story = {
     };
 
     return (
-      <div className="border rounded-md p-4">
-        <h3 className="font-medium mb-4">Users</h3>
+      <Card>
+        <CardHeader>
+          <CardTitle>Users</CardTitle>
+          <CardAction>
+            <ActionGroup>
+              <ActionSplit>
+                <Button variant="outline">
+                  <Icon name="download" />
+                  Export
+                </Button>
+                <ActionMenu>
+                  <ActionMenuTrigger>
+                    <IconButton
+                      variant="outline"
+                      aria-label="More export options"
+                    >
+                      <Icon name="chevron-down" />
+                    </IconButton>
+                  </ActionMenuTrigger>
+                  <ActionMenuContent>
+                    <ActionMenuItem
+                      onAction={() =>
+                        notify("Exporting data from the last 24 hours")
+                      }
+                    >
+                      <Icon name="clock" />
+                      Last 24 hours
+                    </ActionMenuItem>
+                    <ActionMenuItem
+                      onAction={() =>
+                        notify("Exporting data from the last 7 days")
+                      }
+                    >
+                      <Icon name="calendar-days" />
+                      Last 7 days
+                    </ActionMenuItem>
+                    <ActionMenuItem
+                      onAction={() =>
+                        notify("Exporting data from the last 30 days")
+                      }
+                    >
+                      <Icon name="calendar-range" />
+                      Last 30 days
+                    </ActionMenuItem>
+                    <ActionMenuItem
+                      className="text-destructive"
+                      onAction={() => notify("Exporting all data")}
+                    >
+                      <Icon name="database" />
+                      All data
+                    </ActionMenuItem>
+                  </ActionMenuContent>
+                </ActionMenu>
+              </ActionSplit>
+
+              <ActionMenu>
+                <ActionMenuTrigger>
+                  <Button variant="outline" aria-label="Column Settings">
+                    <Icon name="columns-3" />
+                    View
+                  </Button>
+                </ActionMenuTrigger>
+                <ActionMenuContent>
+                  <ActionMenuCheckboxItem checked={true}>
+                    Name
+                  </ActionMenuCheckboxItem>
+                  <ActionMenuCheckboxItem checked={true}>
+                    Email
+                  </ActionMenuCheckboxItem>
+                  <ActionMenuCheckboxItem checked={true}>
+                    Role
+                  </ActionMenuCheckboxItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </ActionGroup>
+          </CardAction>
+        </CardHeader>
         <table className="w-full">
           <thead>
             <tr className="border-b">
@@ -538,7 +620,7 @@ export const TableRowActions: Story = {
             ))}
           </tbody>
         </table>
-      </div>
+      </Card>
     );
   },
 };
