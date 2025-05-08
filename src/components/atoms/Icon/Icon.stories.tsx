@@ -86,6 +86,13 @@ export const DifferentStrokeWidth: Story = {
   },
 };
 
+export const FailedToLoad: Story = {
+  args: {
+    // @ts-expect-error - This should fail to load
+    name: "wurst",
+  },
+};
+
 export const AllSizeVariants: Story = {
   render: () => (
     <div className="flex items-center gap-4">

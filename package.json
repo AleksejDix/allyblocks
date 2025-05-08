@@ -51,7 +51,7 @@
     "test:storybook:coverage": "vitest run --project=storybook --coverage",
     "build-storybook": "storybook build",
     "serve-storybook": "serve storybook-static",
-    "chromatic": "npx chromatic --project-token=chpt_d5576e0120be3ac",
+    "chromatic": "npx chromatic --project-token=chpt_d5576e0120be3ac --allow-console-errors",
     "prepublishOnly": "npm run build",
     "check:bundle": "ANALYZE=1 vite build"
   },
