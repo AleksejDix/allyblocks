@@ -1,5 +1,6 @@
 import React from "react";
 import type { Decorator } from "@storybook/react";
+// import { themes } from "@storybook/theming";
 
 // Theme modes
 export type ThemeMode = "light" | "dark" | "system";
@@ -7,11 +8,12 @@ export type ThemeMode = "light" | "dark" | "system";
 // Decorator that syncs with the scheme globalType
 export const withDarkMode: Decorator = (Story, context) => {
   const { scheme } = context.globals;
+
   const html = document.documentElement;
 
   // Check if we should use dark mode
   const systemIsDark = window.matchMedia(
-    "(prefers-color-scheme: dark)",
+    "(prefers-color-scheme: dark)"
   ).matches;
   const shouldBeDark = scheme === "system" ? systemIsDark : scheme === "dark";
 

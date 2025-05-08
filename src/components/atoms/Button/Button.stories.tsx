@@ -206,38 +206,3 @@ export const SupportsFocusNavigation: Story = {
     await expect(firstButton).toHaveFocus();
   },
 };
-
-// Server Component Story (using client-side simulation)
-export const ServerRendered = {
-  render: () => {
-    // Create a component that simulates server data fetching
-    function SimulatedServerComponent() {
-      const [data, setData] = useState<{ label: string } | null>(null);
-      const [loading, setLoading] = useState(true);
-
-      useEffect(() => {
-        const fetchData = async () => {
-          // Simulate server delay
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          setData({ label: "Server Rendered Button" });
-          setLoading(false);
-        };
-
-        fetchData();
-      }, []);
-
-      if (loading) {
-        return <div>Loading server component...</div>;
-      }
-
-      return (
-        <div className="space-y-4">
-          <p>This button simulates data fetched from the server:</p>
-          <Button variant="default">{data?.label}</Button>
-        </div>
-      );
-    }
-
-    return <SimulatedServerComponent />;
-  },
-};

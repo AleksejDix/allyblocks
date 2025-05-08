@@ -3,13 +3,12 @@ import { withBrand, withNuqs, withI18next, withDarkMode } from "./decorators";
 import i18n from "../src/i18n/i18n";
 import type { Preview } from "@storybook/react";
 import { themes } from "@storybook/theming";
-
 const parameters: Preview["parameters"] = {
   backgrounds: {
     disable: true,
   },
   docs: {
-    theme: themes.normal,
+    theme: themes.dark,
     toc: true,
   },
   controls: {
