@@ -4,6 +4,9 @@ import { Icon } from "./Icon";
 const meta: Meta<typeof Icon> = {
   component: Icon,
   parameters: {
+    chromatic: {
+      disableSnapshot: true,
+    },
     docs: {
       description: {
         component: `

@@ -1,7 +1,8 @@
 import { type LucideProps } from "lucide-react";
 
-// Accept any string for name property instead of strict typing
-export type IconName = string;
+type IconName = Parameters<
+  typeof import("lucide-react/dynamic").DynamicIcon
+>[0]["name"];
 
 export type IconProps = LucideProps & {
   name: IconName;
