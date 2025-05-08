@@ -21,6 +21,8 @@ export function FieldOTP({
   required = true,
   disabled = false,
   maxLength = 6,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  size: _, // Destructure and ignore size
   ...props
 }: OTPFieldProps) {
   const { control, getFieldState } = useFormContext();

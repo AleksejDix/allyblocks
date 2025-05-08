@@ -17,7 +17,6 @@ export function FieldText({
   description,
   required = false,
   disabled = false,
-  size = "md",
   placeholder,
   ...props
 }: InputFieldProps) {
@@ -40,7 +39,6 @@ export function FieldText({
           </FormLabel>
           <FormControl>
             <Input
-              size={size}
               {...field}
               {...props}
               placeholder={placeholder}

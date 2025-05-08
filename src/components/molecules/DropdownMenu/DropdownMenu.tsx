@@ -18,7 +18,7 @@ import type {
   DropdownMenuSubProps,
   DropdownMenuSubTriggerProps,
   DropdownMenuSubContentProps,
-} from "./DropdownMenu.ypes";
+} from "./DropdownMenu.types";
 
 function DropdownMenu({ ...props }: DropdownMenuProps) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;

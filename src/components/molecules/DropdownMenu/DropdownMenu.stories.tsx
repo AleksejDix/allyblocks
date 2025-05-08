@@ -19,17 +19,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
 } from "./DropdownMenu";
-import {
-  User,
-  Settings,
-  Mail,
-  MessageSquare,
-  CreditCard,
-  LogOut,
-} from "lucide-react";
+import { Icon } from "@/components/atoms/Icon";
 
 const meta: Meta<typeof DropdownMenu> = {
   component: DropdownMenu,
+  subcomponents: {
+    DropdownMenuContent: DropdownMenuContent,
+    DropdownMenuTrigger: DropdownMenuTrigger,
+    DropdownMenuItem: DropdownMenuItem,
+    DropdownMenuLabel: DropdownMenuLabel,
+    DropdownMenuSeparator: DropdownMenuSeparator,
+  },
   parameters: {},
   tags: ["autodocs"],
   argTypes: {},
@@ -77,17 +77,17 @@ export const WithIconsAndShortcuts: Story = {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
+            <Icon name="user" />
             <span>Profile</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
+            <Icon name="settings" />
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <LogOut className="mr-2 h-4 w-4" />
+            <Icon name="log-out" />
             <span>Logout</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -122,11 +122,11 @@ export const WithGroupsAndLabels: Story = {
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
+              <Icon name="user" />
               <span>Profile</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <CreditCard className="mr-2 h-4 w-4" />
+              <Icon name="credit-card" />
               <span>Billing</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -134,11 +134,11 @@ export const WithGroupsAndLabels: Story = {
           <DropdownMenuLabel>Messages</DropdownMenuLabel>
           <DropdownMenuGroup>
             <DropdownMenuItem>
-              <Mail className="mr-2 h-4 w-4" />
+              <Icon name="mail" />
               <span>Inbox</span>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <MessageSquare className="mr-2 h-4 w-4" />
+              <Icon name="message-square" />
               <span>Chat</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -339,7 +339,7 @@ export const WithDestructiveItem: Story = {
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive">
-            <LogOut className="mr-2 h-4 w-4" />
+            <Icon name="log-out" />
             <span>Delete Account</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
