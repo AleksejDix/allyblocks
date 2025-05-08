@@ -5,7 +5,7 @@
  */
 
 import type { IconProps } from "./Icon.types";
-import { DynamicIcon } from "lucide-react/dynamic";
+import { icons } from "lucide-react";
 import { Suspense } from "react";
 
 const Placeholder = ({ size }: { size: number }) => (
@@ -30,19 +30,22 @@ export function Icon({
   ...props
 }: IconProps) {
   const numericSize = typeof size === "string" ? parseInt(size, 10) : size;
+  const LucideIcon = icons[name as keyof typeof icons];
 
   return (
     <Suspense fallback={<LoadingIcon size={numericSize} name={name} />}>
-      <DynamicIcon
-        name={name}
-        data-slot="icon"
-        aria-hidden={!ariaLabel}
-        aria-label={ariaLabel}
-        size={size}
-        className={className}
-        {...props}
-        fallback={() => <MissingIcon size={numericSize} name={name} />}
-      />
+      {LucideIcon ? (
+        <LucideIcon
+          data-slot="icon"
+          aria-hidden={!ariaLabel}
+          aria-label={ariaLabel}
+          size={size}
+          className={className}
+          {...props}
+        />
+      ) : (
+        <MissingIcon size={numericSize} name={name} />
+      )}
     </Suspense>
   );
 }
