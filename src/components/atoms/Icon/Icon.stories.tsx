@@ -88,8 +88,7 @@ export const DifferentStrokeWidth: Story = {
 
 export const FailedToLoad: Story = {
   args: {
-    // @ts-expect-error - This should fail to load
-    name: "wurst",
+    name: "non-existent-icon",
   },
 };
 
