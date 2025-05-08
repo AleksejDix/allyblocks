@@ -1,44 +1,48 @@
-import { DynamicIcon } from "lucide-react/dynamic";
-import { cn } from "@/lib/utils";
-import { iconVariants } from "./Icon.variants";
+/**
+ * Icon component that uses Lucide icons
+ *
+ * @see CHANGELOG.md for version history
+ */
+
 import type { IconProps } from "./Icon.types";
+import { DynamicIcon } from "lucide-react/dynamic";
+import { Suspense } from "react";
+
+const Placeholder = ({ size }: { size: number }) => (
+  <div style={{ width: `${size}px`, height: `${size}px` }}></div>
+);
+
+const LoadingIcon = ({ size, name }: { size: number; name: string }) => {
+  console.error(`Icon "${name}" not found`);
+  return <Placeholder size={size} />;
+};
+
+const MissingIcon = ({ size, name }: { size: number; name: string }) => {
+  console.error(`Icon "${name}" not found`);
+  return <Placeholder size={size} />;
+};
 
 export function Icon({
   name,
   "aria-label": ariaLabel,
   className,
-  size,
+  size = 16,
   ...props
 }: IconProps) {
-  // Check if the size is one of our predefined variant sizes
-  const isVariantSize =
-    size === 12 ||
-    size === 16 ||
-    size === 20 ||
-    size === 24 ||
-    size === 32 ||
-    size === 40 ||
-    size === 48;
+  const numericSize = typeof size === "string" ? parseInt(size, 10) : size;
 
   return (
-    <div
-      className={cn(
-        isVariantSize
-          ? iconVariants({
-              size: size as 12 | 16 | 20 | 24 | 32 | 40 | 48,
-            })
-          : "flex items-center justify-center",
-        className
-      )}
-    >
+    <Suspense fallback={<LoadingIcon size={numericSize} name={name} />}>
       <DynamicIcon
         name={name}
-        data-testid="icon"
+        data-slot="icon"
         aria-hidden={!ariaLabel}
         aria-label={ariaLabel}
-        size={!isVariantSize ? size : undefined}
+        size={size}
+        className={className}
         {...props}
+        fallback={() => <MissingIcon size={numericSize} name={name} />}
       />
-    </div>
+    </Suspense>
   );
 }
