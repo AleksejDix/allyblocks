@@ -3,7 +3,6 @@ import { within, userEvent } from "@storybook/test";
 import { Plus } from "lucide-react";
 import { expect } from "@storybook/test";
 import { Button } from "./Button";
-import { useState, useEffect } from "react";
 
 const meta: Meta<typeof Button> = {
   component: Button,
