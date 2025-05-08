@@ -22,6 +22,14 @@ const MissingIcon = ({ size, name }: { size: number; name: string }) => {
   return <Placeholder size={size} />;
 };
 
+// Convert kebab-case or camelCase to PascalCase
+const toPascalCase = (str: string): string => {
+  return str
+    .split(/[-_]/)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join("");
+};
+
 export function Icon({
   name,
   "aria-label": ariaLabel,
@@ -30,7 +38,15 @@ export function Icon({
   ...props
 }: IconProps) {
   const numericSize = typeof size === "string" ? parseInt(size, 10) : size;
-  const LucideIcon = icons[name as keyof typeof icons];
+
+  // Convert kebab-case like "check-circle" to PascalCase "CheckCircle"
+  const pascalCaseName =
+    name.indexOf("-") >= 0 || name.indexOf("_") >= 0
+      ? toPascalCase(name)
+      : // Handle simple names like "check" to "Check"
+        name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+
+  const LucideIcon = icons[pascalCaseName as keyof typeof icons];
 
   return (
     <Suspense fallback={<LoadingIcon size={numericSize} name={name} />}>

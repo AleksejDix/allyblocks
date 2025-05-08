@@ -1,7 +1,7 @@
 import { type LucideProps } from "lucide-react";
-import { icons } from "lucide-react";
 
-export type IconName = keyof typeof icons;
+// Accept any string for name property instead of strict typing
+export type IconName = string;
 
 export type IconProps = LucideProps & {
   name: IconName;
