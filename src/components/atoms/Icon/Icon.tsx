@@ -20,11 +20,6 @@ export function Icon({
     return <Placeholder size={size} />;
   };
 
-  const MissingIcon = ({ size, name }: { size: number; name: string }) => {
-    console.error(`Icon "${name}" not found`);
-    return <Placeholder size={size} />;
-  };
-
   return (
     <Suspense fallback={<LoadingIcon size={numericSize} name={name} />}>
       <DynamicIcon
@@ -35,8 +30,11 @@ export function Icon({
         aria-label={ariaLabel}
         size={size}
         className={className}
+        fallback={() => {
+          console.error(`Icon "${name}" not found`);
+          return <Placeholder size={numericSize} />;
+        }}
         {...props}
-        fallback={() => <MissingIcon size={numericSize} name={name} />}
       />
     </Suspense>
   );

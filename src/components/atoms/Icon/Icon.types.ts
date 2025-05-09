@@ -1,8 +1,8 @@
-import { type LucideProps } from "lucide-react";
+import type { LucideProps } from "lucide-react";
+import type { DynamicIcon } from "lucide-react/dynamic";
 
-type IconName = Parameters<
-  typeof import("lucide-react/dynamic").DynamicIcon
->[0]["name"];
+// Extract the name parameter type from DynamicIcon
+type IconName = Parameters<typeof DynamicIcon>[0]["name"];
 
 export type IconProps = LucideProps & {
   name: IconName;

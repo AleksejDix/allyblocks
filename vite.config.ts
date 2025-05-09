@@ -9,7 +9,18 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
+      include: ["src/**/*.ts", "src/**/*.tsx"],
+      exclude: [
+        "src/**/*.stories.tsx",
+        "src/**/*.test.tsx",
+        "src/main.tsx",
+        "src/App.tsx",
+        "src/vite-env.d.ts",
+      ],
+      outDir: "dist/types",
+      tsconfigPath: "tsconfig.app.json",
       insertTypesEntry: true,
+      logLevel: "info",
     }),
   ],
   resolve: {
