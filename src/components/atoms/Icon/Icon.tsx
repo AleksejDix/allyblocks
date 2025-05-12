@@ -15,13 +15,16 @@ export function Icon({
     <div style={{ width: `${size}px`, height: `${size}px` }}></div>
   );
 
-  const LoadingIcon = ({ size, name }: { size: number; name: string }) => {
-    console.error(`Icon "${name}" not found`);
+  const LoadingIcon = ({ size }: { size: number }) => {
+    return <Placeholder size={size} />;
+  };
+
+  const MissingIcon = ({ size }: { size: number }) => {
     return <Placeholder size={size} />;
   };
 
   return (
-    <Suspense fallback={<LoadingIcon size={numericSize} name={name} />}>
+    <Suspense fallback={<LoadingIcon size={numericSize} />}>
       <DynamicIcon
         name={name}
         focusable={false}
@@ -32,7 +35,7 @@ export function Icon({
         className={className}
         fallback={() => {
           console.error(`Icon "${name}" not found`);
-          return <Placeholder size={numericSize} />;
+          return <MissingIcon size={numericSize} />;
         }}
         {...props}
       />

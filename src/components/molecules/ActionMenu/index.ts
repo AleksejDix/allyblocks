@@ -11,6 +11,8 @@ export {
   ActionMenuRadioItem,
 } from "./ActionMenu";
 
+export { useActionMenu, ActionMenuContext } from "./ActionMenu.context";
+
 export type {
   ActionMenuProps,
   ActionMenuRootProps,
@@ -23,4 +25,5 @@ export type {
   ActionMenuCheckboxItemProps,
   ActionMenuRadioGroupProps,
   ActionMenuRadioItemProps,
+  ActionMenuContextType,
 } from "./ActionMenu.types";

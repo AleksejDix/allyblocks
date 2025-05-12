@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Dispatch, SetStateAction, ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import type {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -10,29 +10,21 @@ import type {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@/components/molecules/DropdownMenu";
+import type {
+  ActionContextType,
+  ActionTriggerProps,
+  ActionProviderProps,
+} from "@/lib/useAction";
 
 /**
- * Internal type for tracking pending actions
+ * Type for actionmenu-specific context
  */
-export type PendingAction = {
-  callback?: (e: Event) => void;
-  value?: string;
-  context?: Record<string, unknown>;
-  event: Event;
-} | null;
+export type ActionMenuContextData = Record<string, unknown>;
 
 /**
- * Context type for the ActionMenu
+ * Context type for the ActionMenu using shared action mechanism
  */
-export type ActionMenuContextType = {
-  pendingAction: PendingAction;
-  setPendingAction: Dispatch<SetStateAction<PendingAction>>;
-  onValueChange?: (
-    value: string,
-    event: Event,
-    context?: Record<string, unknown>
-  ) => void;
-};
+export type ActionMenuContextType = ActionContextType<ActionMenuContextData>;
 
 /**
  * Common props for ActionMenu components
@@ -47,22 +39,8 @@ export type ActionMenuProps = {
 /**
  * Props for the ActionMenu component
  */
-export type ActionMenuRootProps = ActionMenuProps & {
-  /**
-   * Children content
-   */
-  children: ReactNode;
-
-  /**
-   * Callback fired when any action in the menu is executed
-   * This allows for centralized handling of all menu actions
-   */
-  onValueChange?: (
-    value: string,
-    event: Event,
-    context?: Record<string, unknown>
-  ) => void;
-};
+export type ActionMenuRootProps = ActionMenuProps &
+  ActionProviderProps<ActionMenuContextData>;
 
 /**
  * Props for ActionMenuTrigger component
@@ -70,6 +48,7 @@ export type ActionMenuRootProps = ActionMenuProps & {
 export type ActionMenuTriggerProps = {
   children: ReactNode;
   className?: string;
+  asChild?: boolean;
 };
 
 /**
@@ -84,12 +63,10 @@ export type ActionMenuContentProps = ComponentPropsWithoutRef<
  */
 export type ActionMenuItemProps = ComponentPropsWithoutRef<
   typeof DropdownMenuItem
-> & {
-  action?: (e: Event) => void;
-  onAction?: (e: Event) => void;
-  value?: string;
-  context?: Record<string, unknown>;
-};
+> &
+  ActionTriggerProps<ActionMenuContextData> & {
+    onSelect?: (e: Event) => void;
+  };
 
 /**
  * Props for ActionMenuGroup component
@@ -118,10 +95,9 @@ export type ActionMenuSeparatorProps = ComponentPropsWithoutRef<
 export type ActionMenuCheckboxItemProps = ComponentPropsWithoutRef<
   typeof DropdownMenuCheckboxItem
 > & {
-  action?: (checked: boolean, e: Event) => void;
   onAction?: (checked: boolean, e: Event) => void;
   value?: string;
-  context?: Record<string, unknown>;
+  context?: ActionMenuContextData;
 };
 
 /**
@@ -136,9 +112,5 @@ export type ActionMenuRadioGroupProps = ComponentPropsWithoutRef<
  */
 export type ActionMenuRadioItemProps = ComponentPropsWithoutRef<
   typeof DropdownMenuRadioItem
-> & {
-  action?: (e: Event) => void;
-  onAction?: (e: Event) => void;
-  value?: string; // Action value (different from radio value)
-  context?: Record<string, unknown>;
-};
+> &
+  ActionTriggerProps<ActionMenuContextData>;

@@ -3,7 +3,7 @@ import { cva } from "class-variance-authority";
 export const inputVariants = cva(
   [
     "md:text-sm selection:bg-primary selection:text-primary-foreground",
-    "dark:bg-input/30 inline-flex h-9 w-max min-w-0 rounded-md bg-background px-3 py-1 text-base",
+    "dark:bg-input/30 inline-flex h-9 w-full min-w-0 rounded-md bg-background px-3 py-1 text-base",
     "border border-input outline-none transition-[color,outline]",
     "ring-offset-background",
     "placeholder:text-muted-foreground",

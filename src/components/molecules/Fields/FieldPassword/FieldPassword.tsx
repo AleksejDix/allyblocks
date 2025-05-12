@@ -44,9 +44,12 @@ export function FieldPassword({
       render={({ field }: { field: ControllerRenderProps }) => (
         <FormItem>
           <FormLabel>
-            <div className="flex items-center">
-              {label}
-              {required && <Required required={required} />}
+            <div>
+              <div className="flex items-center">
+                {label}
+                {required && <Required required={required} />}
+              </div>
+              {description && <FormDescription>{description}</FormDescription>}
             </div>
           </FormLabel>
           <FormControl>
@@ -75,7 +78,7 @@ export function FieldPassword({
               </Button>
             </div>
           </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
+
           {showStrength && (
             <div className="mt-2">
               <PasswordStrengthIndicator password={field.value} />

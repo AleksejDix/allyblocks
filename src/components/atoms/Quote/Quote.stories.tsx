@@ -3,7 +3,6 @@ import { Quote } from "./Quote";
 import { within, expect } from "@storybook/test";
 
 const meta = {
-  title: "Atoms/Quote",
   component: Quote,
   parameters: {
     layout: "centered",

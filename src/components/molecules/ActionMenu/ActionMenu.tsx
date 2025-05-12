@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, createContext, useContext } from "react";
 import { cn } from "@/lib/utils";
+import { useActionProvider, useActionHandler } from "@/lib/useAction";
 
 import {
   DropdownMenu,
@@ -27,47 +27,34 @@ import type {
   ActionMenuCheckboxItemProps,
   ActionMenuRadioGroupProps,
   ActionMenuRadioItemProps,
-  PendingAction,
-  ActionMenuContextType,
 } from "./ActionMenu.types";
 
-const ActionMenuContext = createContext<ActionMenuContextType | undefined>(
-  undefined
-);
-
-// Hook to use the context
-const useActionMenu = () => {
-  const context = useContext(ActionMenuContext);
-  if (context === undefined) {
-    throw new Error("useActionMenu must be used within an ActionMenu");
-  }
-  return context;
-};
+import { ActionMenuContext, useActionMenu } from "./ActionMenu.context";
 
 /**
  * ActionMenu - Root component for the menu system
  */
 export function ActionMenu({ children, onValueChange }: ActionMenuRootProps) {
-  const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+  const { action, setAction } = useActionProvider();
 
   return (
-    <ActionMenuContext.Provider
-      value={{ pendingAction, setPendingAction, onValueChange }}
-    >
+    <ActionMenuContext.Provider value={{ action, setAction, onValueChange }}>
       <DropdownMenu>{children}</DropdownMenu>
     </ActionMenuContext.Provider>
   );
 }
 
 /**
- * ActionMenuTrigger - The button that toggles the dropdown
+ * ActionMenuTrigger - The button that opens the menu
  */
 export function ActionMenuTrigger({
   children,
   className,
+  asChild,
+  ...props
 }: ActionMenuTriggerProps) {
   return (
-    <DropdownMenuTrigger asChild className={className}>
+    <DropdownMenuTrigger asChild={asChild} className={className} {...props}>
       {children}
     </DropdownMenuTrigger>
   );
@@ -83,32 +70,15 @@ export function ActionMenuContent({
   collisionPadding = 16,
   ...props
 }: ActionMenuContentProps) {
-  const { pendingAction, setPendingAction, onValueChange } = useActionMenu();
+  const actionContext = useActionMenu();
+  const handleAnimationEnd = useActionHandler(actionContext);
 
   return (
     <DropdownMenuContent
       className={className}
       align={align}
       collisionPadding={collisionPadding}
-      onAnimationEnd={() => {
-        if (pendingAction) {
-          // Execute the item-specific action if provided
-          if (pendingAction.callback) {
-            pendingAction.callback(pendingAction.event);
-          }
-
-          // Also call the menu-level onValueChange if provided and value exists
-          if (onValueChange && pendingAction.value) {
-            onValueChange(
-              pendingAction.value,
-              pendingAction.event,
-              pendingAction.context
-            );
-          }
-
-          setPendingAction(null);
-        }
-      }}
+      onAnimationEnd={handleAnimationEnd}
       {...props}
     >
       {children}
@@ -123,23 +93,19 @@ export function ActionMenuItem({
   children,
   className,
   onSelect,
-  action,
   onAction,
   value,
   context,
   ...props
 }: ActionMenuItemProps) {
-  const { setPendingAction } = useActionMenu();
+  const { setAction } = useActionMenu();
 
   // Handle the selection
   const handleSelect = (event: Event) => {
-    // Support both action and onAction for backward compatibility
-    const actionHandler = onAction || action;
-
     // If a value is provided or there's a local action, use the pending action mechanism
-    if (value || actionHandler) {
-      setPendingAction({
-        callback: actionHandler,
+    if (value || onAction) {
+      setAction({
+        callback: onAction,
         value,
         context,
         event,
@@ -152,7 +118,10 @@ export function ActionMenuItem({
 
   return (
     <DropdownMenuItem
-      className={cn("flex items-center", className)}
+      className={cn(
+        "flex cursor-pointer items-center hover:bg-accent",
+        className
+      )}
       onSelect={handleSelect}
       {...props}
     >
@@ -209,13 +178,12 @@ export function ActionMenuCheckboxItem({
   className,
   checked,
   onCheckedChange,
-  action,
   onAction,
   value,
   context,
   ...props
 }: ActionMenuCheckboxItemProps) {
-  const { setPendingAction } = useActionMenu();
+  const { setAction } = useActionMenu();
 
   const handleCheckedChange = (checked: boolean) => {
     if (onCheckedChange) {
@@ -226,12 +194,9 @@ export function ActionMenuCheckboxItem({
   const handleSelect = (event: Event) => {
     const newChecked = !checked;
 
-    // Support both action and onAction for backward compatibility
-    const actionHandler = onAction || action;
-
     // Schedule the action to run after animation
-    setPendingAction({
-      callback: actionHandler ? (e) => actionHandler(newChecked, e) : undefined,
+    setAction({
+      callback: onAction ? (e) => onAction(newChecked, e) : undefined,
       value,
       // Include the new checked state in the context
       context: { ...context, checked: newChecked },
@@ -286,22 +251,18 @@ export function ActionMenuRadioItem({
   children,
   className,
   value: radioValue,
-  action,
   onAction,
   value, // Action value, different from radio value
   context,
   ...props
 }: ActionMenuRadioItemProps) {
-  const { setPendingAction } = useActionMenu();
+  const { setAction } = useActionMenu();
 
   const handleSelect = (event: Event) => {
-    // Support both action and onAction for backward compatibility
-    const actionHandler = onAction || action;
-
     // Schedule the action to run after animation
-    if (actionHandler || value) {
-      setPendingAction({
-        callback: actionHandler,
+    if (onAction || value) {
+      setAction({
+        callback: onAction,
         value: value, // Use the action value if provided
         // Include the radio value in the context
         context: { ...context, radioValue },
