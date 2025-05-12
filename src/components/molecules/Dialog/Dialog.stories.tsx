@@ -290,7 +290,6 @@ function EmailSubscriptionForm(props: { onClose: () => void }) {
   );
 }
 
-// Wrapper component for the Email Subscription Dialog
 function EmailSubscriptionDialog(props: React.ComponentProps<typeof Dialog>) {
   const [open, setOpen] = useState(false);
 
