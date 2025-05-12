@@ -34,7 +34,6 @@ export function Icon({
         size={size}
         className={className}
         fallback={() => {
-          console.error(`Icon "${name}" not found`);
           return <MissingIcon size={numericSize} />;
         }}
         {...props}

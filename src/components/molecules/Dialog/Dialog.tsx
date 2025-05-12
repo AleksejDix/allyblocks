@@ -72,6 +72,7 @@ function DialogClose({ onAction, value, context, ...props }: DialogCloseProps) {
     <DialogPrimitive.Close
       data-slot="dialog-close"
       onClick={handleClick}
+      value="close"
       {...props}
     />
   );

@@ -13,6 +13,7 @@ import {
   FormDescription,
   FormMessage,
 } from "@/components/molecules/Form/Form";
+import { IconButton } from "@/components/atoms/IconButton";
 
 type FieldPasswordProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -64,18 +65,16 @@ export function FieldPassword({
                 {...props}
                 required={required}
               />
-              <Button
+              <IconButton
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 h-6 w-6 p-0"
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? <Icon name="eye-off" /> : <Icon name="eye" />}
-                <span className="sr-only">
-                  {showPassword ? "Hide password" : "Show password"}
-                </span>
-              </Button>
+              </IconButton>
             </div>
           </FormControl>
 
