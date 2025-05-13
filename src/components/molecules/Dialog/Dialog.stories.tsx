@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
+  DialogBody,
 } from "./Dialog";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,7 +22,7 @@ import { FieldEmail } from "@/components/molecules/Fields/FieldEmail";
 import { FieldPassword } from "../Fields/FieldPassword";
 
 import { IconButton } from "@/components/atoms/IconButton";
-import { Input, type DialogAction } from "@/index";
+import { Input } from "@/index";
 import { ActionSplit } from "../ActionSplit";
 
 // Mock notification function
@@ -60,8 +61,9 @@ export const Default: Story = {
             quos.
           </DialogDescription>
         </DialogHeader>
-        <p>Content</p>
-
+        <DialogBody>
+          <p>Content</p>
+        </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
@@ -150,27 +152,29 @@ function ControlledDialogDemo() {
               This dialog's state is controlled externally.
             </DialogDescription>
           </DialogHeader>
-          <ActionSplit>
-            <IconButton
-              aria-label="Decrement Count"
-              variant="outline"
-              onClick={handleDecrement}
-            >
-              <Icon name="minus" />
-            </IconButton>
-            <Input
-              type="number"
-              value={count}
-              onChange={(e) => setCount(Number(e.target.value))}
-            />
-            <IconButton
-              aria-label="Increment Count"
-              variant="outline"
-              onClick={handleIncrement}
-            >
-              <Icon name="plus" />
-            </IconButton>
-          </ActionSplit>
+          <DialogBody>
+            <ActionSplit>
+              <IconButton
+                aria-label="Decrement Count"
+                variant="outline"
+                onClick={handleDecrement}
+              >
+                <Icon name="minus" />
+              </IconButton>
+              <Input
+                type="number"
+                value={count}
+                onChange={(e) => setCount(Number(e.target.value))}
+              />
+              <IconButton
+                aria-label="Increment Count"
+                variant="outline"
+                onClick={handleIncrement}
+              >
+                <Icon name="plus" />
+              </IconButton>
+            </ActionSplit>
+          </DialogBody>
           <DialogFooter>
             <DialogClose
               asChild
@@ -254,20 +258,23 @@ function EmailSubscriptionForm(props: { onClose: () => void }) {
         noValidate
         className="contents"
       >
-        <div className="flex flex-col gap-4">
+        <DialogBody className="grid gap-4">
           <FieldEmail
             name="email"
             label="Email Address"
             description="We'll never share your email with anyone else."
             required={true}
           />
+
           <FieldPassword
             name="password"
             label="Password"
             description="We'll never share your email with anyone else."
             required={true}
           />
-        </div>
+
+          <div className="h-[2000px] border border-[lime]"></div>
+        </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline" type="button">
@@ -305,6 +312,7 @@ function EmailSubscriptionDialog(props: React.ComponentProps<typeof Dialog>) {
             Enter your email to subscribe to our newsletter.
           </DialogDescription>
         </DialogHeader>
+
         <EmailSubscriptionForm onClose={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
@@ -379,9 +387,9 @@ export const WithActionHandlers: Story = {
             <DialogTitle>Item Management</DialogTitle>
             <DialogDescription>Perform actions on this item.</DialogDescription>
           </DialogHeader>
-          <div className="py-4">
+          <DialogBody>
             <p>Item #123: Sample Product</p>
-          </div>
+          </DialogBody>
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -419,9 +427,9 @@ export const FocusManagement: Story = {
             to trigger on close.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <DialogBody>
           <Button>I should be focused</Button>
-        </div>
+        </DialogBody>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>

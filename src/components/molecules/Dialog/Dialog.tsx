@@ -6,6 +6,7 @@ import { Icon } from "@/components/atoms/Icon";
 
 import { cn } from "@/lib/utils";
 import { useActionProvider, useActionHandler } from "@/lib/useAction";
+
 import type {
   DialogRootProps,
   DialogTriggerProps,
@@ -110,23 +111,28 @@ function DialogContent({ className, children, ...props }: DialogContentProps) {
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "sm:border bg-background",
+          "sm:border bg-background overflow-hidden",
           "sm:rounded-lg",
           "fixed z-50",
-          "top-1/2 left-1/2",
-          "md:top-1/2 md:left-1/2",
+          "top-0 left-0",
+          "sm:top-1/2 sm:left-1/2",
           "duration-200",
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          "grid grid-cols-1 grid-rows-[auto_1fr_auto] w-full md:w-auto md:min-w-lg md:max-w-[calc(100%-2rem)] gap-4 p-6 sm:shadow-lg sm:max-w-lg",
+          "grid grid-cols-1 grid-rows-[auto_1fr_auto]",
+          "w-full md:min-w-lg sm:max-w-[calc(100%-2rem)] md:max-w-lg sm:shadow-lg ",
           // Make the dialog full screen on mobile devices
-          "-translate-x-1/2 -translate-y-1/2",
-          "md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-lg",
-          "sm:max-h-[85dvh] sm:h-auto",
-          "max-[100dvh] h-[100dvh] ",
+          "h-[100dvh] sm:h-auto",
+          // "-translate-x-1/2 -translate-y-1/2",
+          "sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg",
+          // "sm:max-h-[85dvh] sm:h-auto",
+          "sm:max-h-[calc(100dvh-2rem)]",
           className
         )}
+        // style={{
+        //   bottom: 0, //"max(0px, env(keyboard-inset-height, 0px) - 0px)",
+        // }}
         onAnimationEnd={handleAnimationEnd}
         {...props}
       >
@@ -140,6 +146,16 @@ function DialogContent({ className, children, ...props }: DialogContentProps) {
   );
 }
 
+function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="dialog-body"
+      className={cn("p-4 overflow-scroll max-h-[100dvh]", className)}
+      {...props}
+    />
+  );
+}
+
 /**
  * DialogHeader - Container for dialog title and description
  */
@@ -147,7 +163,7 @@ function DialogHeader({ className, ...props }: DialogHeaderProps) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("text-left", className)}
+      className={cn("text-left p-4", className)}
       {...props}
     />
   );
@@ -161,7 +177,7 @@ function DialogFooter({ className, ...props }: DialogFooterProps) {
     <div
       data-slot="dialog-footer"
       className={cn(
-        "grid grid-cols-1 sm:flex gap-2 sm:flex-row sm:justify-end [&>*]:max-w-full",
+        "grid grid-cols-2 bg-background px-4 py-4 sm:flex gap-2 sm:flex-row sm:justify-end [&>*]:max-w-full",
         className
       )}
       {...props}
@@ -176,7 +192,7 @@ function DialogTitle({ className, ...props }: DialogTitleProps) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("", className)}
+      className={cn("text-left", className)}
       {...props}
     />
   );
@@ -202,6 +218,7 @@ export {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogBody,
   DialogOverlay,
   DialogPortal,
   DialogTitle,
