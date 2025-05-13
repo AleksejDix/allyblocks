@@ -5,6 +5,7 @@ import type { InputSize } from "./Input.types";
 import { Button } from "../Button";
 
 import { Input } from "./Input";
+import { ActionSplit } from "@/components/molecules/ActionSplit";
 
 const meta: Meta<typeof Input> = {
   component: Input,
@@ -96,7 +97,7 @@ export const EmailSubscriptionLayouts: Story = {
     <div className="flex flex-col gap-6 w-[600px] max-w-full">
       <div>
         <h3 className="text-sm font-medium mb-3">Small Size</h3>
-        <div className="">
+        <ActionSplit>
           <Input
             placeholder="Enter email..."
             size="sm"
@@ -104,12 +105,12 @@ export const EmailSubscriptionLayouts: Story = {
             type="email"
           />
           <Button size="sm">Subscribe</Button>
-        </div>
+        </ActionSplit>
       </div>
 
       <div>
         <h3 className="text-sm font-medium mb-3">Medium Size (Default)</h3>
-        <div className="">
+        <ActionSplit className="">
           <Input
             placeholder="Enter email..."
             size="md"
@@ -117,12 +118,12 @@ export const EmailSubscriptionLayouts: Story = {
             type="email"
           />
           <Button size="default">Subscribe</Button>
-        </div>
+        </ActionSplit>
       </div>
 
       <div>
         <h3 className="text-sm font-medium mb-3">Large Size</h3>
-        <div className="">
+        <ActionSplit className="">
           <Input
             placeholder="Enter email..."
             size="lg"
@@ -130,12 +131,12 @@ export const EmailSubscriptionLayouts: Story = {
             type="email"
           />
           <Button size="lg">Subscribe</Button>
-        </div>
+        </ActionSplit>
       </div>
 
       <div>
         <h3 className="text-sm font-medium mb-3">Stacked Layout</h3>
-        <div className="space-y-2 max-w-md">
+        <ActionSplit className="space-y-2 max-w-md">
           <Input
             placeholder="Enter email..."
             size="md"
@@ -143,7 +144,7 @@ export const EmailSubscriptionLayouts: Story = {
             type="email"
           />
           <Button className="w-full">Subscribe</Button>
-        </div>
+        </ActionSplit>
       </div>
     </div>
   ),

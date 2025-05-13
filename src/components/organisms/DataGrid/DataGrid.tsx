@@ -63,7 +63,7 @@ export function DataGridTable({ children }: PropsWithChildren) {
   }
 
   return (
-    <Table className="md-bordered md-striped md-vertical-lines">
+    <Table variant="striped">
       {children || (
         <>
           <DataGridHeader />
@@ -90,7 +90,7 @@ export function DataGridHeader() {
               colSpan={header.colSpan}
               scope="col"
               style={{ width: header.getSize() }}
-              className="bg-primary text-primary-foreground border [&>[role=checkbox]]:translate-y-[-3px]"
+              className="[&>[role=checkbox]]:translate-y-[-3px]"
             >
               {header.isPlaceholder
                 ? null

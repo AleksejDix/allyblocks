@@ -96,22 +96,6 @@ export const SupportsPolymorphism: Story = {
   },
 };
 
-export const SupportsIconContent: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Button optimized for displaying icons with equal width and height.",
-      },
-    },
-  },
-  args: {
-    size: "icon",
-    children: <Plus />,
-    "aria-label": "Add item",
-  },
-};
-
 export const HandlesDisabledState: Story = {
   parameters: {
     docs: {
@@ -162,13 +146,9 @@ export const DisplaysAllSizes: Story = {
   },
   render: () => (
     <div className="flex flex-wrap items-end gap-4">
-      <Button size="default">Default</Button>
       <Button size="sm">Small</Button>
+      <Button size="default">Default</Button>
       <Button size="lg">Large</Button>
-      <Button size="icon">
-        <Plus />
-        <span className="sr-only">Plus</span>
-      </Button>
     </div>
   ),
   // This is primarily a visual story

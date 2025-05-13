@@ -34,6 +34,7 @@ export default defineConfig({
       "react-dom",
       "react-dom/client",
       "react/jsx-dev-runtime",
+      "@tanstack/react-table",
       "@radix-ui/react-accordion",
       "@radix-ui/react-alert-dialog",
       "@radix-ui/react-checkbox",

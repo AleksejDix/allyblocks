@@ -6,5 +6,7 @@ export {
   TableHead,
   TableRow,
   TableCell,
-  TableCaption,
 } from "./Table";
+
+export { tableVariants } from "./Table.variants";
+export * from "./Table.types";
