@@ -67,9 +67,7 @@ export const Default: Story = {
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Role</TableHead>
-            <TableHead className="text-right sticky right-0 z-10">
-              Actions
-            </TableHead>
+            <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -77,7 +75,7 @@ export const Default: Story = {
             <TableCell>John Doe</TableCell>
             <TableCell>john@example.com</TableCell>
             <TableCell>Developer</TableCell>
-            <TableCell className="text-right sticky right-0 z-10">
+            <TableCell className="text-right">
               <ActionGroup>
                 <Button size="default" variant="outline">
                   Edit
@@ -92,13 +90,13 @@ export const Default: Story = {
             <TableCell>Jane Smith</TableCell>
             <TableCell>jane@example.com</TableCell>
             <TableCell>Designer</TableCell>
-            <TableCell className="text-right sticky right-0 z-10"></TableCell>
+            <TableCell className="text-right"></TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Robert Johnson</TableCell>
             <TableCell>robert@example.com</TableCell>
             <TableCell>Product Manager</TableCell>
-            <TableCell className="text-right sticky right-0 z-10">
+            <TableCell className="text-right">
               <ActionGroup>
                 <ActionMenu>
                   <ActionMenuTrigger asChild>

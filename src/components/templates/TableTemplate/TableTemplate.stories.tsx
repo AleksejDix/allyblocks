@@ -41,11 +41,9 @@ const columns = [
   }),
 ] as ColumnDef<User>[];
 
-// We need to use a concrete type for the Meta
 const meta = {
   component: TableTemplate as typeof TableTemplate<User>,
   parameters: {
-    layout: "fullscreen",
     docs: {
       description: {
         component:
@@ -82,43 +80,4 @@ export const Default: Story = {
     pagination: <SamplePagination />,
     onSearch: (value) => console.log("Search:", value),
   },
-};
-
-// Interactive story component to handle state
-const InteractiveTemplate = (props: Record<string, unknown>) => {
-  const [searchValue, setSearchValue] = useState("");
-
-  const filteredData = sampleData.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.email.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.role.toLowerCase().includes(searchValue.toLowerCase())
-  );
-
-  return (
-    <TableTemplate<User>
-      title="Users"
-      description="Interactive example with working search and column visibility."
-      columns={columns}
-      data={filteredData}
-      totalCount={filteredData.length}
-      searchValue={searchValue}
-      onSearch={setSearchValue}
-      pagination={<SamplePagination />}
-      actions={
-        <Button variant="outline" size="sm">
-          Export
-        </Button>
-      }
-      {...props}
-    />
-  );
-};
-
-export const WithInteractivity: Story = {
-  args: {
-    columns: columns,
-    data: [], // Empty default data, will be replaced by the filtered data
-  },
-  render: (args) => <InteractiveTemplate {...args} />,
 };

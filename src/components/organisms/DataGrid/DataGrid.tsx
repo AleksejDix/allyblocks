@@ -20,14 +20,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/molecules/DropdownMenu";
 import { Button } from "@/components/atoms/Button";
-import {
-  ChevronUp,
-  ChevronDown,
-  MoveHorizontal,
-  RotateCcw,
-} from "lucide-react";
 import { useEffect, useState } from "react";
-import { DynamicIcon, type IconName } from "lucide-react/dynamic";
+import { Icon } from "@/components/atoms/Icon";
 
 // Main DataGrid Component
 type DataGridProps<TData extends RowData> = {
@@ -240,7 +234,7 @@ export function DataGridColumnVisibility({
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
             {iconPosition === "Trailing" ? label : null}
-            <DynamicIcon name={iconName} />
+            <Icon name={iconName} />
             {iconPosition === "Leading" ? label : null}
           </Button>
         </DropdownMenuTrigger>
@@ -270,7 +264,7 @@ export function DataGridColumnVisibility({
               resetColumnVisibility();
             }}
           >
-            <RotateCcw className="mr-2 h-4 w-4" />
+            <Icon name="rotate-ccw" />
             Show All Columns
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -419,7 +413,7 @@ export function DataGridColumnSorter() {
               resetColumnOrder();
             }}
           >
-            <RotateCcw className="mr-2 h-4 w-4" />
+            <Icon name="rotate-ccw" />
             Reset to Default
           </DropdownMenuItem>
         </DropdownMenuContent>

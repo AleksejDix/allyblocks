@@ -90,7 +90,7 @@ function TableCell({ className, ...props }: TableCellProps) {
       role="cell"
       data-slot="table-cell"
       className={cn(
-        "align-middle bg-black whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        "align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
         className
       )}
       {...props}

@@ -3,7 +3,7 @@ import { Terms, Term, TermDefinition } from "./Terms";
 import React from "react";
 import {
   Card,
-  CardContent,
+  CardBody,
   CardHeader,
   CardTitle,
 } from "@/components/molecules/Card/";
@@ -106,7 +106,7 @@ export const FormLayout: Story = {
       <CardHeader>
         <CardTitle>User Information</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardBody>
         <Terms>
           {formData.map((item, index) => (
             <React.Fragment key={index}>
@@ -117,7 +117,7 @@ export const FormLayout: Story = {
             </React.Fragment>
           ))}
         </Terms>
-      </CardContent>
+      </CardBody>
     </Card>
   ),
 };

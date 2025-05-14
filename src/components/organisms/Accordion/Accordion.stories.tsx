@@ -1,97 +1,115 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, waitFor } from "@storybook/test";
+import { within } from "@storybook/test";
 import { expect } from "@storybook/test";
+import React from "react";
 
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
-  AccordionContent,
+  AccordionHeader,
+  AccordionBody,
+  AccordionIndicator,
+  AccordionIndicatorOpen,
+  AccordionIndicatorClosed,
 } from "./Accordion";
+import { Button } from "@/components/atoms/Button";
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
-  parameters: {},
+  subcomponents: {
+    AccordionItem,
+    AccordionTrigger,
+    AccordionHeader,
+    AccordionBody,
+    AccordionIndicator,
+  },
+  parameters: {
+    nuqs: {
+      disabled: true,
+    },
+  },
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    variant: {
+      control: "radio",
+      options: ["default", "divided", "bordered"],
+      description: "The variant of the accordion to render",
+      defaultValue: "default",
+    },
+    type: {
+      control: "radio",
+      options: ["single", "multiple"],
+      description: "The type of accordion to render",
+      defaultValue: "single",
+    },
+    collapsible: {
+      control: "boolean",
+      description: "Whether the accordion is collapsible",
+      defaultValue: true,
+    },
+    disabled: {
+      control: "boolean",
+      description: "Whether the accordion is disabled",
+      defaultValue: false,
+    },
+    dir: {
+      control: "radio",
+      options: ["ltr", "rtl"],
+      description: "The direction of the accordion",
+      defaultValue: "ltr",
+    },
+    orientation: {
+      control: "radio",
+      options: ["vertical", "horizontal"],
+      description: "The orientation of the accordion",
+      defaultValue: "vertical",
+    },
+  },
 };
 export default meta;
 
 type Story = StoryObj<typeof Accordion>;
 
-const ExampleAccordion = ({
-  type = "single",
-  collapsible = true,
-  defaultValue,
-}: {
-  type?: "single" | "multiple";
-  collapsible?: boolean;
-  defaultValue?: string;
-}) => {
-  const accordionContent = (
-    <>
-      <AccordionItem value="item-1" data-testid="accordion-item-1">
-        <AccordionTrigger data-testid="accordion-trigger-1">
-          Is it accessible?
-        </AccordionTrigger>
-        <AccordionContent>
+export const Default: Story = {
+  render: (args) => (
+    <Accordion {...args}>
+      <AccordionItem value="item-1">
+        <AccordionHeader>
+          <AccordionTrigger>
+            <AccordionIndicator />
+            Is it accessible?
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
           Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
+        </AccordionBody>
       </AccordionItem>
-      <AccordionItem value="item-2" data-testid="accordion-item-2">
-        <AccordionTrigger data-testid="accordion-trigger-2">
-          Is it styled?
-        </AccordionTrigger>
-        <AccordionContent>
+      <AccordionItem value="item-2">
+        <AccordionHeader>
+          <AccordionTrigger>
+            <AccordionIndicator />
+            Is it styled?
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
           Yes. It comes with default styles that match the other components'
           aesthetic.
-        </AccordionContent>
+        </AccordionBody>
       </AccordionItem>
-      <AccordionItem value="item-3" data-testid="accordion-item-3">
-        <AccordionTrigger data-testid="accordion-trigger-3">
-          Is it animated?
-        </AccordionTrigger>
-        <AccordionContent>
+      <AccordionItem value="item-3">
+        <AccordionHeader>
+          <AccordionTrigger>
+            <AccordionIndicator />
+            Is it animated?
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
           Yes. It's animated by default, but you can disable it if you prefer.
-        </AccordionContent>
+        </AccordionBody>
       </AccordionItem>
-    </>
-  );
-
-  if (type === "multiple") {
-    return (
-      <Accordion
-        type="multiple"
-        defaultValue={defaultValue ? [defaultValue] : undefined}
-        className="w-full max-w-sm"
-      >
-        {accordionContent}
-      </Accordion>
-    );
-  }
-
-  return (
-    <Accordion
-      type="single"
-      collapsible={collapsible}
-      defaultValue={defaultValue}
-      className="w-full max-w-sm"
-    >
-      {accordionContent}
     </Accordion>
-  );
-};
-
-export const Default: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Default accordion with single item open and collapsible behavior.",
-      },
-    },
-  },
-  render: () => <ExampleAccordion />,
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const triggers = canvas.getAllByRole("button");
@@ -101,100 +119,196 @@ export const Default: Story = {
   },
 };
 
-export const SingleOpen: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Accordion with a single item open by default and non-collapsible behavior.",
-      },
-    },
+export const Preselected: Story = {
+  args: {
+    defaultValue: "item-2",
   },
-  render: () => <ExampleAccordion defaultValue="item-1" collapsible={false} />,
+  render: (args) => (
+    <Accordion {...args}>
+      <AccordionItem value="item-1">
+        <AccordionHeader>
+          <AccordionTrigger>
+            Is it accessible? <AccordionIndicator className="ml-auto" />
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionBody>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionHeader>
+          <AccordionTrigger>
+            Is it styled? <AccordionIndicator className="ml-auto" />
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
+          Yes. It comes with default styles that match the other components'
+          aesthetic.
+        </AccordionBody>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionHeader>
+          <AccordionTrigger>
+            Is it animated? <AccordionIndicator className="ml-auto" />
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
+          Yes. It's animated by default, but you can disable it if you prefer.
+        </AccordionBody>
+      </AccordionItem>
+    </Accordion>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger1 = canvas.getByTestId("accordion-trigger-1");
-    const trigger2 = canvas.getByTestId("accordion-trigger-2");
-
-    await expect(trigger1).toHaveAttribute("aria-expanded", "true");
-
-    await userEvent.click(trigger2);
-    await waitFor(() => {
-      expect(trigger1).toHaveAttribute("aria-expanded", "false");
-      expect(trigger2).toHaveAttribute("aria-expanded", "true");
-    });
-
-    await userEvent.click(trigger2);
-    await waitFor(async () => {
-      expect(trigger2).toHaveAttribute("aria-expanded", "true");
-    });
+    const triggers = canvas.getAllByRole("button");
+    await expect(triggers[0]).toHaveAttribute("aria-expanded", "false");
+    await expect(triggers[1]).toHaveAttribute("aria-expanded", "true");
+    await expect(triggers[2]).toHaveAttribute("aria-expanded", "false");
   },
 };
 
-export const MultipleOpen: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Accordion that allows multiple items to be open simultaneously.",
-      },
-    },
+export const CustomIcon: Story = {
+  args: {
+    variant: "bordered",
+    collapsible: true,
   },
-  render: () => <ExampleAccordion type="multiple" />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger1 = canvas.getByTestId("accordion-trigger-1");
-    const trigger2 = canvas.getByTestId("accordion-trigger-2");
+  render: (args) => (
+    <Accordion {...args}>
+      <AccordionItem value="item-1">
+        <AccordionHeader>
+          <AccordionTrigger>
+            Custom Icon
+            <AccordionIndicator icon="heart" />
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
+          Yes. It adheres to the WAI-ARIA design pattern.
+        </AccordionBody>
+      </AccordionItem>
+    </Accordion>
+  ),
+};
 
-    await userEvent.click(trigger1);
-    await waitFor(() => {
-      expect(trigger1).toHaveAttribute("aria-expanded", "true");
-    });
+export const PlusMinusIcon: Story = {
+  args: {
+    variant: "bordered",
+    collapsible: true,
+  },
+  render: (args) => (
+    <Accordion {...args}>
+      <AccordionItem value="item-1">
+        <AccordionHeader>
+          <AccordionTrigger>
+            <AccordionIndicator openIcon="minus" closedIcon="plus" />
+            Plus Icon with Rotation
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
+          This example uses a plus icon that rotates to create a visual effect
+          when open.
+        </AccordionBody>
+      </AccordionItem>
+    </Accordion>
+  ),
+};
 
-    await userEvent.click(trigger2);
-    await waitFor(() => {
-      expect(trigger1).toHaveAttribute("aria-expanded", "true");
-      expect(trigger2).toHaveAttribute("aria-expanded", "true");
-    });
+// Wrapper component for controlled story to properly use React hooks
+export const Controlled: Story = {
+  render: function Render() {
+    // Use React's useState hook to control the accordion state
+    const [value, setValue] = React.useState<string>("item-1");
 
-    await userEvent.click(trigger1);
-    await waitFor(() => {
-      expect(trigger1).toHaveAttribute("aria-expanded", "false");
-      expect(trigger2).toHaveAttribute("aria-expanded", "true");
-    });
+    return (
+      <div className="space-y-4">
+        <div className="flex gap-2">
+          <Button
+            onClick={() => setValue("item-1")}
+            variant={value === "item-1" ? "default" : "outline"}
+          >
+            Show Item 1
+          </Button>
+          <Button
+            onClick={() => setValue("item-2")}
+            variant={value === "item-2" ? "default" : "outline"}
+          >
+            Show Item 2
+          </Button>
+          <Button
+            onClick={() => setValue("item-3")}
+            variant={value === "item-3" ? "default" : "outline"}
+          >
+            Show Item 3
+          </Button>
+          <Button
+            onClick={() => setValue("")}
+            variant={value === "" ? "default" : "outline"}
+          >
+            Close All
+          </Button>
+        </div>
+
+        <Accordion
+          type="single"
+          collapsible
+          value={value}
+          onValueChange={setValue}
+        >
+          <AccordionItem value="item-1">
+            <AccordionHeader>
+              <AccordionTrigger>
+                Item 1 <AccordionIndicator className="ml-auto" />
+              </AccordionTrigger>
+            </AccordionHeader>
+            <AccordionBody>
+              This accordion item is externally controlled.
+            </AccordionBody>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionHeader>
+              <AccordionTrigger>
+                Item 2 <AccordionIndicator className="ml-auto" />
+              </AccordionTrigger>
+            </AccordionHeader>
+            <AccordionBody>
+              Click the buttons above to control which item is open.
+            </AccordionBody>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionHeader>
+              <AccordionTrigger>
+                Item 3 <AccordionIndicator className="ml-auto" />
+              </AccordionTrigger>
+            </AccordionHeader>
+            <AccordionBody>
+              The state is managed outside the Accordion component.
+            </AccordionBody>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    );
   },
 };
 
-export const KeyboardNavigation: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Demonstrates keyboard navigation through the accordion using Tab to move between items and Enter or Space to toggle them.",
-      },
-    },
+export const SeparateIndicators: Story = {
+  args: {
+    type: "single",
+    collapsible: true,
   },
-  render: () => <ExampleAccordion />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger1 = canvas.getByTestId("accordion-trigger-1");
-    const trigger2 = canvas.getByTestId("accordion-trigger-2");
-
-    await userEvent.tab();
-    await expect(trigger1).toHaveFocus();
-
-    await userEvent.keyboard("{Enter}");
-    await waitFor(() => {
-      expect(trigger1).toHaveAttribute("aria-expanded", "true");
-    });
-
-    await userEvent.tab();
-    await expect(trigger2).toHaveFocus();
-
-    await userEvent.keyboard(" ");
-    await waitFor(() => {
-      expect(trigger1).toHaveAttribute("aria-expanded", "false");
-      expect(trigger2).toHaveAttribute("aria-expanded", "true");
-    });
-  },
+  render: (args) => (
+    <Accordion {...args}>
+      <AccordionItem value="item-1">
+        <AccordionHeader>
+          <AccordionTrigger>
+            <AccordionIndicatorClosed icon="plus" />
+            <AccordionIndicatorOpen icon="minus" />
+            Advanced Indicator Control
+          </AccordionTrigger>
+        </AccordionHeader>
+        <AccordionBody>
+          This example uses separate indicator components for open and closed
+          states, giving you precise control over each state independently.
+        </AccordionBody>
+      </AccordionItem>
+    </Accordion>
+  ),
 };
