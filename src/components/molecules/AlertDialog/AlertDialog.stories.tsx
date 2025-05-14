@@ -13,9 +13,12 @@ import {
   AlertDialogTrigger,
 } from './AlertDialog'
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/molecules/Tooltip'
 import { IconButton } from '@/components/atoms/IconButton'
 import { Icon } from '@/components/atoms/Icon'
+import { ActionMenu, ActionMenuTrigger, ActionMenuContent, ActionMenuItem } from '@/components/molecules/ActionMenu'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/molecules/Tooltip'
+import { useRef, useState } from 'react'
+import { ActionSplit } from '../ActionSplit'
 
 const meta: Meta<typeof AlertDialog> = {
   component: AlertDialog,
@@ -281,5 +284,91 @@ export const WithActions: Story = {
     await waitFor(() => {
       expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
     })
+  },
+}
+
+export const WithActionMenu: Story = {
+  render: () => {
+    const ExportWithAlertDialog = () => {
+      const triggerRef = useRef<HTMLButtonElement>(null)
+
+      const [exportOption, setExportOption] = useState('')
+
+      const handleExport = (option: string) => {
+        console.log('Exporting', option)
+        setExportOption(option)
+        triggerRef.current?.click()
+      }
+
+      return (
+        <div>
+          <ActionSplit>
+            <Button variant="default" onClick={() => handleExport('Current View')}>
+              <Icon name="download" />
+              Export
+            </Button>
+
+            <ActionMenu onValueChange={handleExport}>
+              <ActionMenuTrigger asChild>
+                <IconButton variant="default" aria-label="Export options">
+                  <Icon name="chevron-down" />
+                </IconButton>
+              </ActionMenuTrigger>
+              <ActionMenuContent align="end">
+                <ActionMenuItem value="Last 24 Hours">
+                  <Icon name="clock" />
+                  Last 24 Hours
+                </ActionMenuItem>
+                <ActionMenuItem value="Last Week">
+                  <Icon name="calendar-days" />
+                  Last Week
+                </ActionMenuItem>
+                <ActionMenuItem value="Last Month">
+                  <Icon name="calendar" />
+                  Last Month
+                </ActionMenuItem>
+                <ActionMenuItem value="All Time">
+                  <Icon name="database" />
+                  All
+                </ActionMenuItem>
+              </ActionMenuContent>
+            </ActionMenu>
+          </ActionSplit>
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button hidden ref={triggerRef}>
+                Export
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  {exportOption
+                    ? `Data was sent to your email for the "${exportOption}"`
+                    : 'Data was sent to your email'}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {`Data was sent to your email for the "${exportOption}"`}
+                  Please check your email for the data.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogAction>Ok</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      )
+    }
+
+    return <ExportWithAlertDialog />
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'This example shows how to combine an ActionMenu with AlertDialog for confirming export options.',
+      },
+    },
   },
 }
