@@ -1,9 +1,11 @@
 'use client'
 
+import * as React from 'react'
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog'
 
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/atoms/Button'
+import { useActionProvider, useActionHandler } from '@/lib/useAction'
 import {
   alertDialogContentVariants,
   alertDialogDescriptionVariants,
@@ -25,9 +27,18 @@ import type {
   AlertDialogTitleProps,
   AlertDialogTriggerProps,
 } from './AlertDialog.types'
+import { AlertDialogContext, useAlertDialog } from './AlertDialog.context'
 
-function AlertDialog({ ...props }: AlertDialogProps) {
-  return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
+function AlertDialog({ children, onValueChange, ...props }: AlertDialogProps) {
+  const { action, setAction } = useActionProvider()
+
+  return (
+    <AlertDialogContext.Provider value={{ action, setAction, onValueChange }}>
+      <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props}>
+        {children}
+      </AlertDialogPrimitive.Root>
+    </AlertDialogContext.Provider>
+  )
 }
 
 function AlertDialogTrigger({ ...props }: AlertDialogTriggerProps) {
@@ -49,12 +60,16 @@ function AlertDialogOverlay({ className, ...props }: AlertDialogOverlayProps) {
 }
 
 function AlertDialogContent({ className, ...props }: AlertDialogContentProps) {
+  const actionContext = useAlertDialog()
+  const handleAnimationEnd = useActionHandler(actionContext)
+
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
       <AlertDialogPrimitive.Content
         data-slot="alert-dialog-content"
         className={cn(alertDialogContentVariants(), className)}
+        onAnimationEnd={handleAnimationEnd}
         {...props}
       />
     </AlertDialogPortal>
@@ -89,12 +104,46 @@ function AlertDialogDescription({ className, ...props }: AlertDialogDescriptionP
   )
 }
 
-function AlertDialogAction({ className, ...props }: AlertDialogActionProps) {
-  return <AlertDialogPrimitive.Action className={cn(buttonVariants(), className)} {...props} />
+function AlertDialogAction({ className, onAction, value, context, ...props }: AlertDialogActionProps) {
+  const dialogContext = useAlertDialog()
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (value || onAction) {
+      dialogContext.setAction({
+        callback: onAction,
+        value,
+        context,
+        event: event as unknown as Event,
+      })
+    }
+    // The original onClick will be called by Radix
+  }
+
+  return <AlertDialogPrimitive.Action className={cn(buttonVariants(), className)} onClick={handleClick} {...props} />
 }
 
-function AlertDialogCancel({ className, ...props }: AlertDialogCancelProps) {
-  return <AlertDialogPrimitive.Cancel className={cn(buttonVariants({ variant: 'outline' }), className)} {...props} />
+function AlertDialogCancel({ className, onAction, value, context, ...props }: AlertDialogCancelProps) {
+  const dialogContext = useAlertDialog()
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (value || onAction) {
+      dialogContext.setAction({
+        callback: onAction,
+        value,
+        context,
+        event: event as unknown as Event,
+      })
+    }
+    // The original onClick will be called by Radix
+  }
+
+  return (
+    <AlertDialogPrimitive.Cancel
+      className={cn(buttonVariants({ variant: 'outline' }), className)}
+      onClick={handleClick}
+      {...props}
+    />
+  )
 }
 
 export {
