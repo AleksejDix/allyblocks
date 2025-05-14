@@ -1,27 +1,19 @@
-import type { IconProps } from "./Icon.types";
-import { DynamicIcon } from "lucide-react/dynamic";
-import { Suspense } from "react";
+import type { IconProps } from './Icon.types'
+import { DynamicIcon } from 'lucide-react/dynamic'
+import { Suspense } from 'react'
+import { cn } from '@/lib/utils'
+export function Icon({ name, 'aria-label': ariaLabel, className, size = 16, ...props }: IconProps) {
+  const numericSize = typeof size === 'string' ? parseInt(size, 10) : size
 
-export function Icon({
-  name,
-  "aria-label": ariaLabel,
-  className,
-  size = 16,
-  ...props
-}: IconProps) {
-  const numericSize = typeof size === "string" ? parseInt(size, 10) : size;
-
-  const Placeholder = ({ size }: { size: number }) => (
-    <div style={{ width: `${size}px`, height: `${size}px` }}></div>
-  );
+  const Placeholder = ({ size }: { size: number }) => <div style={{ width: `${size}px`, height: `${size}px` }}></div>
 
   const LoadingIcon = ({ size }: { size: number }) => {
-    return <Placeholder size={size} />;
-  };
+    return <Placeholder size={size} />
+  }
 
   const MissingIcon = ({ size }: { size: number }) => {
-    return <Placeholder size={size} />;
-  };
+    return <Placeholder size={size} />
+  }
 
   return (
     <Suspense fallback={<LoadingIcon size={numericSize} />}>
@@ -32,12 +24,12 @@ export function Icon({
         aria-hidden={!ariaLabel}
         aria-label={ariaLabel}
         size={size}
-        className={className}
+        className={cn('inline-block align-middle', className)}
         fallback={() => {
-          return <MissingIcon size={numericSize} />;
+          return <MissingIcon size={numericSize} />
         }}
         {...props}
       />
     </Suspense>
-  );
+  )
 }

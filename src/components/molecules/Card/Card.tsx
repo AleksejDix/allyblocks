@@ -15,11 +15,11 @@ function Card({ className, variant, size, ...props }: CardProps) {
 }
 
 function CardHeader({ className, ...props }: CardHeaderProps) {
-  return <div data-slot="card-header" className={cn(cardHeaderVariants({ className }))} {...props} />
+  return <div data-slot="card-header" className={cn('bg-muted pb-4', cardHeaderVariants({ className }))} {...props} />
 }
 
 function CardTitle({ className, ...props }: CardTitleProps) {
-  return <div data-slot="card-title" className={cn('text-pretty font-medium', className)} {...props} />
+  return <div data-slot="card-title" className={cn('text-pretty font-medium text-lg', className)} {...props} />
 }
 
 function CardDescription({ className, ...props }: CardDescriptionProps) {
