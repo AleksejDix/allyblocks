@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
-import { Button } from "@/components/atoms/Button";
-import { Icon } from "@/components/atoms/Icon";
+import type { Meta, StoryObj } from '@storybook/react'
+import { within, userEvent, expect, waitFor, screen } from '@storybook/test'
+import { Button } from '@/components/atoms/Button'
+import { Icon } from '@/components/atoms/Icon'
 import {
   Dialog,
   DialogContent,
@@ -12,40 +12,40 @@ import {
   DialogTrigger,
   DialogClose,
   DialogBody,
-} from "./Dialog";
-import React, { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/molecules/Form/Form";
-import { FieldEmail } from "@/components/molecules/Fields/FieldEmail";
-import { FieldPassword } from "../Fields/FieldPassword";
+} from './Dialog'
+import React, { useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Form } from '@/components/molecules/Form/Form'
+import { FieldEmail } from '@/components/molecules/Fields/FieldEmail'
+import { FieldPassword } from '../Fields/FieldPassword'
 
-import { IconButton } from "@/components/atoms/IconButton";
-import { Input } from "@/index";
-import { ActionSplit } from "../ActionSplit";
+import { IconButton } from '@/components/atoms/IconButton'
+import { Input } from '@/index'
+import { ActionSplit } from '../ActionSplit'
 
 // Mock notification function
 const notify = (message: string) => {
-  console.log(message);
-};
+  console.log(message)
+}
 
 const meta: Meta<typeof Dialog> = {
   component: Dialog,
   parameters: {
     docs: {},
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     onValueChange: {
-      action: "value changed",
-      description: "Callback when any action in the dialog is executed",
+      action: 'value changed',
+      description: 'Callback when any action in the dialog is executed',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Dialog>;
+export default meta
+type Story = StoryObj<typeof Dialog>
 
 export const Default: Story = {
   render: (args) => (
@@ -57,8 +57,7 @@ export const Default: Story = {
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
           <DialogDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-            quos.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
@@ -76,69 +75,65 @@ export const Default: Story = {
     </Dialog>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
-    const triggerButton = canvas.getByRole("button");
-    await userEvent.click(triggerButton);
-
-    await waitFor(() => {
-      const dialog = screen.getByRole("dialog");
-      expect(dialog).toBeVisible();
-    });
-
-    const saveButton = screen.getByRole("button", { name: /Save/i });
-
-    await userEvent.click(saveButton);
+    const triggerButton = canvas.getByRole('button')
+    await userEvent.click(triggerButton)
 
     await waitFor(() => {
-      const dialog = screen.getByRole("dialog");
-      expect(dialog).not.toBeVisible();
-    });
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toBeVisible()
+    })
+
+    const saveButton = screen.getByRole('button', { name: /Save/i })
+
+    await userEvent.click(saveButton)
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).not.toBeVisible()
+    })
   },
-};
+}
 
 // Controlled Dialog story
 function ControlledDialogDemo() {
-  const [open, setOpen] = useState(false);
-  const [count, setCount] = useState(0);
+  const [open, setOpen] = useState(false)
+  const [count, setCount] = useState(0)
 
-  const triggerButton = useRef<HTMLButtonElement>(null);
+  const triggerButton = useRef<HTMLButtonElement>(null)
 
   const handleOpenChange = (isOpen: boolean) => {
-    setOpen(isOpen);
+    setOpen(isOpen)
     if (isOpen) {
-      notify("Dialog opened");
+      notify('Dialog opened')
     } else {
-      notify("Dialog closed");
+      notify('Dialog closed')
     }
-  };
+  }
 
   const onValueChange = (value: string) => {
     if (value) {
-      console.log("Dialog opened");
+      console.log('Dialog opened')
     } else {
-      console.log("Dialog closed");
+      console.log('Dialog closed')
     }
     //  For controlled dialogs, we need to focus the trigger button when the dialog is opened
-    triggerButton.current?.focus();
-  };
+    triggerButton.current?.focus()
+  }
 
   const handleIncrement = () => {
-    setCount((prev) => prev + 1);
-  };
+    setCount((prev) => prev + 1)
+  }
 
   const handleDecrement = () => {
-    setCount((prev) => prev - 1);
-  };
+    setCount((prev) => prev - 1)
+  }
 
   return (
     <div className="flex flex-col gap-4 items-start">
       <div className="flex gap-4 items-center">
-        <Button
-          variant="ghost"
-          onClick={() => handleOpenChange(true)}
-          ref={triggerButton}
-        >
+        <Button variant="ghost" onClick={() => handleOpenChange(true)} ref={triggerButton}>
           Open
         </Button>
         <p className="text-sm">Current count: {count}</p>
@@ -148,39 +143,21 @@ function ControlledDialogDemo() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Controlled Dialog</DialogTitle>
-            <DialogDescription>
-              This dialog's state is controlled externally.
-            </DialogDescription>
+            <DialogDescription>This dialog's state is controlled externally.</DialogDescription>
           </DialogHeader>
           <DialogBody>
             <ActionSplit>
-              <IconButton
-                aria-label="Decrement Count"
-                variant="outline"
-                onClick={handleDecrement}
-              >
+              <IconButton aria-label="Decrement Count" variant="outline" onClick={handleDecrement}>
                 <Icon name="minus" />
               </IconButton>
-              <Input
-                type="number"
-                value={count}
-                onChange={(e) => setCount(Number(e.target.value))}
-              />
-              <IconButton
-                aria-label="Increment Count"
-                variant="outline"
-                onClick={handleIncrement}
-              >
+              <Input type="number" value={count} onChange={(e) => setCount(Number(e.target.value))} />
+              <IconButton aria-label="Increment Count" variant="outline" onClick={handleIncrement}>
                 <Icon name="plus" />
               </IconButton>
             </ActionSplit>
           </DialogBody>
           <DialogFooter>
-            <DialogClose
-              asChild
-              value="ok"
-              context={{ timestamp: new Date().toISOString() }}
-            >
+            <DialogClose asChild value="ok" context={{ timestamp: new Date().toISOString() }}>
               <Button variant="outline" onClick={() => handleOpenChange(false)}>
                 Ok
               </Button>
@@ -189,75 +166,71 @@ function ControlledDialogDemo() {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }
 
 export const Controlled: Story = {
   render: () => <ControlledDialogDemo />,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
-    const externalButton = canvas.getByRole("button");
+    const externalButton = canvas.getByRole('button')
 
-    expect(externalButton).toBeVisible();
-    await userEvent.click(externalButton);
-
-    await waitFor(() => {
-      const dialog = screen.getByRole("dialog");
-      expect(dialog).toBeVisible();
-    });
-
-    const okButton = screen.getByRole("button", { name: /ok/i });
-    await userEvent.click(okButton);
+    expect(externalButton).toBeVisible()
+    await userEvent.click(externalButton)
 
     await waitFor(() => {
-      const dialog = screen.getByRole("dialog");
-      expect(dialog).not.toBeVisible();
-    });
-    expect(externalButton).toHaveFocus();
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toBeVisible()
+    })
+
+    const okButton = screen.getByRole('button', { name: /ok/i })
+    await userEvent.click(okButton)
+
+    await waitFor(() => {
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).not.toBeVisible()
+    })
+    expect(externalButton).toHaveFocus()
   },
-};
+}
 
 // Component to use in the Dialog story
 function EmailSubscriptionForm(props: { onClose: () => void }) {
   // Define the form schema
   const schema = z.object({
-    email: z.string().email("Please enter a valid email address"),
-  });
+    email: z.string().email('Please enter a valid email address'),
+  })
 
   // Create form state with React Hook Form
   const methods = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      email: '',
     },
-  });
+  })
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Handle form submission
   const onSubmit = async (values: z.infer<typeof schema>) => {
-    setIsSubmitting(true);
+    setIsSubmitting(true)
 
     // Simulate API call with 1 second delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
     // Log the submitted values
-    notify(`Submitted email: ${values.email}`);
+    notify(`Submitted email: ${values.email}`)
 
     // Reset form and close dialog
-    setIsSubmitting(false);
-    methods.reset();
-    props.onClose();
-  };
+    setIsSubmitting(false)
+    methods.reset()
+    props.onClose()
+  }
 
   return (
     <Form {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(onSubmit)}
-        noValidate
-        className="contents"
-      >
+      <form onSubmit={methods.handleSubmit(onSubmit)} noValidate className="contents">
         <DialogBody className="grid gap-4">
           <FieldEmail
             name="email"
@@ -288,17 +261,17 @@ function EmailSubscriptionForm(props: { onClose: () => void }) {
                 Submitting...
               </>
             ) : (
-              "Subscribe"
+              'Subscribe'
             )}
           </Button>
         </DialogFooter>
       </form>
     </Form>
-  );
+  )
 }
 
 function EmailSubscriptionDialog(props: React.ComponentProps<typeof Dialog>) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   return (
     <Dialog {...props} open={open} onOpenChange={setOpen}>
@@ -308,74 +281,70 @@ function EmailSubscriptionDialog(props: React.ComponentProps<typeof Dialog>) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Subscribe to Newsletter</DialogTitle>
-          <DialogDescription>
-            Enter your email to subscribe to our newsletter.
-          </DialogDescription>
+          <DialogDescription>Enter your email to subscribe to our newsletter.</DialogDescription>
         </DialogHeader>
 
         <EmailSubscriptionForm onClose={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
 export const WithForm: Story = {
   render: (args) => <EmailSubscriptionDialog {...args} />,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
-    const triggerButton = canvas.getByRole("button", {
+    const triggerButton = canvas.getByRole('button', {
       name: /email subscription/i,
-    });
-    await userEvent.click(triggerButton);
+    })
+    await userEvent.click(triggerButton)
 
     await waitFor(() => {
-      const dialog = screen.getByRole("dialog");
-      expect(dialog).toBeVisible();
-    });
+      const dialog = screen.getByRole('dialog')
+      expect(dialog).toBeVisible()
+    })
 
-    const emailInput = screen.getByRole("textbox", { name: /email/i });
-    await expect(emailInput).toBeVisible();
-    await expect(emailInput).toHaveFocus();
+    const emailInput = screen.getByRole('textbox', { name: /email/i })
+    await expect(emailInput).toBeVisible()
+    await expect(emailInput).toHaveFocus()
 
-    await userEvent.type(emailInput, "invalid-email");
+    await userEvent.type(emailInput, 'invalid-email')
 
-    const submitButton = screen.getByRole("button", { name: /Subscribe/i });
-    expect(submitButton).toBeInTheDocument();
-    await userEvent.click(submitButton);
-
-    await waitFor(() => {
-      const errorMessage = screen.getByText(
-        /Please enter a valid email address/i
-      );
-      expect(errorMessage).toBeVisible();
-    });
-
-    await userEvent.clear(emailInput);
-    await userEvent.type(emailInput, "test@example.com");
-    await userEvent.click(submitButton);
+    const submitButton = screen.getByRole('button', { name: /Subscribe/i })
+    expect(submitButton).toBeInTheDocument()
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
-      const spinner = screen.getByText(/submitting/i);
-      expect(spinner).toBeVisible();
+      const errorMessage = screen.getByText(/Please enter a valid email address/i)
+      expect(errorMessage).toBeVisible()
+    })
+
+    await userEvent.clear(emailInput)
+    await userEvent.type(emailInput, 'test@example.com')
+    await userEvent.click(submitButton)
+
+    await waitFor(() => {
+      const spinner = screen.getByText(/submitting/i)
+      expect(spinner).toBeVisible()
 
       // Wait for the submission to complete (1 second delay)
       waitFor(() => expect(spinner).not.toBeInTheDocument(), {
         timeout: 1500,
-      });
-    });
+      })
+    })
   },
-};
+}
 
 export const WithActionHandlers: Story = {
   render: (args) => {
     const handleSave = (e: Event) => {
-      notify(`Save action triggered at ${e.timeStamp}`);
-    };
+      notify(`Save action triggered at ${e.timeStamp}`)
+    }
 
     const handleDelete = (e: Event) => {
-      notify(`Delete action triggered at ${e.timeStamp}`);
-    };
+      notify(`Delete action triggered at ${e.timeStamp}`)
+    }
 
     return (
       <Dialog {...args}>
@@ -409,9 +378,9 @@ export const WithActionHandlers: Story = {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    );
+    )
   },
-};
+}
 
 export const FocusManagement: Story = {
   render: (args) => (
@@ -423,8 +392,7 @@ export const FocusManagement: Story = {
         <DialogHeader>
           <DialogTitle>Focus Test</DialogTitle>
           <DialogDescription>
-            Tab should cycle through interactive elements. Focus should return
-            to trigger on close.
+            Tab should cycle through interactive elements. Focus should return to trigger on close.
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
@@ -442,39 +410,39 @@ export const FocusManagement: Story = {
     </Dialog>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const triggerButton = canvas.getByRole("button", { name: /test focus/i });
+    const canvas = within(canvasElement)
+    const triggerButton = canvas.getByRole('button', { name: /test focus/i })
 
-    await userEvent.tab();
-    await expect(triggerButton).toHaveFocus();
+    await userEvent.tab()
+    await expect(triggerButton).toHaveFocus()
 
-    await userEvent.click(triggerButton);
+    await userEvent.click(triggerButton)
 
     await waitFor(() => {
-      const firstButton = screen.getByRole("button", {
+      const firstButton = screen.getByRole('button', {
         name: /I should be focused/i,
-      });
-      expect(firstButton).toHaveFocus();
-    });
+      })
+      expect(firstButton).toHaveFocus()
+    })
 
-    await userEvent.tab();
+    await userEvent.tab()
 
-    const cancelButton = screen.getByRole("button", { name: /cancel/i });
-    await expect(cancelButton).toHaveFocus();
+    const cancelButton = screen.getByRole('button', { name: /cancel/i })
+    await expect(cancelButton).toHaveFocus()
 
-    await userEvent.tab();
+    await userEvent.tab()
 
-    const submitButton = screen.getByRole("button", { name: /submit/i });
-    await expect(submitButton).toHaveFocus();
+    const submitButton = screen.getByRole('button', { name: /submit/i })
+    await expect(submitButton).toHaveFocus()
 
-    await userEvent.tab({ shift: true });
+    await userEvent.tab({ shift: true })
 
-    await expect(cancelButton).toHaveFocus();
+    await expect(cancelButton).toHaveFocus()
 
-    await userEvent.keyboard("{Escape}");
+    await userEvent.keyboard('{Escape}')
 
     await waitFor(() => {
-      expect(triggerButton).toHaveFocus();
-    });
+      expect(triggerButton).toHaveFocus()
+    })
   },
-};
+}
