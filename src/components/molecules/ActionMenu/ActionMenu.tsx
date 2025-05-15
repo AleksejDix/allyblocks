@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { cn } from "@/lib/utils";
-import { useActionProvider, useActionHandler } from "@/lib/useAction";
+import { cn } from '@/lib/utils'
+import { useActionProvider, useActionHandler } from '@/lib/useAction'
 
 import {
   DropdownMenu,
@@ -14,7 +14,7 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-} from "@/components/molecules/DropdownMenu";
+} from '@/components/molecules/DropdownMenu'
 
 import type {
   ActionMenuRootProps,
@@ -27,37 +27,33 @@ import type {
   ActionMenuCheckboxItemProps,
   ActionMenuRadioGroupProps,
   ActionMenuRadioItemProps,
-} from "./ActionMenu.types";
+} from './ActionMenu.types'
 
-import { ActionMenuContext, useActionMenu } from "./ActionMenu.context";
+import { ActionMenuContext, useActionMenu } from './ActionMenu.context'
+import { UI_CONSTANTS } from '@/lib/constants'
 
 /**
  * ActionMenu - Root component for the menu system
  */
 export function ActionMenu({ children, onValueChange }: ActionMenuRootProps) {
-  const { action, setAction } = useActionProvider();
+  const { action, setAction } = useActionProvider()
 
   return (
     <ActionMenuContext.Provider value={{ action, setAction, onValueChange }}>
       <DropdownMenu>{children}</DropdownMenu>
     </ActionMenuContext.Provider>
-  );
+  )
 }
 
 /**
  * ActionMenuTrigger - The button that opens the menu
  */
-export function ActionMenuTrigger({
-  children,
-  className,
-  asChild,
-  ...props
-}: ActionMenuTriggerProps) {
+export function ActionMenuTrigger({ children, className, asChild, ...props }: ActionMenuTriggerProps) {
   return (
     <DropdownMenuTrigger asChild={asChild} className={className} {...props}>
       {children}
     </DropdownMenuTrigger>
-  );
+  )
 }
 
 /**
@@ -66,24 +62,26 @@ export function ActionMenuTrigger({
 export function ActionMenuContent({
   children,
   className,
-  align = "end",
-  collisionPadding = 16,
+  align = 'end',
+  collisionPadding = UI_CONSTANTS.COLLISION_PADDING,
+  collisionBoundary,
   ...props
 }: ActionMenuContentProps) {
-  const actionContext = useActionMenu();
-  const handleAnimationEnd = useActionHandler(actionContext);
+  const actionContext = useActionMenu()
+  const handleAnimationEnd = useActionHandler(actionContext)
 
   return (
     <DropdownMenuContent
       className={className}
       align={align}
       collisionPadding={collisionPadding}
+      collisionBoundary={collisionBoundary}
       onAnimationEnd={handleAnimationEnd}
       {...props}
     >
       {children}
     </DropdownMenuContent>
-  );
+  )
 }
 
 /**
@@ -98,7 +96,7 @@ export function ActionMenuItem({
   context,
   ...props
 }: ActionMenuItemProps) {
-  const { setAction } = useActionMenu();
+  const { setAction } = useActionMenu()
 
   // Handle the selection
   const handleSelect = (event: Event) => {
@@ -109,65 +107,51 @@ export function ActionMenuItem({
         value,
         context,
         event,
-      });
+      })
     } else if (onSelect) {
       // Support traditional onSelect for backward compatibility
-      onSelect(event);
+      onSelect(event)
     }
-  };
+  }
 
   return (
     <DropdownMenuItem
-      className={cn(
-        "flex cursor-pointer items-center hover:bg-accent",
-        className
-      )}
+      className={cn('flex cursor-pointer items-center hover:bg-accent', className)}
       onSelect={handleSelect}
       {...props}
     >
       {children}
     </DropdownMenuItem>
-  );
+  )
 }
 
 /**
  * ActionMenuGroup - Logical grouping of related menu items
  */
-export function ActionMenuGroup({
-  children,
-  className,
-  ...props
-}: ActionMenuGroupProps) {
+export function ActionMenuGroup({ children, className, ...props }: ActionMenuGroupProps) {
   return (
     <DropdownMenuGroup className={cn(className)} {...props}>
       {children}
     </DropdownMenuGroup>
-  );
+  )
 }
 
 /**
  * ActionMenuLabel - Non-interactive label within the menu
  */
-export function ActionMenuLabel({
-  children,
-  className,
-  ...props
-}: ActionMenuLabelProps) {
+export function ActionMenuLabel({ children, className, ...props }: ActionMenuLabelProps) {
   return (
     <DropdownMenuLabel className={cn(className)} {...props}>
       {children}
     </DropdownMenuLabel>
-  );
+  )
 }
 
 /**
  * ActionMenuSeparator - Visual separator between menu items
  */
-export function ActionMenuSeparator({
-  className,
-  ...props
-}: ActionMenuSeparatorProps) {
-  return <DropdownMenuSeparator className={cn(className)} {...props} />;
+export function ActionMenuSeparator({ className, ...props }: ActionMenuSeparatorProps) {
+  return <DropdownMenuSeparator className={cn(className)} {...props} />
 }
 
 /**
@@ -183,16 +167,16 @@ export function ActionMenuCheckboxItem({
   context,
   ...props
 }: ActionMenuCheckboxItemProps) {
-  const { setAction } = useActionMenu();
+  const { setAction } = useActionMenu()
 
   const handleCheckedChange = (checked: boolean) => {
     if (onCheckedChange) {
-      onCheckedChange(checked);
+      onCheckedChange(checked)
     }
-  };
+  }
 
   const handleSelect = (event: Event) => {
-    const newChecked = !checked;
+    const newChecked = !checked
 
     // Schedule the action to run after animation
     setAction({
@@ -201,15 +185,15 @@ export function ActionMenuCheckboxItem({
       // Include the new checked state in the context
       context: { ...context, checked: newChecked },
       event,
-    });
+    })
 
     // Update the checked state through the original handler
-    handleCheckedChange(newChecked);
-  };
+    handleCheckedChange(newChecked)
+  }
 
   return (
     <DropdownMenuCheckboxItem
-      className={cn("flex items-center", className)}
+      className={cn('flex items-center', className)}
       checked={checked}
       // Use the original onCheckedChange for controlled behavior
       onCheckedChange={handleCheckedChange}
@@ -219,7 +203,7 @@ export function ActionMenuCheckboxItem({
     >
       {children}
     </DropdownMenuCheckboxItem>
-  );
+  )
 }
 
 /**
@@ -233,15 +217,10 @@ export function ActionMenuRadioGroup({
   ...props
 }: ActionMenuRadioGroupProps) {
   return (
-    <DropdownMenuRadioGroup
-      className={cn(className)}
-      value={value}
-      onValueChange={onRadioValueChange}
-      {...props}
-    >
+    <DropdownMenuRadioGroup className={cn(className)} value={value} onValueChange={onRadioValueChange} {...props}>
       {children}
     </DropdownMenuRadioGroup>
-  );
+  )
 }
 
 /**
@@ -256,7 +235,7 @@ export function ActionMenuRadioItem({
   context,
   ...props
 }: ActionMenuRadioItemProps) {
-  const { setAction } = useActionMenu();
+  const { setAction } = useActionMenu()
 
   const handleSelect = (event: Event) => {
     // Schedule the action to run after animation
@@ -267,18 +246,18 @@ export function ActionMenuRadioItem({
         // Include the radio value in the context
         context: { ...context, radioValue },
         event,
-      });
+      })
     }
-  };
+  }
 
   return (
     <DropdownMenuRadioItem
-      className={cn("flex items-center", className)}
+      className={cn('flex items-center', className)}
       value={radioValue}
       onSelect={handleSelect}
       {...props}
     >
       {children}
     </DropdownMenuRadioItem>
-  );
+  )
 }
