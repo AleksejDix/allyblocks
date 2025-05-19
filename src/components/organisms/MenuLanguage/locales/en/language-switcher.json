@@ -1,0 +1,6 @@
+{
+  "language_switcher_trigger_label": "Change language, current language is {{language}}",
+  "select_language_label": "Select Language",
+  "change_language_to": "Change language to {{language}}",
+  "language_selected_announcement": "Language set to {{language}}"
+}

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, within, screen } from "@storybook/test";
-import { Icon } from "@/components/atoms/Icon";
+import type { Meta, StoryObj } from '@storybook/react'
+import { expect, userEvent, within, screen } from '@storybook/test'
+import { Icon } from '@/components/atoms/Icon'
 import {
   MultiSelect,
   MultiSelectContent,
@@ -10,8 +10,8 @@ import {
   MultiSelectGroup,
   MultiSelectLabel,
   MultiSelectSeparator,
-} from "./MultiSelect";
-import { waitFor } from "@testing-library/react";
+} from './MultiSelect'
+import { waitFor } from '@testing-library/react'
 
 const meta: Meta<typeof MultiSelect> = {
   component: MultiSelect,
@@ -24,62 +24,54 @@ const meta: Meta<typeof MultiSelect> = {
     MultiSelectLabel: MultiSelectLabel,
     MultiSelectSeparator: MultiSelectSeparator,
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     value: {
-      control: "object",
-      description: "The value of the select",
+      control: 'object',
+      description: 'The value of the select',
     },
     defaultValue: {
-      control: "object",
-      description: "The default value of the select",
+      control: 'object',
+      description: 'The default value of the select',
     },
     onValueChange: {
-      action: "value changed",
-      description: "Callback when the selection changes",
+      action: 'value changed',
+      description: 'Callback when the selection changes',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the select is disabled",
+      control: 'boolean',
+      description: 'Whether the select is disabled',
     },
     required: {
-      control: "boolean",
-      description: "Whether the select is required",
+      control: 'boolean',
+      description: 'Whether the select is required',
     },
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof MultiSelect>;
+type Story = StoryObj<typeof MultiSelect>
 
 const fruitOptions = [
-  { label: "Apple", value: "apple" },
-  { label: "Banana", value: "banana" },
-  { label: "Orange", value: "orange" },
-  { label: "Grape", value: "grape" },
-  { label: "Strawberry", value: "strawberry" },
-];
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Grape', value: 'grape' },
+  { label: 'Strawberry', value: 'strawberry' },
+]
 
 export const CustomTriggerText: Story = {
   render: () => (
-    <MultiSelect defaultValue={["apple", "orange"]}>
+    <MultiSelect defaultValue={['apple', 'orange']}>
       <MultiSelectTrigger>
-        <MultiSelectValue
-          placeholder="Select fruits"
-          showSelectedLabels={false}
-          selectedText="Fruits"
-        />
+        <MultiSelectValue placeholder="Select fruits" showSelectedLabels={false} selectedText="Fruits" />
         <Icon name="chevron-down" size={16} className="opacity-50" />
       </MultiSelectTrigger>
       <MultiSelectContent width="trigger">
         <MultiSelectGroup>
           {fruitOptions.map((option) => (
-            <MultiSelectItem
-              key={option.value}
-              value={option.value}
-              label={option.label}
-            >
+            <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
               {option.label}
             </MultiSelectItem>
           ))}
@@ -88,60 +80,52 @@ export const CustomTriggerText: Story = {
     </MultiSelect>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
 
     // Check that the trigger text shows the custom text
-    await expect(trigger).toHaveTextContent("Fruits: 2");
+    await expect(trigger).toHaveTextContent('Fruits: 2')
   },
-};
+}
 
 export const Default: Story = {
   render: (args) => {
     return (
       <MultiSelect {...args}>
         <MultiSelectTrigger>
-          <MultiSelectValue
-            placeholder="Select fruits"
-            showSelectedLabels={true}
-            maxDisplayItems={2}
-          />
+          <MultiSelectValue placeholder="Select fruits" showSelectedLabels={true} maxDisplayItems={2} />
           <Icon name="chevron-down" size={16} className="opacity-50" />
         </MultiSelectTrigger>
         <MultiSelectContent>
           <MultiSelectGroup>
             {fruitOptions.map((option) => (
-              <MultiSelectItem
-                key={option.value}
-                value={option.value}
-                label={option.label}
-              >
+              <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                 {option.label}
               </MultiSelectItem>
             ))}
           </MultiSelectGroup>
         </MultiSelectContent>
       </MultiSelect>
-    );
+    )
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
 
-    await expect(trigger).toBeInTheDocument();
+    await expect(trigger).toBeInTheDocument()
 
-    await userEvent.click(trigger);
+    await userEvent.click(trigger)
 
     await waitFor(() => {
-      expect(screen.getByRole("menu")).toBeInTheDocument();
-    });
+      expect(screen.getByRole('menu')).toBeInTheDocument()
+    })
 
-    const appleOption = screen.getByRole("menuitemcheckbox", { name: "Apple" });
-    await userEvent.click(appleOption);
+    const appleOption = screen.getByRole('menuitemcheckbox', { name: 'Apple' })
+    await userEvent.click(appleOption)
 
-    await expect(trigger).toHaveTextContent("Apple");
+    await expect(trigger).toHaveTextContent('Apple')
   },
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -153,7 +137,7 @@ export const Disabled: Story = {
       <MultiSelectContent>
         <MultiSelectGroup>
           {fruitOptions.map((option) => (
-            <MultiSelectItem key={option.value} value={option.value}>
+            <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
               {option.label}
             </MultiSelectItem>
           ))}
@@ -162,12 +146,12 @@ export const Disabled: Story = {
     </MultiSelect>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
 
-    await expect(trigger).toBeDisabled();
+    await expect(trigger).toBeDisabled()
   },
-};
+}
 
 export const DisabledOptions: Story = {
   render: () => (
@@ -178,23 +162,23 @@ export const DisabledOptions: Story = {
       </MultiSelectTrigger>
       <MultiSelectContent>
         <MultiSelectGroup>
-          <MultiSelectItem value="apple" label="Apple">
+          <MultiSelectItem value="apple" context={{ displayText: 'Apple' }}>
             Apple
           </MultiSelectItem>
-          <MultiSelectItem value="banana" disabled label="Banana (Unavailable)">
+          <MultiSelectItem value="banana" disabled context={{ displayText: 'Banana (Unavailable)' }}>
             Banana (Unavailable)
           </MultiSelectItem>
-          <MultiSelectItem value="orange" label="Orange">
+          <MultiSelectItem value="orange" context={{ displayText: 'Orange' }}>
             Orange
           </MultiSelectItem>
-          <MultiSelectItem value="grape" disabled label="Grape (Unavailable)">
+          <MultiSelectItem value="grape" disabled context={{ displayText: 'Grape (Unavailable)' }}>
             Grape (Unavailable)
           </MultiSelectItem>
         </MultiSelectGroup>
       </MultiSelectContent>
     </MultiSelect>
   ),
-};
+}
 
 export const Groups: Story = {
   render: () => (
@@ -206,25 +190,15 @@ export const Groups: Story = {
       <MultiSelectContent>
         <MultiSelectGroup>
           <MultiSelectLabel>Fruits</MultiSelectLabel>
-          <MultiSelectItem value="apple" label="Apple">
-            Apple
-          </MultiSelectItem>
-          <MultiSelectItem value="banana" label="Banana">
-            Banana
-          </MultiSelectItem>
-          <MultiSelectItem value="orange" label="Orange">
-            Orange
-          </MultiSelectItem>
+          <MultiSelectItem value="apple">Apple</MultiSelectItem>
+          <MultiSelectItem value="banana">Banana</MultiSelectItem>
+          <MultiSelectItem value="orange">Orange</MultiSelectItem>
         </MultiSelectGroup>
         <MultiSelectSeparator />
         <MultiSelectGroup>
           <MultiSelectLabel>Vegetables</MultiSelectLabel>
-          <MultiSelectItem value="carrot" label="Carrot">
-            Carrot
-          </MultiSelectItem>
-          <MultiSelectItem value="broccoli" label="Broccoli">
-            Broccoli
-          </MultiSelectItem>
+          <MultiSelectItem value="carrot">Carrot</MultiSelectItem>
+          <MultiSelectItem value="broccoli">Broccoli</MultiSelectItem>
           <MultiSelectItem value="spinach" label="Spinach">
             Spinach
           </MultiSelectItem>
@@ -232,12 +206,12 @@ export const Groups: Story = {
       </MultiSelectContent>
     </MultiSelect>
   ),
-};
+}
 
 export const Prefilled: Story = {
   render: () => {
     return (
-      <MultiSelect defaultValue={["apple", "orange"]} options={fruitOptions}>
+      <MultiSelect defaultValue={['apple', 'orange']} options={fruitOptions}>
         <MultiSelectTrigger>
           <MultiSelectValue placeholder="Select fruits" />
           <Icon name="chevron-down" size={16} className="opacity-50" />
@@ -245,27 +219,23 @@ export const Prefilled: Story = {
         <MultiSelectContent>
           <MultiSelectGroup>
             {fruitOptions.map((option) => (
-              <MultiSelectItem
-                key={option.value}
-                value={option.value}
-                label={option.label}
-              >
+              <MultiSelectItem key={option.value} value={option.value} label={option.label}>
                 {option.label}
               </MultiSelectItem>
             ))}
           </MultiSelectGroup>
         </MultiSelectContent>
       </MultiSelect>
-    );
+    )
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole("button");
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
 
     // Check that the trigger text shows the correct count
-    await expect(trigger).toHaveTextContent("Apple, Orange");
+    await expect(trigger).toHaveTextContent('Apple, Orange')
   },
-};
+}
 
 export const SelectionDisplay: Story = {
   render: () => {
@@ -273,106 +243,67 @@ export const SelectionDisplay: Story = {
       <div className="flex flex-col gap-6">
         <div>
           <h3 className="font-medium mb-2">Show Selected Items (Default)</h3>
-          <MultiSelect
-            defaultValue={["apple", "orange", "grape"]}
-            options={fruitOptions}
-          >
+          <MultiSelect defaultValue={['apple', 'orange', 'grape']} options={fruitOptions}>
             <MultiSelectTrigger className="w-full">
-              <MultiSelectValue
-                placeholder="Select fruits"
-                showSelectedLabels={true}
-                maxDisplayItems={2}
-              />
+              <MultiSelectValue placeholder="Select fruits" showSelectedLabels={true} maxDisplayItems={2} />
               <Icon name="chevron-down" size={16} className="opacity-50" />
             </MultiSelectTrigger>
             <MultiSelectContent width="trigger">
               <MultiSelectGroup>
                 {fruitOptions.map((option) => (
-                  <MultiSelectItem
-                    key={option.value}
-                    value={option.value}
-                    label={option.label}
-                  >
+                  <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                     {option.label}
                   </MultiSelectItem>
                 ))}
               </MultiSelectGroup>
             </MultiSelectContent>
           </MultiSelect>
-          <p className="text-sm text-muted-foreground mt-1">
-            Shows selected item labels with truncation
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Shows selected item labels with truncation</p>
         </div>
 
         <div>
           <h3 className="font-medium mb-2">Show More Items</h3>
-          <MultiSelect
-            defaultValue={["apple", "orange", "grape", "strawberry"]}
-            options={fruitOptions}
-          >
+          <MultiSelect defaultValue={['apple', 'orange', 'grape', 'strawberry']} options={fruitOptions}>
             <MultiSelectTrigger className="w-full">
-              <MultiSelectValue
-                placeholder="Select fruits"
-                showSelectedLabels={true}
-                maxDisplayItems={3}
-              />
+              <MultiSelectValue placeholder="Select fruits" showSelectedLabels={true} maxDisplayItems={3} />
               <Icon name="chevron-down" size={16} className="opacity-50" />
             </MultiSelectTrigger>
             <MultiSelectContent width="trigger">
               <MultiSelectGroup>
                 {fruitOptions.map((option) => (
-                  <MultiSelectItem
-                    key={option.value}
-                    value={option.value}
-                    label={option.label}
-                  >
+                  <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                     {option.label}
                   </MultiSelectItem>
                 ))}
               </MultiSelectGroup>
             </MultiSelectContent>
           </MultiSelect>
-          <p className="text-sm text-muted-foreground mt-1">
-            Shows more selected items before truncating
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Shows more selected items before truncating</p>
         </div>
 
         <div>
           <h3 className="font-medium mb-2">Count Only</h3>
-          <MultiSelect
-            defaultValue={["apple", "orange", "grape"]}
-            options={fruitOptions}
-          >
+          <MultiSelect defaultValue={['apple', 'orange', 'grape']} options={fruitOptions}>
             <MultiSelectTrigger className="w-full">
-              <MultiSelectValue
-                placeholder="Select fruits"
-                showSelectedLabels={false}
-                selectedText="Selected"
-              />
+              <MultiSelectValue placeholder="Select fruits" showSelectedLabels={false} selectedText="Selected" />
               <Icon name="chevron-down" size={16} className="opacity-50" />
             </MultiSelectTrigger>
             <MultiSelectContent width="trigger">
               <MultiSelectGroup>
                 {fruitOptions.map((option) => (
-                  <MultiSelectItem
-                    key={option.value}
-                    value={option.value}
-                    label={option.label}
-                  >
+                  <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                     {option.label}
                   </MultiSelectItem>
                 ))}
               </MultiSelectGroup>
             </MultiSelectContent>
           </MultiSelect>
-          <p className="text-sm text-muted-foreground mt-1">
-            Shows only the count of selected items
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Shows only the count of selected items</p>
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -387,11 +318,7 @@ export const Sizes: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -410,11 +337,7 @@ export const Sizes: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -433,11 +356,7 @@ export const Sizes: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -447,7 +366,7 @@ export const Sizes: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -462,11 +381,7 @@ export const Variants: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -485,11 +400,7 @@ export const Variants: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -499,7 +410,7 @@ export const Variants: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const Widths: Story = {
   render: () => (
@@ -514,11 +425,7 @@ export const Widths: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -537,11 +444,7 @@ export const Widths: Story = {
           <MultiSelectContent width="trigger">
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -551,34 +454,33 @@ export const Widths: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const Descriptions: Story = {
   render: () => {
     // Define options for better reuse
     const frameworks = [
       {
-        value: "react",
-        label: "React",
-        description: "A JavaScript library for building user interfaces",
+        value: 'react',
+        label: 'React',
+        description: 'A JavaScript library for building user interfaces',
       },
       {
-        value: "vue",
-        label: "Vue",
-        description: "Progressive JavaScript framework for building UIs",
+        value: 'vue',
+        label: 'Vue',
+        description: 'Progressive JavaScript framework for building UIs',
       },
       {
-        value: "angular",
-        label: "Angular",
-        description:
-          "Platform for building mobile and desktop web applications",
+        value: 'angular',
+        label: 'Angular',
+        description: 'Platform for building mobile and desktop web applications',
       },
       {
-        value: "svelte",
-        label: "Svelte",
-        description: "Compiler that creates reactive components",
+        value: 'svelte',
+        label: 'Svelte',
+        description: 'Compiler that creates reactive components',
       },
-    ];
+    ]
 
     return (
       <div className="space-y-4">
@@ -590,18 +492,10 @@ export const Descriptions: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {frameworks.map((option) => (
-                <MultiSelectItem
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                >
+                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
                   <div>
-                    <span className="font-medium line-clamp-1">
-                      {option.label}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {option.description}
-                    </span>
+                    <span className="font-medium line-clamp-1">{option.label}</span>
+                    <span className="text-xs text-muted-foreground">{option.description}</span>
                   </div>
                 </MultiSelectItem>
               ))}
@@ -610,14 +504,13 @@ export const Descriptions: Story = {
         </MultiSelect>
 
         <p className="text-sm text-muted-foreground">
-          Items with descriptions provide additional context about each option.
-          Using the <code>label</code> prop ensures proper display in the
-          trigger.
+          Items with descriptions provide additional context about each option. Using the <code>context</code> prop
+          ensures proper display in the trigger.
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const EmptyOptions: Story = {
   render: () => (
@@ -631,15 +524,11 @@ export const EmptyOptions: Story = {
         <MultiSelectContent width="trigger">
           <div className="flex flex-col items-center justify-center p-6 text-center">
             <Icon name="x-circle" size={24} className="text-muted-foreground" />
-            <p className="mt-2 text-sm text-muted-foreground">
-              No options available
-            </p>
+            <p className="mt-2 text-sm text-muted-foreground">No options available</p>
           </div>
         </MultiSelectContent>
       </MultiSelect>
-      <p className="text-sm text-muted-foreground">
-        Custom empty state when no options are available
-      </p>
+      <p className="text-sm text-muted-foreground">Custom empty state when no options are available</p>
     </div>
   ),
-};
+}

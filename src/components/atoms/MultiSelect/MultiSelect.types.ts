@@ -1,5 +1,12 @@
 import * as React from "react";
 import type { ButtonProps } from "@/components/atoms/Button/Button.types";
+import type { 
+  ActionMenuContentProps as BaseActionMenuContentProps,
+  ActionMenuGroupProps as BaseActionMenuGroupProps,
+  ActionMenuLabelProps as BaseActionMenuLabelProps,
+  ActionMenuSeparatorProps as BaseActionMenuSeparatorProps,
+  ActionMenuCheckboxItemProps as BaseActionMenuCheckboxItemProps,
+} from "@/components/molecules/ActionMenu";
 
 export type MultiSelectSize = "sm" | "default" | "lg" | "icon";
 export type MultiSelectVariant =
@@ -17,7 +24,7 @@ export type MultiSelectOption = {
   disabled?: boolean;
 };
 
-export interface MultiSelectRootProps {
+export type MultiSelectRootProps = {
   /** The currently selected values */
   value?: string[];
 
@@ -44,14 +51,14 @@ export interface MultiSelectRootProps {
 
   /** Options to render in the dropdown */
   options?: MultiSelectOption[];
-}
+};
 
-export interface MultiSelectTriggerProps extends Omit<ButtonProps, "onChange"> {
+export type MultiSelectTriggerProps = Omit<ButtonProps, "onChange"> & {
   /** Children elements */
   children?: React.ReactNode;
-}
+};
 
-export interface MultiSelectValueProps {
+export type MultiSelectValueProps = {
   /** Placeholder text when no options are selected */
   placeholder?: string;
 
@@ -66,16 +73,14 @@ export interface MultiSelectValueProps {
 
   /** Additional CSS classes */
   className?: string;
-}
+};
 
-export interface MultiSelectGroupProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export type MultiSelectGroupProps = BaseActionMenuGroupProps & {
   /** Children elements */
   children: React.ReactNode;
-}
+};
 
-export interface MultiSelectContentProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export type MultiSelectContentProps = Omit<BaseActionMenuContentProps, "onAnimationEnd"> & {
   /** Children elements */
   children?: React.ReactNode;
 
@@ -90,39 +95,41 @@ export interface MultiSelectContentProps
 
   /** Offset distance from the trigger */
   sideOffset?: number;
-}
+};
 
-export interface MultiSelectLabelProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export type MultiSelectLabelProps = BaseActionMenuLabelProps & {
   /** Children elements */
   children: React.ReactNode;
-}
+};
 
-export interface MultiSelectSeparatorProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export type MultiSelectSeparatorProps = BaseActionMenuSeparatorProps & {
   /** Additional CSS classes */
   className?: string;
+};
+
+export type MultiSelectItemContext = {
+  /** Item value */
+  itemValue: string
+  
+  /** Whether the item is checked */
+  checked?: boolean
+
+  /** Display text to use when this item is selected */
+  displayText?: string
 }
 
-export interface MultiSelectItemProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export type MultiSelectItemProps = Omit<BaseActionMenuCheckboxItemProps, 'context'> & {
   /** Label content */
-  children: React.ReactNode;
-
-  /** Item value */
-  value: string;
-
-  /** Whether the item is checked */
-  checked?: boolean;
-
-  /** Callback when checked state changes */
-  onCheckedChange?: (checked: boolean) => void;
+  children: React.ReactNode
 
   /** Whether the item is disabled */
-  disabled?: boolean;
+  disabled?: boolean
 
-  /** Optional explicit label for the item */
-  label?: string;
+  /** Item value */
+  value: string
+
+  /** Context passed to ActionMenu system */
+  context?: Record<string, unknown>
 }
 
 // Aliased for cleaner imports
