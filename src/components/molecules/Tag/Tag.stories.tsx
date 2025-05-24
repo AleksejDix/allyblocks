@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Tag } from './Tag'
-import { within, expect, userEvent } from '@storybook/test'
+import { within, expect } from '@storybook/test'
 
 const meta: Meta<typeof Tag> = {
   component: Tag,

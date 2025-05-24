@@ -1,7 +1,9 @@
-import { memo, useCallback } from 'react'
-import { X } from 'lucide-react'
+import { memo } from 'react'
 import { Badge } from '@/components/atoms/Badge'
+import { Icon } from '@/components/atoms/Icon'
+import { IconButton } from '@/components/atoms/IconButton'
 import { cn } from '@/lib/utils'
+import { tagVariants, tagButtonVariants } from './Tag.variants'
 import type { TagProps } from './Tag.types'
 
 /**
@@ -49,85 +51,23 @@ export const Tag = memo(function Tag({
   size,
   ...props
 }: TagProps) {
-  // Handle keyboard events for tag removal
-  const handleKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (!removable || removing) return
-
-      // Allow removal via Delete or Backspace
-      if (event.key === 'Delete' || event.key === 'Backspace') {
-        event.preventDefault()
-        onRemove()
-      }
-    },
-    [onRemove, removable, removing],
-  )
-
-  // Handle remove button click
-  const handleRemoveClick = useCallback(
-    (event: React.MouseEvent) => {
-      event.preventDefault()
-      event.stopPropagation()
-      if (!removing) {
-        onRemove()
-      }
-    },
-    [onRemove, removing],
-  )
-
-  // Edge case: Handle missing children
-  if (!children) {
-    if (process.env.NODE_ENV === 'development') {
-      console.warn('Tag: Empty children provided. Tag will not render.')
-    }
-    return null
-  }
-
   return (
-    <Badge
-      color={color}
-      size={size}
-      className={cn(
-        // Make tag focusable for keyboard navigation
-        'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
-        // Add padding for remove button when removable
-        removable && 'pr-1',
-        // Removing state styles
-        removing && 'opacity-50 pointer-events-none',
-        className,
-      )}
-      tabIndex={0}
-      role="option"
-      aria-selected="true"
-      onKeyDown={handleKeyDown}
-      {...props}
-    >
+    <Badge color={color} size={size} className={cn(tagVariants({ removing }), className)} role="status" {...props}>
       {/* Tag content */}
-      <span className="flex-1">{children}</span>
+      <span className="flex-1 min-w-0">{children}</span>
 
       {/* Remove button */}
       {removable && (
-        <button
-          type="button"
-          onClick={handleRemoveClick}
+        <IconButton
+          variant="ghost"
+          size={size}
+          onClick={onRemove}
           aria-label={removeLabel}
           disabled={removing}
-          className={cn(
-            // Button styling
-            'ml-1 flex-shrink-0 rounded-sm p-0.5',
-            'hover:bg-black/10 dark:hover:bg-white/10',
-            'focus:outline-none focus:ring-1 focus:ring-ring',
-            'transition-colors',
-            // Disabled state
-            'disabled:opacity-50 disabled:pointer-events-none',
-            // Size-aware icon sizing
-            size === 'sm' && '[&>svg]:size-2.5',
-            size === 'md' && '[&>svg]:size-3',
-            size === 'lg' && '[&>svg]:size-3.5',
-          )}
+          className={tagButtonVariants({ size })}
         >
-          <X />
-        </button>
+          <Icon name="x" />
+        </IconButton>
       )}
     </Badge>
   )
