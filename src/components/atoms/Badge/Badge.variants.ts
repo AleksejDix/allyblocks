@@ -38,6 +38,7 @@ export const badgeVariants = cva(
     // Disabled States for Buttons
     '[button&]:disabled:cursor-not-allowed',
     '[button&]:disabled:opacity-50',
+    '[button&]:disabled:grayscale',
 
     // Accessibility & States
     'aria-invalid:ring-destructive/20',
