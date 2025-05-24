@@ -5,7 +5,29 @@ import { within, expect } from '@storybook/test'
 
 const meta: Meta<typeof Badge> = {
   component: Badge,
-  parameters: {},
+  parameters: {
+    docs: {
+      description: {
+        component: `
+Badge component for displaying labels, status indicators, and categorization.
+
+## Features
+- **Accessibility**: WCAG AAA contrast compliance in both light and dark themes
+- **Colors**: 22+ culturally neutral color variants with no semantic meaning
+- **Sizes**: Small, medium, and large variants
+- **Composition**: Can render as child element using asChild prop
+- **Performance**: Memoized component with optimized re-renders
+- **Icons**: Proper icon sizing and spacing support
+
+## Usage Guidelines
+- Use for labels, categories, status indicators, and tags
+- Colors are decorative only - don't rely on color alone for meaning
+- Prefer text labels over color-only communication for accessibility
+- Badge content should be concise (1-3 words typically)
+        `.trim(),
+      },
+    },
+  },
   tags: ['autodocs'],
   argTypes: {
     color: {
@@ -34,15 +56,20 @@ const meta: Meta<typeof Badge> = {
         'fuchsia',
         'rose',
       ],
-      description: 'The color variant of the badge.',
+      description: 'The color variant. Colors are culturally neutral with no semantic meaning.',
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg'],
+      description: 'The size variant affecting padding, text size, and icon dimensions.',
     },
     children: {
       control: 'text',
-      description: 'The content displayed inside the badge.',
+      description: 'The content displayed inside the badge. Can be text, icons, or mixed content.',
     },
     asChild: {
       control: 'boolean',
-      description: 'Merge the props and behavior of the component with its immediate child.',
+      description: 'When true, merges props with immediate child element instead of rendering a span.',
       table: {
         defaultValue: { summary: 'false' },
       },
@@ -66,6 +93,46 @@ export const Default: Story = {
   args: {
     color: 'blue',
     children: 'Default',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Basic badge with default medium size and blue color.',
+      },
+    },
+  },
+}
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-md">
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xs text-muted-foreground">Small</span>
+        <Badge size="sm" color="blue">
+          Small
+        </Badge>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xs text-muted-foreground">Medium</span>
+        <Badge size="md" color="blue">
+          Medium
+        </Badge>
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <span className="text-xs text-muted-foreground">Large</span>
+        <Badge size="lg" color="blue">
+          Large
+        </Badge>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Three size variants: small (xs text), medium (sm text), and large (base text) with appropriate padding and icon sizing.',
+      },
+    },
   },
 }
 
@@ -122,6 +189,14 @@ export const Colors: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comprehensive color palette with WCAG AAA contrast compliance. Colors are culturally neutral and carry no semantic meaning. All colors work perfectly in both light and dark themes.',
+      },
+    },
+  },
 }
 
 // Story showcasing a badge with an icon
@@ -134,6 +209,13 @@ export const WithIcon: Story = {
         <span>Verified</span>
       </>
     ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Badge with icon and text. Icons are automatically sized based on the badge size variant.',
+      },
+    },
   },
 }
 
@@ -148,7 +230,7 @@ export const AsLink: Story = {
     docs: {
       description: {
         story:
-          'The Badge can render as its child element (e.g., an `<a>` tag) using the `asChild` prop. Note how hover styles apply.',
+          "The Badge can render as its child element (e.g., an `<a>` tag) using the `asChild` prop. This merges Badge styling with the child element's behavior and semantics. Note how hover styles apply.",
       },
     },
   },
@@ -156,5 +238,32 @@ export const AsLink: Story = {
     const canvas = within(canvasElement)
     const link = canvas.getByRole('link')
     await expect(link).toBeInTheDocument()
+  },
+}
+
+// Story demonstrating edge case handling
+export const EdgeCases: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4 p-4 bg-white dark:bg-slate-900 rounded-md">
+      <div>
+        <h3 className="text-sm font-medium mb-2">Empty Badge (returns null in dev, shows console warning)</h3>
+        <Badge color="blue">{/* Empty children */}</Badge>
+        <p className="text-xs text-muted-foreground mt-1">Check console for warning message</p>
+      </div>
+      <div>
+        <h3 className="text-sm font-medium mb-2">Badge with asChild and empty content (renders fine)</h3>
+        <Badge asChild color="green">
+          <button type="button">Interactive Badge</button>
+        </Badge>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Edge case handling: Empty badges return null with development warning. The asChild prop allows rendering without explicit children.',
+      },
+    },
   },
 }

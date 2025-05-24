@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 
 export const badgeVariants = cva(
-  'inline-flex items-center justify-center rounded-md border px-1 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
+  'inline-flex items-center justify-center rounded-md border font-medium w-fit whitespace-nowrap shrink-0 gap-1 [&>svg]:pointer-events-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden',
   {
     variants: {
       color: {
@@ -42,9 +42,15 @@ export const badgeVariants = cva(
         stone:
           'border-transparent bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100 [a&]:hover:bg-stone-200 dark:[a&]:hover:bg-stone-700',
       },
+      size: {
+        sm: 'px-1.5 py-0.5 text-xs [&>svg]:size-3',
+        md: 'px-2 py-1 text-sm [&>svg]:size-4',
+        lg: 'px-2.5 py-1.5 text-base [&>svg]:size-5',
+      },
     },
     defaultVariants: {
       color: 'zinc',
+      size: 'md',
     },
   },
 )
