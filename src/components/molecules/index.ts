@@ -8,4 +8,5 @@ export * from './Tooltip'
 export * from './DropdownMenu'
 export * from './ActionMenu'
 export * from './AlertDialog'
+export * from './Tag'
 // Add other molecule components as needed
