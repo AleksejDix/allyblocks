@@ -21,6 +21,10 @@ export const badgeVariants = cva(
     // Icons
     '[&>svg]:pointer-events-none',
 
+    // Interactive Cursors
+    '[a&]:cursor-pointer',
+    '[button&]:cursor-pointer',
+
     // Focus States for Interactive Elements
     '[a&]:focus-visible:outline-none',
     '[a&]:focus-visible:ring-2',
@@ -30,6 +34,10 @@ export const badgeVariants = cva(
     '[button&]:focus-visible:ring-2',
     '[button&]:focus-visible:ring-ring',
     '[button&]:focus-visible:ring-offset-2',
+
+    // Disabled States for Buttons
+    '[button&]:disabled:cursor-not-allowed',
+    '[button&]:disabled:opacity-50',
 
     // Accessibility & States
     'aria-invalid:ring-destructive/20',
@@ -52,6 +60,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-blue-900',
           '[button&]:hover:bg-blue-200',
           'dark:[button&]:hover:bg-blue-900',
+          '[button&]:disabled:hover:bg-blue-100',
+          'dark:[button&]:disabled:hover:bg-blue-950',
         ],
         red: [
           'bg-red-100',
@@ -62,6 +72,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-red-900',
           '[button&]:hover:bg-red-200',
           'dark:[button&]:hover:bg-red-900',
+          '[button&]:disabled:hover:bg-red-100',
+          'dark:[button&]:disabled:hover:bg-red-950',
         ],
         green: [
           'bg-green-100',
@@ -72,6 +84,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-green-900',
           '[button&]:hover:bg-green-200',
           'dark:[button&]:hover:bg-green-900',
+          '[button&]:disabled:hover:bg-green-100',
+          'dark:[button&]:disabled:hover:bg-green-950',
         ],
         yellow: [
           'bg-yellow-100',
@@ -82,6 +96,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-yellow-900',
           '[button&]:hover:bg-yellow-200',
           'dark:[button&]:hover:bg-yellow-900',
+          '[button&]:disabled:hover:bg-yellow-100',
+          'dark:[button&]:disabled:hover:bg-yellow-950',
         ],
         purple: [
           'bg-purple-100',
@@ -92,6 +108,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-purple-900',
           '[button&]:hover:bg-purple-200',
           'dark:[button&]:hover:bg-purple-900',
+          '[button&]:disabled:hover:bg-purple-100',
+          'dark:[button&]:disabled:hover:bg-purple-950',
         ],
         orange: [
           'bg-orange-100',
@@ -102,6 +120,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-orange-900',
           '[button&]:hover:bg-orange-200',
           'dark:[button&]:hover:bg-orange-900',
+          '[button&]:disabled:hover:bg-orange-100',
+          'dark:[button&]:disabled:hover:bg-orange-950',
         ],
         pink: [
           'bg-pink-100',
@@ -112,6 +132,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-pink-900',
           '[button&]:hover:bg-pink-200',
           'dark:[button&]:hover:bg-pink-900',
+          '[button&]:disabled:hover:bg-pink-100',
+          'dark:[button&]:disabled:hover:bg-pink-950',
         ],
         emerald: [
           'bg-emerald-100',
@@ -122,6 +144,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-emerald-900',
           '[button&]:hover:bg-emerald-200',
           'dark:[button&]:hover:bg-emerald-900',
+          '[button&]:disabled:hover:bg-emerald-100',
+          'dark:[button&]:disabled:hover:bg-emerald-950',
         ],
         teal: [
           'bg-teal-100',
@@ -132,6 +156,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-teal-900',
           '[button&]:hover:bg-teal-200',
           'dark:[button&]:hover:bg-teal-900',
+          '[button&]:disabled:hover:bg-teal-100',
+          'dark:[button&]:disabled:hover:bg-teal-950',
         ],
         cyan: [
           'bg-cyan-100',
@@ -142,6 +168,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-cyan-900',
           '[button&]:hover:bg-cyan-200',
           'dark:[button&]:hover:bg-cyan-900',
+          '[button&]:disabled:hover:bg-cyan-100',
+          'dark:[button&]:disabled:hover:bg-cyan-950',
         ],
         sky: [
           'bg-sky-100',
@@ -152,6 +180,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-sky-900',
           '[button&]:hover:bg-sky-200',
           'dark:[button&]:hover:bg-sky-900',
+          '[button&]:disabled:hover:bg-sky-100',
+          'dark:[button&]:disabled:hover:bg-sky-950',
         ],
         indigo: [
           'bg-indigo-100',
@@ -162,6 +192,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-indigo-900',
           '[button&]:hover:bg-indigo-200',
           'dark:[button&]:hover:bg-indigo-900',
+          '[button&]:disabled:hover:bg-indigo-100',
+          'dark:[button&]:disabled:hover:bg-indigo-950',
         ],
         violet: [
           'bg-violet-100',
@@ -172,6 +204,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-violet-900',
           '[button&]:hover:bg-violet-200',
           'dark:[button&]:hover:bg-violet-900',
+          '[button&]:disabled:hover:bg-violet-100',
+          'dark:[button&]:disabled:hover:bg-violet-950',
         ],
         fuchsia: [
           'bg-fuchsia-100',
@@ -182,6 +216,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-fuchsia-900',
           '[button&]:hover:bg-fuchsia-200',
           'dark:[button&]:hover:bg-fuchsia-900',
+          '[button&]:disabled:hover:bg-fuchsia-100',
+          'dark:[button&]:disabled:hover:bg-fuchsia-950',
         ],
         rose: [
           'bg-rose-100',
@@ -192,6 +228,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-rose-900',
           '[button&]:hover:bg-rose-200',
           'dark:[button&]:hover:bg-rose-900',
+          '[button&]:disabled:hover:bg-rose-100',
+          'dark:[button&]:disabled:hover:bg-rose-950',
         ],
         amber: [
           'bg-amber-100',
@@ -202,6 +240,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-amber-900',
           '[button&]:hover:bg-amber-200',
           'dark:[button&]:hover:bg-amber-900',
+          '[button&]:disabled:hover:bg-amber-100',
+          'dark:[button&]:disabled:hover:bg-amber-950',
         ],
         lime: [
           'bg-lime-100',
@@ -212,6 +252,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-lime-900',
           '[button&]:hover:bg-lime-200',
           'dark:[button&]:hover:bg-lime-900',
+          '[button&]:disabled:hover:bg-lime-100',
+          'dark:[button&]:disabled:hover:bg-lime-950',
         ],
 
         // Neutral Colors - Special Pattern (800/700 instead of 950/900)
@@ -224,6 +266,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-zinc-700',
           '[button&]:hover:bg-zinc-200',
           'dark:[button&]:hover:bg-zinc-700',
+          '[button&]:disabled:hover:bg-zinc-100',
+          'dark:[button&]:disabled:hover:bg-zinc-800',
         ],
         slate: [
           'bg-slate-100',
@@ -234,6 +278,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-slate-700',
           '[button&]:hover:bg-slate-200',
           'dark:[button&]:hover:bg-slate-700',
+          '[button&]:disabled:hover:bg-slate-100',
+          'dark:[button&]:disabled:hover:bg-slate-800',
         ],
         gray: [
           'bg-gray-100',
@@ -244,6 +290,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-gray-700',
           '[button&]:hover:bg-gray-200',
           'dark:[button&]:hover:bg-gray-700',
+          '[button&]:disabled:hover:bg-gray-100',
+          'dark:[button&]:disabled:hover:bg-gray-800',
         ],
         neutral: [
           'bg-neutral-100',
@@ -254,6 +302,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-neutral-700',
           '[button&]:hover:bg-neutral-200',
           'dark:[button&]:hover:bg-neutral-700',
+          '[button&]:disabled:hover:bg-neutral-100',
+          'dark:[button&]:disabled:hover:bg-neutral-800',
         ],
         stone: [
           'bg-stone-100',
@@ -264,6 +314,8 @@ export const badgeVariants = cva(
           'dark:[a&]:hover:bg-stone-700',
           '[button&]:hover:bg-stone-200',
           'dark:[button&]:hover:bg-stone-700',
+          '[button&]:disabled:hover:bg-stone-100',
+          'dark:[button&]:disabled:hover:bg-stone-800',
         ],
       },
       size: {
