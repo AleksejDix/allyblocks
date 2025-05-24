@@ -14,39 +14,4 @@ export type BadgeProps = React.ComponentProps<'span'> &
      * @default false
      */
     asChild?: boolean
-
-    /**
-     * The color variant of the badge.
-     * Colors are culturally neutral with no semantic meaning.
-     * @default 'zinc'
-     */
-    color?:
-      | 'blue'
-      | 'red'
-      | 'green'
-      | 'yellow'
-      | 'purple'
-      | 'orange'
-      | 'pink'
-      | 'emerald'
-      | 'teal'
-      | 'cyan'
-      | 'sky'
-      | 'indigo'
-      | 'violet'
-      | 'fuchsia'
-      | 'rose'
-      | 'amber'
-      | 'lime'
-      | 'zinc'
-      | 'slate'
-      | 'gray'
-      | 'neutral'
-      | 'stone'
-
-    /**
-     * The size variant of the badge.
-     * @default 'md'
-     */
-    size?: 'sm' | 'md' | 'lg'
   }
