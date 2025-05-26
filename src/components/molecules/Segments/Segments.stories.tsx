@@ -383,17 +383,17 @@ export const DesignSystemConsistency: Story = {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Design System Consistency Test</h3>
         <p className="text-sm text-muted-foreground">
-          Testing hover, focus, cursor, and interaction states between Button and Segments
+          Testing hover, focus, cursor, borders, and interaction states between Button and Segments
         </p>
       </div>
 
       {/* Interaction States Comparison */}
       <div className="space-y-6">
         <div className="space-y-3">
-          <h4 className="text-sm font-medium">Hover & Focus States</h4>
+          <h4 className="text-sm font-medium">Border & Contrast Comparison</h4>
           <div className="space-y-4">
             <div>
-              <span className="text-xs text-muted-foreground block mb-2">Button outline variant:</span>
+              <span className="text-xs text-muted-foreground block mb-2">Button outline variant (with borders):</span>
               <div className="space-x-2">
                 <Button size="sm" variant="outline">
                   Small
@@ -407,7 +407,9 @@ export const DesignSystemConsistency: Story = {
               </div>
             </div>
             <div>
-              <span className="text-xs text-muted-foreground block mb-2">Segments surface variant:</span>
+              <span className="text-xs text-muted-foreground block mb-2">
+                Segments surface variant (now with borders):
+              </span>
               <div className="space-x-2">
                 <Segments defaultValue="option1" size="sm">
                   <Segment value="option1">Small</Segment>
@@ -427,7 +429,7 @@ export const DesignSystemConsistency: Story = {
         </div>
 
         <div className="space-y-3">
-          <h4 className="text-sm font-medium">Classic Variant with Shadows</h4>
+          <h4 className="text-sm font-medium">Secondary/Classic Variant Comparison</h4>
           <div className="space-y-4">
             <div>
               <span className="text-xs text-muted-foreground block mb-2">Button secondary variant:</span>
@@ -464,7 +466,7 @@ export const DesignSystemConsistency: Story = {
         </div>
 
         <div className="space-y-3">
-          <h4 className="text-sm font-medium">Mixed Usage Example</h4>
+          <h4 className="text-sm font-medium">Mixed Usage Example - Real World</h4>
           <div className="flex items-center gap-4 flex-wrap">
             <Button variant="outline">Create New</Button>
             <Segments defaultValue="list" size="default">
@@ -474,25 +476,43 @@ export const DesignSystemConsistency: Story = {
             </Segments>
             <Button variant="ghost">Settings</Button>
           </div>
+          <div className="flex items-center gap-4 flex-wrap mt-3">
+            <Button variant="secondary">Export</Button>
+            <Segments defaultValue="week" size="default" variant="classic">
+              <Segment value="day">Day</Segment>
+              <Segment value="week">Week</Segment>
+              <Segment value="month">Month</Segment>
+            </Segments>
+            <Button variant="outline">Filter</Button>
+          </div>
         </div>
 
         <div className="space-y-3">
-          <h4 className="text-sm font-medium">Interaction Instructions</h4>
+          <h4 className="text-sm font-medium">Visual Consistency Checklist</h4>
           <div className="text-xs text-muted-foreground space-y-1">
             <p>
-              • <strong>Hover:</strong> Both should show subtle background changes
+              ✅ <strong>Heights:</strong> Perfect alignment across all sizes
             </p>
             <p>
-              • <strong>Focus:</strong> Both should show consistent focus rings (Tab to test)
+              ✅ <strong>Borders:</strong> Both have consistent border styling
             </p>
             <p>
-              • <strong>Cursor:</strong> Both should show pointer cursor on hover
+              ✅ <strong>Shadows:</strong> Both use shadow-xs for depth
             </p>
             <p>
-              • <strong>Active/Pressed:</strong> Segments should maintain selected state
+              ✅ <strong>Hover:</strong> Both show subtle background changes
             </p>
             <p>
-              • <strong>Transitions:</strong> Both should have smooth state changes
+              ✅ <strong>Focus:</strong> Both show consistent focus rings (Tab to test)
+            </p>
+            <p>
+              ✅ <strong>Cursor:</strong> Both show pointer cursor on hover
+            </p>
+            <p>
+              ✅ <strong>Transitions:</strong> Both have smooth state changes
+            </p>
+            <p>
+              ✅ <strong>Typography:</strong> Both use text-sm and font-medium
             </p>
           </div>
         </div>

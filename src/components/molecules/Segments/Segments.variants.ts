@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-export const segmentsRootVariants = cva('inline-flex items-center rounded-md bg-muted p-1 text-muted-foreground', {
+export const segmentsRootVariants = cva('inline-flex items-center rounded-md p-1 text-muted-foreground', {
   variants: {
     size: {
       sm: 'h-8 text-sm gap-1',
@@ -8,7 +8,7 @@ export const segmentsRootVariants = cva('inline-flex items-center rounded-md bg-
       lg: 'h-10 text-sm gap-1',
     },
     variant: {
-      surface: 'bg-muted',
+      surface: 'bg-muted border border-border shadow-xs',
       classic: 'bg-background border border-border shadow-xs',
     },
   },
@@ -19,7 +19,7 @@ export const segmentsRootVariants = cva('inline-flex items-center rounded-md bg-
 })
 
 export const segmentItemVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium cursor-pointer select-none transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-xs hover:bg-accent/50 hover:text-accent-foreground',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium cursor-pointer select-none transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] border border-transparent hover:bg-accent/50 hover:text-accent-foreground',
   {
     variants: {
       size: {
@@ -28,8 +28,10 @@ export const segmentItemVariants = cva(
         lg: 'h-8 px-4 py-2 text-sm',
       },
       variant: {
-        surface: 'data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-xs',
-        classic: 'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground hover:bg-accent/30',
+        surface:
+          'data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:border-border data-[state=on]:shadow-xs',
+        classic:
+          'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:border-accent data-[state=on]:shadow-xs hover:bg-accent/30',
       },
     },
     defaultVariants: {
