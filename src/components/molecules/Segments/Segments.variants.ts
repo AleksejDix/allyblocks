@@ -9,7 +9,7 @@ export const segmentsRootVariants = cva('inline-flex items-center rounded-md bg-
     },
     variant: {
       surface: 'bg-muted',
-      classic: 'bg-background border border-border',
+      classic: 'bg-background border border-border shadow-xs',
     },
   },
   defaultVariants: {
@@ -19,7 +19,7 @@ export const segmentsRootVariants = cva('inline-flex items-center rounded-md bg-
 })
 
 export const segmentItemVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium cursor-pointer select-none transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-xs hover:bg-accent/50 hover:text-accent-foreground',
   {
     variants: {
       size: {
@@ -28,8 +28,8 @@ export const segmentItemVariants = cva(
         lg: 'h-8 px-4 py-2 text-sm',
       },
       variant: {
-        surface: 'data-[state=on]:bg-background data-[state=on]:text-foreground',
-        classic: 'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground',
+        surface: 'data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-xs',
+        classic: 'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground hover:bg-accent/30',
       },
     },
     defaultVariants: {
