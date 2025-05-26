@@ -1,49 +1,108 @@
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef } from 'react'
+import { cn } from '@/lib/utils'
+import { textVariants } from './Text.variants'
+import type { TextProps, TextRef } from './Text.types'
 
-import { cn } from "@/lib/utils";
-
-const textVariants = cva("", {
-  variants: {
-    variant: {
-      h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl",
-      h2: "scroll-m-20 text-3xl font-semibold tracking-tight",
-      h3: "scroll-m-20 text-2xl font-semibold tracking-tight",
-      h4: "scroll-m-20 text-xl font-semibold tracking-tight",
-      p: "leading-7 [&:not(:first-child)]:mt-6",
-      blockquote: "mt-6 border-l-2 border-border pl-6 italic",
-      list: "my-6 ml-6 list-disc [&>li]:mt-2",
-      inlineCode:
-        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
-      lead: "text-xl text-muted-foreground",
-      large: "text-lg font-semibold",
-      small: "text-sm font-medium leading-none",
-      muted: "text-sm text-muted-foreground",
-    },
+/**
+ * Text component for displaying text content with consistent typography.
+ *
+ * Based on Shopify Polaris Text component design system.
+ *
+ * Features:
+ * - Comprehensive typography variants (heading3xl to bodyXs)
+ * - Semantic tone variants (success, critical, warning, info, subdued)
+ * - Font weight control (regular, medium, semibold, bold)
+ * - Text alignment options (start, center, end, justify)
+ * - Text decoration and transformation
+ * - Truncation support (single line, multiline)
+ * - Visually hidden text for accessibility
+ * - Custom line height and letter spacing
+ * - Polymorphic component (can render as any HTML element)
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <Text>Default body text</Text>
+ *
+ * // Heading variants
+ * <Text variant="heading2xl" as="h1">Page Title</Text>
+ * <Text variant="headingMd" as="h2">Section Title</Text>
+ *
+ * // Body variants with tone
+ * <Text variant="bodyLg" tone="subdued">Secondary information</Text>
+ * <Text variant="bodySm" tone="critical">Error message</Text>
+ *
+ * // Text styling
+ * <Text fontWeight="semibold" decoration="underline">Important link</Text>
+ * <Text transform="uppercase" alignment="center">Centered uppercase</Text>
+ *
+ * // Truncation
+ * <Text truncate>This text will be truncated with ellipsis</Text>
+ * <Text truncate="multiline">This text will be clamped to 3 lines</Text>
+ *
+ * // Visually hidden (for screen readers)
+ * <Text visuallyHidden>Screen reader only content</Text>
+ * ```
+ */
+export const Text = forwardRef<TextRef, TextProps>(function Text(
+  {
+    className,
+    variant,
+    tone,
+    fontWeight,
+    alignment,
+    decoration,
+    transform,
+    truncate,
+    as: Component = 'span',
+    visuallyHidden = false,
+    lineHeight,
+    letterSpacing,
+    breakWord = true,
+    style,
+    children,
+    ...props
   },
-  defaultVariants: {
-    variant: "p",
-  },
-});
+  ref,
+) {
+  // Combine custom styles
+  const customStyles = {
+    lineHeight,
+    letterSpacing,
+    wordBreak: breakWord ? ('break-word' as const) : undefined,
+    ...style,
+  }
 
-export interface TextProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof textVariants> {
-  as?: React.ElementType;
-}
-
-const Text = React.forwardRef<HTMLElement, TextProps>(
-  ({ className, variant, as: Component = "p", ...props }, ref) => {
+  // Handle visually hidden text
+  if (visuallyHidden) {
     return (
-      <Component
-        className={cn(textVariants({ variant }), className)}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
+      <Component ref={ref} className={cn('sr-only', className)} style={customStyles} {...props}>
+        {children}
+      </Component>
+    )
+  }
 
-Text.displayName = "Text";
+  return (
+    <Component
+      ref={ref}
+      className={cn(
+        textVariants({
+          variant,
+          tone,
+          fontWeight,
+          alignment,
+          decoration,
+          transform,
+          truncate,
+        }),
+        className,
+      )}
+      style={customStyles}
+      {...props}
+    >
+      {children}
+    </Component>
+  )
+})
 
-export { Text };
+Text.displayName = 'Text'
