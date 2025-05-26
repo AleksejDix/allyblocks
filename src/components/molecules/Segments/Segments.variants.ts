@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-export const segmentsRootVariants = cva('inline-flex items-center rounded-md p-1 text-muted-foreground', {
+export const segmentsRootVariants = cva('inline-flex items-center rounded-md px-1 py-0.5 text-muted-foreground', {
   variants: {
     size: {
       sm: 'h-8 text-sm gap-1',
