@@ -25,11 +25,11 @@ function TabsList({ className, size = 'default', orientation = 'horizontal', ...
   )
 }
 
-function TabsTrigger({ className, size = 'default', orientation = 'horizontal', ...props }: TabsTriggerProps) {
+function TabsTrigger({ className, size = 'default', ...props }: TabsTriggerProps) {
   return (
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
-      className={cn(tabsTriggerVariants({ size, orientation }), className)}
+      className={cn(tabsTriggerVariants({ size }), className)}
       {...props}
     />
   )

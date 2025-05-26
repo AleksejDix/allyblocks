@@ -241,8 +241,23 @@ export function MultiSelectItem({
   context: externalContext,
   ...props
 }: MultiSelectItemProps) {
-  const { value } = useMultiSelect()
+  const { value, onValueChange } = useMultiSelect()
   const isSelected = value.includes(itemValue)
+
+  // Handle immediate checked state change
+  const handleCheckedChange = (checked: boolean) => {
+    if (checked) {
+      // Add value if checked and not already selected
+      if (!value.includes(itemValue)) {
+        onValueChange([...value, itemValue])
+      }
+    } else {
+      // Remove value if unchecked
+      if (value.includes(itemValue)) {
+        onValueChange(value.filter((v) => v !== itemValue))
+      }
+    }
+  }
 
   // Determine display text from children if they're a string
   const displayText = typeof children === 'string' ? children : undefined
@@ -260,6 +275,7 @@ export function MultiSelectItem({
       className={cn(multiSelectItemVariants({ className }))}
       checked={isSelected}
       disabled={disabled}
+      onCheckedChange={handleCheckedChange}
       data-slot="multi-select-item"
       context={itemContext}
       {...props}

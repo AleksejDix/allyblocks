@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { expect, userEvent, within, screen } from '@storybook/test'
+import { useState } from 'react'
 import { Icon } from '@/components/atoms/Icon'
 import {
   MultiSelect,
@@ -61,6 +62,54 @@ const fruitOptions = [
   { label: 'Strawberry', value: 'strawberry' },
 ]
 
+export const InteractiveTest: Story = {
+  render: () => {
+    const [selectedValues, setSelectedValues] = useState<string[]>([])
+
+    const handleValueChange = (newValues: string[]) => {
+      console.log('Value changed:', newValues)
+      setSelectedValues(newValues)
+    }
+
+    return (
+      <div className="p-4">
+        <h3 className="font-medium mb-4">Interactive MultiSelect Test</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Selected: {selectedValues.length > 0 ? selectedValues.join(', ') : 'None'}
+        </p>
+
+        <MultiSelect value={selectedValues} onValueChange={handleValueChange}>
+          <MultiSelectTrigger>
+            <MultiSelectValue placeholder="Select fruits..." />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </MultiSelectTrigger>
+          <MultiSelectContent>
+            <MultiSelectGroup>
+              {fruitOptions.map((option) => (
+                <MultiSelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </MultiSelectItem>
+              ))}
+            </MultiSelectGroup>
+          </MultiSelectContent>
+        </MultiSelect>
+
+        <div className="mt-4 text-xs text-muted-foreground">
+          <p>Debug: Check browser console for selection events</p>
+          <p>Values: {JSON.stringify(selectedValues)}</p>
+        </div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Interactive test to verify MultiSelect dropdown and selection functionality.',
+      },
+    },
+  },
+}
+
 export const CustomTriggerText: Story = {
   render: () => (
     <MultiSelect defaultValue={['apple', 'orange']}>
@@ -99,7 +148,7 @@ export const Default: Story = {
         <MultiSelectContent>
           <MultiSelectGroup>
             {fruitOptions.map((option) => (
-              <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+              <MultiSelectItem key={option.value} value={option.value}>
                 {option.label}
               </MultiSelectItem>
             ))}
@@ -137,7 +186,7 @@ export const Disabled: Story = {
       <MultiSelectContent>
         <MultiSelectGroup>
           {fruitOptions.map((option) => (
-            <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+            <MultiSelectItem key={option.value} value={option.value}>
               {option.label}
             </MultiSelectItem>
           ))}
@@ -162,16 +211,12 @@ export const DisabledOptions: Story = {
       </MultiSelectTrigger>
       <MultiSelectContent>
         <MultiSelectGroup>
-          <MultiSelectItem value="apple" context={{ displayText: 'Apple' }}>
-            Apple
-          </MultiSelectItem>
-          <MultiSelectItem value="banana" disabled context={{ displayText: 'Banana (Unavailable)' }}>
+          <MultiSelectItem value="apple">Apple</MultiSelectItem>
+          <MultiSelectItem value="banana" disabled>
             Banana (Unavailable)
           </MultiSelectItem>
-          <MultiSelectItem value="orange" context={{ displayText: 'Orange' }}>
-            Orange
-          </MultiSelectItem>
-          <MultiSelectItem value="grape" disabled context={{ displayText: 'Grape (Unavailable)' }}>
+          <MultiSelectItem value="orange">Orange</MultiSelectItem>
+          <MultiSelectItem value="grape" disabled>
             Grape (Unavailable)
           </MultiSelectItem>
         </MultiSelectGroup>
@@ -199,9 +244,7 @@ export const Groups: Story = {
           <MultiSelectLabel>Vegetables</MultiSelectLabel>
           <MultiSelectItem value="carrot">Carrot</MultiSelectItem>
           <MultiSelectItem value="broccoli">Broccoli</MultiSelectItem>
-          <MultiSelectItem value="spinach" label="Spinach">
-            Spinach
-          </MultiSelectItem>
+          <MultiSelectItem value="spinach">Spinach</MultiSelectItem>
         </MultiSelectGroup>
       </MultiSelectContent>
     </MultiSelect>
@@ -219,7 +262,7 @@ export const Prefilled: Story = {
         <MultiSelectContent>
           <MultiSelectGroup>
             {fruitOptions.map((option) => (
-              <MultiSelectItem key={option.value} value={option.value} label={option.label}>
+              <MultiSelectItem key={option.value} value={option.value}>
                 {option.label}
               </MultiSelectItem>
             ))}
@@ -251,7 +294,7 @@ export const SelectionDisplay: Story = {
             <MultiSelectContent width="trigger">
               <MultiSelectGroup>
                 {fruitOptions.map((option) => (
-                  <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                  <MultiSelectItem key={option.value} value={option.value}>
                     {option.label}
                   </MultiSelectItem>
                 ))}
@@ -271,7 +314,7 @@ export const SelectionDisplay: Story = {
             <MultiSelectContent width="trigger">
               <MultiSelectGroup>
                 {fruitOptions.map((option) => (
-                  <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                  <MultiSelectItem key={option.value} value={option.value}>
                     {option.label}
                   </MultiSelectItem>
                 ))}
@@ -291,7 +334,7 @@ export const SelectionDisplay: Story = {
             <MultiSelectContent width="trigger">
               <MultiSelectGroup>
                 {fruitOptions.map((option) => (
-                  <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                  <MultiSelectItem key={option.value} value={option.value}>
                     {option.label}
                   </MultiSelectItem>
                 ))}
@@ -318,7 +361,7 @@ export const Sizes: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -337,7 +380,7 @@ export const Sizes: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -356,7 +399,7 @@ export const Sizes: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -381,7 +424,7 @@ export const Variants: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -400,7 +443,7 @@ export const Variants: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -425,7 +468,7 @@ export const Widths: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -444,7 +487,7 @@ export const Widths: Story = {
           <MultiSelectContent width="trigger">
             <MultiSelectGroup>
               {fruitOptions.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   {option.label}
                 </MultiSelectItem>
               ))}
@@ -492,7 +535,7 @@ export const Descriptions: Story = {
           <MultiSelectContent>
             <MultiSelectGroup>
               {frameworks.map((option) => (
-                <MultiSelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+                <MultiSelectItem key={option.value} value={option.value}>
                   <div>
                     <span className="font-medium line-clamp-1">{option.label}</span>
                     <span className="text-xs text-muted-foreground">{option.description}</span>
@@ -504,8 +547,8 @@ export const Descriptions: Story = {
         </MultiSelect>
 
         <p className="text-sm text-muted-foreground">
-          Items with descriptions provide additional context about each option. Using the <code>context</code> prop
-          ensures proper display in the trigger.
+          Items with descriptions provide additional context about each option. The trigger will show the option value
+          when selected.
         </p>
       </div>
     )

@@ -105,7 +105,7 @@ export const Default: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-md">
+    <div className="flex items-center gap-4 p-4 bg-white  rounded-md">
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Small</span>
         <Badge size="sm" color="blue">
@@ -138,7 +138,7 @@ export const Sizes: Story = {
 
 export const Colors: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-3 p-4 bg-white dark:bg-slate-900 rounded-md">
+    <div className="flex flex-wrap gap-3 p-4 bg-white  rounded-md">
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Blue</span>
         <Badge color="blue">Blue</Badge>
@@ -270,7 +270,7 @@ export const AsButton: Story = {
 // Story demonstrating interactive states
 export const InteractiveStates: Story = {
   render: () => (
-    <div className="flex flex-col gap-6 p-4 bg-white dark:bg-slate-900 rounded-md">
+    <div className="flex flex-col gap-6 p-4 bg-white  rounded-md">
       <div>
         <h3 className="text-sm font-medium mb-3">Static Badge (non-interactive)</h3>
         <Badge color="blue" size="md">
@@ -319,7 +319,7 @@ export const InteractiveStates: Story = {
 // Story demonstrating edge case handling
 export const EdgeCases: Story = {
   render: () => (
-    <div className="flex flex-col gap-4 p-4 bg-white dark:bg-slate-900 rounded-md">
+    <div className="flex flex-col gap-4 p-4 bg-white  rounded-md">
       <div>
         <h3 className="text-sm font-medium mb-2">Empty Badge (returns null in dev, shows console warning)</h3>
         <Badge color="blue">{/* Empty children */}</Badge>
