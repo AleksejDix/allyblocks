@@ -29,9 +29,9 @@ export const segmentItemVariants = cva(
       },
       variant: {
         surface:
-          'data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:border-border data-[state=on]:shadow-xs dark:data-[state=on]:bg-input dark:data-[state=on]:border-input',
+          'data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:border-border data-[state=on]:shadow-xs hover:bg-black/5 dark:data-[state=on]:bg-input dark:data-[state=on]:border-input',
         classic:
-          'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:border-accent data-[state=on]:shadow-xs hover:bg-accent/30 dark:data-[state=on]:bg-input dark:data-[state=on]:border-input dark:hover:bg-accent/30',
+          'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:border-accent  hover:g-black/5 dark:data-[state=on]:bg-input data-[state=on]:border-input ',
       },
     },
     defaultVariants: {

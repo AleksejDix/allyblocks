@@ -8,19 +8,21 @@ import type { SegmentsProps, SegmentProps, SegmentsRef, SegmentRef } from './Seg
 const SegmentsContext = createContext<{
   size?: 'sm' | 'default' | 'lg'
   variant?: 'surface' | 'classic'
+  orientation?: 'horizontal' | 'vertical'
 }>({
   size: undefined,
   variant: undefined,
+  orientation: undefined,
 })
 
 /**
- * Segments component for creating toggle button groups.
+ * Segments component for creating single-selection toggle button groups.
  *
  * Based on Radix UI ToggleGroup with styling inspired by Radix Themes SegmentedControl.
- * Now matches Button component sizing for better visual alignment.
+ * Represents mutually exclusive options like tabs or radio buttons.
  *
  * Features:
- * - Single or multiple selection modes
+ * - Single selection mode (proper segmented control semantics)
  * - Keyboard navigation support
  * - Accessible by default
  * - Customizable size and variant styling
@@ -32,13 +34,6 @@ const SegmentsContext = createContext<{
  * ```tsx
  * // Basic usage
  * <Segments defaultValue="inbox">
- *   <Segment value="inbox">Inbox</Segment>
- *   <Segment value="drafts">Drafts</Segment>
- *   <Segment value="sent">Sent</Segment>
- * </Segments>
- *
- * // Multiple selection
- * <Segments type="multiple" defaultValue={["inbox", "drafts"]}>
  *   <Segment value="inbox">Inbox</Segment>
  *   <Segment value="drafts">Drafts</Segment>
  *   <Segment value="sent">Sent</Segment>
@@ -62,7 +57,6 @@ export const Segments = forwardRef<SegmentsRef, SegmentsProps>(function Segments
     className,
     size = 'default',
     variant = 'surface',
-    type = 'single',
     orientation = 'horizontal',
     loop = true,
     children,
@@ -75,43 +69,31 @@ export const Segments = forwardRef<SegmentsRef, SegmentsProps>(function Segments
 ) {
   const baseClassName = cn(
     segmentsRootVariants({ size, variant }),
-    orientation === 'vertical' && 'flex-col h-auto w-auto',
+    orientation === 'vertical' && 'flex-col h-auto w-full',
     className,
   )
 
   return (
     <SegmentsContext.Provider
-      value={{ size: size as 'sm' | 'default' | 'lg', variant: variant as 'surface' | 'classic' }}
+      value={{
+        size: size as 'sm' | 'default' | 'lg',
+        variant: variant as 'surface' | 'classic',
+        orientation: orientation as 'horizontal' | 'vertical',
+      }}
     >
-      {type === 'single' ? (
-        <ToggleGroupPrimitive.Root
-          ref={ref}
-          type="single"
-          orientation={orientation}
-          loop={loop}
-          className={baseClassName}
-          value={value as string}
-          defaultValue={defaultValue as string}
-          onValueChange={onValueChange as (value: string) => void}
-          {...props}
-        >
-          {children}
-        </ToggleGroupPrimitive.Root>
-      ) : (
-        <ToggleGroupPrimitive.Root
-          ref={ref}
-          type="multiple"
-          orientation={orientation}
-          loop={loop}
-          className={baseClassName}
-          value={value as string[]}
-          defaultValue={defaultValue as string[]}
-          onValueChange={onValueChange as (value: string[]) => void}
-          {...props}
-        >
-          {children}
-        </ToggleGroupPrimitive.Root>
-      )}
+      <ToggleGroupPrimitive.Root
+        ref={ref}
+        type="single"
+        orientation={orientation}
+        loop={loop}
+        className={baseClassName}
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+        {...props}
+      >
+        {children}
+      </ToggleGroupPrimitive.Root>
     </SegmentsContext.Provider>
   )
 })
@@ -138,11 +120,16 @@ export const Segment = forwardRef<SegmentRef, SegmentProps>(function Segment(
   const context = useContext(SegmentsContext)
   const effectiveSize = size ?? context.size ?? 'default'
   const effectiveVariant = variant ?? context.variant ?? 'surface'
+  const effectiveOrientation = context.orientation ?? 'horizontal'
 
   return (
     <ToggleGroupPrimitive.Item
       ref={ref}
-      className={cn(segmentItemVariants({ size: effectiveSize, variant: effectiveVariant }), className)}
+      className={cn(
+        segmentItemVariants({ size: effectiveSize, variant: effectiveVariant }),
+        effectiveOrientation === 'vertical' && 'w-full justify-start',
+        className,
+      )}
       {...props}
     >
       {children}
