@@ -4,6 +4,17 @@ import { useState } from 'react'
 
 import { Segments, Segment } from './Segments'
 import { Button } from '../../atoms/Button'
+import { IconButton } from '../../atoms/IconButton'
+import { Icon } from '../../atoms/Icon'
+import {
+  ActionMenu,
+  ActionMenuTrigger,
+  ActionMenuContent,
+  ActionMenuItem,
+  ActionMenuSeparator,
+  ActionMenuGroup,
+  ActionMenuLabel,
+} from '../../molecules/ActionMenu'
 
 const meta = {
   component: Segments,
@@ -594,4 +605,336 @@ export const ButtonSizeComparison: Story = {
       </div>
     </div>
   ),
+}
+
+// Apple macOS Calendar Example
+export const AppleCalendarExample: Story = {
+  render: function AppleCalendarRender() {
+    const [viewMode, setViewMode] = useState('Week')
+    const [selectedDate, setSelectedDate] = useState('Today')
+
+    const handleAction = (action: string, context?: any) => {
+      console.log(`Calendar action: ${action}`, context)
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Apple macOS Calendar Interface</h3>
+          <p className="text-sm text-muted-foreground">
+            Recreating the classic Calendar app with IconButton, Segments, and ActionMenu components
+          </p>
+        </div>
+
+        {/* Calendar Header */}
+        <div className="bg-background border border-border rounded-lg p-4 space-y-4">
+          {/* Top Navigation Bar */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {/* Calendar Grid Icon */}
+              <IconButton variant="outline" size="sm" aria-label="Calendar grid view">
+                <Icon name="calendar" />
+              </IconButton>
+
+              {/* Inbox Icon */}
+              <IconButton variant="outline" size="sm" aria-label="Inbox">
+                <Icon name="inbox" />
+              </IconButton>
+
+              {/* Add Button with ActionMenu */}
+              <ActionMenu>
+                <ActionMenuTrigger asChild>
+                  <IconButton variant="outline" size="sm" aria-label="Add new event">
+                    <Icon name="plus" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent align="start">
+                  <ActionMenuLabel>Create New</ActionMenuLabel>
+                  <ActionMenuItem onAction={() => handleAction('create-event')}>
+                    <Icon name="calendar-plus" />
+                    Event
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('create-meeting')}>
+                    <Icon name="users" />
+                    Meeting
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('create-reminder')}>
+                    <Icon name="bell" />
+                    Reminder
+                  </ActionMenuItem>
+                  <ActionMenuSeparator />
+                  <ActionMenuItem onAction={() => handleAction('import-calendar')}>
+                    <Icon name="upload" />
+                    Import Calendar
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </div>
+
+            {/* View Mode Segments - Main Feature */}
+            <Segments
+              value={viewMode}
+              onValueChange={(value) => setViewMode(value as string)}
+              size="default"
+              variant="surface"
+            >
+              <Segment value="Day">Day</Segment>
+              <Segment value="Week">Week</Segment>
+              <Segment value="Month">Month</Segment>
+              <Segment value="Year">Year</Segment>
+            </Segments>
+
+            {/* Search and Settings with ActionMenu */}
+            <div className="flex items-center gap-2">
+              <IconButton variant="ghost" size="sm" aria-label="Search events">
+                <Icon name="search" />
+              </IconButton>
+
+              <ActionMenu>
+                <ActionMenuTrigger asChild>
+                  <IconButton variant="ghost" size="sm" aria-label="Settings">
+                    <Icon name="settings" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent align="end">
+                  <ActionMenuLabel>Calendar Settings</ActionMenuLabel>
+                  <ActionMenuItem onAction={() => handleAction('preferences')}>
+                    <Icon name="settings" />
+                    Preferences
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('accounts')}>
+                    <Icon name="user" />
+                    Accounts
+                  </ActionMenuItem>
+                  <ActionMenuSeparator />
+                  <ActionMenuGroup>
+                    <ActionMenuItem onAction={() => handleAction('export')}>
+                      <Icon name="download" />
+                      Export Calendar
+                    </ActionMenuItem>
+                    <ActionMenuItem onAction={() => handleAction('print')}>
+                      <Icon name="printer" />
+                      Print
+                    </ActionMenuItem>
+                  </ActionMenuGroup>
+                  <ActionMenuSeparator />
+                  <ActionMenuItem onAction={() => handleAction('help')}>
+                    <Icon name="help-circle" />
+                    Help
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </div>
+          </div>
+
+          {/* Date Navigation */}
+          <div className="flex items-center justify-between border-t border-border pt-4">
+            <div className="flex items-center gap-2">
+              <IconButton variant="ghost" size="sm" aria-label="Previous period">
+                <Icon name="chevron-left" />
+              </IconButton>
+              <IconButton variant="ghost" size="sm" aria-label="Next period">
+                <Icon name="chevron-right" />
+              </IconButton>
+              <span className="text-sm font-medium ml-2">December 2024</span>
+              <IconButton variant="ghost" size="sm" aria-label="Go to today">
+                <Icon name="calendar-days" />
+              </IconButton>
+            </div>
+
+            <Segments
+              value={selectedDate}
+              onValueChange={(value) => setSelectedDate(value as string)}
+              size="sm"
+              variant="surface"
+            >
+              <Segment value="Today">Today</Segment>
+              <Segment value="Tomorrow">Tomorrow</Segment>
+              <Segment value="This Week">This Week</Segment>
+            </Segments>
+          </div>
+
+          {/* Current View Display */}
+          <div className="bg-muted/30 rounded-lg p-6 text-center">
+            <div className="space-y-2">
+              <h4 className="text-lg font-medium">{viewMode} View</h4>
+              <p className="text-sm text-muted-foreground">
+                Showing {selectedDate.toLowerCase()} in {viewMode.toLowerCase()} format
+              </p>
+              <div className="grid grid-cols-7 gap-2 mt-4">
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                  <div key={day} className="text-xs text-muted-foreground p-2">
+                    {day}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Alternative Compact Layout */}
+        <div className="bg-background border border-border rounded-lg p-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <IconButton variant="ghost" size="sm" aria-label="Calendar menu">
+                <Icon name="calendar" />
+              </IconButton>
+              <span className="text-sm font-medium">Calendar</span>
+              <div className="w-px h-4 bg-border" />
+              <span className="text-xs text-muted-foreground">December 2024</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Segments defaultValue="Month" size="sm" variant="classic">
+                <Segment value="Day">D</Segment>
+                <Segment value="Week">W</Segment>
+                <Segment value="Month">M</Segment>
+                <Segment value="Year">Y</Segment>
+              </Segments>
+
+              <ActionMenu>
+                <ActionMenuTrigger asChild>
+                  <IconButton variant="ghost" size="sm" aria-label="More options">
+                    <Icon name="more-horizontal" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent align="end">
+                  <ActionMenuItem onAction={() => handleAction('refresh')}>
+                    <Icon name="refresh-cw" />
+                    Refresh
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('sync')}>
+                    <Icon name="refresh-cw" />
+                    Sync Calendars
+                  </ActionMenuItem>
+                  <ActionMenuSeparator />
+                  <ActionMenuItem onAction={() => handleAction('fullscreen')}>
+                    <Icon name="maximize" />
+                    Full Screen
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </div>
+          </div>
+        </div>
+
+        {/* Advanced Toolbar Example */}
+        <div className="bg-background border border-border rounded-lg p-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ActionMenu>
+                <ActionMenuTrigger asChild>
+                  <IconButton variant="outline" size="sm" aria-label="Create event">
+                    <Icon name="plus" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent align="start">
+                  <ActionMenuItem onAction={() => handleAction('quick-event')}>
+                    <Icon name="zap" />
+                    Quick Event
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('detailed-event')}>
+                    <Icon name="calendar-plus" />
+                    Detailed Event
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('recurring-event')}>
+                    <Icon name="repeat" />
+                    Recurring Event
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+
+              <IconButton variant="outline" size="sm" aria-label="Import calendar">
+                <Icon name="upload" />
+              </IconButton>
+              <div className="w-px h-4 bg-border mx-1" />
+              <IconButton variant="ghost" size="sm" aria-label="Refresh">
+                <Icon name="refresh-cw" />
+              </IconButton>
+            </div>
+
+            <Segments defaultValue="Week" size="sm" variant="surface">
+              <Segment value="Day">
+                <Icon name="calendar-days" className="w-3 h-3 mr-1" />
+                Day
+              </Segment>
+              <Segment value="Week">
+                <Icon name="calendar" className="w-3 h-3 mr-1" />
+                Week
+              </Segment>
+              <Segment value="Month">
+                <Icon name="calendar-range" className="w-3 h-3 mr-1" />
+                Month
+              </Segment>
+            </Segments>
+
+            <div className="flex items-center gap-2">
+              <IconButton variant="ghost" size="sm" aria-label="Filter events">
+                <Icon name="filter" />
+              </IconButton>
+
+              <ActionMenu>
+                <ActionMenuTrigger asChild>
+                  <IconButton variant="ghost" size="sm" aria-label="Share calendar">
+                    <Icon name="share" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent align="end">
+                  <ActionMenuLabel>Share Options</ActionMenuLabel>
+                  <ActionMenuItem onAction={() => handleAction('share-link')}>
+                    <Icon name="link" />
+                    Copy Link
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('share-email')}>
+                    <Icon name="mail" />
+                    Send via Email
+                  </ActionMenuItem>
+                  <ActionMenuSeparator />
+                  <ActionMenuItem onAction={() => handleAction('export-ics')}>
+                    <Icon name="download" />
+                    Export as ICS
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => handleAction('export-pdf')}>
+                    <Icon name="file-text" />
+                    Export as PDF
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </div>
+          </div>
+        </div>
+
+        {/* Usage Notes */}
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium">Design Notes</h4>
+          <div className="text-xs text-muted-foreground space-y-1">
+            <p>
+              • <strong>IconButton Integration:</strong> Uses outline, ghost, and default variants
+            </p>
+            <p>
+              • <strong>ActionMenu Enhancement:</strong> Adds contextual actions to IconButtons
+            </p>
+            <p>
+              • <strong>Primary View Switcher:</strong> Uses default size with surface variant
+            </p>
+            <p>
+              • <strong>Secondary Navigation:</strong> Uses small size for compact areas
+            </p>
+            <p>
+              • <strong>Icon + Text Segments:</strong> Combines icons with text in segments
+            </p>
+            <p>
+              • <strong>Accessibility:</strong> All components have proper aria-labels and keyboard navigation
+            </p>
+            <p>
+              • <strong>Consistent Sizing:</strong> All components align perfectly at sm size (h-8/size-8)
+            </p>
+            <p>
+              • <strong>Layered Interactions:</strong> ActionMenus provide secondary actions without cluttering the UI
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  },
 }
