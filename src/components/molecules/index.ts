@@ -10,4 +10,5 @@ export * from './ActionMenu'
 export * from './AlertDialog'
 export * from './Callout'
 export * from './Tag'
+export * from './Segments'
 // Add other molecule components as needed
