@@ -4,7 +4,7 @@ export const segmentsRootVariants = cva('inline-flex items-center rounded-md px-
   variants: {
     size: {
       sm: 'h-8 text-sm gap-1',
-      default: 'h-9 text-sm gap-1',
+      md: 'h-9 text-sm gap-1',
       lg: 'h-10 text-sm gap-1',
     },
     variant: {
@@ -13,7 +13,7 @@ export const segmentsRootVariants = cva('inline-flex items-center rounded-md px-
     },
   },
   defaultVariants: {
-    size: 'default',
+    size: 'md',
     variant: 'surface',
   },
 })
@@ -24,7 +24,7 @@ export const segmentItemVariants = cva(
     variants: {
       size: {
         sm: 'h-6.5 px-3 py-1 text-sm',
-        default: 'h-7.5 px-3 py-1.5 text-sm',
+        md: 'h-7.5 px-3 py-1.5 text-sm',
         lg: 'h-8.5 px-6 py-2 text-sm',
       },
       variant: {
@@ -35,7 +35,7 @@ export const segmentItemVariants = cva(
       },
     },
     defaultVariants: {
-      size: 'default',
+      size: 'md',
       variant: 'surface',
     },
   },

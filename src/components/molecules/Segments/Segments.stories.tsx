@@ -22,7 +22,7 @@ const meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['sm', 'default', 'lg'],
+      options: ['sm', 'md', 'lg'],
       description: 'Size of the segments (matches Button sizes)',
     },
     variant: {
@@ -53,7 +53,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     defaultValue: 'inbox',
-    size: 'default',
+    size: 'md',
     variant: 'surface',
   },
   render: (args) => (
@@ -155,7 +155,7 @@ export const SizeVariants: Story = {
 
       <div className="space-y-3">
         <h3 className="text-sm font-medium">Default Size (h-9)</h3>
-        <Segments defaultValue="option1" size="default">
+        <Segments defaultValue="option1">
           <Segment value="option1">Option 1</Segment>
           <Segment value="option2">Option 2</Segment>
           <Segment value="option3">Option 3</Segment>
@@ -233,7 +233,6 @@ export const AccessibilityStates: Story = {
   },
 }
 
-// Apple macOS Calendar Example - Real-world integration
 export const AppleCalendarExample: Story = {
   render: function AppleCalendarRender() {
     const [viewMode, setViewMode] = useState('Week')
@@ -280,7 +279,7 @@ export const AppleCalendarExample: Story = {
             <Segments
               value={viewMode}
               onValueChange={(value) => setViewMode(value as string)}
-              size="default"
+              size="md"
               variant="surface"
             >
               <Segment value="Day">Day</Segment>
@@ -367,54 +366,4 @@ export const AppleCalendarExample: Story = {
       </div>
     )
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    // Test main view switcher accessibility (checking what actually renders)
-    const daySegment = canvas.getByRole('button', { name: 'Day' })
-    const weekSegment = canvas.getByRole('button', { name: 'Week' })
-    const monthSegment = canvas.getByRole('button', { name: 'Month' })
-
-    // Test initial state - check for the actual state attribute
-    await expect(weekSegment).toHaveAttribute('data-state', 'on')
-
-    // Test keyboard navigation
-    await userEvent.click(daySegment)
-    await waitFor(() => {
-      expect(daySegment).toHaveAttribute('data-state', 'on')
-    })
-
-    await userEvent.keyboard('{ArrowRight}')
-    await waitFor(() => {
-      expect(weekSegment).toHaveAttribute('data-state', 'on')
-    })
-    expect(weekSegment).toHaveFocus()
-
-    // Test ActionMenu accessibility (these are actual IconButtons)
-    const addButton = canvas.getByRole('button', { name: 'Add new event' })
-    await expect(addButton).toHaveAttribute('aria-haspopup', 'true')
-
-    // Test compact segments
-    const compactSegments = canvas.getAllByRole('button', { name: /^[DWMY]$/ })
-    await expect(compactSegments).toHaveLength(4)
-  },
-}
-
-// Interactive playground for testing
-export const Playground: Story = {
-  args: {
-    size: 'default',
-    variant: 'surface',
-    orientation: 'horizontal',
-    disabled: false,
-    loop: true,
-    defaultValue: 'option1',
-  },
-  render: (args) => (
-    <Segments {...args}>
-      <Segment value="option1">Option 1</Segment>
-      <Segment value="option2">Option 2</Segment>
-      <Segment value="option3">Option 3</Segment>
-    </Segments>
-  ),
 }

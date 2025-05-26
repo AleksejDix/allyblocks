@@ -6,7 +6,7 @@ import type { SegmentsProps, SegmentProps, SegmentsRef, SegmentRef } from './Seg
 
 // Context for sharing variant props between Segments and Segment
 const SegmentsContext = createContext<{
-  size?: 'sm' | 'default' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
   variant?: 'surface' | 'classic'
   orientation?: 'horizontal' | 'vertical'
 }>({
@@ -55,8 +55,8 @@ const SegmentsContext = createContext<{
 export const Segments = forwardRef<SegmentsRef, SegmentsProps>(function Segments(
   {
     className,
-    size = 'default',
-    variant = 'surface',
+    size,
+    variant,
     orientation = 'horizontal',
     loop = true,
     children,
@@ -76,7 +76,7 @@ export const Segments = forwardRef<SegmentsRef, SegmentsProps>(function Segments
   return (
     <SegmentsContext.Provider
       value={{
-        size: size as 'sm' | 'default' | 'lg',
+        size: size as 'sm' | 'md' | 'lg',
         variant: variant as 'surface' | 'classic',
         orientation: orientation as 'horizontal' | 'vertical',
       }}
@@ -118,7 +118,7 @@ export const Segment = forwardRef<SegmentRef, SegmentProps>(function Segment(
   ref,
 ) {
   const context = useContext(SegmentsContext)
-  const effectiveSize = size ?? context.size ?? 'default'
+  const effectiveSize = size ?? context.size ?? 'md'
   const effectiveVariant = variant ?? context.variant ?? 'surface'
   const effectiveOrientation = context.orientation ?? 'horizontal'
 
