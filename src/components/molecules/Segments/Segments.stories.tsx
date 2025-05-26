@@ -3,6 +3,7 @@ import { within, expect, userEvent } from '@storybook/test'
 import { useState } from 'react'
 
 import { Segments, Segment } from './Segments'
+import { Button } from '../../atoms/Button'
 
 const meta = {
   component: Segments,
@@ -372,5 +373,200 @@ export const Playground: Story = {
       <Segment value="option2">Option 2</Segment>
       <Segment value="option3">Option 3</Segment>
     </Segments>
+  ),
+}
+
+// Button vs Segments size comparison
+export const ButtonSizeComparison: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Size Comparison: Button vs Segments</h3>
+        <p className="text-sm text-muted-foreground">
+          Comparing heights and font sizes between Button and Segments components
+        </p>
+      </div>
+
+      {/* Small Size Comparison */}
+      <div className="space-y-3">
+        <h4 className="text-sm font-medium">Small Size</h4>
+        <div className="space-y-2">
+          <div className="space-y-1">
+            <span className="text-xs text-muted-foreground">Button (sm): h-8</span>
+            <div>
+              <Button size="sm" variant="outline">
+                Small Button
+              </Button>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <span className="text-xs text-muted-foreground">Segments (1): h-6 container, h-4 items</span>
+            <div>
+              <Segments defaultValue="option1" size="1">
+                <Segment value="option1">Option 1</Segment>
+                <Segment value="option2">Option 2</Segment>
+              </Segments>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Default Size Comparison */}
+      <div className="space-y-3">
+        <h4 className="text-sm font-medium">Default Size</h4>
+        <div className="space-y-2">
+          <div className="space-y-1">
+            <span className="text-xs text-muted-foreground">Button (default): h-9</span>
+            <div>
+              <Button size="default" variant="outline">
+                Default Button
+              </Button>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <span className="text-xs text-muted-foreground">Segments (2): h-8 container, h-6 items</span>
+            <div>
+              <Segments defaultValue="option1" size="2">
+                <Segment value="option1">Option 1</Segment>
+                <Segment value="option2">Option 2</Segment>
+              </Segments>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Large Size Comparison */}
+      <div className="space-y-3">
+        <h4 className="text-sm font-medium">Large Size</h4>
+        <div className="space-y-2">
+          <div className="space-y-1">
+            <span className="text-xs text-muted-foreground">Button (lg): h-10</span>
+            <div>
+              <Button size="lg" variant="outline">
+                Large Button
+              </Button>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <span className="text-xs text-muted-foreground">Segments (3): h-10 container, h-8 items</span>
+            <div>
+              <Segments defaultValue="option1" size="3">
+                <Segment value="option1">Option 1</Segment>
+                <Segment value="option2">Option 2</Segment>
+              </Segments>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Side by Side Comparison */}
+      <div className="space-y-3">
+        <h4 className="text-sm font-medium">Side by Side Comparison (No Flexbox)</h4>
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground">Small: Button (h-8) + Segments (h-6)</span>
+            <div className="space-y-1">
+              <Button size="sm" variant="outline">
+                Small Button
+              </Button>
+              <br />
+              <Segments defaultValue="option1" size="1">
+                <Segment value="option1">Small</Segment>
+                <Segment value="option2">Segments</Segment>
+              </Segments>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground">Default: Button (h-9) + Segments (h-8)</span>
+            <div className="space-y-1">
+              <Button size="default" variant="outline">
+                Default Button
+              </Button>
+              <br />
+              <Segments defaultValue="option1" size="2">
+                <Segment value="option1">Default</Segment>
+                <Segment value="option2">Segments</Segment>
+              </Segments>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-xs text-muted-foreground">Large: Button (h-10) + Segments (h-10)</span>
+            <div className="space-y-1">
+              <Button size="lg" variant="outline">
+                Large Button
+              </Button>
+              <br />
+              <Segments defaultValue="option1" size="3">
+                <Segment value="option1">Large</Segment>
+                <Segment value="option2">Segments</Segment>
+              </Segments>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Inline Comparison */}
+      <div className="space-y-3">
+        <h4 className="text-sm font-medium">Inline Comparison (Same Line)</h4>
+        <div className="space-y-4">
+          <div>
+            <span className="text-xs text-muted-foreground block mb-2">Small sizes inline:</span>
+            <Button size="sm" variant="outline">
+              Small Button
+            </Button>{' '}
+            <Segments defaultValue="option1" size="1" className="inline-flex">
+              <Segment value="option1">Small</Segment>
+              <Segment value="option2">Segments</Segment>
+            </Segments>
+          </div>
+
+          <div>
+            <span className="text-xs text-muted-foreground block mb-2">Default sizes inline:</span>
+            <Button size="default" variant="outline">
+              Default Button
+            </Button>{' '}
+            <Segments defaultValue="option1" size="2" className="inline-flex">
+              <Segment value="option1">Default</Segment>
+              <Segment value="option2">Segments</Segment>
+            </Segments>
+          </div>
+
+          <div>
+            <span className="text-xs text-muted-foreground block mb-2">Large sizes inline (should match height):</span>
+            <Button size="lg" variant="outline">
+              Large Button
+            </Button>{' '}
+            <Segments defaultValue="option1" size="3" className="inline-flex">
+              <Segment value="option1">Large</Segment>
+              <Segment value="option2">Segments</Segment>
+            </Segments>
+          </div>
+        </div>
+      </div>
+
+      {/* Analysis */}
+      <div className="space-y-3">
+        <h4 className="text-sm font-medium">Size Analysis</h4>
+        <div className="text-xs space-y-1 text-muted-foreground">
+          <p>
+            <strong>Button sizes:</strong> sm (h-8), default (h-9), lg (h-10)
+          </p>
+          <p>
+            <strong>Segments container:</strong> size 1 (h-6), size 2 (h-8), size 3 (h-10)
+          </p>
+          <p>
+            <strong>Segment items:</strong> size 1 (h-4), size 2 (h-6), size 3 (h-8)
+          </p>
+          <p>
+            <strong>Font sizes:</strong> Button uses text-sm, Segments use text-xs (size 1) and text-sm (size 2,3)
+          </p>
+          <p>
+            <strong>Best match:</strong> Button lg (h-10) matches Segments size 3 container (h-10)
+          </p>
+        </div>
+      </div>
+    </div>
   ),
 }
