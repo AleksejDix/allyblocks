@@ -14,8 +14,8 @@ const meta = {
   argTypes: {
     size: {
       control: 'select',
-      options: ['1', '2', '3'],
-      description: 'Size of the segments',
+      options: ['sm', 'default', 'lg'],
+      description: 'Size of the segments (now matches Button sizes)',
     },
     variant: {
       control: 'select',
@@ -50,7 +50,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     defaultValue: 'inbox',
-    size: '2',
+    size: 'default',
     variant: 'surface',
   },
   render: (args) => (
@@ -81,8 +81,8 @@ export const SizeVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div className="space-y-3">
-        <h3 className="text-sm font-medium">Size 1 (Small)</h3>
-        <Segments defaultValue="option1" size="1">
+        <h3 className="text-sm font-medium">Small Size</h3>
+        <Segments defaultValue="option1" size="sm">
           <Segment value="option1">Option 1</Segment>
           <Segment value="option2">Option 2</Segment>
           <Segment value="option3">Option 3</Segment>
@@ -90,8 +90,8 @@ export const SizeVariants: Story = {
       </div>
 
       <div className="space-y-3">
-        <h3 className="text-sm font-medium">Size 2 (Default)</h3>
-        <Segments defaultValue="option1" size="2">
+        <h3 className="text-sm font-medium">Default Size</h3>
+        <Segments defaultValue="option1" size="default">
           <Segment value="option1">Option 1</Segment>
           <Segment value="option2">Option 2</Segment>
           <Segment value="option3">Option 3</Segment>
@@ -99,8 +99,8 @@ export const SizeVariants: Story = {
       </div>
 
       <div className="space-y-3">
-        <h3 className="text-sm font-medium">Size 3 (Large)</h3>
-        <Segments defaultValue="option1" size="3">
+        <h3 className="text-sm font-medium">Large Size</h3>
+        <Segments defaultValue="option1" size="lg">
           <Segment value="option1">Option 1</Segment>
           <Segment value="option2">Option 2</Segment>
           <Segment value="option3">Option 3</Segment>
@@ -213,7 +213,7 @@ export const WithContent: Story = {
     <div className="space-y-6">
       <div className="space-y-3">
         <h3 className="text-sm font-medium">With Icons and Text</h3>
-        <Segments defaultValue="list" size="3">
+        <Segments defaultValue="list" size="lg">
           <Segment value="list">
             <span className="flex items-center gap-2">
               <span>📋</span>
@@ -288,7 +288,7 @@ export const RealWorldExamples: Story = {
       {/* Navigation tabs */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Navigation Tabs</h3>
-        <Segments defaultValue="dashboard" size="3">
+        <Segments defaultValue="dashboard" size="lg">
           <Segment value="dashboard">Dashboard</Segment>
           <Segment value="projects">Projects</Segment>
           <Segment value="team">Team</Segment>
@@ -301,7 +301,7 @@ export const RealWorldExamples: Story = {
         <h3 className="text-lg font-semibold">View Switcher</h3>
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-medium">Products</h4>
-          <Segments defaultValue="grid" size="1">
+          <Segments defaultValue="grid" size="sm">
             <Segment value="list" aria-label="List view">
               📋
             </Segment>
@@ -318,7 +318,7 @@ export const RealWorldExamples: Story = {
         <div className="space-y-3">
           <div>
             <label className="text-sm font-medium">Status</label>
-            <Segments defaultValue="all" size="2" className="mt-2">
+            <Segments defaultValue="all" size="default" className="mt-2">
               <Segment value="all">All</Segment>
               <Segment value="active">Active</Segment>
               <Segment value="inactive">Inactive</Segment>
@@ -326,7 +326,7 @@ export const RealWorldExamples: Story = {
           </div>
           <div>
             <label className="text-sm font-medium">Priority</label>
-            <Segments type="multiple" defaultValue={['high']} size="2" className="mt-2">
+            <Segments type="multiple" defaultValue={['high']} size="default" className="mt-2">
               <Segment value="low">Low</Segment>
               <Segment value="medium">Medium</Segment>
               <Segment value="high">High</Segment>
@@ -339,7 +339,7 @@ export const RealWorldExamples: Story = {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Text Formatting</h3>
         <div className="space-y-3">
-          <Segments type="multiple" defaultValue={['bold']} size="2">
+          <Segments type="multiple" defaultValue={['bold']} size="default">
             <Segment value="bold" aria-label="Bold">
               <strong>B</strong>
             </Segment>
@@ -359,7 +359,7 @@ export const RealWorldExamples: Story = {
 // Interactive playground
 export const Playground: Story = {
   args: {
-    size: '2',
+    size: 'default',
     variant: 'surface',
     type: 'single',
     orientation: 'horizontal',
@@ -381,9 +381,9 @@ export const ButtonSizeComparison: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Size Comparison: Button vs Segments</h3>
+        <h3 className="text-lg font-semibold">Size Comparison: Button vs Segments (Updated)</h3>
         <p className="text-sm text-muted-foreground">
-          Comparing heights and font sizes between Button and Segments components
+          Segments now match Button component heights and styling for perfect alignment
         </p>
       </div>
 
@@ -400,9 +400,9 @@ export const ButtonSizeComparison: Story = {
             </div>
           </div>
           <div className="space-y-1">
-            <span className="text-xs text-muted-foreground">Segments (1): h-6 container, h-4 items</span>
+            <span className="text-xs text-muted-foreground">Segments (sm): h-8 container, h-6 items</span>
             <div>
-              <Segments defaultValue="option1" size="1">
+              <Segments defaultValue="option1" size="sm">
                 <Segment value="option1">Option 1</Segment>
                 <Segment value="option2">Option 2</Segment>
               </Segments>
@@ -424,9 +424,9 @@ export const ButtonSizeComparison: Story = {
             </div>
           </div>
           <div className="space-y-1">
-            <span className="text-xs text-muted-foreground">Segments (2): h-8 container, h-6 items</span>
+            <span className="text-xs text-muted-foreground">Segments (default): h-9 container, h-7 items</span>
             <div>
-              <Segments defaultValue="option1" size="2">
+              <Segments defaultValue="option1" size="default">
                 <Segment value="option1">Option 1</Segment>
                 <Segment value="option2">Option 2</Segment>
               </Segments>
@@ -448,9 +448,9 @@ export const ButtonSizeComparison: Story = {
             </div>
           </div>
           <div className="space-y-1">
-            <span className="text-xs text-muted-foreground">Segments (3): h-10 container, h-8 items</span>
+            <span className="text-xs text-muted-foreground">Segments (lg): h-10 container, h-8 items</span>
             <div>
-              <Segments defaultValue="option1" size="3">
+              <Segments defaultValue="option1" size="lg">
                 <Segment value="option1">Option 1</Segment>
                 <Segment value="option2">Option 2</Segment>
               </Segments>
@@ -464,13 +464,13 @@ export const ButtonSizeComparison: Story = {
         <h4 className="text-sm font-medium">Side by Side Comparison (No Flexbox)</h4>
         <div className="space-y-4">
           <div className="space-y-2">
-            <span className="text-xs text-muted-foreground">Small: Button (h-8) + Segments (h-6)</span>
+            <span className="text-xs text-muted-foreground">Small: Button (h-8) + Segments (h-8) - Perfect Match!</span>
             <div className="space-y-1">
               <Button size="sm" variant="outline">
                 Small Button
               </Button>
               <br />
-              <Segments defaultValue="option1" size="1">
+              <Segments defaultValue="option1" size="sm">
                 <Segment value="option1">Small</Segment>
                 <Segment value="option2">Segments</Segment>
               </Segments>
@@ -478,13 +478,15 @@ export const ButtonSizeComparison: Story = {
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs text-muted-foreground">Default: Button (h-9) + Segments (h-8)</span>
+            <span className="text-xs text-muted-foreground">
+              Default: Button (h-9) + Segments (h-9) - Perfect Match!
+            </span>
             <div className="space-y-1">
               <Button size="default" variant="outline">
                 Default Button
               </Button>
               <br />
-              <Segments defaultValue="option1" size="2">
+              <Segments defaultValue="option1" size="default">
                 <Segment value="option1">Default</Segment>
                 <Segment value="option2">Segments</Segment>
               </Segments>
@@ -492,13 +494,15 @@ export const ButtonSizeComparison: Story = {
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs text-muted-foreground">Large: Button (h-10) + Segments (h-10)</span>
+            <span className="text-xs text-muted-foreground">
+              Large: Button (h-10) + Segments (h-10) - Perfect Match!
+            </span>
             <div className="space-y-1">
               <Button size="lg" variant="outline">
                 Large Button
               </Button>
               <br />
-              <Segments defaultValue="option1" size="3">
+              <Segments defaultValue="option1" size="lg">
                 <Segment value="option1">Large</Segment>
                 <Segment value="option2">Segments</Segment>
               </Segments>
@@ -509,36 +513,36 @@ export const ButtonSizeComparison: Story = {
 
       {/* Inline Comparison */}
       <div className="space-y-3">
-        <h4 className="text-sm font-medium">Inline Comparison (Same Line)</h4>
+        <h4 className="text-sm font-medium">Inline Comparison (Same Line) - Perfect Alignment!</h4>
         <div className="space-y-4">
           <div>
-            <span className="text-xs text-muted-foreground block mb-2">Small sizes inline:</span>
+            <span className="text-xs text-muted-foreground block mb-2">Small sizes inline (both h-8):</span>
             <Button size="sm" variant="outline">
               Small Button
             </Button>{' '}
-            <Segments defaultValue="option1" size="1" className="inline-flex">
+            <Segments defaultValue="option1" size="sm" className="inline-flex">
               <Segment value="option1">Small</Segment>
               <Segment value="option2">Segments</Segment>
             </Segments>
           </div>
 
           <div>
-            <span className="text-xs text-muted-foreground block mb-2">Default sizes inline:</span>
+            <span className="text-xs text-muted-foreground block mb-2">Default sizes inline (both h-9):</span>
             <Button size="default" variant="outline">
               Default Button
             </Button>{' '}
-            <Segments defaultValue="option1" size="2" className="inline-flex">
+            <Segments defaultValue="option1" size="default" className="inline-flex">
               <Segment value="option1">Default</Segment>
               <Segment value="option2">Segments</Segment>
             </Segments>
           </div>
 
           <div>
-            <span className="text-xs text-muted-foreground block mb-2">Large sizes inline (should match height):</span>
+            <span className="text-xs text-muted-foreground block mb-2">Large sizes inline (both h-10):</span>
             <Button size="lg" variant="outline">
               Large Button
             </Button>{' '}
-            <Segments defaultValue="option1" size="3" className="inline-flex">
+            <Segments defaultValue="option1" size="lg" className="inline-flex">
               <Segment value="option1">Large</Segment>
               <Segment value="option2">Segments</Segment>
             </Segments>
@@ -548,22 +552,22 @@ export const ButtonSizeComparison: Story = {
 
       {/* Analysis */}
       <div className="space-y-3">
-        <h4 className="text-sm font-medium">Size Analysis</h4>
+        <h4 className="text-sm font-medium">Updated Size Analysis</h4>
         <div className="text-xs space-y-1 text-muted-foreground">
           <p>
             <strong>Button sizes:</strong> sm (h-8), default (h-9), lg (h-10)
           </p>
           <p>
-            <strong>Segments container:</strong> size 1 (h-6), size 2 (h-8), size 3 (h-10)
+            <strong>Segments container:</strong> sm (h-8), default (h-9), lg (h-10)
           </p>
           <p>
-            <strong>Segment items:</strong> size 1 (h-4), size 2 (h-6), size 3 (h-8)
+            <strong>Segment items:</strong> sm (h-6), default (h-7), lg (h-8)
           </p>
           <p>
-            <strong>Font sizes:</strong> Button uses text-sm, Segments use text-xs (size 1) and text-sm (size 2,3)
+            <strong>Font sizes:</strong> Both use text-sm and font-medium for consistency
           </p>
           <p>
-            <strong>Best match:</strong> Button lg (h-10) matches Segments size 3 container (h-10)
+            <strong>✅ Perfect alignment:</strong> All Button and Segments sizes now match exactly!
           </p>
         </div>
       </div>

@@ -6,14 +6,18 @@ import type { SegmentsProps, SegmentProps, SegmentsRef, SegmentRef } from './Seg
 
 // Context for sharing variant props between Segments and Segment
 const SegmentsContext = createContext<{
-  size?: '1' | '2' | '3'
+  size?: 'sm' | 'default' | 'lg'
   variant?: 'surface' | 'classic'
-}>({})
+}>({
+  size: undefined,
+  variant: undefined,
+})
 
 /**
  * Segments component for creating toggle button groups.
  *
  * Based on Radix UI ToggleGroup with styling inspired by Radix Themes SegmentedControl.
+ * Now matches Button component sizing for better visual alignment.
  *
  * Features:
  * - Single or multiple selection modes
@@ -22,6 +26,7 @@ const SegmentsContext = createContext<{
  * - Customizable size and variant styling
  * - Support for disabled state
  * - Horizontal and vertical orientations
+ * - Matches Button component heights and font styling
  *
  * @example
  * ```tsx
@@ -39,8 +44,8 @@ const SegmentsContext = createContext<{
  *   <Segment value="sent">Sent</Segment>
  * </Segments>
  *
- * // Different sizes and variants
- * <Segments size="3" variant="classic" defaultValue="option1">
+ * // Different sizes matching Button sizes
+ * <Segments size="lg" variant="classic" defaultValue="option1">
  *   <Segment value="option1">Option 1</Segment>
  *   <Segment value="option2">Option 2</Segment>
  * </Segments>
@@ -55,7 +60,7 @@ const SegmentsContext = createContext<{
 export const Segments = forwardRef<SegmentsRef, SegmentsProps>(function Segments(
   {
     className,
-    size = '2',
+    size = 'default',
     variant = 'surface',
     type = 'single',
     orientation = 'horizontal',
@@ -68,38 +73,45 @@ export const Segments = forwardRef<SegmentsRef, SegmentsProps>(function Segments
   },
   ref,
 ) {
-  // Prepare props for Radix ToggleGroup based on type
-  const toggleGroupProps = {
-    ...props,
-    type,
-    orientation,
-    loop,
-    ...(type === 'single'
-      ? {
-          value: value as string,
-          defaultValue: defaultValue as string,
-          onValueChange: onValueChange as (value: string) => void,
-        }
-      : {
-          value: value as string[],
-          defaultValue: defaultValue as string[],
-          onValueChange: onValueChange as (value: string[]) => void,
-        }),
-  }
+  const baseClassName = cn(
+    segmentsRootVariants({ size, variant }),
+    orientation === 'vertical' && 'flex-col h-auto w-auto',
+    className,
+  )
 
   return (
-    <SegmentsContext.Provider value={{ size, variant }}>
-      <ToggleGroupPrimitive.Root
-        ref={ref}
-        className={cn(
-          segmentsRootVariants({ size, variant }),
-          orientation === 'vertical' && 'flex-col h-auto w-auto',
-          className,
-        )}
-        {...toggleGroupProps}
-      >
-        {children}
-      </ToggleGroupPrimitive.Root>
+    <SegmentsContext.Provider
+      value={{ size: size as 'sm' | 'default' | 'lg', variant: variant as 'surface' | 'classic' }}
+    >
+      {type === 'single' ? (
+        <ToggleGroupPrimitive.Root
+          ref={ref}
+          type="single"
+          orientation={orientation}
+          loop={loop}
+          className={baseClassName}
+          value={value as string}
+          defaultValue={defaultValue as string}
+          onValueChange={onValueChange as (value: string) => void}
+          {...props}
+        >
+          {children}
+        </ToggleGroupPrimitive.Root>
+      ) : (
+        <ToggleGroupPrimitive.Root
+          ref={ref}
+          type="multiple"
+          orientation={orientation}
+          loop={loop}
+          className={baseClassName}
+          value={value as string[]}
+          defaultValue={defaultValue as string[]}
+          onValueChange={onValueChange as (value: string[]) => void}
+          {...props}
+        >
+          {children}
+        </ToggleGroupPrimitive.Root>
+      )}
     </SegmentsContext.Provider>
   )
 })
@@ -124,7 +136,7 @@ export const Segment = forwardRef<SegmentRef, SegmentProps>(function Segment(
   ref,
 ) {
   const context = useContext(SegmentsContext)
-  const effectiveSize = size ?? context.size ?? '2'
+  const effectiveSize = size ?? context.size ?? 'default'
   const effectiveVariant = variant ?? context.variant ?? 'surface'
 
   return (
