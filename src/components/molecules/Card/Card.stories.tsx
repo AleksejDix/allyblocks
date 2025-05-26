@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { within, expect } from '@storybook/test'
-import { Plus, Share } from 'lucide-react'
 
 import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardBody, CardAction } from './Card'
 import { Button } from '@/components/atoms/Button'

@@ -1,76 +1,71 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent } from "@storybook/test";
-import { Plus } from "lucide-react";
-import { expect } from "@storybook/test";
-import { Button } from "./Button";
+import type { Meta, StoryObj } from '@storybook/react'
+import { within, userEvent } from '@storybook/test'
+import { Icon } from '@/components/atoms/Icon'
+import { expect } from '@storybook/test'
+import { Button } from './Button'
+import { IconButton } from '@/components/atoms/IconButton'
+import { ActionGroup } from '@/components/molecules/ActionGroup'
+import { Badge } from '@/index'
 
 const meta: Meta<typeof Button> = {
   component: Button,
   parameters: {
     docs: {
       description: {
-        component:
-          "A versatile button component with multiple variants and sizes.",
+        component: 'A versatile button component with multiple variants and sizes.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     asChild: {
-      control: "boolean",
-      description: "Whether to merge props with child element",
+      control: 'boolean',
+      description: 'Whether to merge props with child element',
       defaultValue: false,
     },
     className: {
-      control: "text",
+      control: 'text',
     },
     variant: {
-      control: { type: "select" },
-      options: [
-        "default",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
-      description: "The visual style of the button",
-      defaultValue: "default",
+      control: { type: 'select' },
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+      description: 'The visual style of the button',
+      defaultValue: 'default',
     },
     size: {
-      control: { type: "select" },
-      options: ["default", "sm", "lg", "icon"],
-      description: "The size of the button",
-      defaultValue: "default",
+      control: { type: 'select' },
+      options: ['default', 'sm', 'lg', 'icon'],
+      description: 'The size of the button',
+      defaultValue: 'default',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the button is disabled",
+      control: 'boolean',
+      description: 'Whether the button is disabled',
       defaultValue: false,
     },
   },
   // Global play function for all button stories
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     // Verify the component renders something
-    await expect(canvasElement).not.toBeEmptyDOMElement();
+    await expect(canvasElement).not.toBeEmptyDOMElement()
   },
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const RendersText: Story = {
   args: {
-    children: "Click me",
+    children: 'Click me',
   },
   parameters: {
     docs: {
       description: {
-        story: "Default button with text content",
+        story: 'Default button with text content',
       },
     },
   },
-};
+}
 
 export const SupportsPolymorphism: Story = {
   parameters: {
@@ -90,36 +85,36 @@ export const SupportsPolymorphism: Story = {
     ),
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole("link");
-    await expect(link).toBeInTheDocument();
+    const canvas = within(canvasElement)
+    const link = canvas.getByRole('link')
+    await expect(link).toBeInTheDocument()
   },
-};
+}
 
 export const HandlesDisabledState: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Demonstrates a disabled button state with reduced opacity.",
+        story: 'Demonstrates a disabled button state with reduced opacity.',
       },
     },
   },
   args: {
-    children: "Disabled Button",
+    children: 'Disabled Button',
     disabled: true,
   },
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole("button");
-    await expect(button).toBeDisabled();
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button')
+    await expect(button).toBeDisabled()
   },
-};
+}
 
 export const DisplaysAllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Showcases all available button style variants.",
+        story: 'Showcases all available button style variants.',
       },
     },
   },
@@ -134,13 +129,13 @@ export const DisplaysAllVariants: Story = {
     </div>
   ),
   // This is primarily a visual story
-};
+}
 
 export const DisplaysAllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Displays all available button size options.",
+        story: 'Displays all available button size options.',
       },
     },
   },
@@ -152,14 +147,13 @@ export const DisplaysAllSizes: Story = {
     </div>
   ),
   // This is primarily a visual story
-};
+}
 
 export const SupportsFocusNavigation: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Demonstrates proper keyboard navigation and accessibility features.",
+        story: 'Demonstrates proper keyboard navigation and accessibility features.',
       },
     },
   },
@@ -177,11 +171,52 @@ export const SupportsFocusNavigation: Story = {
     </div>
   ),
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
     // Test keyboard navigation
-    await userEvent.tab();
-    const firstButton = canvas.getByRole("button", { name: "First Button" });
-    await expect(firstButton).toHaveFocus();
+    await userEvent.tab()
+    const firstButton = canvas.getByRole('button', { name: 'First Button' })
+    await expect(firstButton).toHaveFocus()
   },
-};
+}
+
+export const AddAction: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates proper keyboard navigation and accessibility features.',
+      },
+    },
+  },
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <Badge color="green" size="sm">
+          <Icon name="check" />
+          Done
+        </Badge>
+      </div>
+
+      <p> Always use an action group to group buttons together. Indicate Additive actions with Plus icon.</p>
+
+      <ActionGroup>
+        <IconButton size="sm" aria-label="Add Action">
+          <Icon name="plus" />
+        </IconButton>
+
+        <Button size="sm">
+          <Icon name="plus" />
+          Add Action
+        </Button>
+      </ActionGroup>
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement)
+
+    // Test keyboard navigation
+    await userEvent.tab()
+    const firstButton = canvas.getByRole('button', { name: 'First Button' })
+    await expect(firstButton).toHaveFocus()
+  },
+}

@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority'
 
-export const alertVariants = cva(
+export const calloutVariants = cva(
   [
     // Layout & Structure
     'relative',
@@ -8,18 +8,11 @@ export const alertVariants = cva(
     'rounded-lg',
     'border',
     'p-4',
-    'grid',
-    'grid-cols-[auto_1fr_auto]',
     'gap-3',
     'items-start',
 
     // Typography
     'text-sm',
-
-    // Icons
-    '[&>svg]:size-4',
-    '[&>svg]:shrink-0',
-    '[&>svg]:translate-y-[-3px]',
 
     // Focus States
     'focus-visible:outline-none',
@@ -38,244 +31,217 @@ export const alertVariants = cva(
   {
     variants: {
       color: {
-        // Bright Colors - Standard Pattern
+        // Blue variants
         blue: [
           'bg-blue-50',
-          'text-blue-900',
           'border-blue-200',
+          'text-blue-900',
           'dark:bg-blue-950/50',
-          'dark:text-blue-100',
           'dark:border-blue-800',
-          '[&>svg]:text-blue-600',
-          'dark:[&>svg]:text-blue-400',
+          'dark:text-blue-100',
         ],
+        // Red variants
         red: [
           'bg-red-50',
-          'text-red-900',
           'border-red-200',
+          'text-red-900',
           'dark:bg-red-950/50',
-          'dark:text-red-100',
           'dark:border-red-800',
-          '[&>svg]:text-red-600',
-          'dark:[&>svg]:text-red-400',
+          'dark:text-red-100',
         ],
+        // Green variants
         green: [
           'bg-green-50',
-          'text-green-900',
           'border-green-200',
+          'text-green-900',
           'dark:bg-green-950/50',
-          'dark:text-green-100',
           'dark:border-green-800',
-          '[&>svg]:text-green-600',
-          'dark:[&>svg]:text-green-400',
+          'dark:text-green-100',
         ],
+        // Yellow variants
         yellow: [
           'bg-yellow-50',
-          'text-yellow-900',
           'border-yellow-200',
+          'text-yellow-900',
           'dark:bg-yellow-950/50',
-          'dark:text-yellow-100',
           'dark:border-yellow-800',
-          '[&>svg]:text-yellow-600',
-          'dark:[&>svg]:text-yellow-400',
+          'dark:text-yellow-100',
         ],
+        // Purple variants
         purple: [
           'bg-purple-50',
-          'text-purple-900',
           'border-purple-200',
+          'text-purple-900',
           'dark:bg-purple-950/50',
-          'dark:text-purple-100',
           'dark:border-purple-800',
-          '[&>svg]:text-purple-600',
-          'dark:[&>svg]:text-purple-400',
+          'dark:text-purple-100',
         ],
+        // Orange variants
         orange: [
           'bg-orange-50',
-          'text-orange-900',
           'border-orange-200',
+          'text-orange-900',
           'dark:bg-orange-950/50',
-          'dark:text-orange-100',
           'dark:border-orange-800',
-          '[&>svg]:text-orange-600',
-          'dark:[&>svg]:text-orange-400',
+          'dark:text-orange-100',
         ],
+        // Pink variants
         pink: [
           'bg-pink-50',
-          'text-pink-900',
           'border-pink-200',
+          'text-pink-900',
           'dark:bg-pink-950/50',
-          'dark:text-pink-100',
           'dark:border-pink-800',
-          '[&>svg]:text-pink-600',
-          'dark:[&>svg]:text-pink-400',
+          'dark:text-pink-100',
         ],
+        // Emerald variants
         emerald: [
           'bg-emerald-50',
-          'text-emerald-900',
           'border-emerald-200',
+          'text-emerald-900',
           'dark:bg-emerald-950/50',
-          'dark:text-emerald-100',
           'dark:border-emerald-800',
-          '[&>svg]:text-emerald-600',
-          'dark:[&>svg]:text-emerald-400',
+          'dark:text-emerald-100',
         ],
+        // Teal variants
         teal: [
           'bg-teal-50',
-          'text-teal-900',
           'border-teal-200',
+          'text-teal-900',
           'dark:bg-teal-950/50',
-          'dark:text-teal-100',
           'dark:border-teal-800',
-          '[&>svg]:text-teal-600',
-          'dark:[&>svg]:text-teal-400',
+          'dark:text-teal-100',
         ],
+        // Cyan variants
         cyan: [
           'bg-cyan-50',
-          'text-cyan-900',
           'border-cyan-200',
+          'text-cyan-900',
           'dark:bg-cyan-950/50',
-          'dark:text-cyan-100',
           'dark:border-cyan-800',
-          '[&>svg]:text-cyan-600',
-          'dark:[&>svg]:text-cyan-400',
+          'dark:text-cyan-100',
         ],
+        // Sky variants
         sky: [
           'bg-sky-50',
-          'text-sky-900',
           'border-sky-200',
+          'text-sky-900',
           'dark:bg-sky-950/50',
-          'dark:text-sky-100',
           'dark:border-sky-800',
-          '[&>svg]:text-sky-600',
-          'dark:[&>svg]:text-sky-400',
+          'dark:text-sky-100',
         ],
+        // Indigo variants
         indigo: [
           'bg-indigo-50',
-          'text-indigo-900',
           'border-indigo-200',
+          'text-indigo-900',
           'dark:bg-indigo-950/50',
-          'dark:text-indigo-100',
           'dark:border-indigo-800',
-          '[&>svg]:text-indigo-600',
-          'dark:[&>svg]:text-indigo-400',
+          'dark:text-indigo-100',
         ],
+        // Violet variants
         violet: [
           'bg-violet-50',
-          'text-violet-900',
           'border-violet-200',
+          'text-violet-900',
           'dark:bg-violet-950/50',
-          'dark:text-violet-100',
           'dark:border-violet-800',
-          '[&>svg]:text-violet-600',
-          'dark:[&>svg]:text-violet-400',
+          'dark:text-violet-100',
         ],
+        // Fuchsia variants
         fuchsia: [
           'bg-fuchsia-50',
-          'text-fuchsia-900',
           'border-fuchsia-200',
+          'text-fuchsia-900',
           'dark:bg-fuchsia-950/50',
-          'dark:text-fuchsia-100',
           'dark:border-fuchsia-800',
-          '[&>svg]:text-fuchsia-600',
-          'dark:[&>svg]:text-fuchsia-400',
+          'dark:text-fuchsia-100',
         ],
+        // Rose variants
         rose: [
           'bg-rose-50',
-          'text-rose-900',
           'border-rose-200',
+          'text-rose-900',
           'dark:bg-rose-950/50',
-          'dark:text-rose-100',
           'dark:border-rose-800',
-          '[&>svg]:text-rose-600',
-          'dark:[&>svg]:text-rose-400',
+          'dark:text-rose-100',
         ],
+        // Amber variants
         amber: [
           'bg-amber-50',
-          'text-amber-900',
           'border-amber-200',
+          'text-amber-900',
           'dark:bg-amber-950/50',
-          'dark:text-amber-100',
           'dark:border-amber-800',
-          '[&>svg]:text-amber-600',
-          'dark:[&>svg]:text-amber-400',
+          'dark:text-amber-100',
         ],
+        // Lime variants
         lime: [
           'bg-lime-50',
-          'text-lime-900',
           'border-lime-200',
+          'text-lime-900',
           'dark:bg-lime-950/50',
-          'dark:text-lime-100',
           'dark:border-lime-800',
-          '[&>svg]:text-lime-600',
-          'dark:[&>svg]:text-lime-400',
+          'dark:text-lime-100',
         ],
-
-        // Neutral Colors - Special Pattern
+        // Zinc variants
         zinc: [
           'bg-zinc-50',
-          'text-zinc-900',
           'border-zinc-200',
-          'dark:bg-zinc-900/50',
+          'text-zinc-900',
+          'dark:bg-zinc-950/50',
+          'dark:border-zinc-800',
           'dark:text-zinc-100',
-          'dark:border-zinc-700',
-          '[&>svg]:text-zinc-600',
-          'dark:[&>svg]:text-zinc-400',
         ],
+        // Slate variants
         slate: [
           'bg-slate-50',
-          'text-slate-900',
           'border-slate-200',
-          'dark:bg-slate-900/50',
+          'text-slate-900',
+          'dark:bg-slate-950/50',
+          'dark:border-slate-800',
           'dark:text-slate-100',
-          'dark:border-slate-700',
-          '[&>svg]:text-slate-600',
-          'dark:[&>svg]:text-slate-400',
         ],
+        // Gray variants
         gray: [
           'bg-gray-50',
-          'text-gray-900',
           'border-gray-200',
-          'dark:bg-gray-900/50',
+          'text-gray-900',
+          'dark:bg-gray-950/50',
+          'dark:border-gray-800',
           'dark:text-gray-100',
-          'dark:border-gray-700',
-          '[&>svg]:text-gray-600',
-          'dark:[&>svg]:text-gray-400',
         ],
+        // Neutral variants
         neutral: [
           'bg-neutral-50',
-          'text-neutral-900',
           'border-neutral-200',
-          'dark:bg-neutral-900/50',
+          'text-neutral-900',
+          'dark:bg-neutral-950/50',
+          'dark:border-neutral-800',
           'dark:text-neutral-100',
-          'dark:border-neutral-700',
-          '[&>svg]:text-neutral-600',
-          'dark:[&>svg]:text-neutral-400',
         ],
+        // Stone variants
         stone: [
           'bg-stone-50',
-          'text-stone-900',
           'border-stone-200',
-          'dark:bg-stone-900/50',
+          'text-stone-900',
+          'dark:bg-stone-950/50',
+          'dark:border-stone-800',
           'dark:text-stone-100',
-          'dark:border-stone-700',
-          '[&>svg]:text-stone-600',
-          'dark:[&>svg]:text-stone-400',
         ],
-
-        // Semantic Colors
+        // Destructive variants
         destructive: [
           'bg-destructive/10',
-          'text-destructive',
           'border-destructive/20',
+          'text-destructive',
           'dark:bg-destructive/10',
-          'dark:text-destructive',
           'dark:border-destructive/20',
-          '[&>svg]:text-destructive',
+          'dark:text-destructive',
         ],
       },
     },
     defaultVariants: {
-      color: 'zinc',
+      color: 'blue',
     },
   },
 )

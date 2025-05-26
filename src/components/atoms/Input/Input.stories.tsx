@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { userEvent } from "@storybook/test";
-import type { InputSize } from "./Input.types";
-import { Button } from "../Button";
+import type { Meta, StoryObj } from '@storybook/react'
+import { within, expect } from '@storybook/test'
+import { userEvent } from '@storybook/test'
+import type { InputSize } from './Input.types'
+import { Button } from '../Button'
 
-import { Input } from "./Input";
-import { ActionSplit } from "@/components/molecules/ActionSplit";
+import { Input } from './Input'
+import { ActionSplit } from '@/components/molecules/ActionSplit'
 
 const meta: Meta<typeof Input> = {
   component: Input,
@@ -14,82 +14,82 @@ const meta: Meta<typeof Input> = {
       disabled: true,
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "The size of the input",
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'The size of the input',
     },
   },
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj<typeof Input>
 
 export const RendersTextInput: Story = {
   args: {
-    placeholder: "Enter text...",
+    placeholder: 'Enter text...',
   },
   parameters: {
     docs: {
       description: {
-        story: "Default text input with placeholder.",
+        story: 'Default text input with placeholder.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Enter text...");
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('Enter text...')
 
     // Test typing behavior
-    await userEvent.type(input, "Hello, world!");
-    await expect(input).toHaveValue("Hello, world!");
+    await userEvent.type(input, 'Hello, world!')
+    await expect(input).toHaveValue('Hello, world!')
   },
-};
+}
 
 // Size variants
 export const SmallSize: Story = {
   args: {
-    placeholder: "Small input",
-    size: "sm" as InputSize,
+    placeholder: 'Small input',
+    size: 'sm' as InputSize,
   },
   parameters: {
     docs: {
       description: {
-        story: "Small sized input.",
+        story: 'Small sized input.',
       },
     },
   },
-};
+}
 
 export const MediumSize: Story = {
   args: {
-    placeholder: "Medium input (default)",
-    size: "md" as InputSize,
+    placeholder: 'Medium input (default)',
+    size: 'md' as InputSize,
   },
   parameters: {
     docs: {
       description: {
-        story: "Medium sized input (default).",
+        story: 'Medium sized input (default).',
       },
     },
   },
-};
+}
 
 export const LargeSize: Story = {
   args: {
-    placeholder: "Large input",
-    size: "lg" as InputSize,
+    placeholder: 'Large input',
+    size: 'lg' as InputSize,
   },
   parameters: {
     docs: {
       description: {
-        story: "Large sized input.",
+        story: 'Large sized input.',
       },
     },
   },
-};
+}
 
 // Input with Button combinations
 export const EmailSubscriptionLayouts: Story = {
@@ -98,12 +98,7 @@ export const EmailSubscriptionLayouts: Story = {
       <div>
         <h3 className="text-sm font-medium mb-3">Small Size</h3>
         <ActionSplit>
-          <Input
-            placeholder="Enter email..."
-            size="sm"
-            className="flex-1"
-            type="email"
-          />
+          <Input placeholder="Enter email..." size="sm" className="flex-1" type="email" />
           <Button size="sm">Subscribe</Button>
         </ActionSplit>
       </div>
@@ -111,12 +106,7 @@ export const EmailSubscriptionLayouts: Story = {
       <div>
         <h3 className="text-sm font-medium mb-3">Medium Size (Default)</h3>
         <ActionSplit className="">
-          <Input
-            placeholder="Enter email..."
-            size="md"
-            className="flex-1"
-            type="email"
-          />
+          <Input placeholder="Enter email..." size="md" className="flex-1" type="email" />
           <Button size="default">Subscribe</Button>
         </ActionSplit>
       </div>
@@ -124,12 +114,7 @@ export const EmailSubscriptionLayouts: Story = {
       <div>
         <h3 className="text-sm font-medium mb-3">Large Size</h3>
         <ActionSplit className="">
-          <Input
-            placeholder="Enter email..."
-            size="lg"
-            className="flex-1"
-            type="email"
-          />
+          <Input placeholder="Enter email..." size="lg" className="flex-1" type="email" />
           <Button size="lg">Subscribe</Button>
         </ActionSplit>
       </div>
@@ -137,12 +122,7 @@ export const EmailSubscriptionLayouts: Story = {
       <div>
         <h3 className="text-sm font-medium mb-3">Stacked Layout</h3>
         <ActionSplit className="space-y-2 max-w-md">
-          <Input
-            placeholder="Enter email..."
-            size="md"
-            className="w-full"
-            type="email"
-          />
+          <Input placeholder="Enter email..." size="md" className="w-full" type="email" />
           <Button className="w-full">Subscribe</Button>
         </ActionSplit>
       </div>
@@ -151,121 +131,135 @@ export const EmailSubscriptionLayouts: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Email subscription layouts with matching input and button sizes.",
+        story: 'Email subscription layouts with matching input and button sizes.',
       },
     },
   },
-};
+}
 
 export const SupportsEmailType: Story = {
   args: {
-    type: "email",
-    placeholder: "email@example.com",
+    type: 'email',
+    placeholder: 'email@example.com',
   },
   parameters: {
     docs: {
       description: {
-        story: "Email input with appropriate keyboard on mobile devices.",
+        story: 'Email input with appropriate keyboard on mobile devices.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("email@example.com");
-    await expect(input).toHaveAttribute("type", "email");
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('email@example.com')
+    await expect(input).toHaveAttribute('type', 'email')
   },
-};
+}
 
 export const SupportsPasswordType: Story = {
   args: {
-    type: "password",
-    placeholder: "Enter password...",
+    type: 'password',
+    placeholder: 'Enter password...',
+    lang: 'ru',
+    value: '2025-05-26',
   },
   parameters: {
     docs: {
       description: {
-        story: "Password input that masks the entered text.",
+        story: 'Password input that masks the entered text.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Enter password...");
-    await expect(input).toHaveAttribute("type", "password");
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('Enter password...')
+    await expect(input).toHaveAttribute('type', 'password')
   },
-};
+}
+
+export const SupportsDateType: Story = {
+  args: {
+    type: 'date',
+    placeholder: 'Enter date...',
+  },
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('Enter date...')
+    await expect(input).toHaveAttribute('type', 'date')
+  },
+}
 
 export const SupportsNumberType: Story = {
   args: {
-    type: "number",
-    placeholder: "0",
+    type: 'number',
+    placeholder: '0',
     min: 0,
     max: 100,
   },
   parameters: {
     docs: {
       description: {
-        story: "Numeric input with min and max constraints.",
+        story: 'Numeric input with min and max constraints.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("0");
-    await expect(input).toHaveAttribute("type", "number");
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('0')
+    await expect(input).toHaveAttribute('type', 'number')
   },
-};
+}
 
 export const HandlesDisabledState: Story = {
   args: {
-    placeholder: "This input is disabled",
+    placeholder: 'This input is disabled',
     disabled: true,
   },
   parameters: {
     docs: {
       description: {
-        story: "Disabled input that cannot be interacted with.",
+        story: 'Disabled input that cannot be interacted with.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("This input is disabled");
-    await expect(input).toBeDisabled();
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('This input is disabled')
+    await expect(input).toBeDisabled()
   },
-};
+}
 
 export const SupportsInvalidState: Story = {
   args: {
-    placeholder: "Invalid input",
-    "aria-invalid": true,
+    placeholder: 'Invalid input',
+    'aria-invalid': true,
   },
   parameters: {
     docs: {
       description: {
-        story: "Input in an error state, indicated by red outline.",
+        story: 'Input in an error state, indicated by red outline.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByPlaceholderText("Invalid input");
-    await expect(input).toHaveAttribute("aria-invalid", "true");
+    const canvas = within(canvasElement)
+    const input = canvas.getByPlaceholderText('Invalid input')
+    await expect(input).toHaveAttribute('aria-invalid', 'true')
   },
-};
+}
 
 export const SupportsCustomClasses: Story = {
   args: {
-    placeholder: "Custom styled input",
-    className: "border-2 border-green-500 rounded-none",
+    placeholder: 'Custom styled input',
+    className: 'border-2 border-green-500 rounded-none',
   },
   parameters: {
     docs: {
       description: {
-        story: "Input with custom styling applied through className.",
+        story: 'Input with custom styling applied through className.',
       },
     },
   },
   // No play function needed - just visual verification
-};
+}
