@@ -19,10 +19,16 @@ export const textareaVariants = cva(
         true: 'field-sizing-content',
         false: '',
       },
+      state: {
+        default: '',
+        hover: 'hover',
+        focus: 'focus',
+      },
     },
     defaultVariants: {
       size: 'md',
       autoGrow: false,
+      state: 'default',
     },
   },
 )
