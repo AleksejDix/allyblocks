@@ -21,8 +21,9 @@ export const textareaVariants = cva(
       },
       state: {
         default: '',
-        hover: 'hover',
-        focus: 'focus',
+        hover: 'data-[state=hover]:border-ring data-[state=hover]:ring-ring/50 data-[state=hover]:ring-[3px]',
+        focus: 'data-[state=focus]:border-ring data-[state=focus]:ring-ring/50 data-[state=focus]:ring-[3px]',
+        active: 'data-[state=active]:border-ring data-[state=active]:ring-ring/50 data-[state=active]:ring-[3px]',
       },
     },
     defaultVariants: {

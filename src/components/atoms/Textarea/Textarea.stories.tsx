@@ -97,23 +97,47 @@ export const States: Story = {
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">Hover (for Chromatic)</label>
-        <Textarea placeholder="Hover state" className="hover" />
+        <Textarea state="hover" placeholder="Hover state" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">Focus (for Chromatic)</label>
-        <Textarea placeholder="Focus state" className="focus" />
+        <Textarea state="focus" placeholder="Focus state" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Active (for Chromatic)</label>
+        <Textarea state="active" placeholder="Active state" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">Disabled</label>
         <Textarea placeholder="Disabled state" disabled />
       </div>
       <div>
+        <label className="block text-sm font-medium mb-1">Disabled + Hover</label>
+        <Textarea state="hover" placeholder="Disabled hover state" disabled />
+      </div>
+      <div>
         <label className="block text-sm font-medium mb-1">Invalid</label>
         <Textarea placeholder="Invalid state" aria-invalid />
       </div>
       <div>
+        <label className="block text-sm font-medium mb-1">Invalid + Focus</label>
+        <Textarea state="focus" placeholder="Invalid focus state" aria-invalid />
+      </div>
+      <div>
         <label className="block text-sm font-medium mb-1">Read-only</label>
         <Textarea defaultValue="This content is read-only and cannot be edited." readOnly />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Read-only + Active</label>
+        <Textarea state="active" defaultValue="Read-only content with active state." readOnly />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">With Value</label>
+        <Textarea defaultValue="This textarea has existing content that can be edited." />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">With Value + Focus</label>
+        <Textarea state="focus" defaultValue="This textarea has content and is focused." />
       </div>
     </div>
   ),
@@ -121,24 +145,63 @@ export const States: Story = {
     docs: {
       description: {
         story:
-          'Different states including hover/focus classes for Chromatic screenshots, disabled, invalid, and read-only states.',
+          'Comprehensive visual states using data-state attributes for easy testing. Includes hover, focus, active states for Chromatic screenshots, plus disabled, invalid, read-only states and combinations.',
       },
     },
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
+    // Test data-state attributes
+    const hoverTextarea = canvas.getByPlaceholderText('Hover state')
+    await expect(hoverTextarea).toHaveAttribute('data-state', 'hover')
+
+    const focusTextarea = canvas.getByPlaceholderText('Focus state')
+    await expect(focusTextarea).toHaveAttribute('data-state', 'focus')
+
+    const activeTextarea = canvas.getByPlaceholderText('Active state')
+    await expect(activeTextarea).toHaveAttribute('data-state', 'active')
+
+    // Test default state (should not have data-state attribute)
+    const defaultTextarea = canvas.getByPlaceholderText('Default state')
+    await expect(defaultTextarea).not.toHaveAttribute('data-state')
+
     // Test disabled state
     const disabledTextarea = canvas.getByPlaceholderText('Disabled state')
     await expect(disabledTextarea).toBeDisabled()
+
+    // Test disabled + hover state (should have both disabled and data-state)
+    const disabledHoverTextarea = canvas.getByPlaceholderText('Disabled hover state')
+    await expect(disabledHoverTextarea).toBeDisabled()
+    await expect(disabledHoverTextarea).toHaveAttribute('data-state', 'hover')
 
     // Test invalid state
     const invalidTextarea = canvas.getByPlaceholderText('Invalid state')
     await expect(invalidTextarea).toHaveAttribute('aria-invalid')
 
+    // Test invalid + focus state
+    const invalidFocusTextarea = canvas.getByPlaceholderText('Invalid focus state')
+    await expect(invalidFocusTextarea).toHaveAttribute('aria-invalid')
+    await expect(invalidFocusTextarea).toHaveAttribute('data-state', 'focus')
+
     // Test read-only state
     const readOnlyTextarea = canvas.getByDisplayValue('This content is read-only and cannot be edited.')
     await expect(readOnlyTextarea).toHaveAttribute('readonly')
+
+    // Test read-only + active state
+    const readOnlyActiveTextarea = canvas.getByDisplayValue('Read-only content with active state.')
+    await expect(readOnlyActiveTextarea).toHaveAttribute('readonly')
+    await expect(readOnlyActiveTextarea).toHaveAttribute('data-state', 'active')
+
+    // Test textareas with existing content
+    const withValueTextarea = canvas.getByDisplayValue('This textarea has existing content that can be edited.')
+    await expect(withValueTextarea).toBeInTheDocument()
+    await expect(withValueTextarea).not.toBeDisabled()
+
+    const withValueFocusTextarea = canvas.getByDisplayValue('This textarea has content and is focused.')
+    await expect(withValueFocusTextarea).toBeInTheDocument()
+    await expect(withValueFocusTextarea).not.toBeDisabled()
+    await expect(withValueFocusTextarea).toHaveAttribute('data-state', 'focus')
   },
 }
 
@@ -147,6 +210,7 @@ export const Playground: Story = {
     placeholder: 'Interactive playground...',
     size: 'md',
     autoGrow: false,
+    state: 'default',
     disabled: false,
     readOnly: false,
   },
@@ -158,6 +222,10 @@ export const Playground: Story = {
     autoGrow: {
       control: { type: 'boolean' },
     },
+    state: {
+      control: { type: 'select' },
+      options: ['default', 'hover', 'focus', 'active'],
+    },
     disabled: {
       control: { type: 'boolean' },
     },
@@ -168,7 +236,7 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground to test different combinations of props.',
+        story: 'Interactive playground to test different combinations of props including visual states.',
       },
     },
   },
