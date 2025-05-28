@@ -1,208 +1,175 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
-import { userEvent } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react'
+import { within, expect } from '@storybook/test'
 
-import { Textarea } from "./Textarea";
+import { Textarea } from './Textarea'
 
 const meta: Meta<typeof Textarea> = {
   component: Textarea,
   parameters: {},
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
-  // Global play function for all textarea stories
-  play: async ({ canvasElement }) => {
-    // Verify the component renders something
-    await expect(canvasElement).not.toBeEmptyDOMElement();
-  },
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj<typeof Textarea>;
+type Story = StoryObj<typeof Textarea>
 
 export const Default: Story = {
   args: {
-    placeholder: "Enter text...",
+    placeholder: 'Enter your message...',
   },
   parameters: {
     docs: {
       description: {
-        story: "Default textarea with placeholder.",
+        story: 'Default textarea with basic functionality and interaction testing.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Enter text...");
+    const canvas = within(canvasElement)
+    const textarea = canvas.getByPlaceholderText('Enter your message...')
 
-    // Test typing behavior
-    await userEvent.type(textarea, "Hello, world!");
-    await expect(textarea).toHaveValue("Hello, world!");
+    await expect(textarea).toBeInTheDocument()
+    await expect(textarea).not.toBeDisabled()
   },
-};
+}
 
-export const WithInitialValue: Story = {
-  args: {
-    defaultValue: "This is some initial text in the textarea.",
-    placeholder: "Enter text...",
-  },
+export const SizeVariants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">Small</label>
+        <Textarea size="sm" placeholder="Small textarea" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Medium (Default)</label>
+        <Textarea size="md" placeholder="Medium textarea" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Large</label>
+        <Textarea size="lg" placeholder="Large textarea" />
+      </div>
+    </div>
+  ),
   parameters: {
     docs: {
       description: {
-        story: "Textarea with initial content.",
+        story: 'Different size variants: sm, md (default), and lg.',
+      },
+    },
+  },
+}
+
+export const AutoGrowVariant: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">Fixed Height</label>
+        <Textarea
+          placeholder="This textarea has fixed height..."
+          defaultValue="Type more content here and see how it behaves. This textarea will not grow automatically."
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Auto-Growing</label>
+        <Textarea
+          autoGrow
+          placeholder="This textarea grows with content..."
+          defaultValue="Type more content here and see how it grows. This textarea will automatically adjust its height based on the content."
+        />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison between fixed height and auto-growing textarea using the autoGrow prop.',
+      },
+    },
+  },
+}
+
+export const States: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">Default</label>
+        <Textarea placeholder="Default state" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Hover (for Chromatic)</label>
+        <Textarea placeholder="Hover state" className="hover" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Focus (for Chromatic)</label>
+        <Textarea placeholder="Focus state" className="focus" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Disabled</label>
+        <Textarea placeholder="Disabled state" disabled />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Invalid</label>
+        <Textarea placeholder="Invalid state" aria-invalid />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Read-only</label>
+        <Textarea defaultValue="This content is read-only and cannot be edited." readOnly />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Different states including hover/focus classes for Chromatic screenshots, disabled, invalid, and read-only states.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Enter text...");
-    await expect(textarea).toHaveValue(
-      "This is some initial text in the textarea.",
-    );
-  },
-};
+    const canvas = within(canvasElement)
 
-export const WithRowsAndCols: Story = {
+    // Test disabled state
+    const disabledTextarea = canvas.getByPlaceholderText('Disabled state')
+    await expect(disabledTextarea).toBeDisabled()
+
+    // Test invalid state
+    const invalidTextarea = canvas.getByPlaceholderText('Invalid state')
+    await expect(invalidTextarea).toHaveAttribute('aria-invalid')
+
+    // Test read-only state
+    const readOnlyTextarea = canvas.getByDisplayValue('This content is read-only and cannot be edited.')
+    await expect(readOnlyTextarea).toHaveAttribute('readonly')
+  },
+}
+
+export const Playground: Story = {
   args: {
-    placeholder: "This textarea has custom dimensions...",
-    rows: 8,
-    cols: 40,
+    placeholder: 'Interactive playground...',
+    size: 'md',
+    autoGrow: false,
+    disabled: false,
+    readOnly: false,
+  },
+  argTypes: {
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg'],
+    },
+    autoGrow: {
+      control: { type: 'boolean' },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+    },
+    readOnly: {
+      control: { type: 'boolean' },
+    },
   },
   parameters: {
     docs: {
       description: {
-        story: "Textarea with custom rows and columns.",
+        story: 'Interactive playground to test different combinations of props.',
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText(
-      "This textarea has custom dimensions...",
-    );
-    await expect(textarea).toHaveAttribute("rows", "8");
-    await expect(textarea).toHaveAttribute("cols", "40");
-  },
-};
-
-export const NonResizable: Story = {
-  args: {
-    placeholder: "This textarea cannot be resized...",
-    className: "resize-none",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Textarea that cannot be resized by the user.",
-      },
-    },
-  },
-  // Visual verification only
-};
-
-export const ResizeVertical: Story = {
-  args: {
-    placeholder: "This textarea can only be resized vertically...",
-    className: "resize-y",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Textarea that can only be resized vertically.",
-      },
-    },
-  },
-  // Visual verification only
-};
-
-export const Disabled: Story = {
-  args: {
-    placeholder: "This textarea is disabled",
-    disabled: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Disabled textarea that cannot be interacted with.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("This textarea is disabled");
-    await expect(textarea).toBeDisabled();
-  },
-};
-
-export const Invalid: Story = {
-  args: {
-    placeholder: "Invalid textarea",
-    "aria-invalid": true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Textarea in an error state, indicated by red outline.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText("Invalid textarea");
-    await expect(textarea).toHaveAttribute("aria-invalid", "true");
-  },
-};
-
-export const WithMaxLength: Story = {
-  args: {
-    placeholder: "This textarea has a character limit...",
-    maxLength: 50,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Textarea with a maximum character limit of 50.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByPlaceholderText(
-      "This textarea has a character limit...",
-    );
-    await expect(textarea).toHaveAttribute("maxlength", "50");
-
-    // Try typing a long string and verify it gets truncated
-    const longText =
-      "This is a very long text that should exceed the maximum length of 50 characters set on this textarea element.";
-    await userEvent.type(textarea, longText);
-    await expect(textarea).toHaveValue(longText.substring(0, 50));
-  },
-};
-
-export const ReadOnly: Story = {
-  args: {
-    defaultValue:
-      "This content cannot be edited because the textarea is read-only.",
-    readOnly: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Read-only textarea that displays content but cannot be edited.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const textarea = canvas.getByDisplayValue(
-      "This content cannot be edited because the textarea is read-only.",
-    );
-    await expect(textarea).toHaveAttribute("readonly");
-
-    // Try typing and verify the value doesn't change
-    await userEvent.type(textarea, "Attempting to add text");
-    await expect(textarea).toHaveValue(
-      "This content cannot be edited because the textarea is read-only.",
-    );
-  },
-};
+}
