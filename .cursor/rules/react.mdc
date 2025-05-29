@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Rules to write react code 
+
+
+dont use forward ref we are using react 19 
