@@ -16,8 +16,8 @@ export const keyboardKeyVariants = cva(
     'border-border',
     'bg-muted',
 
-    // Improved typography for keyboard keys
-    'font-sans', // Changed from font-mono for cleaner look
+    // Clean, modern typography for keyboard keys
+    'font-sans',
     'font-medium',
     'text-muted-foreground',
     'tracking-wide', // Better letter spacing for readability
@@ -83,15 +83,6 @@ export const keyboardKeyVariants = cva(
       },
 
       /**
-       * Font style variants for different aesthetics
-       */
-      fontStyle: {
-        sans: ['font-sans', 'tracking-wide'], // Clean, modern look (default)
-        mono: ['font-mono', 'tracking-normal'], // Technical, code-like appearance
-        compact: ['font-sans', 'font-semibold', 'tracking-wider', 'uppercase'], // Bold, compact style
-      },
-
-      /**
        * Special styling for modifier keys
        */
       modifier: {
@@ -102,7 +93,6 @@ export const keyboardKeyVariants = cva(
     defaultVariants: {
       size: 'md',
       variant: 'default',
-      fontStyle: 'sans',
       modifier: false,
     },
   },

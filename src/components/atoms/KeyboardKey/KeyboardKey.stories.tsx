@@ -54,11 +54,6 @@ const meta: Meta<typeof KeyboardKey> = {
       options: ['default', 'outline', 'ghost', 'pressed'],
       description: 'Visual variant of the key',
     },
-    fontStyle: {
-      control: 'select',
-      options: ['sans', 'mono', 'compact'],
-      description: 'Font style for the keyboard key',
-    },
     modifier: {
       control: 'boolean',
       description: 'Whether to style as a modifier key',
@@ -244,46 +239,6 @@ export const KeyboardShortcuts: Story = {
   ),
 }
 
-export const FontComparison: Story = {
-  args: {},
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Font Style Comparison</h3>
-        <div className="space-y-4">
-          <div>
-            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Sans (Recommended for UI)</h4>
-            <div className="flex items-center gap-2">
-              <KeyboardKey fontStyle="sans" keyName="cmd" />
-              <span className="text-xs text-muted-foreground">+</span>
-              <KeyboardKey fontStyle="sans">K</KeyboardKey>
-              <span className="text-sm ml-2">Clean, modern appearance</span>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Mono (Good for technical docs)</h4>
-            <div className="flex items-center gap-2">
-              <KeyboardKey fontStyle="mono" keyName="cmd" />
-              <span className="text-xs text-muted-foreground">+</span>
-              <KeyboardKey fontStyle="mono">K</KeyboardKey>
-              <span className="text-sm ml-2">Technical, code-like feel</span>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-sm font-medium mb-2 text-muted-foreground">Compact (Bold, attention-grabbing)</h4>
-            <div className="flex items-center gap-2">
-              <KeyboardKey fontStyle="compact" keyName="cmd" />
-              <span className="text-xs text-muted-foreground">+</span>
-              <KeyboardKey fontStyle="compact">K</KeyboardKey>
-              <span className="text-sm ml-2">Bold, uppercase styling</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-}
-
 export const CustomContent: Story = {
   args: {},
   render: () => (
@@ -344,47 +299,11 @@ export const InteractiveExample: Story = {
   ),
 }
 
-export const FontStyles: Story = {
-  args: {},
-  render: () => (
-    <div className="space-y-4">
-      <div>
-        <h3 className="text-sm font-medium mb-2">Sans (Default) - Clean & Modern</h3>
-        <div className="flex gap-2">
-          <KeyboardKey fontStyle="sans" keyName="ctrl" />
-          <KeyboardKey fontStyle="sans">K</KeyboardKey>
-          <KeyboardKey fontStyle="sans" keyName="enter" />
-          <KeyboardKey fontStyle="sans">Space</KeyboardKey>
-        </div>
-      </div>
-      <div>
-        <h3 className="text-sm font-medium mb-2">Mono - Technical & Code-like</h3>
-        <div className="flex gap-2">
-          <KeyboardKey fontStyle="mono" keyName="ctrl" />
-          <KeyboardKey fontStyle="mono">K</KeyboardKey>
-          <KeyboardKey fontStyle="mono" keyName="enter" />
-          <KeyboardKey fontStyle="mono">Space</KeyboardKey>
-        </div>
-      </div>
-      <div>
-        <h3 className="text-sm font-medium mb-2">Compact - Bold & Uppercase</h3>
-        <div className="flex gap-2">
-          <KeyboardKey fontStyle="compact" keyName="ctrl" />
-          <KeyboardKey fontStyle="compact">K</KeyboardKey>
-          <KeyboardKey fontStyle="compact" keyName="enter" />
-          <KeyboardKey fontStyle="compact">Space</KeyboardKey>
-        </div>
-      </div>
-    </div>
-  ),
-}
-
 export const Playground: Story = {
   args: {
     children: 'K',
     size: 'md',
     variant: 'default',
-    fontStyle: 'sans',
     modifier: false,
     platformSpecific: true,
     asChild: false,

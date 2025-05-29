@@ -71,7 +71,6 @@ export const KeyboardKey = (
     platformSpecific = true,
     size = 'md',
     variant = 'default',
-    fontStyle = 'sans',
     modifier,
     'aria-label': ariaLabel,
     ...props
@@ -102,7 +101,6 @@ export const KeyboardKey = (
         keyboardKeyVariants({
           size,
           variant,
-          fontStyle,
           modifier: isModifier,
         }),
         className,
