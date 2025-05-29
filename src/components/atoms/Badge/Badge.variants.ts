@@ -13,7 +13,7 @@ export const badgeVariants = cva(
     'overflow-hidden',
 
     // Visual Design
-    'rounded-md',
+    'rounded-full',
     'border',
     'border-transparent',
     'font-medium',
@@ -320,9 +320,9 @@ export const badgeVariants = cva(
         ],
       },
       size: {
-        sm: ['px-1.5', 'py-0.5', 'text-xs', '[&>svg]:size-3'],
-        md: ['px-2', 'py-1', 'text-sm', '[&>svg]:size-4'],
-        lg: ['px-2.5', 'py-1.5', 'text-base', '[&>svg]:size-5'],
+        sm: ['px-1.5', 'py-0.5', 'min-w-5.5', 'text-xs', '[&>svg]:size-3'],
+        md: ['px-2', 'py-1', 'text-xs', '[&>svg]:size-4'],
+        lg: ['px-2.5', 'py-1.5', 'text-xs', '[&>svg]:size-5'],
       },
     },
     defaultVariants: {

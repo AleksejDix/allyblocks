@@ -219,6 +219,19 @@ export const WithIcon: Story = {
   },
 }
 
+export const Counts: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-3 p-4 bg-white  rounded-md">
+      <Badge color="blue" size="sm">
+        1
+      </Badge>
+      <Badge color="red" size="sm">
+        99+
+      </Badge>
+    </div>
+  ),
+}
+
 // Story showcasing the badge used as a link via asChild
 export const AsLink: Story = {
   args: {
