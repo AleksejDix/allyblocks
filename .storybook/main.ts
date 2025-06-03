@@ -1,20 +1,18 @@
-import type { StorybookConfig } from "@storybook/react-vite";
-import remarkGfm from "remark-gfm";
+import type { StorybookConfig } from '@storybook/react-vite'
+import remarkGfm from 'remark-gfm'
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
-    "@chromatic-com/storybook",
-    "@storybook/addon-essentials",
-    "@storybook/experimental-addon-test",
-    "@storybook/addon-links",
-    "@storybook/addon-a11y",
-    "@storybook/addon-console",
+    '@chromatic-com/storybook',
+    '@storybook/addon-vitest',
+    '@storybook/addon-links',
+    '@storybook/addon-a11y',
     {
-      name: "@storybook/addon-docs",
+      name: '@storybook/addon-docs',
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
-            providerImportSource: "@mdx-js/react",
+            providerImportSource: '@mdx-js/react',
             remarkPlugins: [remarkGfm],
           },
         },
@@ -22,15 +20,15 @@ const config: StorybookConfig = {
     },
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
   docs: {
-    defaultName: "@Documentation",
+    defaultName: '@Documentation',
   },
-  staticDirs: ["../public"],
+  staticDirs: ['../public'],
   typescript: {
-    reactDocgen: "react-docgen-typescript",
+    reactDocgen: 'react-docgen-typescript',
   },
   core: {
     disableTelemetry: true,
@@ -40,13 +38,13 @@ const config: StorybookConfig = {
       ...config,
       define: {
         ...config.define,
-        global: "window",
+        global: 'window',
       },
       optimizeDeps: {
-        include: ["remark-gfm"],
+        include: ['remark-gfm'],
       },
-    };
+    }
   },
-};
+}
 
-export default config;
+export default config

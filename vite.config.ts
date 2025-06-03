@@ -69,9 +69,9 @@ export default defineConfig({
       "storybook/internal/*",
       "@mdx-js/react",
       "@storybook/addon-*",
-      "@storybook/blocks",
-      "@storybook/theming",
-      "@storybook/test",
+      "@storybook/addon-docs/blocks",
+      "storybook/theming",
+      "storybook/test",
     ],
     esbuildOptions: {
       target: "esnext",

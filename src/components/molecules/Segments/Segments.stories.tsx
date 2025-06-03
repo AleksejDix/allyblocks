@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { within, expect, userEvent, waitFor } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { within, expect, userEvent, waitFor } from 'storybook/test'
 import { useState } from 'react'
 
 import { Segments, Segment } from './Segments'

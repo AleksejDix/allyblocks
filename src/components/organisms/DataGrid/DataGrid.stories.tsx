@@ -54,7 +54,7 @@ export const BasicCase = () => {
   );
 };
 
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Card,
   CardAction,

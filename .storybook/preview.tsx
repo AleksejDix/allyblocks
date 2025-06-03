@@ -1,9 +1,9 @@
-import "../src/styles/index.css";
-import { withBrand, withNuqs, withI18next, withDarkMode } from "./decorators";
-import i18n from "../src/i18n/i18n";
-import type { Preview } from "@storybook/react";
-import { themes } from "@storybook/theming";
-const parameters: Preview["parameters"] = {
+import '../src/styles/index.css'
+import { withBrand, withNuqs, withI18next } from './decorators'
+import i18n from '../src/i18n/i18n'
+import type { Preview } from '@storybook/react-vite'
+import { themes } from 'storybook/theming'
+const parameters: Preview['parameters'] = {
   backgrounds: {
     disable: true,
   },
@@ -20,12 +20,12 @@ const parameters: Preview["parameters"] = {
   options: {
     storySort: {
       order: [
-        "Docs",
-        ["Introduction", "Atomic Design", "Component Categories"],
-        "Atoms",
-        ["Input", "Action", "Display", "Layout"],
-        "Molecules",
-        "Organisms",
+        'Docs',
+        ['Introduction', 'Atomic Design', 'Component Categories'],
+        'Atoms',
+        ['Input', 'Action', 'Display', 'Layout'],
+        'Molecules',
+        'Organisms',
       ],
     },
   },
@@ -34,66 +34,51 @@ const parameters: Preview["parameters"] = {
     config: {
       rules: [
         {
-          id: "color-contrast",
+          id: 'color-contrast',
           enabled: true,
         },
       ],
     },
   },
-};
+}
 
-const globalTypes: Preview["globalTypes"] = {
+const globalTypes: Preview['globalTypes'] = {
   locale: {
-    name: "Locale",
-    description: "Internationalization locale",
-    defaultValue: "de",
+    name: 'Locale',
+    description: 'Internationalization locale',
+    defaultValue: 'de',
     toolbar: {
-      icon: "globe",
+      icon: 'globe',
       items: [
-        { value: "de", title: "Deutsch" },
-        { value: "en", title: "English" },
-        { value: "fr", title: "Français" },
-        { value: "it", title: "Italiano" },
-      ],
-      showName: true,
-      dynamicTitle: true,
-    },
-  },
-  scheme: {
-    name: "Scheme",
-    description: "Scheme",
-    defaultValue: "system",
-    toolbar: {
-      icon: "globe",
-      items: [
-        { value: "light", title: "Light" },
-        { value: "dark", title: "Dark" },
-        { value: "system", title: "System" },
+        { value: 'de', title: 'Deutsch' },
+        { value: 'en', title: 'English' },
+        { value: 'fr', title: 'Français' },
+        { value: 'it', title: 'Italiano' },
       ],
       showName: true,
       dynamicTitle: true,
     },
   },
   brand: {
-    name: "Brand",
-    description: "Brand",
-    defaultValue: "schadcn",
+    name: 'Brand',
+    description: 'Brand',
+    defaultValue: 'schadcn',
     toolbar: {
-      icon: "contrast",
+      icon: 'contrast',
       items: [
-        { value: "medidata", title: "MediData" },
-        { value: "schadcn", title: "schadcn" },
+        { value: 'medidata', title: 'MediData' },
+        { value: 'schadcn', title: 'schadcn' },
       ],
       showName: true,
       dynamicTitle: true,
     },
   },
-};
+}
 
 const preview: Preview = {
-  decorators: [withBrand, withDarkMode, withNuqs, withI18next],
+  decorators: [withBrand, withNuqs, withI18next],
   globalTypes,
   parameters,
-};
+}
 
-export default preview;
+export default preview

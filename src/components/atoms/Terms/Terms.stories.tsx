@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Terms, Term, TermDefinition } from './Terms'
 import React from 'react'
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/molecules/Card/'

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, expect } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, expect } from "storybook/test";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/molecules/Form/Form";
 import { FieldUpload } from "./FieldUpload";

@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
-import { within, expect, userEvent, waitFor } from '@storybook/test'
+import { within, expect, userEvent, waitFor } from 'storybook/test'
 import { Icon } from '@/components/atoms/Icon'
 import { Listbox, ListboxGroup, ListboxLabel, ListboxItem } from './Listbox'
 

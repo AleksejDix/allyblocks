@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { within, userEvent, expect, waitFor, screen } from "@storybook/test";
+import type { Meta, StoryObj } from "@storybook/react-vite";
+import { within, userEvent, expect, waitFor, screen } from "storybook/test";
 import { LanguageMenu } from "./LanguageMenu";
 import i18n from "@/i18n/i18n";
 

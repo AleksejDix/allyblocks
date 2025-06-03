@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { useState } from 'react'
 import { TagPicker } from './TagPicker'
 import { Badge } from '@/components/atoms/Badge'
-import { within, expect } from '@storybook/test'
+import { within, expect } from 'storybook/test'
 
 const meta: Meta<typeof TagPicker> = {
   component: TagPicker,

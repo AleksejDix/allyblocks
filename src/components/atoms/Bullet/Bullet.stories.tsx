@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Bullet } from './Bullet'
 import { Avatar } from '../Avatar'
 import { AvatarImage } from '@radix-ui/react-avatar'

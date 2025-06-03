@@ -1,34 +1,13 @@
 import { cva } from 'class-variance-authority'
 
-export const cardVariants = cva('bg-card text-card-foreground rounded-xl overflow-hidden divide-y divide-border', {
-  variants: {
-    variant: {
-      default: 'border',
-    },
-    size: {
-      md: '',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-    size: 'md',
-  },
-})
+export const cardVariants = cva('bg-card text-card-foreground rounded-xl overflow-hidden border shadow-sm')
 
-export const cardHeaderVariants = cva(
-  '@container/card-header px-6 pt-4 grid auto-rows-min grid-rows-[auto_auto] items-start has-data-[slot=card-action]:grid-cols-[1fr_auto]',
-  {
-    variants: {},
-    defaultVariants: {},
-  },
-)
+export const cardHeaderVariants = cva('relative px-4 pt-4 pb-3')
 
-export const cardFooterVariants = cva('px-6 pb-4 bg-muted pt-4', {
-  variants: {},
-  defaultVariants: {},
-})
+export const cardSectionVariants = cva('px-4 py-3')
 
-export const cardBodyVariants = cva('px-6 py-4', {
-  variants: {},
-  defaultVariants: {},
-})
+export const cardSectionHeaderVariants = cva('flex items-center justify-between mb-2')
+
+export const cardFooterVariants = cva('px-4 pb-4 pt-3')
+
+export const cardBodyVariants = cva('px-4 py-3')

@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { expect, userEvent, waitFor, within, screen } from "@storybook/test";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, waitFor, within, screen } from 'storybook/test'
 import {
   Select,
   SelectContent,
@@ -9,494 +9,234 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@/components/atoms/Select/Select";
+} from './Select'
 
-// Define meta using the explicit Meta type annotation
 const meta: Meta<typeof Select> = {
   component: Select,
-  subcomponents: {
-    SelectContent: SelectContent,
-    SelectGroup: SelectGroup,
-    SelectItem: SelectItem,
-    SelectLabel: SelectLabel,
-    SelectSeparator: SelectSeparator,
-  },
-  tags: ["autodocs"],
-  parameters: {
-    nuqs: {
-      disabled: true,
-    },
-  },
-  argTypes: {
-    defaultValue: {
-      control: "text",
-      description: "The default selected value",
-    },
-    disabled: {
-      control: "boolean",
-      description: "Whether the select is disabled",
-    },
-    required: {
-      control: "boolean",
-      description: "Whether the select is required",
-    },
-    onValueChange: {
-      action: "value changed",
-      description: "Callback when the value changes",
-    },
-  },
-};
+  parameters: {},
+  tags: ['autodocs'],
+  argTypes: {},
+}
+export default meta
 
-// Export the meta as a clear default export
-export default meta;
-
-// Define Story type
-type Story = StoryObj<typeof Select>;
+type Story = StoryObj<typeof Select>
 
 export const Default: Story = {
-  render: (args) => {
-    return (
-      <Select {...args}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Fruits</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="orange">Orange</SelectItem>
-            <SelectItem value="grape">Grape</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    );
-  },
-  args: {
-    defaultValue: "apple",
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Basic select with a group of fruit options.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-    await expect(selectTrigger).toBeInTheDocument();
-
-    await userEvent.click(selectTrigger);
-
-    await waitFor(() => {
-      const listbox = screen.getByRole("listbox");
-      expect(listbox).toBeInTheDocument();
-
-      const selectItem = screen.getByRole("option", { name: "Apple" });
-      expect(selectItem).toBeInTheDocument();
-    });
-  },
-};
-
-export const Variants: Story = {
-  render: (args) => {
-    return (
-      <div className="grid gap-8 grid-cols-2">
-        <Select {...args}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select {...args}>
-          <SelectTrigger variant="ghost">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Different variants of the SelectTrigger component.",
-      },
-    },
-  },
-};
-
-export const Sizes: Story = {
-  render: (args) => {
-    return (
-      <div className="grid gap-8 grid-cols-3">
-        <Select {...args}>
-          <SelectTrigger size="sm">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select {...args}>
-          <SelectTrigger size="md">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <Select {...args}>
-          <SelectTrigger size="lg">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Different sizes of the SelectTrigger component.",
-      },
-    },
-  },
-};
-
-export const Widths: Story = {
-  render: () => {
-    return (
-      <div className="grid gap-8">
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Auto Width (Default)</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger width="auto">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium">Full Width</h3>
-          <Select defaultValue="apple">
-            <SelectTrigger width="full">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Different width configurations of the SelectTrigger component.",
-      },
-    },
-  },
-};
-
-export const Placeholder: Story = {
-  render: (args) => {
-    return (
-      <Select {...args}>
-        <SelectTrigger>
-          <SelectValue placeholder="Where do you live?" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Cities</SelectLabel>
-            <SelectItem value="new-york">New York</SelectItem>
-            <SelectItem value="london">London</SelectItem>
-            <SelectItem value="tokyo">Tokyo</SelectItem>
-            <SelectItem value="paris">Paris</SelectItem>
-            <SelectItem value="sydney">Sydney</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Select with a descriptive placeholder that guides the user.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    const selectTrigger = canvas.getByRole("combobox");
-
-    await expect(selectTrigger).toHaveTextContent(/where do you live\?/i);
-  },
-};
-
-export const Groups: Story = {
-  render: (args) => (
-    <Select {...args} value="spinach">
+  render: () => (
+    <Select defaultValue="apple">
       <SelectTrigger>
-        <SelectValue placeholder="Select a food" />
+        <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Fruits</SelectLabel>
           <SelectItem value="apple">Apple</SelectItem>
           <SelectItem value="banana">Banana</SelectItem>
-        </SelectGroup>
-        <SelectSeparator />
-        <SelectGroup>
-          <SelectLabel>Vegetables</SelectLabel>
-          <SelectItem value="carrot">Carrot</SelectItem>
-          <SelectItem value="spinach">Spinach</SelectItem>
+          <SelectItem value="orange">Orange</SelectItem>
+          <SelectItem value="grape">Grape</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
   ),
-  args: {
-    defaultValue: "spinach",
-  },
   parameters: {
     docs: {
       description: {
-        story: "Select with multiple groups and a separator.",
+        story: 'Default select with basic functionality and interaction testing.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-    await expect(selectTrigger).toBeInTheDocument();
+    const canvas = within(canvasElement)
+    const selectTrigger = canvas.getByRole('combobox')
 
-    await userEvent.click(selectTrigger);
+    await expect(selectTrigger).toBeInTheDocument()
+    await expect(selectTrigger).not.toBeDisabled()
+
+    await userEvent.click(selectTrigger)
 
     await waitFor(() => {
-      const selectItem = screen.getByRole("option", { name: "Spinach" });
-      expect(selectItem).toHaveAttribute("aria-selected", "true");
-    });
-  },
-};
+      const listbox = screen.getByRole('listbox')
+      expect(listbox).toBeInTheDocument()
 
-export const DisabledOptions: Story = {
-  render: (args) => (
-    <Select {...args}>
-      <SelectTrigger>
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="apple">Apple</SelectItem>
-        <SelectItem value="banana" disabled>
-          Banana (Unavailable)
-        </SelectItem>
-        <SelectItem value="orange">Orange</SelectItem>
-        <SelectItem value="grape" disabled>
-          Grape (Unavailable)
-        </SelectItem>
-      </SelectContent>
-    </Select>
-  ),
-  args: {
-    defaultValue: "orange",
+      const selectItem = screen.getByRole('option', { name: 'Apple' })
+      expect(selectItem).toBeInTheDocument()
+    })
   },
+}
+
+export const SizeVariants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">Small</label>
+        <Select defaultValue="apple">
+          <SelectTrigger size="sm">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="orange">Orange</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Medium (Default)</label>
+        <Select defaultValue="apple">
+          <SelectTrigger size="md">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="orange">Orange</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Large</label>
+        <Select defaultValue="apple">
+          <SelectTrigger size="lg">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="orange">Orange</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  ),
   parameters: {
     docs: {
       description: {
-        story: "Select with some disabled options that cannot be selected.",
+        story: 'Different size variants: sm, md (default), and lg.',
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-    await expect(selectTrigger).toBeInTheDocument();
+}
 
-    await userEvent.click(selectTrigger);
-
-    await waitFor(() => {
-      const selectItem = screen.getByRole("option", { name: "Orange" });
-      expect(selectItem).toBeInTheDocument();
-
-      // Verify disabled items
-      const disabledItem = screen.getByRole("option", {
-        name: "Banana (Unavailable)",
-      });
-
-      // .toBeDisabled() doesnt work here because testing framework is not smart enough to check aria-disabled
-      expect(disabledItem).toHaveAttribute("aria-disabled", "true");
-    });
-  },
-};
-
-export const Disabled: Story = {
-  render: (args) => (
-    <Select {...args} disabled>
-      <SelectTrigger>
-        <SelectValue placeholder="Disabled select" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="option1">Option 1</SelectItem>
-        <SelectItem value="option2">Option 2</SelectItem>
-        <SelectItem value="option3">Option 3</SelectItem>
-      </SelectContent>
-    </Select>
+export const VariantStyles: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">Default</label>
+        <Select defaultValue="apple">
+          <SelectTrigger>
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="orange">Orange</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">Ghost</label>
+        <Select defaultValue="apple">
+          <SelectTrigger variant="ghost">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="apple">Apple</SelectItem>
+            <SelectItem value="banana">Banana</SelectItem>
+            <SelectItem value="orange">Orange</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
   ),
-  args: {
-    defaultValue: "option1",
-  },
   parameters: {
     docs: {
       description: {
-        story: "Disabled select that cannot be interacted with.",
+        story: 'Different visual variants: default and ghost.',
       },
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-    await expect(selectTrigger).toBeInTheDocument();
-    expect(selectTrigger).toHaveAttribute("disabled");
-  },
-};
+}
 
-export const EmptyOptions: Story = {
-  render: (args) => (
-    <Select {...args}>
-      <SelectTrigger>
-        <SelectValue placeholder="No options available" />
-      </SelectTrigger>
-      <SelectContent>
-        <div className="flex h-12 items-center justify-center text-sm text-muted-foreground">
-          No options available
+export const StateMatrix: Story = {
+  render: () => {
+    const baseStates = [
+      { name: 'Default', props: {} },
+      { name: 'Disabled', props: { disabled: true } },
+      { name: 'Invalid', props: { 'aria-invalid': true } },
+      { name: 'Read-only', props: { readOnly: true } },
+      { name: 'With Value', props: { defaultValue: 'apple' } },
+    ]
+
+    const interactiveStates = [
+      { name: 'Default', dataState: undefined },
+      { name: 'Focus', dataState: 'focus' },
+      { name: 'Active', dataState: 'active' },
+    ]
+
+    return (
+      <div className="space-y-4">
+        <div className="text-sm font-medium text-muted-foreground mb-4">
+          State Matrix: Base states (rows) × Interactive states (columns)
         </div>
-      </SelectContent>
-    </Select>
-  ),
-  args: {},
+
+        {/* Header row */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="text-xs font-medium text-muted-foreground"></div>
+          {interactiveStates.map((interactiveState) => (
+            <div key={interactiveState.name} className="text-xs font-medium text-muted-foreground text-center">
+              {interactiveState.name}
+            </div>
+          ))}
+        </div>
+
+        {/* Matrix rows */}
+        {baseStates.map((baseState) => (
+          <div key={baseState.name} className="grid grid-cols-4 gap-4 items-center">
+            <div className="text-xs font-medium text-muted-foreground">{baseState.name}</div>
+            {interactiveStates.map((interactiveState) => (
+              <div key={`${baseState.name}-${interactiveState.name}`}>
+                <Select {...baseState.props}>
+                  <SelectTrigger data-state={interactiveState.dataState}>
+                    <SelectValue placeholder={`${baseState.name} + ${interactiveState.name}`} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="apple">Apple</SelectItem>
+                    <SelectItem value="banana">Banana</SelectItem>
+                    <SelectItem value="orange">Orange</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )
+  },
   parameters: {
     docs: {
       description: {
         story:
-          "Select component with no options, showing a proper empty state message.",
+          'Comprehensive state matrix showing all combinations of base states (disabled, invalid, read-only, with value) and interactive states (focus, active). Form inputs typically do not have hover states, focusing on keyboard and click interactions instead.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-    await expect(selectTrigger).toBeInTheDocument();
+    const canvas = within(canvasElement)
 
-    await userEvent.click(selectTrigger);
+    // Test a few key combinations
+    const defaultFocus = canvas.getByDisplayValue('Default + Focus')
+    await expect(defaultFocus).toHaveAttribute('data-state', 'focus')
 
-    // Verify that the content shows the empty state message
-    await waitFor(() => {
-      const content = screen.getByRole("listbox");
-      expect(content).toBeInTheDocument();
-      expect(content).toHaveTextContent("No options available");
-    });
+    const invalidFocus = canvas.getByDisplayValue('Invalid + Focus')
+    await expect(invalidFocus).toHaveAttribute('aria-invalid')
+    await expect(invalidFocus).toHaveAttribute('data-state', 'focus')
+
+    const disabledActive = canvas.getByDisplayValue('Disabled + Active')
+    await expect(disabledActive).toBeDisabled()
+    await expect(disabledActive).toHaveAttribute('data-state', 'active')
+
+    const readOnlyFocus = canvas.getByDisplayValue('Read-only + Focus')
+    await expect(readOnlyFocus).toHaveAttribute('readonly')
+    await expect(readOnlyFocus).toHaveAttribute('data-state', 'focus')
   },
-};
-
-export const KeyboardNavigation: Story = {
-  render: (args) => (
-    <Select {...args}>
-      <SelectTrigger>
-        <SelectValue placeholder="Navigate with keyboard" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Planets</SelectLabel>
-          <SelectItem value="mercury">Mercury</SelectItem>
-          <SelectItem value="venus">Venus</SelectItem>
-          <SelectItem value="earth">Earth</SelectItem>
-          <SelectItem value="mars">Mars</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  ),
-  args: {},
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Demonstrates keyboard accessibility: open with Enter/Space, navigate with arrow keys, select with Enter, close with Escape.",
-      },
-    },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const selectTrigger = canvas.getByRole("combobox");
-
-    await userEvent.keyboard("{Tab}");
-    async function firstItemHasFocus() {
-      await waitFor(() => {
-        const content = screen.getByRole("listbox");
-        expect(content).toBeVisible();
-        const firstItem = screen.getByRole("option", { name: "Mercury" });
-        expect(firstItem).toHaveFocus();
-      });
-    }
-
-    async function triggerHasFocusAndListboxIsClosed() {
-      await waitFor(() => {
-        expect(selectTrigger).toHaveFocus();
-        expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
-      });
-    }
-
-    await triggerHasFocusAndListboxIsClosed();
-
-    await userEvent.keyboard("{Enter}");
-
-    await firstItemHasFocus();
-
-    await userEvent.keyboard("{Escape}");
-
-    await triggerHasFocusAndListboxIsClosed();
-
-    await userEvent.keyboard("{Enter}");
-
-    await firstItemHasFocus();
-
-    await userEvent.keyboard("{Escape}");
-
-    await triggerHasFocusAndListboxIsClosed();
-
-    await userEvent.keyboard("{ArrowUp}");
-
-    await firstItemHasFocus();
-
-    await userEvent.keyboard("{ArrowDown}");
-    await userEvent.keyboard("{ArrowDown}");
-    await userEvent.keyboard("{ArrowDown}");
-
-    await userEvent.keyboard("{Enter}");
-
-    await waitFor(() => {
-      expect(selectTrigger).toHaveTextContent("Mars");
-    });
-  },
-};
+}

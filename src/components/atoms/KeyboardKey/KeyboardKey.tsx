@@ -5,9 +5,28 @@ import { keyboardKeyVariants } from './KeyboardKey.variants'
 import type { KeyboardKeyProps, KeyboardKeyRef, CommonKeyName } from './KeyboardKey.types'
 
 /**
- * Detect if the user is on macOS
+ * Modern platform detection using User-Agent Client Hints API with fallbacks
  */
-const isMac = typeof window !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0
+const detectMacPlatform = (): boolean => {
+  if (typeof window === 'undefined') return false
+
+  // Modern approach: User-Agent Client Hints API
+  if ('userAgentData' in navigator) {
+    const uaData = (navigator as any).userAgentData
+    if (uaData?.platform) {
+      return uaData.platform.toLowerCase().includes('mac')
+    }
+  }
+
+  // Fallback: userAgent string parsing (more reliable than navigator.platform)
+  const userAgent = navigator.userAgent.toLowerCase()
+  return /mac|iphone|ipad|ipod/.test(userAgent)
+}
+
+/**
+ * Detect if the user is on macOS - cached for performance
+ */
+const isMac = typeof window !== 'undefined' ? detectMacPlatform() : false
 
 /**
  * Key display mappings for better UX

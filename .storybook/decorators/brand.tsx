@@ -1,4 +1,4 @@
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react-vite";
 import React from "react";
 export const withBrand: Decorator = (Story, context) => {
   const { brand } = context.globals;

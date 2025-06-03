@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { within, userEvent, expect } from '@storybook/test'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { within, userEvent, expect } from 'storybook/test'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 

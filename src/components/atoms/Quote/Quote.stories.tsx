@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Quote } from "./Quote";
-import { within, expect } from "@storybook/test";
+import { within, expect } from "storybook/test";
 
 const meta = {
   component: Quote,
