@@ -12,10 +12,8 @@ import type { TextProps, TextRef } from './Text.types'
  * - Type system: 'body' (4 sizes) and 'heading' (6 sizes)
  * - Numerical font weights (100-900) matching CSS standards
  * - Tone variants for semantic color meanings
- * - Comprehensive decoration and styling options
- * - Advanced typography controls (leading, tracking)
- * - Text alignment and transformation
- * - Multi-line truncation support
+ * - Text decoration options (underline, strikethrough)
+ * - Text alignment and truncation support
  * - Accessibility features (visually hidden text)
  * - Polymorphic component (can render as any HTML element)
  *
@@ -36,9 +34,9 @@ import type { TextProps, TextRef } from './Text.types'
  * <Text weight={700} tone="success">Bold success message</Text>
  * <Text weight={300} tone="muted">Light muted text</Text>
  *
- * // Advanced styling
- * <Text decoration="underline" tracking="wide">Underlined spaced text</Text>
- * <Text transform="uppercase" align="center">Centered uppercase</Text>
+ * // Styling options
+ * <Text decoration="underline">Underlined text</Text>
+ * <Text align="center">Centered text</Text>
  *
  * // Truncation
  * <Text truncate>Single line truncation</Text>
@@ -56,10 +54,7 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
     weight,
     tone,
     decoration,
-    leading,
-    tracking,
     align,
-    transform,
     truncate,
     as: Component = 'span',
     visuallyHidden = false,
@@ -95,10 +90,7 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
           weight,
           tone,
           decoration,
-          leading,
-          tracking,
           align,
-          transform,
           truncate,
         }),
         className,
