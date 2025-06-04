@@ -4,7 +4,7 @@ import { textVariants } from './Text.variants'
 
 /**
  * Props for the Text component.
- * A flexible typography component with comprehensive styling options.
+ * A systematic typography component with type-based variants.
  */
 export type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'color'> & {
   /**

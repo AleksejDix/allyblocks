@@ -2,53 +2,30 @@ import { cva } from 'class-variance-authority'
 
 export const textVariants = cva('', {
   variants: {
-    variant: {
-      // Display text - largest, for hero sections and major headers
-      display: 'text-5xl font-bold leading-none tracking-tight lg:text-6xl',
-
-      // Headings - semantic hierarchy
-      h1: 'text-4xl font-bold leading-tight tracking-tight lg:text-5xl',
-      h2: 'text-3xl font-semibold leading-tight tracking-tight',
-      h3: 'text-2xl font-semibold leading-tight tracking-tight',
-      h4: 'text-xl font-semibold leading-tight tracking-tight',
-      h5: 'text-lg font-semibold leading-tight',
-      h6: 'text-base font-semibold leading-tight',
-
-      // Body text - main content
-      body: 'text-base leading-relaxed',
-
-      // UI text - interface elements
-      label: 'text-sm font-medium leading-none',
-      caption: 'text-xs leading-relaxed',
-
-      // Specialized variants
-      lead: 'text-xl font-normal leading-relaxed text-muted-foreground',
-      code: 'font-mono text-sm bg-muted px-1.5 py-0.5 rounded border',
-
-      // Legacy support (will be deprecated)
-      blockquote: 'border-l-4 border-border pl-4 italic text-muted-foreground',
+    type: {
+      body: 'font-normal',
+      heading: 'font-semibold tracking-tight',
     },
     size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      base: 'text-base',
-      lg: 'text-lg',
-      xl: 'text-xl',
-      '2xl': 'text-2xl',
-      '3xl': 'text-3xl',
-      '4xl': 'text-4xl',
-      '5xl': 'text-5xl',
-      '6xl': 'text-6xl',
+      1: '', // Will be defined in compoundVariants
+      2: '',
+      3: '',
+      4: '',
+      5: '',
+      6: '',
     },
     weight: {
-      light: 'font-light',
-      normal: 'font-normal',
-      medium: 'font-medium',
-      semibold: 'font-semibold',
-      bold: 'font-bold',
-      extrabold: 'font-extrabold',
+      100: 'font-thin',
+      200: 'font-extralight',
+      300: 'font-light',
+      400: 'font-normal',
+      500: 'font-medium',
+      600: 'font-semibold',
+      700: 'font-bold',
+      800: 'font-extrabold',
+      900: 'font-black',
     },
-    color: {
+    tone: {
       default: 'text-foreground',
       muted: 'text-muted-foreground',
       success: 'text-green-600 dark:text-green-400',
@@ -56,18 +33,6 @@ export const textVariants = cva('', {
       error: 'text-destructive',
       info: 'text-blue-600 dark:text-blue-400',
       inherit: 'text-inherit',
-    },
-    align: {
-      left: 'text-left',
-      center: 'text-center',
-      right: 'text-right',
-      justify: 'text-justify',
-    },
-    transform: {
-      none: '',
-      uppercase: 'uppercase',
-      lowercase: 'lowercase',
-      capitalize: 'capitalize',
     },
     decoration: {
       none: 'no-underline',
@@ -90,6 +55,18 @@ export const textVariants = cva('', {
       wider: 'tracking-wider',
       widest: 'tracking-widest',
     },
+    align: {
+      left: 'text-left',
+      center: 'text-center',
+      right: 'text-right',
+      justify: 'text-justify',
+    },
+    transform: {
+      none: '',
+      uppercase: 'uppercase',
+      lowercase: 'lowercase',
+      capitalize: 'capitalize',
+    },
     truncate: {
       false: '',
       true: 'truncate',
@@ -99,12 +76,71 @@ export const textVariants = cva('', {
       '5': 'line-clamp-5',
     },
   },
+  compoundVariants: [
+    // Body type sizes
+    {
+      type: 'body',
+      size: 1,
+      class: 'text-xs leading-relaxed', // Small body text
+    },
+    {
+      type: 'body',
+      size: 2,
+      class: 'text-sm leading-relaxed', // Default body text
+    },
+    {
+      type: 'body',
+      size: 3,
+      class: 'text-base leading-relaxed', // Large body text
+    },
+    {
+      type: 'body',
+      size: 4,
+      class: 'text-lg leading-relaxed', // Extra large body text
+    },
+
+    // Heading type sizes
+    {
+      type: 'heading',
+      size: 1,
+      class: 'text-4xl leading-tight lg:text-5xl', // H1 equivalent
+    },
+    {
+      type: 'heading',
+      size: 2,
+      class: 'text-3xl leading-tight', // H2 equivalent
+    },
+    {
+      type: 'heading',
+      size: 3,
+      class: 'text-2xl leading-tight', // H3 equivalent
+    },
+    {
+      type: 'heading',
+      size: 4,
+      class: 'text-xl leading-tight', // H4 equivalent
+    },
+    {
+      type: 'heading',
+      size: 5,
+      class: 'text-lg leading-tight', // H5 equivalent
+    },
+    {
+      type: 'heading',
+      size: 6,
+      class: 'text-base leading-tight', // H6 equivalent
+    },
+  ],
   defaultVariants: {
-    variant: 'body',
-    color: 'default',
+    type: 'body',
+    size: 2,
+    weight: 400,
+    tone: 'default',
+    decoration: 'none',
+    leading: 'normal',
+    tracking: 'normal',
     align: 'left',
     transform: 'none',
-    decoration: 'none',
     truncate: false,
   },
 })

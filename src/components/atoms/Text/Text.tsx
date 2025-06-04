@@ -4,41 +4,41 @@ import { textVariants } from './Text.variants'
 import type { TextProps, TextRef } from './Text.types'
 
 /**
- * Text component for displaying text content with consistent typography.
+ * Text component for displaying text content with systematic typography.
  *
- * A flexible and comprehensive text component with multiple variant systems:
+ * A type-based typography system with two main categories:
  *
  * Features:
- * - Semantic variants (display, h1-h6, body, label, caption, lead, code)
- * - Granular size control (xs to 6xl)
- * - Font weight options (light to extrabold)
- * - Color variants (default, muted, success, warning, error, info)
- * - Text alignment (left, center, right, justify)
- * - Text transformations (uppercase, lowercase, capitalize)
- * - Text decorations (underline, strikethrough)
- * - Line height control (none, tight, normal, relaxed, loose)
- * - Letter spacing control (tighter to widest)
- * - Truncation support (single line, multi-line clamp)
- * - Visually hidden text for accessibility
+ * - Type system: 'body' (4 sizes) and 'heading' (6 sizes)
+ * - Numerical font weights (100-900) matching CSS standards
+ * - Tone variants for semantic color meanings
+ * - Comprehensive decoration and styling options
+ * - Advanced typography controls (leading, tracking)
+ * - Text alignment and transformation
+ * - Multi-line truncation support
+ * - Accessibility features (visually hidden text)
  * - Polymorphic component (can render as any HTML element)
  *
  * @example
  * ```tsx
- * // Semantic variants
- * <Text variant="display">Hero Title</Text>
- * <Text variant="h1" as="h1">Page Title</Text>
- * <Text variant="body">Default body text</Text>
- * <Text variant="label">Form Label</Text>
- * <Text variant="caption" color="muted">Helper text</Text>
+ * // Body text variants
+ * <Text type="body" size={1}>Small body text</Text>
+ * <Text type="body" size={2}>Default body text</Text>
+ * <Text type="body" size={3}>Large body text</Text>
+ * <Text type="body" size={4}>Extra large body text</Text>
  *
- * // Size and weight combinations
- * <Text size="2xl" weight="bold">Large bold text</Text>
- * <Text size="sm" weight="medium" color="muted">Small medium text</Text>
+ * // Heading variants
+ * <Text type="heading" size={1} as="h1">Main title</Text>
+ * <Text type="heading" size={2} as="h2">Section title</Text>
+ * <Text type="heading" size={3} as="h3">Subsection title</Text>
  *
- * // Styling options
- * <Text decoration="underline" color="info">Underlined link</Text>
- * <Text transform="uppercase" tracking="wide">Spaced uppercase</Text>
- * <Text leading="tight" align="center">Centered tight text</Text>
+ * // Weight and tone combinations
+ * <Text weight={700} tone="success">Bold success message</Text>
+ * <Text weight={300} tone="muted">Light muted text</Text>
+ *
+ * // Advanced styling
+ * <Text decoration="underline" tracking="wide">Underlined spaced text</Text>
+ * <Text transform="uppercase" align="center">Centered uppercase</Text>
  *
  * // Truncation
  * <Text truncate>Single line truncation</Text>
@@ -51,15 +51,15 @@ import type { TextProps, TextRef } from './Text.types'
 export const Text = forwardRef<TextRef, TextProps>(function Text(
   {
     className,
-    variant,
+    type,
     size,
     weight,
-    color,
-    align,
-    transform,
+    tone,
     decoration,
     leading,
     tracking,
+    align,
+    transform,
     truncate,
     as: Component = 'span',
     visuallyHidden = false,
@@ -90,15 +90,15 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
       ref={ref}
       className={cn(
         textVariants({
-          variant,
+          type,
           size,
           weight,
-          color,
-          align,
-          transform,
+          tone,
           decoration,
           leading,
           tracking,
+          align,
+          transform,
           truncate,
         }),
         className,
