@@ -30,48 +30,10 @@ const meta = {
       options: ['default', 'muted', 'success', 'warning', 'error', 'info', 'inherit'],
       description: 'Semantic tone for color',
     },
-    decoration: {
-      control: 'select',
-      options: ['none', 'underline', 'strikethrough'],
-      description: 'Text decoration',
-    },
-    leading: {
-      control: 'select',
-      options: ['none', 'tight', 'snug', 'normal', 'relaxed', 'loose'],
-      description: 'Line height',
-    },
-    tracking: {
-      control: 'select',
-      options: ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest'],
-      description: 'Letter spacing',
-    },
-    align: {
-      control: 'select',
-      options: ['left', 'center', 'right', 'justify'],
-      description: 'Text alignment',
-    },
-    transform: {
-      control: 'select',
-      options: ['none', 'uppercase', 'lowercase', 'capitalize'],
-      description: 'Text transformation',
-    },
-    truncate: {
-      control: 'select',
-      options: [false, true, '2', '3', '4', '5'],
-      description: 'Text truncation',
-    },
     as: {
       control: 'select',
       options: ['span', 'p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
       description: 'HTML element to render',
-    },
-    visuallyHidden: {
-      control: 'boolean',
-      description: 'Hide text visually but keep accessible',
-    },
-    breakWord: {
-      control: 'boolean',
-      description: 'Whether text should break to new lines',
     },
   },
 } satisfies Meta<typeof Text>
