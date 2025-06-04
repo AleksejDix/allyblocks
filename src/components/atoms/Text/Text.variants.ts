@@ -4,17 +4,22 @@ export const textVariants = cva('', {
   variants: {
     type: {
       body: 'font-normal',
-      heading: 'font-extrabold',
+      heading: 'font-medium',
     },
     size: {
-      1: '', // Will be defined in compoundVariants
-      2: '',
-      3: '',
-      4: '',
-      5: '',
-      6: '',
+      xs: '', // Will be defined in compoundVariants
+      sm: '',
+      md: '',
+      lg: '',
+      xl: '',
+      '2xl': '',
+      '3xl': '',
+      '4xl': '',
+      '5xl': '',
+      '6xl': '',
     },
     weight: {
+      0: '',
       100: 'font-thin',
       200: 'font-extralight',
       300: 'font-light',
@@ -58,61 +63,76 @@ export const textVariants = cva('', {
     // Body type sizes
     {
       type: 'body',
-      size: 1,
-      class: 'text-xs', // Small body text
+      size: 'xs',
+      class: 'text-xs', // Extra small body text
     },
     {
       type: 'body',
-      size: 2,
-      class: 'text-sm', // Default body text
+      size: 'sm',
+      class: 'text-sm', // Small body text (default)
     },
     {
       type: 'body',
-      size: 3,
-      class: 'text-base', // Large body text
+      size: 'md',
+      class: 'text-base', // Medium body text
     },
     {
       type: 'body',
-      size: 4,
-      class: 'text-lg', // Extra large body text
+      size: 'lg',
+      class: 'text-lg', // Large body text
     },
 
     // Heading type sizes
     {
       type: 'heading',
-      size: 1,
-      class: 'text-4xl lg:text-5xl', // H1 equivalent
+      size: 'sm',
+      class: 'text-sm', // Small heading (same size as default body)
     },
     {
       type: 'heading',
-      size: 2,
-      class: 'text-3xl', // H2 equivalent
+      size: 'md',
+      class: 'text-base', // Medium heading
     },
     {
       type: 'heading',
-      size: 3,
-      class: 'text-2xl', // H3 equivalent
+      size: 'lg',
+      class: 'text-lg', // Large heading
     },
     {
       type: 'heading',
-      size: 4,
-      class: 'text-xl', // H4 equivalent
+      size: 'xl',
+      class: 'text-xl lg:text-2xl font-semibold', // Extra large heading
     },
     {
       type: 'heading',
-      size: 5,
-      class: 'text-lg', // H5 equivalent
+      size: '2xl',
+      class: 'text-2xl lg:text-3xl font-semibold', // 2X large heading
     },
     {
       type: 'heading',
-      size: 6,
-      class: 'text-sm', // H6 equivalent - same size as default body
+      size: '3xl',
+      class: 'text-3xl lg:text-4xl font-semibold', // 3X large heading (main title)
+    },
+    {
+      type: 'heading',
+      size: '4xl',
+      class: 'text-4xl lg:text-5xl font-semibold', // 3X large heading (main title)
+    },
+    {
+      type: 'heading',
+      size: '5xl',
+      class: 'text-5xl lg:text-6xl font-semibold', // 3X large heading (main title)
+    },
+    {
+      type: 'heading',
+      size: '6xl',
+      class: 'text-6xl lg:text-7xl font-semibold', // 3X large heading (main title)
     },
   ],
   defaultVariants: {
     type: 'body',
-    size: 2,
-    weight: 400,
+    size: 'sm',
+    weight: 0,
     tone: 'default',
     decoration: 'none',
     align: 'left',

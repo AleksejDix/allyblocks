@@ -8,15 +8,6 @@ import type { TextProps, TextRef } from './Text.types'
  *
  * A type-based typography system with two main categories:
  *
- * Features:
- * - Type system: 'body' (4 sizes) and 'heading' (6 sizes)
- * - Numerical font weights (100-900) matching CSS standards
- * - Tone variants for semantic color meanings
- * - Text decoration options (underline, strikethrough)
- * - Text alignment and truncation support
- * - Accessibility features (visually hidden text)
- * - Polymorphic component (can render as any HTML element)
- *
  * @example
  * ```tsx
  * // Body text variants
@@ -66,7 +57,7 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
   ref,
 ) {
   // Set default size based on type if not provided
-  const defaultSize = size ?? (type === 'heading' ? 6 : 2)
+  const defaultSize = size ?? (type === 'heading' ? 'sm' : 'sm')
 
   // Combine custom styles
   const customStyles = {
