@@ -4,7 +4,7 @@ export const textVariants = cva('', {
   variants: {
     type: {
       body: 'font-normal',
-      heading: 'font-semibold tracking-tight',
+      heading: 'font-semibold',
     },
     size: {
       1: '', // Will be defined in compoundVariants
@@ -106,7 +106,7 @@ export const textVariants = cva('', {
     {
       type: 'heading',
       size: 6,
-      class: 'text-base leading-tight', // H6 equivalent
+      class: 'text-sm leading-tight', // H6 equivalent - same size as default body
     },
   ],
   defaultVariants: {

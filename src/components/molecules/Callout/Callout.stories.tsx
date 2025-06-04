@@ -49,7 +49,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <Callout>
-      <Text as="h2" weight="semibold">
+      <Text as="h2" type="heading" size={6}>
         Callout Title
       </Text>
       <Text>This is a standard callout with title and description.</Text>
