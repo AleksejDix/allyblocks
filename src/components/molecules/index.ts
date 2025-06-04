@@ -12,4 +12,6 @@ export * from './Callout'
 export * from './Tag'
 export * from './Segments'
 export * from './Copy'
+export * from './Banner'
+export * from './Choice'
 // Add other molecule components as needed
