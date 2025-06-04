@@ -4,7 +4,7 @@ export const textVariants = cva('', {
   variants: {
     type: {
       body: 'font-normal',
-      heading: 'font-bold',
+      heading: 'font-extrabold',
     },
     size: {
       1: '', // Will be defined in compoundVariants

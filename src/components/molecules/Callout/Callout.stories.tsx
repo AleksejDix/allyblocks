@@ -241,7 +241,9 @@ export const TitleOnly: Story = {
 export const DescriptionOnly: Story = {
   render: () => (
     <Callout color="green">
-      <Text>This callout has only a description.</Text>
+      <Text as="p" tone="muted">
+        This callout has only a description.
+      </Text>
     </Callout>
   ),
 }
