@@ -1,79 +1,67 @@
-import { type ReactNode } from "react";
-import { Input } from "../../atoms/Input";
-import {
-  DataGrid,
-  DataGridTable,
-  DataGridColumnVisibility,
-} from "../../organisms/DataGrid";
-import type { ColumnDef } from "@tanstack/react-table";
-import type { RowData } from "../../organisms/DataGrid/DataGrid.types";
-import {
-  Card,
-  CardBody,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/molecules/Card";
-import { ActionGroup } from "@/components/molecules/ActionGroup";
+import { type ReactNode } from 'react'
+import { Input } from '../../atoms/Input'
+import { DataGrid, DataGridTable, DataGridColumnVisibility } from '../../organisms/DataGrid'
+import type { ColumnDef } from '@tanstack/react-table'
+import type { RowData } from '../../organisms/DataGrid/DataGrid.types'
+import { Card, CardBody, CardHeader } from '@/components/molecules/Card'
+import { ActionGroup } from '@/components/molecules/ActionGroup'
+import { Text } from '@/components/atoms/Text'
 // Generic interface for TableTemplate props
 interface TableTemplateProps<TData> {
   /**
    * Table columns definition
    */
-  columns: ColumnDef<TData>[];
+  columns: ColumnDef<TData>[]
   /**
    * Table data
    */
-  data: TData[];
+  data: TData[]
   /**
    * Total count of items (for pagination)
    */
-  totalCount?: number;
+  totalCount?: number
   /**
    * Custom table components
    */
-  tableComponents?: ReactNode;
+  tableComponents?: ReactNode
   /**
    * Title displayed above the table
    */
-  title?: string;
+  title?: string
   /**
    * Description displayed below the title
    */
-  description?: string;
+  description?: string
   /**
    * The pagination component
    */
-  pagination?: ReactNode;
+  pagination?: ReactNode
   /**
    * Custom actions to be displayed in the top-right corner
    */
-  actions?: ReactNode;
+  actions?: ReactNode
   /**
    * Function called when search input changes
    */
-  onSearch?: (value: string) => void;
+  onSearch?: (value: string) => void
   /**
    * Initial search value
    */
-  searchValue?: string;
+  searchValue?: string
   /**
    * Placeholder text for the search input
    */
-  searchPlaceholder?: string;
+  searchPlaceholder?: string
   /**
    * Is data loading?
    */
-  isLoading?: boolean;
+  isLoading?: boolean
 }
 
 // Helper type to enforce that the generic type extends RowData
-type TableTemplatePropsWithRowData<TData extends RowData> =
-  TableTemplateProps<TData>;
+type TableTemplatePropsWithRowData<TData extends RowData> = TableTemplateProps<TData>
 
-export function TableTemplate<TData extends RowData>(
-  props: TableTemplatePropsWithRowData<TData>
-) {
+export function TableTemplate<TData extends RowData>(props: TableTemplatePropsWithRowData<TData>) {
   const {
     columns,
     data,
@@ -84,10 +72,10 @@ export function TableTemplate<TData extends RowData>(
     pagination,
     actions,
     onSearch,
-    searchValue = "",
-    searchPlaceholder = "Search...",
+    searchValue = '',
+    searchPlaceholder = 'Search...',
     isLoading = false,
-  } = props;
+  } = props
 
   return (
     <div className="container mx-auto my-4">
@@ -95,18 +83,21 @@ export function TableTemplate<TData extends RowData>(
         {/* Header Section */}
         {(title || description) && (
           <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            {description && <CardDescription>{description}</CardDescription>}
+            <Text type="heading" size="lg">
+              {title}
+            </Text>
+            {description && (
+              <Text type="body" size="sm" tone="muted">
+                {description}
+              </Text>
+            )}
           </CardHeader>
         )}
 
         {/* DataGrid component */}
         <DataGrid columns={columns} data={data} totalCount={totalCount}>
           {/* Controls Section */}
-          <CardBody
-            className="flex justify-between items-center"
-            data-slot="table-template-controls"
-          >
+          <CardBody className="flex justify-between items-center" data-slot="table-template-controls">
             {/* Search - left side */}
             <div className="flex-1 max-w-sm" data-slot="table-template-search">
               <Input
@@ -120,10 +111,7 @@ export function TableTemplate<TData extends RowData>(
             </div>
 
             {/* Actions and Column Visibility - right side */}
-            <ActionGroup
-              className="flex items-center space-x-2"
-              data-slot="table-template-actions"
-            >
+            <ActionGroup className="flex items-center space-x-2" data-slot="table-template-actions">
               {actions}
               <DataGridColumnVisibility />
             </ActionGroup>
@@ -133,15 +121,12 @@ export function TableTemplate<TData extends RowData>(
 
           {/* Pagination Section */}
           {pagination && (
-            <div
-              className="flex items-center justify-end mt-4"
-              data-slot="table-template-pagination"
-            >
+            <div className="flex items-center justify-end mt-4" data-slot="table-template-pagination">
               {pagination}
             </div>
           )}
         </DataGrid>
       </Card>
     </div>
-  );
+  )
 }

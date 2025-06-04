@@ -1,92 +1,75 @@
-import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import {
-  DataGrid,
-  DataGridTable,
-  DataGridColumnVisibility,
-  DataGridColumnSorter,
-} from "./";
-import { useDataGrid } from "./DataGrid.types";
-import { type User, users } from "./data";
+import { type ColumnDef, createColumnHelper } from '@tanstack/react-table'
+import { DataGrid, DataGridTable, DataGridColumnVisibility, DataGridColumnSorter } from './'
+import { useDataGrid } from './DataGrid.types'
+import { type User, users } from './data'
+import { Text } from '@/components/atoms/Text'
 
-const columnHelper = createColumnHelper<User>();
+const columnHelper = createColumnHelper<User>()
 
 const columns = [
-  columnHelper.accessor("name", {
-    header: "Name",
+  columnHelper.accessor('name', {
+    header: 'Name',
   }),
-  columnHelper.accessor("email", {
-    header: "Email",
+  columnHelper.accessor('email', {
+    header: 'Email',
   }),
-  columnHelper.accessor("role", {
-    header: "Role",
+  columnHelper.accessor('role', {
+    header: 'Role',
   }),
-  columnHelper.accessor("regStatus", {
-    header: "Status",
+  columnHelper.accessor('regStatus', {
+    header: 'Status',
   }),
-  columnHelper.accessor("lastLogin", {
-    header: "Last Login",
+  columnHelper.accessor('lastLogin', {
+    header: 'Last Login',
     // cell: createDateCell({ format: "dd. MMM. yyyy, HH:mm" }),
   }),
-];
+]
 
 const CountLabel = () => {
-  const { tableInstance } = useDataGrid();
-  const totalCountLbl: string = "Total Users:";
+  const { tableInstance } = useDataGrid()
+  const totalCountLbl: string = 'Total Users:'
   return (
     <div className="flex items-center justify-items-center mt-2">
       <p className="mr-1">{totalCountLbl}</p>
       <p>{tableInstance?.getRowCount()}</p>
     </div>
-  );
-};
+  )
+}
 
 export const BasicCase = () => {
   return (
-    <DataGrid
-      columns={columns as ColumnDef<User>[]}
-      data={users}
-      totalCount={users.length}
-    >
+    <DataGrid columns={columns as ColumnDef<User>[]} data={users} totalCount={users.length}>
       <DataGridColumnVisibility label="Toggle Columns" />
       <DataGridTable />
       <CountLabel />
     </DataGrid>
-  );
-};
+  )
+}
 
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/molecules/Card/Card";
-import { ActionGroup } from "@/components/molecules/ActionGroup";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Card, CardAction, CardFooter, CardHeader } from '@/components/molecules/Card/Card'
+import { ActionGroup } from '@/components/molecules/ActionGroup'
 
 const meta = {
   component: BasicCase,
-} satisfies Meta<typeof BasicCase>;
+} satisfies Meta<typeof BasicCase>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Basic: Story = {};
+export const Basic: Story = {}
 
 export const WithColumnSorter: Story = {
   render: () => (
-    <DataGrid
-      columns={columns as ColumnDef<User>[]}
-      data={users}
-      totalCount={users.length}
-    >
+    <DataGrid columns={columns as ColumnDef<User>[]} data={users} totalCount={users.length}>
       <Card>
         <CardHeader>
-          <CardTitle>Users</CardTitle>
-          <CardDescription>
+          <Text type="heading" size="lg">
+            Users
+          </Text>
+          <Text type="body" size="sm" tone="muted">
             A list of users with their name, email, role, and status.
-          </CardDescription>
+          </Text>
           <CardAction>
             <ActionGroup>
               <DataGridColumnVisibility label="Toggle Columns" />
@@ -101,4 +84,4 @@ export const WithColumnSorter: Story = {
       </Card>
     </DataGrid>
   ),
-};
+}

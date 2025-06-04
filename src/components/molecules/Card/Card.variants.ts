@@ -1,13 +1,9 @@
 import { cva } from 'class-variance-authority'
 
-export const cardVariants = cva('bg-card text-card-foreground rounded-xl overflow-hidden border shadow-sm')
+export const cardVariants = cva('bg-card rounded-[13px]  bg-muted p-0.5 border')
 
-export const cardHeaderVariants = cva('relative px-4 pt-4 pb-3')
+export const cardHeaderVariants = cva('relative py-3 px-4.5')
 
-export const cardSectionVariants = cva('px-4 py-3')
+export const cardFooterVariants = cva('py-3 px-3')
 
-export const cardSectionHeaderVariants = cva('flex items-center justify-between mb-2')
-
-export const cardFooterVariants = cva('px-4 pb-4 pt-3')
-
-export const cardBodyVariants = cva('px-4 py-3')
+export const cardBodyVariants = cva('border p-4 rounded-lg bg-white overflow-clip')

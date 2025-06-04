@@ -2,17 +2,18 @@ import { X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { calloutVariants } from './Callout.variants'
-import type { CalloutProps, CalloutTitleProps, CalloutDescriptionProps, CalloutCloseProps } from './Callout.types'
+import type { CalloutProps, CalloutCloseProps } from './Callout.types'
+import { IconButton } from '@/components/atoms/IconButton'
 
 /**
  * Callout component for displaying inline notifications and banners.
  *
- * For action buttons, use ActionGroup and Button components:
+ * Use Text component for titles and descriptions:
  *
  * @example
  * <Callout color="amber">
- *   <CalloutTitle>Title</CalloutTitle>
- *   <CalloutDescription>Description</CalloutDescription>
+ *   <Text type="heading" size="md" weight={600}>Title</Text>
+ *   <Text type="body" size="sm" tone="muted">Description text</Text>
  *   <div className="mt-3">
  *     <ActionGroup>
  *       <Button size="sm" variant="default">Primary</Button>
@@ -26,34 +27,13 @@ function Callout({ className, color, ...props }: CalloutProps) {
   return <div data-slot="callout" role="region" className={cn(calloutVariants({ color }), className)} {...props} />
 }
 
-function CalloutTitle({ className, ...props }: CalloutTitleProps) {
-  return (
-    <div
-      data-slot="callout-title"
-      className={cn(
-        'col-start-1 line-clamp-2 min-h-5 font-semibold tracking-tight text-[15px] leading-tight',
-        className,
-      )}
-      {...props}
-    />
-  )
-}
-
-function CalloutDescription({ className, ...props }: CalloutDescriptionProps) {
-  return (
-    <div
-      data-slot="callout-description"
-      className={cn('col-start-1 text-sm leading-relaxed opacity-90 [&_p]:leading-relaxed', className)}
-      {...props}
-    />
-  )
-}
-
 function CalloutClose({ className, onClick, ...props }: CalloutCloseProps) {
   return (
-    <button
+    <IconButton
       data-slot="callout-close"
       type="button"
+      variant="ghost"
+      size="sm"
       onClick={onClick}
       className={cn(
         'col-start-2 row-start-1 outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:ring-offset-2 hover:opacity-70 transition-opacity',
@@ -63,8 +43,8 @@ function CalloutClose({ className, onClick, ...props }: CalloutCloseProps) {
       {...props}
     >
       <X className="size-3.5" />
-    </button>
+    </IconButton>
   )
 }
 
-export { Callout, CalloutTitle, CalloutDescription, CalloutClose }
+export { Callout, CalloutClose }

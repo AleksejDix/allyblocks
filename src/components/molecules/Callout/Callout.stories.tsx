@@ -75,13 +75,18 @@ export const Default: Story = {
 export const CreditCardExpiration: Story = {
   render: () => (
     <Callout color="amber">
-      <Text as="h2" type="heading">
-        Credit Card Expiring Soon
-      </Text>
-      <Text>
-        Your credit card ending in 4242 will expire in 2 weeks. Update your payment information to avoid service
-        interruption.
-      </Text>
+      <div className="flex justify-between items-start gap-4">
+        <div className="space-y-2">
+          <Text as="h2" type="heading">
+            Credit Card Expiring Soon
+          </Text>
+          <Text>
+            Your credit card ending in 4242 will expire in 2 weeks. Update your payment information to avoid service
+            interruption.
+          </Text>
+        </div>
+        <CalloutClose />
+      </div>
       <div className="mt-3">
         <ActionGroup>
           <Button size="sm" variant="default">
@@ -92,7 +97,6 @@ export const CreditCardExpiration: Story = {
           </Button>
         </ActionGroup>
       </div>
-      <CalloutClose />
     </Callout>
   ),
   play: async ({ canvasElement }) => {
@@ -283,13 +287,22 @@ export const BestPracticesExample: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold mb-3">Callout with ActionGroup and Button Components</h3>
+        <Text as="h2" type="heading">
+          Callout with ActionGroup and Button Components
+        </Text>
         <Callout color="blue">
-          <Text>Using Existing Components</Text>
-          <Text>
-            This callout demonstrates how to use ActionGroup and Button components for actions instead of custom
-            CalloutAction components.
-          </Text>
+          <div className="flex justify-between items-start gap-4">
+            <div className="space-y-2">
+              <Text as="h2" type="heading">
+                Using Existing Components
+              </Text>
+              <Text>
+                This callout demonstrates how to use ActionGroup and Button components for actions instead of custom
+                CalloutAction components.
+              </Text>
+            </div>
+            <CalloutClose />
+          </div>
           <div className="mt-3">
             <ActionGroup>
               <Button size="sm" variant="default">
@@ -303,30 +316,37 @@ export const BestPracticesExample: Story = {
               </Button>
             </ActionGroup>
           </div>
-          <CalloutClose />
         </Callout>
       </div>
-
       <div>
-        <h3 className="text-lg font-semibold mb-3">Vertical Action Layout</h3>
-        <Callout color="amber">
-          <Text>Payment Method Update Required</Text>
-          <Text>
-            Your payment method will expire soon. Please update your billing information to continue using our services.
-          </Text>
-          <div className="mt-3">
-            <ActionGroup direction="vertical">
-              <Button size="sm" variant="default" className="w-full">
-                Update Payment Method
-              </Button>
-              <Button size="sm" variant="outline" className="w-full">
-                View Billing History
-              </Button>
-              <Button size="sm" variant="ghost" className="w-full">
-                Contact Support
-              </Button>
-            </ActionGroup>
+        <Text as="h2" type="heading">
+          Vertical Action Layout
+        </Text>
+        <Callout color="amber" className="space-y-4">
+          <div className="flex justify-between items-start gap-4">
+            <div className="space-y-2">
+              <Text as="h2" type="heading">
+                Payment Method Update Required
+              </Text>
+              <Text>
+                Your payment method will expire soon. Please update your billing information to continue using our
+                services.
+              </Text>
+            </div>
+            <CalloutClose />
           </div>
+
+          <ActionGroup>
+            <Button size="sm" variant="default" className="w-full">
+              Update Payment Method
+            </Button>
+            <Button size="sm" variant="outline" className="w-full">
+              View Billing History
+            </Button>
+            <Button size="sm" variant="ghost" className="w-full">
+              Contact Support
+            </Button>
+          </ActionGroup>
         </Callout>
       </div>
     </div>

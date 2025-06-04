@@ -77,6 +77,7 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
   return (
     <Component
       ref={ref}
+      data-slot="text"
       className={cn(
         textVariants({
           type,
