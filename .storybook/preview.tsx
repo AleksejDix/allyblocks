@@ -2,13 +2,13 @@ import '../src/styles/index.css'
 import { withBrand, withNuqs, withI18next } from './decorators'
 import i18n from '../src/i18n/i18n'
 import type { Preview } from '@storybook/react-vite'
-import { themes } from 'storybook/theming'
+// import { themes } from 'storybook/theming'
 const parameters: Preview['parameters'] = {
   backgrounds: {
     disable: true,
   },
   docs: {
-    theme: themes.dark,
+    // theme: themes.dark,
     toc: true,
   },
   controls: {

@@ -3,60 +3,65 @@ import { cva } from 'class-variance-authority'
 export const textVariants = cva('', {
   variants: {
     variant: {
-      // Heading variants - based on Polaris typography scale
-      heading3xl: 'text-4xl font-bold leading-tight tracking-tight lg:text-5xl',
-      heading2xl: 'text-3xl font-bold leading-tight tracking-tight',
-      headingXl: 'text-2xl font-bold leading-tight tracking-tight',
-      headingLg: 'text-xl font-semibold leading-tight tracking-tight',
-      headingMd: 'text-sm font-semibold leading-tight',
-      headingSm: 'text-xs font-semibold leading-tight',
-      headingXs: 'text-xs font-semibold leading-tight',
+      // Display text - largest, for hero sections and major headers
+      display: 'text-5xl font-bold leading-none tracking-tight lg:text-6xl',
 
-      // Body variants - based on Polaris body text scale
-      bodyLg: 'text-sm leading-relaxed',
-      bodyMd: 'text-sm leading-relaxed',
-      bodySm: 'text-xs leading-relaxed',
-      bodyXs: 'text-xs leading-relaxed',
+      // Headings - semantic hierarchy
+      h1: 'text-4xl font-bold leading-tight tracking-tight lg:text-5xl',
+      h2: 'text-3xl font-semibold leading-tight tracking-tight',
+      h3: 'text-2xl font-semibold leading-tight tracking-tight',
+      h4: 'text-xl font-semibold leading-tight tracking-tight',
+      h5: 'text-lg font-semibold leading-tight',
+      h6: 'text-base font-semibold leading-tight',
 
-      // Legacy variants for backward compatibility
-      h1: 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
-      h2: 'scroll-m-20 text-3xl font-semibold tracking-tight',
-      h3: 'scroll-m-20 text-2xl font-semibold tracking-tight',
-      h4: 'scroll-m-20 text-xl font-semibold tracking-tight',
-      p: 'leading-7 [&:not(:first-child)]:mt-6',
-      blockquote: 'mt-6 border-l-2 border-border pl-6 italic',
-      list: 'my-6 ml-6 list-disc [&>li]:mt-2',
-      inlineCode: 'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
-      lead: 'text-xl text-muted-foreground',
-      large: 'text-lg font-semibold',
-      small: 'text-sm font-medium leading-none',
-      muted: 'text-sm text-muted-foreground',
+      // Body text - main content
+      body: 'text-base leading-relaxed',
+
+      // UI text - interface elements
+      label: 'text-sm font-medium leading-none',
+      caption: 'text-xs leading-relaxed',
+
+      // Specialized variants
+      lead: 'text-xl font-normal leading-relaxed text-muted-foreground',
+      code: 'font-mono text-sm bg-muted px-1.5 py-0.5 rounded border',
+
+      // Legacy support (will be deprecated)
+      blockquote: 'border-l-4 border-border pl-4 italic text-muted-foreground',
     },
-    tone: {
-      default: '',
-      subdued: 'text-muted-foreground',
-      success: 'text-green-600 dark:text-green-400',
-      critical: 'text-red-600 dark:text-red-400',
-      warning: 'text-yellow-600 dark:text-yellow-400',
-      info: 'text-blue-600 dark:text-blue-400',
-      inherit: 'text-inherit',
+    size: {
+      xs: 'text-xs',
+      sm: 'text-sm',
+      base: 'text-base',
+      lg: 'text-lg',
+      xl: 'text-xl',
+      '2xl': 'text-2xl',
+      '3xl': 'text-3xl',
+      '4xl': 'text-4xl',
+      '5xl': 'text-5xl',
+      '6xl': 'text-6xl',
     },
-    fontWeight: {
-      regular: 'font-normal',
+    weight: {
+      light: 'font-light',
+      normal: 'font-normal',
       medium: 'font-medium',
       semibold: 'font-semibold',
       bold: 'font-bold',
+      extrabold: 'font-extrabold',
     },
-    alignment: {
-      start: 'text-left',
+    color: {
+      default: 'text-foreground',
+      muted: 'text-muted-foreground',
+      success: 'text-green-600 dark:text-green-400',
+      warning: 'text-yellow-600 dark:text-yellow-400',
+      error: 'text-destructive',
+      info: 'text-blue-600 dark:text-blue-400',
+      inherit: 'text-inherit',
+    },
+    align: {
+      left: 'text-left',
       center: 'text-center',
-      end: 'text-right',
+      right: 'text-right',
       justify: 'text-justify',
-    },
-    decoration: {
-      none: 'no-underline',
-      underline: 'underline',
-      'line-through': 'line-through',
     },
     transform: {
       none: '',
@@ -64,19 +69,42 @@ export const textVariants = cva('', {
       lowercase: 'lowercase',
       capitalize: 'capitalize',
     },
+    decoration: {
+      none: 'no-underline',
+      underline: 'underline decoration-2 underline-offset-2',
+      strikethrough: 'line-through',
+    },
+    leading: {
+      none: 'leading-none',
+      tight: 'leading-tight',
+      snug: 'leading-snug',
+      normal: 'leading-normal',
+      relaxed: 'leading-relaxed',
+      loose: 'leading-loose',
+    },
+    tracking: {
+      tighter: 'tracking-tighter',
+      tight: 'tracking-tight',
+      normal: 'tracking-normal',
+      wide: 'tracking-wide',
+      wider: 'tracking-wider',
+      widest: 'tracking-widest',
+    },
     truncate: {
       false: '',
       true: 'truncate',
-      multiline: 'line-clamp-3',
+      '2': 'line-clamp-2',
+      '3': 'line-clamp-3',
+      '4': 'line-clamp-4',
+      '5': 'line-clamp-5',
     },
   },
   defaultVariants: {
-    variant: 'bodyMd',
-    tone: 'default',
-    fontWeight: 'regular',
-    alignment: 'start',
-    decoration: 'none',
+    variant: 'body',
+    color: 'default',
+    align: 'left',
     transform: 'none',
+    decoration: 'none',
     truncate: false,
   },
 })

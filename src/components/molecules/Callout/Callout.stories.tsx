@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { within, expect } from 'storybook/test'
 
-import { Callout, CalloutTitle, CalloutDescription, CalloutClose } from './Callout'
+import { Callout, CalloutClose } from './Callout'
 import { ActionGroup } from '../ActionGroup'
 import { Button } from '../../atoms/Button'
+import { Text } from '../../atoms/Text'
 
 const meta = {
   component: Callout,
@@ -48,8 +49,10 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <Callout>
-      <CalloutTitle>Callout Title</CalloutTitle>
-      <CalloutDescription>This is a standard callout with title and description.</CalloutDescription>
+      <Text as="h2" variant="heading" size="md">
+        Callout Title
+      </Text>
+      <Text>This is a standard callout with title and description.</Text>
     </Callout>
   ),
   play: async ({ canvasElement }) => {
@@ -72,11 +75,11 @@ export const Default: Story = {
 export const CreditCardExpiration: Story = {
   render: () => (
     <Callout color="amber">
-      <CalloutTitle>Credit Card Expiring Soon</CalloutTitle>
-      <CalloutDescription>
+      <Text>Credit Card Expiring Soon</Text>
+      <Text>
         Your credit card ending in 4242 will expire in 2 weeks. Update your payment information to avoid service
         interruption.
-      </CalloutDescription>
+      </Text>
       <div className="mt-3">
         <ActionGroup>
           <Button size="sm" variant="default">
@@ -121,10 +124,8 @@ export const CreditCardExpiration: Story = {
 export const SystemUpdate: Story = {
   render: () => (
     <Callout color="blue">
-      <CalloutTitle>System Update Available</CalloutTitle>
-      <CalloutDescription>
-        A new system update is available with security improvements and bug fixes.
-      </CalloutDescription>
+      <Text>System Update Available</Text>
+      <Text>A new system update is available with security improvements and bug fixes.</Text>
       <div className="mt-3">
         <ActionGroup>
           <Button size="sm" variant="default">
@@ -143,10 +144,8 @@ export const SystemUpdate: Story = {
 export const SuccessWithAction: Story = {
   render: () => (
     <Callout color="green">
-      <CalloutTitle>Changes Saved Successfully</CalloutTitle>
-      <CalloutDescription>
-        Your profile has been updated. Changes may take a few minutes to appear across all services.
-      </CalloutDescription>
+      <Text>Changes Saved Successfully</Text>
+      <Text>Your profile has been updated. Changes may take a few minutes to appear across all services.</Text>
       <div className="mt-3">
         <ActionGroup>
           <Button size="sm" variant="ghost">
@@ -163,10 +162,8 @@ export const SuccessWithAction: Story = {
 export const ErrorWithAction: Story = {
   render: () => (
     <Callout color="destructive">
-      <CalloutTitle>Connection Failed</CalloutTitle>
-      <CalloutDescription>
-        Unable to connect to the server. Please check your internet connection and try again.
-      </CalloutDescription>
+      <Text>Connection Failed</Text>
+      <Text>Unable to connect to the server. Please check your internet connection and try again.</Text>
       <div className="mt-3">
         <ActionGroup>
           <Button size="sm" variant="default">
@@ -213,8 +210,8 @@ export const AllColors: Story = {
         ] as const
       ).map((color) => (
         <Callout key={color} color={color}>
-          <CalloutTitle>{color.charAt(0).toUpperCase() + color.slice(1)} Callout</CalloutTitle>
-          <CalloutDescription>This is an example of the {color} color variant for callouts.</CalloutDescription>
+          <Text>{color.charAt(0).toUpperCase() + color.slice(1)} Callout</Text>
+          <Text>This is an example of the {color} color variant for callouts.</Text>
         </Callout>
       ))}
     </div>
@@ -225,7 +222,7 @@ export const AllColors: Story = {
 export const TitleOnly: Story = {
   render: () => (
     <Callout color="blue">
-      <CalloutTitle>Callout with title only</CalloutTitle>
+      <Text>Callout with title only</Text>
     </Callout>
   ),
 }
@@ -234,7 +231,7 @@ export const TitleOnly: Story = {
 export const DescriptionOnly: Story = {
   render: () => (
     <Callout color="green">
-      <CalloutDescription>This callout has only a description.</CalloutDescription>
+      <Text>This callout has only a description.</Text>
     </Callout>
   ),
 }
@@ -243,8 +240,8 @@ export const DescriptionOnly: Story = {
 export const WithCloseOnly: Story = {
   render: () => (
     <Callout color="purple">
-      <CalloutTitle>Dismissible Callout</CalloutTitle>
-      <CalloutDescription>This callout can be dismissed by clicking the close button.</CalloutDescription>
+      <Text>Dismissible Callout</Text>
+      <Text>This callout can be dismissed by clicking the close button.</Text>
       <CalloutClose />
     </Callout>
   ),
@@ -254,10 +251,10 @@ export const WithCloseOnly: Story = {
 export const CommandCallout: Story = {
   render: () => (
     <Callout color="slate">
-      <CalloutTitle>Command</CalloutTitle>
-      <CalloutDescription>
+      <Text>Command</Text>
+      <Text>
         <code>npm install @shadcn/ui</code>
-      </CalloutDescription>
+      </Text>
       <div className="mt-3">
         <ActionGroup>
           <Button size="sm" variant="outline">
@@ -276,11 +273,11 @@ export const BestPracticesExample: Story = {
       <div>
         <h3 className="text-lg font-semibold mb-3">Callout with ActionGroup and Button Components</h3>
         <Callout color="blue">
-          <CalloutTitle>Using Existing Components</CalloutTitle>
-          <CalloutDescription>
+          <Text>Using Existing Components</Text>
+          <Text>
             This callout demonstrates how to use ActionGroup and Button components for actions instead of custom
             CalloutAction components.
-          </CalloutDescription>
+          </Text>
           <div className="mt-3">
             <ActionGroup>
               <Button size="sm" variant="default">
@@ -301,10 +298,10 @@ export const BestPracticesExample: Story = {
       <div>
         <h3 className="text-lg font-semibold mb-3">Vertical Action Layout</h3>
         <Callout color="amber">
-          <CalloutTitle>Payment Method Update Required</CalloutTitle>
-          <CalloutDescription>
+          <Text>Payment Method Update Required</Text>
+          <Text>
             Your payment method will expire soon. Please update your billing information to continue using our services.
-          </CalloutDescription>
+          </Text>
           <div className="mt-3">
             <ActionGroup direction="vertical">
               <Button size="sm" variant="default" className="w-full">

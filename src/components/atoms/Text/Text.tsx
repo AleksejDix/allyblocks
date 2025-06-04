@@ -6,58 +6,63 @@ import type { TextProps, TextRef } from './Text.types'
 /**
  * Text component for displaying text content with consistent typography.
  *
- * Based on Shopify Polaris Text component design system.
+ * A flexible and comprehensive text component with multiple variant systems:
  *
  * Features:
- * - Comprehensive typography variants (heading3xl to bodyXs)
- * - Semantic tone variants (success, critical, warning, info, subdued)
- * - Font weight control (regular, medium, semibold, bold)
- * - Text alignment options (start, center, end, justify)
- * - Text decoration and transformation
- * - Truncation support (single line, multiline)
+ * - Semantic variants (display, h1-h6, body, label, caption, lead, code)
+ * - Granular size control (xs to 6xl)
+ * - Font weight options (light to extrabold)
+ * - Color variants (default, muted, success, warning, error, info)
+ * - Text alignment (left, center, right, justify)
+ * - Text transformations (uppercase, lowercase, capitalize)
+ * - Text decorations (underline, strikethrough)
+ * - Line height control (none, tight, normal, relaxed, loose)
+ * - Letter spacing control (tighter to widest)
+ * - Truncation support (single line, multi-line clamp)
  * - Visually hidden text for accessibility
- * - Custom line height and letter spacing
  * - Polymorphic component (can render as any HTML element)
  *
  * @example
  * ```tsx
- * // Basic usage
- * <Text>Default body text</Text>
+ * // Semantic variants
+ * <Text variant="display">Hero Title</Text>
+ * <Text variant="h1" as="h1">Page Title</Text>
+ * <Text variant="body">Default body text</Text>
+ * <Text variant="label">Form Label</Text>
+ * <Text variant="caption" color="muted">Helper text</Text>
  *
- * // Heading variants
- * <Text variant="heading2xl" as="h1">Page Title</Text>
- * <Text variant="headingMd" as="h2">Section Title</Text>
+ * // Size and weight combinations
+ * <Text size="2xl" weight="bold">Large bold text</Text>
+ * <Text size="sm" weight="medium" color="muted">Small medium text</Text>
  *
- * // Body variants with tone
- * <Text variant="bodyLg" tone="subdued">Secondary information</Text>
- * <Text variant="bodySm" tone="critical">Error message</Text>
- *
- * // Text styling
- * <Text fontWeight="semibold" decoration="underline">Important link</Text>
- * <Text transform="uppercase" alignment="center">Centered uppercase</Text>
+ * // Styling options
+ * <Text decoration="underline" color="info">Underlined link</Text>
+ * <Text transform="uppercase" tracking="wide">Spaced uppercase</Text>
+ * <Text leading="tight" align="center">Centered tight text</Text>
  *
  * // Truncation
- * <Text truncate>This text will be truncated with ellipsis</Text>
- * <Text truncate="multiline">This text will be clamped to 3 lines</Text>
+ * <Text truncate>Single line truncation</Text>
+ * <Text truncate="3">Three line clamp</Text>
  *
- * // Visually hidden (for screen readers)
- * <Text visuallyHidden>Screen reader only content</Text>
+ * // Accessibility
+ * <Text visuallyHidden>Screen reader only</Text>
  * ```
  */
 export const Text = forwardRef<TextRef, TextProps>(function Text(
   {
     className,
     variant,
-    tone,
-    fontWeight,
-    alignment,
-    decoration,
+    size,
+    weight,
+    color,
+    align,
     transform,
+    decoration,
+    leading,
+    tracking,
     truncate,
     as: Component = 'span',
     visuallyHidden = false,
-    lineHeight,
-    letterSpacing,
     breakWord = true,
     style,
     children,
@@ -67,8 +72,6 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
 ) {
   // Combine custom styles
   const customStyles = {
-    lineHeight,
-    letterSpacing,
     wordBreak: breakWord ? ('break-word' as const) : undefined,
     ...style,
   }
@@ -88,11 +91,14 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
       className={cn(
         textVariants({
           variant,
-          tone,
-          fontWeight,
-          alignment,
-          decoration,
+          size,
+          weight,
+          color,
+          align,
           transform,
+          decoration,
+          leading,
+          tracking,
           truncate,
         }),
         className,
