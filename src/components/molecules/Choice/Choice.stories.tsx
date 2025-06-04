@@ -12,11 +12,16 @@ const meta: Meta<typeof Choice> = {
   argTypes: {
     name: {
       control: 'text',
-      description: 'Name attribute for radio group',
+      description: 'Name attribute for radio group (not used in multiselect mode)',
     },
     defaultValue: {
       control: 'text',
-      description: 'Default selected value',
+      description: 'Default selected value(s) - string for single select, array for multiselect',
+    },
+    multiselect: {
+      control: 'boolean',
+      description: 'Enable multiple selection with checkboxes instead of radio buttons',
+      defaultValue: false,
     },
   },
 }
@@ -63,7 +68,79 @@ export const Default: Story = {
   args: {
     name: 'plan',
     defaultValue: 'premium',
+    multiselect: false,
   },
+}
+
+export const Multiselect: Story = {
+  render: () => (
+    <div className="w-96">
+      <Text type="heading" size="md" className="mb-4">
+        Choose Features (Multiple Selection)
+      </Text>
+      <Choice multiselect defaultValue={['analytics', 'support']}>
+        <ChoiceItem value="analytics" id="feature-analytics">
+          <ChoiceIcon>
+            <Icon name="bar-chart-3" />
+          </ChoiceIcon>
+          <ChoiceContent>
+            <ChoiceLabel>
+              Advanced Analytics{' '}
+              <Text as="span" className="text-gray-500 text-xs font-normal">
+                (+$10/month)
+              </Text>
+            </ChoiceLabel>
+            <ChoiceDescription>Get detailed insights and reports about your usage.</ChoiceDescription>
+          </ChoiceContent>
+        </ChoiceItem>
+
+        <ChoiceItem value="support" id="feature-support">
+          <ChoiceIcon>
+            <Icon name="headphones" />
+          </ChoiceIcon>
+          <ChoiceContent>
+            <ChoiceLabel>
+              Priority Support{' '}
+              <Text as="span" className="text-gray-500 text-xs font-normal">
+                (+$15/month)
+              </Text>
+            </ChoiceLabel>
+            <ChoiceDescription>24/7 support with faster response times.</ChoiceDescription>
+          </ChoiceContent>
+        </ChoiceItem>
+
+        <ChoiceItem value="backup" id="feature-backup">
+          <ChoiceIcon>
+            <Icon name="archive" />
+          </ChoiceIcon>
+          <ChoiceContent>
+            <ChoiceLabel>
+              Automated Backups{' '}
+              <Text as="span" className="text-gray-500 text-xs font-normal">
+                (+$5/month)
+              </Text>
+            </ChoiceLabel>
+            <ChoiceDescription>Daily automated backups with easy restoration.</ChoiceDescription>
+          </ChoiceContent>
+        </ChoiceItem>
+
+        <ChoiceItem value="api" id="feature-api">
+          <ChoiceIcon>
+            <Icon name="code" />
+          </ChoiceIcon>
+          <ChoiceContent>
+            <ChoiceLabel>
+              API Access{' '}
+              <Text as="span" className="text-gray-500 text-xs font-normal">
+                (+$20/month)
+              </Text>
+            </ChoiceLabel>
+            <ChoiceDescription>Full REST API access for custom integrations.</ChoiceDescription>
+          </ChoiceContent>
+        </ChoiceItem>
+      </Choice>
+    </div>
+  ),
 }
 
 export const Disabled: Story = {

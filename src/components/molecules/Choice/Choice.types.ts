@@ -6,10 +6,12 @@ import * as React from 'react'
 export type ChoiceProps = React.HTMLAttributes<HTMLDivElement> & {
   /** Children content */
   children: React.ReactNode
-  /** Name attribute for radio group */
+  /** Name attribute for radio group (not used in multiselect mode) */
   name?: string
-  /** Default selected value */
-  defaultValue?: string
+  /** Default selected value(s) - string for single select, array for multiselect */
+  defaultValue?: string | string[]
+  /** Enable multiple selection with checkboxes instead of radio buttons */
+  multiselect?: boolean
 }
 
 /**
@@ -20,11 +22,11 @@ export type ChoiceItemProps = React.InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   /** Children content */
   children: React.ReactNode
-  /** Value for the radio input */
+  /** Value for the input */
   value: string
-  /** ID for the radio input */
+  /** ID for the input */
   id?: string
-  /** Name attribute for radio group */
+  /** Name attribute for radio group (not used in multiselect mode) */
   name?: string
 }
 

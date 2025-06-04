@@ -15,7 +15,7 @@ export const choiceItemVariants = cva([
   'outline-none',
   'transition-[color,box-shadow]',
   'cursor-pointer',
-  // Selected state - black border
+  // Selected state - black border (works for both radio and checkbox)
   'has-[input:checked]:border-black',
   'has-[input:checked]:bg-gray-50',
   // Hover state
@@ -53,4 +53,4 @@ export const choiceLabelVariants = cva([
 
 export const choiceDescriptionVariants = cva(['text-xs', 'text-gray-600', 'leading-relaxed'])
 
-export const choiceRadioVariants = cva(['absolute', 'right-4', 'top-4', 'h-4', 'w-4', 'cursor-pointer', 'peer'])
+export const choiceInputVariants = cva(['absolute', 'right-4', 'top-4', 'h-4', 'w-4', 'cursor-pointer', 'peer'])
