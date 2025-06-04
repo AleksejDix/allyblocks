@@ -49,7 +49,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => (
     <Callout>
-      <Text as="h2" type="heading" size={6}>
+      <Text as="h2" type="heading">
         Callout Title
       </Text>
       <Text>This is a standard callout with title and description.</Text>
@@ -75,7 +75,9 @@ export const Default: Story = {
 export const CreditCardExpiration: Story = {
   render: () => (
     <Callout color="amber">
-      <Text>Credit Card Expiring Soon</Text>
+      <Text as="h2" type="heading">
+        Credit Card Expiring Soon
+      </Text>
       <Text>
         Your credit card ending in 4242 will expire in 2 weeks. Update your payment information to avoid service
         interruption.
@@ -124,7 +126,9 @@ export const CreditCardExpiration: Story = {
 export const SystemUpdate: Story = {
   render: () => (
     <Callout color="blue">
-      <Text>System Update Available</Text>
+      <Text as="h2" type="heading">
+        System Update Available
+      </Text>
       <Text>A new system update is available with security improvements and bug fixes.</Text>
       <div className="mt-3">
         <ActionGroup>
@@ -144,7 +148,9 @@ export const SystemUpdate: Story = {
 export const SuccessWithAction: Story = {
   render: () => (
     <Callout color="green">
-      <Text>Changes Saved Successfully</Text>
+      <Text as="h2" type="heading">
+        Changes Saved Successfully
+      </Text>
       <Text>Your profile has been updated. Changes may take a few minutes to appear across all services.</Text>
       <div className="mt-3">
         <ActionGroup>
@@ -162,7 +168,9 @@ export const SuccessWithAction: Story = {
 export const ErrorWithAction: Story = {
   render: () => (
     <Callout color="destructive">
-      <Text>Connection Failed</Text>
+      <Text as="h2" type="heading">
+        Connection Failed
+      </Text>
       <Text>Unable to connect to the server. Please check your internet connection and try again.</Text>
       <div className="mt-3">
         <ActionGroup>
@@ -222,7 +230,9 @@ export const AllColors: Story = {
 export const TitleOnly: Story = {
   render: () => (
     <Callout color="blue">
-      <Text>Callout with title only</Text>
+      <Text as="h2" type="heading">
+        Callout with title only
+      </Text>
     </Callout>
   ),
 }

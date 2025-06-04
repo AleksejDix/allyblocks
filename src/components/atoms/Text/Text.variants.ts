@@ -4,7 +4,7 @@ export const textVariants = cva('', {
   variants: {
     type: {
       body: 'font-normal',
-      heading: 'font-semibold',
+      heading: 'font-bold',
     },
     size: {
       1: '', // Will be defined in compoundVariants
@@ -59,54 +59,54 @@ export const textVariants = cva('', {
     {
       type: 'body',
       size: 1,
-      class: 'text-xs leading-relaxed', // Small body text
+      class: 'text-xs', // Small body text
     },
     {
       type: 'body',
       size: 2,
-      class: 'text-sm leading-relaxed', // Default body text
+      class: 'text-sm', // Default body text
     },
     {
       type: 'body',
       size: 3,
-      class: 'text-base leading-relaxed', // Large body text
+      class: 'text-base', // Large body text
     },
     {
       type: 'body',
       size: 4,
-      class: 'text-lg leading-relaxed', // Extra large body text
+      class: 'text-lg', // Extra large body text
     },
 
     // Heading type sizes
     {
       type: 'heading',
       size: 1,
-      class: 'text-4xl leading-tight lg:text-5xl', // H1 equivalent
+      class: 'text-4xl lg:text-5xl', // H1 equivalent
     },
     {
       type: 'heading',
       size: 2,
-      class: 'text-3xl leading-tight', // H2 equivalent
+      class: 'text-3xl', // H2 equivalent
     },
     {
       type: 'heading',
       size: 3,
-      class: 'text-2xl leading-tight', // H3 equivalent
+      class: 'text-2xl', // H3 equivalent
     },
     {
       type: 'heading',
       size: 4,
-      class: 'text-xl leading-tight', // H4 equivalent
+      class: 'text-xl', // H4 equivalent
     },
     {
       type: 'heading',
       size: 5,
-      class: 'text-lg leading-tight', // H5 equivalent
+      class: 'text-lg', // H5 equivalent
     },
     {
       type: 'heading',
       size: 6,
-      class: 'text-sm leading-tight', // H6 equivalent - same size as default body
+      class: 'text-sm', // H6 equivalent - same size as default body
     },
   ],
   defaultVariants: {

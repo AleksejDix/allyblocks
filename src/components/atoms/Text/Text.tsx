@@ -65,6 +65,9 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
   },
   ref,
 ) {
+  // Set default size based on type if not provided
+  const defaultSize = size ?? (type === 'heading' ? 6 : 2)
+
   // Combine custom styles
   const customStyles = {
     wordBreak: breakWord ? ('break-word' as const) : undefined,
@@ -86,7 +89,7 @@ export const Text = forwardRef<TextRef, TextProps>(function Text(
       className={cn(
         textVariants({
           type,
-          size,
+          size: defaultSize,
           weight,
           tone,
           decoration,
