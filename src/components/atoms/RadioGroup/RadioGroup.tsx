@@ -1,39 +1,33 @@
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import { CircleIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  type RadioGroupProps,
-  type RadioGroupItemProps,
-} from "./RadioGroup.types";
+import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
+import { cn } from '@/lib/utils'
+import { radioVariants, radioGroupVariants } from './RadioGroup.variants'
+import { type RadioGroupProps, type RadioProps, type RadioItemProps } from './RadioGroup.types'
 
-function RadioGroup({ className, ...props }: RadioGroupProps) {
+function RadioGroup({ className, orientation, ...props }: RadioGroupProps) {
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"
-      className={cn("grid gap-3", className)}
+      className={cn(radioGroupVariants({ orientation }), className)}
       {...props}
     />
-  );
+  )
 }
 
-function RadioGroupItem({ className, ...props }: RadioGroupItemProps) {
+function Radio({ className, ...props }: RadioProps) {
   return (
-    <RadioGroupPrimitive.Item
-      data-slot="radio-group-item"
-      className={cn(
-        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      {...props}
-    >
+    <RadioGroupPrimitive.Item data-slot="radio" className={cn(radioVariants(), className)} {...props}>
       <RadioGroupPrimitive.Indicator
-        data-slot="radio-group-indicator"
-        className="relative flex items-center justify-center"
+        data-slot="radio-indicator"
+        className="flex items-center justify-center text-current transition-none"
       >
-        <CircleIcon className="fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2" />
+        <div className="h-1.5 w-1.5 rounded-full bg-current" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
-  );
+  )
 }
 
-export { RadioGroup, RadioGroupItem };
+function RadioItem({ className, ...props }: RadioItemProps) {
+  return <div className={cn('flex items-center space-x-2', className)} {...props} />
+}
+
+export { RadioGroup, Radio, RadioItem }
