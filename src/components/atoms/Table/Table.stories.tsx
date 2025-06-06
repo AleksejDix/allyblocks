@@ -1,406 +1,272 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react'
+import { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from './Table'
+import { Checkbox } from '@/components/atoms/Checkbox'
+import { IconButton } from '@/components/atoms/IconButton'
+import { Icon } from '@/components/atoms/Icon'
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-} from "./Table";
-import { Button } from "@/components/atoms/Button";
-import { ActionGroup } from "@/components/molecules/ActionGroup";
-import { IconButton } from "../IconButton";
-import { Icon } from "../Icon";
-import {
-  ActionMenuItem,
+  ActionMenu,
   ActionMenuTrigger,
   ActionMenuContent,
-} from "@/components/molecules/ActionMenu";
-import { ActionMenu } from "@/components/molecules/ActionMenu";
+  ActionMenuItem,
+  ActionMenuSeparator,
+} from '@/components/molecules/ActionMenu'
+
 const meta: Meta<typeof Table> = {
   component: Table,
-  subcomponents: {
-    TableHeader: TableHeader,
-    TableBody: TableBody,
-    TableFooter: TableFooter,
-    TableHead: TableHead,
-    TableRow: TableRow,
-    TableCell: TableCell,
-  },
-  tags: ["autodocs"],
   parameters: {
-    nuqs: {
-      disabled: true,
-    },
+    layout: 'padded',
   },
-  argTypes: {
-    variant: {
-      control: "select",
-      options: ["default", "striped", "divided", "spectrum", "bordered"],
-      defaultValue: "default",
-    },
-    density: {
-      control: "select",
-      options: ["compact", "default", "relaxed"],
-      defaultValue: "default",
-    },
-    size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      defaultValue: "md",
-    },
-  },
-};
+  tags: ['autodocs'],
+}
 
-export default meta;
-type Story = StoryObj<typeof Table>;
+export default meta
+type Story = StoryObj<typeof Table>
 
-// Basic Table
+// Sample data for demonstrations
+const sampleData = [
+  { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'Active' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'Inactive' },
+  { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'Editor', status: 'Active' },
+  { id: 4, name: 'Alice Brown', email: 'alice@example.com', role: 'User', status: 'Active' },
+]
+
 export const Default: Story = {
   render: (args) => (
-    <div className="flex flex-col gap-4">
-      <Button>Add new User</Button>
-      <Table {...args}>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>John Doe</TableCell>
-            <TableCell>john@example.com</TableCell>
-            <TableCell>Developer</TableCell>
-            <TableCell className="text-right">
-              <ActionGroup>
-                <Button size="default" variant="outline">
-                  Edit
-                </Button>
-                <Button size="default" variant="outline">
-                  Delete
-                </Button>
-              </ActionGroup>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Jane Smith</TableCell>
-            <TableCell>jane@example.com</TableCell>
-            <TableCell>Designer</TableCell>
-            <TableCell className="text-right"></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Robert Johnson</TableCell>
-            <TableCell>robert@example.com</TableCell>
-            <TableCell>Product Manager</TableCell>
-            <TableCell className="text-right">
-              <ActionGroup>
-                <ActionMenu>
-                  <ActionMenuTrigger asChild>
-                    <IconButton aria-label="Edit" size="md" variant="ghost">
-                      <Icon name="pencil" />
-                    </IconButton>
-                  </ActionMenuTrigger>
-                  <ActionMenuContent side="bottom" align="end">
-                    <ActionMenuItem>Edit</ActionMenuItem>
-                    <ActionMenuItem>Delete</ActionMenuItem>
-                  </ActionMenuContent>
-                </ActionMenu>
-              </ActionGroup>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </div>
-  ),
-};
-
-// Striped Table
-export const Striped: Story = {
-  render: () => (
-    <Table variant="striped">
+    <Table {...args}>
+      <TableCaption>A list of users and their information.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Role</TableHead>
+          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell>John Doe</TableCell>
-          <TableCell>john@example.com</TableCell>
-          <TableCell>Developer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Jane Smith</TableCell>
-          <TableCell>jane@example.com</TableCell>
-          <TableCell>Designer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Robert Johnson</TableCell>
-          <TableCell>robert@example.com</TableCell>
-          <TableCell>Product Manager</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Emily White</TableCell>
-          <TableCell>emily@example.com</TableCell>
-          <TableCell>Marketing</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Michael Brown</TableCell>
-          <TableCell>michael@example.com</TableCell>
-          <TableCell>Sales</TableCell>
-        </TableRow>
+        {sampleData.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.role}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   ),
-};
+}
 
-// Divided Table
-export const Divided: Story = {
-  render: () => (
-    <Table variant="divided">
+export const WithCheckboxes: Story = {
+  args: {
+    size: 'sm',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Users table with selectable rows using checkboxes.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>
+            <Checkbox aria-label="Select all" />
+          </TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Role</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead align="right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {sampleData.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>
+              <Checkbox aria-label={`Select ${user.name}`} />
+            </TableCell>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.role}</TableCell>
+            <TableCell>{user.status}</TableCell>
+            <TableCell align="right">
+              <ActionMenu>
+                <ActionMenuTrigger asChild>
+                  <IconButton variant="ghost" size="sm" aria-label={`Actions for ${user.name}`}>
+                    <Icon name="more-horizontal" />
+                  </IconButton>
+                </ActionMenuTrigger>
+                <ActionMenuContent>
+                  <ActionMenuItem onAction={() => console.log(`Edit ${user.name}`)}>
+                    <Icon name="edit" />
+                    Edit
+                  </ActionMenuItem>
+                  <ActionMenuItem onAction={() => console.log(`View ${user.name}`)}>
+                    <Icon name="eye" />
+                    View
+                  </ActionMenuItem>
+                  <ActionMenuSeparator />
+                  <ActionMenuItem className="text-destructive" onAction={() => console.log(`Delete ${user.name}`)}>
+                    <Icon name="trash" />
+                    Delete
+                  </ActionMenuItem>
+                </ActionMenuContent>
+              </ActionMenu>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+}
+
+export const Small: Story = {
+  args: {
+    size: 'sm',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Small size table with compact padding</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
           <TableHead>Email</TableHead>
-          <TableHead>Role</TableHead>
+          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell>John Doe</TableCell>
-          <TableCell>john@example.com</TableCell>
-          <TableCell>Developer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Jane Smith</TableCell>
-          <TableCell>jane@example.com</TableCell>
-          <TableCell>Designer</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>Robert Johnson</TableCell>
-          <TableCell>robert@example.com</TableCell>
-          <TableCell>Product Manager</TableCell>
-        </TableRow>
+        {sampleData.slice(0, 3).map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   ),
-};
+}
 
-// Table with footer
+export const Medium: Story = {
+  args: {
+    size: 'md',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Medium size table (default)</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {sampleData.slice(0, 3).map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+}
+
+export const Large: Story = {
+  args: {
+    size: 'lg',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Large size table with generous padding</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {sampleData.slice(0, 3).map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+}
+
 export const WithFooter: Story = {
-  render: () => (
-    <Table>
+  render: (args) => (
+    <Table {...args}>
       <TableHeader>
         <TableRow>
           <TableHead>Item</TableHead>
-          <TableHead>Price</TableHead>
-          <TableHead>Quantity</TableHead>
-          <TableHead>Total</TableHead>
+          <TableHead align="right">Price</TableHead>
+          <TableHead align="right">Quantity</TableHead>
+          <TableHead align="right">Total</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
           <TableCell>Product A</TableCell>
-          <TableCell>$10.00</TableCell>
-          <TableCell>2</TableCell>
-          <TableCell>$20.00</TableCell>
+          <TableCell align="right">$29.99</TableCell>
+          <TableCell align="right">2</TableCell>
+          <TableCell align="right">$59.98</TableCell>
         </TableRow>
         <TableRow>
           <TableCell>Product B</TableCell>
-          <TableCell>$15.00</TableCell>
-          <TableCell>1</TableCell>
-          <TableCell>$15.00</TableCell>
+          <TableCell align="right">$19.99</TableCell>
+          <TableCell align="right">1</TableCell>
+          <TableCell align="right">$19.99</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Product C</TableCell>
+          <TableCell align="right">$39.99</TableCell>
+          <TableCell align="right">3</TableCell>
+          <TableCell align="right">$119.97</TableCell>
         </TableRow>
       </TableBody>
       <TableFooter>
         <TableRow>
           <TableCell>Total</TableCell>
-          <TableCell>$35.00</TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
+          <TableCell align="right">$199.94</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
   ),
-};
+}
 
-// Data Table
-export const DataTable: Story = {
-  render: () => {
-    const invoices = [
-      {
-        id: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-      },
-      {
-        id: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-      },
-      {
-        id: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-      },
-      {
-        id: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-      },
-      {
-        id: "INV005",
-        paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
-      },
-    ];
-
-    return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Invoice</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Method</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.id}>
-              <TableCell className="font-medium">{invoice.id}</TableCell>
-              <TableCell>{invoice.paymentStatus}</TableCell>
-              <TableCell>{invoice.paymentMethod}</TableCell>
-              <TableCell className="text-right">
-                {invoice.totalAmount}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    );
-  },
-};
-
-// Dynamic Columns example
-export const DynamicColumns: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div>
-        <h3 className="mb-2 text-lg font-medium">3-Column Table</h3>
-        <Table columns={3}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Department</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>John Doe</TableCell>
-              <TableCell>Developer</TableCell>
-              <TableCell>Engineering</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Jane Smith</TableCell>
-              <TableCell>Designer</TableCell>
-              <TableCell>Design</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-
-      <div>
-        <h3 className="mb-2 text-lg font-medium">5-Column Table</h3>
-        <Table columns={5}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>001</TableCell>
-              <TableCell>John Doe</TableCell>
-              <TableCell>john@example.com</TableCell>
-              <TableCell>Developer</TableCell>
-              <TableCell>Active</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>002</TableCell>
-              <TableCell>Jane Smith</TableCell>
-              <TableCell>jane@example.com</TableCell>
-              <TableCell>Designer</TableCell>
-              <TableCell>Away</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    </div>
+export const TextAlignment: Story = {
+  render: (args) => (
+    <Table {...args}>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Product</TableHead>
+          <TableHead align="center">Category</TableHead>
+          <TableHead align="right">Price</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>Laptop</TableCell>
+          <TableCell align="center">Electronics</TableCell>
+          <TableCell align="right">$999.99</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Coffee Mug</TableCell>
+          <TableCell align="center">Kitchen</TableCell>
+          <TableCell align="right">$12.99</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>Notebook</TableCell>
+          <TableCell align="center">Stationery</TableCell>
+          <TableCell align="right">$5.99</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   ),
-};
-
-// Table with buttons in cells
-export const WithButtons: Story = {
-  render: () => {
-    return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>John Doe</TableCell>
-            <TableCell>Active</TableCell>
-            <TableCell>
-              <Button data-slot="button" variant="outline" size="sm">
-                Edit
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Jane Smith</TableCell>
-            <TableCell>Inactive</TableCell>
-            <TableCell>
-              <div className="flex gap-2">
-                <Button data-slot="button" variant="outline" size="sm">
-                  Edit
-                </Button>
-                <Button data-slot="button" variant="destructive" size="sm">
-                  Delete
-                </Button>
-              </div>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Robert Johnson</TableCell>
-            <TableCell>Pending</TableCell>
-            <TableCell>
-              <Button data-slot="button" variant="outline" size="sm">
-                Approve
-              </Button>
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    );
-  },
-};
+}
