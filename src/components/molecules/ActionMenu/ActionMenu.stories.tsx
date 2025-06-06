@@ -18,7 +18,8 @@ import { IconButton } from '@/components/atoms/IconButton'
 import React from 'react'
 import { ActionSplit } from '@/components/molecules/ActionSplit'
 import { ActionGroup } from '@/components/molecules/ActionGroup'
-import { Card, CardHeader, CardTitle, CardAction } from '@/components/molecules/Card'
+import { Card, CardHeader, CardAction } from '@/components/molecules/Card'
+import { Text } from '@/components/atoms/Text'
 
 const notify = (message: string) => {
   console.log(message)
@@ -26,17 +27,6 @@ const notify = (message: string) => {
 
 const meta: Meta<typeof ActionMenu> = {
   component: ActionMenu,
-  subcomponents: {
-    ActionMenuTrigger,
-    ActionMenuContent,
-    ActionMenuItem,
-    ActionMenuCheckboxItem,
-    ActionMenuRadioGroup,
-    ActionMenuRadioItem,
-    ActionMenuLabel,
-    ActionMenuSeparator,
-    ActionMenuGroup,
-  },
   tags: ['autodocs'],
   parameters: {
     nuqs: {
@@ -440,7 +430,9 @@ export const TableRowActions: Story = {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Users</CardTitle>
+          <Text type="heading" size="lg">
+            Users
+          </Text>
           <CardAction>
             <ActionGroup>
               <ActionSplit>

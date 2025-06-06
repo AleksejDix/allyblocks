@@ -1,7 +1,7 @@
-import { useFormContext } from "react-hook-form";
-import { RadioGroup, RadioGroupItem } from "@/components/atoms/RadioGroup";
-import { Required } from "@/components/atoms/Required";
-import { Label } from "@/components/atoms/Label";
+import { useFormContext } from 'react-hook-form'
+import { RadioGroup, Radio, RadioItem } from '@/components/atoms/RadioGroup'
+import { Required } from '@/components/atoms/Required'
+import { Label } from '@/components/atoms/Label'
 import {
   FormField,
   FormItem,
@@ -9,24 +9,22 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type BaseFieldProps } from "../Field.types";
+} from '@/components/molecules/Form/Form'
+import { type BaseFieldProps } from '../Field.types'
 
 export type RadioOption = {
-  label: string;
-  value: string;
-  disabled?: boolean;
-  id?: string;
-};
+  label: string
+  value: string
+  disabled?: boolean
+  id?: string
+}
 
 export type FieldRadioGroupProps = BaseFieldProps & {
   /** The options for the radio group */
-  options: RadioOption[];
+  options: RadioOption[]
   /** The orientation of the radio group */
-  orientation?: "horizontal" | "vertical";
-  /** Whether to render radios as card-style UI */
-  cardStyle?: boolean;
-};
+  orientation?: 'horizontal' | 'vertical'
+}
 
 export function FieldRadioGroup({
   name,
@@ -35,17 +33,16 @@ export function FieldRadioGroup({
   required = false,
   disabled = false,
   options,
-  orientation = "vertical",
-  cardStyle = false,
+  orientation = 'vertical',
   ...props
 }: FieldRadioGroupProps) {
-  const context = useFormContext();
+  const context = useFormContext()
 
   return (
     <FormField
       control={context.control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormItem className="space-y-2">
           <FormLabel>
             <div>
@@ -58,57 +55,24 @@ export function FieldRadioGroup({
           </FormLabel>
           <FormControl>
             <RadioGroup
-              className={
-                orientation === "horizontal" ? "flex gap-4" : "space-y-2"
-              }
+              orientation={orientation}
               value={field.value}
               onValueChange={field.onChange}
               disabled={disabled}
-              aria-invalid={!!context.getFieldState(name).error}
+              aria-invalid={fieldState.error ? 'true' : undefined}
               {...props}
             >
               {options.map((option) => {
-                const id = option.id || `${name}-${option.value}`;
-
-                if (cardStyle) {
-                  return (
-                    <div key={option.value}>
-                      <RadioGroupItem
-                        value={option.value}
-                        id={id}
-                        className="peer sr-only"
-                        disabled={option.disabled}
-                      />
-                      <Label
-                        htmlFor={id}
-                        className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
-                      >
-                        <span className="text-sm font-medium">
-                          {option.label}
-                        </span>
-                      </Label>
-                    </div>
-                  );
-                }
+                const id = option.id || `${name}-${option.value}`
 
                 return (
-                  <div
-                    key={option.value}
-                    className="flex items-center space-x-2"
-                  >
-                    <RadioGroupItem
-                      value={option.value}
-                      id={id}
-                      disabled={option.disabled}
-                    />
-                    <Label
-                      htmlFor={id}
-                      className={option.disabled ? "text-muted-foreground" : ""}
-                    >
+                  <RadioItem key={option.value}>
+                    <Radio value={option.value} id={id} disabled={option.disabled} />
+                    <Label htmlFor={id} className={option.disabled ? 'text-muted-foreground' : ''}>
                       {option.label}
                     </Label>
-                  </div>
-                );
+                  </RadioItem>
+                )
               })}
             </RadioGroup>
           </FormControl>
@@ -117,7 +81,7 @@ export function FieldRadioGroup({
         </FormItem>
       )}
     />
-  );
+  )
 }
 
-export default FieldRadioGroup;
+export default FieldRadioGroup

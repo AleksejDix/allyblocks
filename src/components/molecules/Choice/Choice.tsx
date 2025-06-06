@@ -1,7 +1,7 @@
 import React, { useId, useContext, createContext } from 'react'
 import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/atoms/Checkbox'
-import { Radio } from '@/components/atoms/Radio'
+import { Radio } from '@/components/atoms/RadioGroup'
 import * as RadioPrimitive from '@radix-ui/react-radio-group'
 import {
   choiceVariants,

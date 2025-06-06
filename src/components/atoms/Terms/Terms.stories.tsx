@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Terms, Term, TermDefinition } from './Terms'
 import React from 'react'
-import { Card, CardBody, CardHeader, CardTitle } from '@/components/molecules/Card/'
+import { Card, CardBody, CardHeader } from '@/components/molecules/Card/'
+import { Text } from '@/components/atoms/Text'
 
 const meta: Meta<typeof Terms> = {
   component: Terms,
-  subcomponents: { Term, TermDefinition },
   tags: ['autodocs'],
 }
 
@@ -91,7 +91,9 @@ export const FormLayout: Story = {
   render: () => (
     <Card>
       <CardHeader>
-        <CardTitle>User Information</CardTitle>
+        <Text type="heading" size="lg">
+          User Information
+        </Text>
       </CardHeader>
       <CardBody>
         <Terms>
