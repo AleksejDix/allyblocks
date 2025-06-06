@@ -45,6 +45,7 @@ export const textVariants = cva('', {
       strikethrough: 'line-through',
     },
     align: {
+      default: '',
       left: 'text-left',
       center: 'text-center',
       right: 'text-right',
@@ -135,7 +136,7 @@ export const textVariants = cva('', {
     weight: 0,
     tone: 'default',
     decoration: 'none',
-    align: 'left',
+    align: 'default',
     truncate: false,
   },
 })
