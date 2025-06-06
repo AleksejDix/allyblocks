@@ -5,350 +5,102 @@ import { Callout, CalloutClose } from './Callout'
 import { ActionGroup } from '../ActionGroup'
 import { Button } from '../../atoms/Button'
 import { Text } from '../../atoms/Text'
+import { Stack } from '../../atoms/Stack'
 
 const meta = {
   component: Callout,
   parameters: {},
   tags: ['autodocs'],
-  argTypes: {
-    color: {
-      control: 'select',
-      options: [
-        'blue',
-        'red',
-        'green',
-        'yellow',
-        'purple',
-        'orange',
-        'pink',
-        'emerald',
-        'teal',
-        'cyan',
-        'sky',
-        'indigo',
-        'violet',
-        'fuchsia',
-        'rose',
-        'amber',
-        'lime',
-        'zinc',
-        'slate',
-        'gray',
-        'neutral',
-        'stone',
-        'destructive',
-      ],
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Callout>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-// Basic callout with title and description
+// Basic callout with title, description and action
 export const Default: Story = {
   render: () => (
     <Callout>
-      <Text as="h2" type="heading">
-        Callout Title
-      </Text>
-      <Text>This is a standard callout with title and description.</Text>
+      <Stack gap="xs">
+        <Text as="h2" type="heading" size="lg">
+          Schedule your annual check-up
+        </Text>
+        <Text tone="muted">
+          Book your yearly physical examination to maintain optimal health and catch any issues early.
+        </Text>
+      </Stack>
+      <ActionGroup>
+        <Button variant="default">Book appointment</Button>
+      </ActionGroup>
     </Callout>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
-    // Verify callout role and structure
     const callout = canvas.getByRole('region')
     await expect(callout).toHaveAttribute('data-slot', 'callout')
 
-    // Check title and description
-    const title = canvas.getByText('Callout Title')
-    await expect(title).toHaveAttribute('data-slot', 'callout-title')
-
-    const description = canvas.getByText(/This is a standard callout/)
-    await expect(description).toHaveAttribute('data-slot', 'callout-description')
-  },
-}
-
-// Credit card expiration callout with action button
-export const CreditCardExpiration: Story = {
-  render: () => (
-    <Callout color="amber">
-      <div className="flex justify-between items-start gap-4">
-        <div className="space-y-2">
-          <Text as="h2" type="heading">
-            Credit Card Expiring Soon
-          </Text>
-          <Text>
-            Your credit card ending in 4242 will expire in 2 weeks. Update your payment information to avoid service
-            interruption.
-          </Text>
-        </div>
-        <CalloutClose />
-      </div>
-      <div className="mt-3">
-        <ActionGroup>
-          <Button size="sm" variant="default">
-            Update Card
-          </Button>
-          <Button size="sm" variant="ghost">
-            Remind Later
-          </Button>
-        </ActionGroup>
-      </div>
-    </Callout>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    // Verify callout structure
-    const callout = canvas.getByRole('region')
-    await expect(callout).toBeInTheDocument()
-
-    // Check title and description
-    const title = canvas.getByText('Credit Card Expiring Soon')
+    const title = canvas.getByText('Schedule your annual check-up')
     await expect(title).toBeInTheDocument()
-
-    const description = canvas.getByText(/Your credit card ending in 4242/)
-    await expect(description).toBeInTheDocument()
-
-    // Check action buttons
-    const updateButton = canvas.getByRole('button', { name: 'Update Card' })
-    await expect(updateButton).toBeInTheDocument()
-
-    const remindButton = canvas.getByRole('button', { name: 'Remind Later' })
-    await expect(remindButton).toBeInTheDocument()
-
-    // Check close button
-    const closeButton = canvas.getByRole('button', { name: 'Close callout' })
-    await expect(closeButton).toBeInTheDocument()
   },
 }
 
-// System update notification
-export const SystemUpdate: Story = {
+// Dismissible callout with close button
+export const WithClose: Story = {
   render: () => (
-    <Callout color="blue">
-      <Text as="h2" type="heading">
-        System Update Available
-      </Text>
-      <Text>A new system update is available with security improvements and bug fixes.</Text>
-      <div className="mt-3">
-        <ActionGroup>
-          <Button size="sm" variant="default">
-            Update Now
-          </Button>
-          <Button size="sm" variant="outline">
-            Schedule Later
-          </Button>
-        </ActionGroup>
-      </div>
-    </Callout>
-  ),
-}
-
-// Success callout with action
-export const SuccessWithAction: Story = {
-  render: () => (
-    <Callout color="green">
-      <Text as="h2" type="heading">
-        Changes Saved Successfully
-      </Text>
-      <Text>Your profile has been updated. Changes may take a few minutes to appear across all services.</Text>
-      <div className="mt-3">
-        <ActionGroup>
-          <Button size="sm" variant="ghost">
-            View Profile
-          </Button>
-        </ActionGroup>
-      </div>
+    <Callout>
+      <Stack gap="xs">
+        <Text as="h2" type="heading" size="lg">
+          Flu vaccination available
+        </Text>
+        <Text tone="muted">Protect yourself and others by getting your annual flu vaccine. Walk-ins welcome.</Text>
+      </Stack>
+      <ActionGroup>
+        <Button variant="default">Schedule vaccination</Button>
+      </ActionGroup>
       <CalloutClose />
     </Callout>
   ),
 }
 
-// Error callout with action
-export const ErrorWithAction: Story = {
+// Callout with primary and secondary actions
+export const WithSecondaryAction: Story = {
   render: () => (
-    <Callout color="destructive">
-      <Text as="h2" type="heading">
-        Connection Failed
-      </Text>
-      <Text>Unable to connect to the server. Please check your internet connection and try again.</Text>
-      <div className="mt-3">
-        <ActionGroup>
-          <Button size="sm" variant="default">
-            Retry
-          </Button>
-          <Button size="sm" variant="ghost">
-            Go Offline
-          </Button>
-        </ActionGroup>
-      </div>
-    </Callout>
-  ),
-}
-
-// All Colors Showcase
-export const AllColors: Story = {
-  render: () => (
-    <div className="space-y-4">
-      {(
-        [
-          'blue',
-          'red',
-          'green',
-          'yellow',
-          'purple',
-          'orange',
-          'pink',
-          'emerald',
-          'teal',
-          'cyan',
-          'sky',
-          'indigo',
-          'violet',
-          'fuchsia',
-          'rose',
-          'amber',
-          'lime',
-          'zinc',
-          'slate',
-          'gray',
-          'neutral',
-          'stone',
-          'destructive',
-        ] as const
-      ).map((color) => (
-        <Callout key={color} color={color}>
-          <Text>{color.charAt(0).toUpperCase() + color.slice(1)} Callout</Text>
-          <Text>This is an example of the {color} color variant for callouts.</Text>
-        </Callout>
-      ))}
-    </div>
-  ),
-}
-
-// Callout with only title
-export const TitleOnly: Story = {
-  render: () => (
-    <Callout color="blue">
-      <Text as="h2" type="heading">
-        Callout with title only
-      </Text>
-    </Callout>
-  ),
-}
-
-// Callout with only description
-export const DescriptionOnly: Story = {
-  render: () => (
-    <Callout color="green">
-      <Text as="p" tone="muted">
-        This callout has only a description.
-      </Text>
-    </Callout>
-  ),
-}
-
-// Callout with close button only
-export const WithCloseOnly: Story = {
-  render: () => (
-    <Callout color="purple">
-      <Text>Dismissible Callout</Text>
-      <Text>This callout can be dismissed by clicking the close button.</Text>
-      <CalloutClose />
-    </Callout>
-  ),
-}
-
-// Command/Terminal style callout
-export const CommandCallout: Story = {
-  render: () => (
-    <Callout color="slate">
-      <Text>Command</Text>
-      <Text>
-        <code>npm install @shadcn/ui</code>
-      </Text>
-      <div className="mt-3">
-        <ActionGroup>
-          <Button size="sm" variant="outline">
-            Copy
-          </Button>
-        </ActionGroup>
-      </div>
-    </Callout>
-  ),
-}
-
-// Comprehensive example showing best practices
-export const BestPracticesExample: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <Text as="h2" type="heading">
-          Callout with ActionGroup and Button Components
+    <Callout>
+      <Stack gap="xs">
+        <Text as="h2" type="heading" size="lg">
+          Update your emergency contacts
         </Text>
-        <Callout color="blue">
-          <div className="flex justify-between items-start gap-4">
-            <div className="space-y-2">
-              <Text as="h2" type="heading">
-                Using Existing Components
-              </Text>
-              <Text>
-                This callout demonstrates how to use ActionGroup and Button components for actions instead of custom
-                CalloutAction components.
-              </Text>
-            </div>
-            <CalloutClose />
-          </div>
-          <div className="mt-3">
-            <ActionGroup>
-              <Button size="sm" variant="default">
-                Primary Action
-              </Button>
-              <Button size="sm" variant="outline">
-                Secondary Action
-              </Button>
-              <Button size="sm" variant="ghost">
-                Tertiary Action
-              </Button>
-            </ActionGroup>
-          </div>
-        </Callout>
-      </div>
-      <div>
-        <Text as="h2" type="heading">
-          Vertical Action Layout
+        <Text tone="muted">
+          Your emergency contact information is outdated. Please update it to ensure we can reach someone in case of
+          emergency.
         </Text>
-        <Callout color="amber" className="space-y-4">
-          <div className="flex justify-between items-start gap-4">
-            <div className="space-y-2">
-              <Text as="h2" type="heading">
-                Payment Method Update Required
-              </Text>
-              <Text>
-                Your payment method will expire soon. Please update your billing information to continue using our
-                services.
-              </Text>
-            </div>
-            <CalloutClose />
-          </div>
+      </Stack>
+      <ActionGroup>
+        <Button variant="default">Update contacts</Button>
+        <Button variant="outline">Review information</Button>
+      </ActionGroup>
+    </Callout>
+  ),
+}
 
-          <ActionGroup>
-            <Button size="sm" variant="default" className="w-full">
-              Update Payment Method
-            </Button>
-            <Button size="sm" variant="outline" className="w-full">
-              View Billing History
-            </Button>
-            <Button size="sm" variant="ghost" className="w-full">
-              Contact Support
-            </Button>
-          </ActionGroup>
-        </Callout>
-      </div>
-    </div>
+// Callout with primary, secondary, and tertiary actions
+export const WithTertiaryAction: Story = {
+  render: () => (
+    <Callout>
+      <Stack gap="xs">
+        <Text as="h2" type="heading" size="lg">
+          Complete your health profile
+        </Text>
+        <Text tone="muted">
+          Help us provide better care by completing your medical history and current medications list.
+        </Text>
+      </Stack>
+      <ActionGroup>
+        <Button variant="default">Complete profile</Button>
+        <Button variant="outline">Save for later</Button>
+        <Button variant="link">Skip for now</Button>
+      </ActionGroup>
+    </Callout>
   ),
 }

@@ -1,10 +1,15 @@
 import * as React from 'react'
-import type { VariantProps } from 'class-variance-authority'
-import { calloutVariants } from './Callout.variants'
+import type { BoxProps } from '@/components/atoms/Box'
 
-export type CalloutProps = React.ComponentPropsWithoutRef<'div'> & VariantProps<typeof calloutVariants>
+export type CalloutProps = React.ComponentPropsWithoutRef<'div'>
 
 export type CalloutRef = React.ComponentRef<'div'>
+
+export type CalloutBodyProps = React.ComponentPropsWithoutRef<'div'> & {
+  variant?: BoxProps['variant']
+}
+
+export type CalloutBodyRef = React.ComponentRef<'div'>
 
 export type CalloutTitleProps = React.ComponentPropsWithoutRef<'div'>
 

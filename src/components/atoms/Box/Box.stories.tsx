@@ -11,6 +11,7 @@ const meta: Meta<typeof Box> = {
     variant: {
       control: 'select',
       options: [
+        // System colors
         'default',
         'muted',
         'primary',
@@ -23,6 +24,30 @@ const meta: Meta<typeof Box> = {
         'sidebar',
         'sidebar-primary',
         'sidebar-accent',
+        // Bright colors
+        'blue',
+        'red',
+        'green',
+        'yellow',
+        'purple',
+        'orange',
+        'pink',
+        'emerald',
+        'teal',
+        'cyan',
+        'sky',
+        'indigo',
+        'violet',
+        'fuchsia',
+        'rose',
+        'amber',
+        'lime',
+        // Neutral colors
+        'zinc',
+        'slate',
+        'gray',
+        'neutral',
+        'stone',
       ],
     },
     shadow: {
@@ -94,8 +119,8 @@ export const Default: Story = {
   render: () => <Box className="p-4">Default Box</Box>,
 }
 
-// Variant Stories
-export const Variants: Story = {
+// System Variants
+export const SystemVariants: Story = {
   render: () => (
     <div className="grid grid-cols-3 gap-4">
       <Box variant="default" className="p-4 text-center">
@@ -129,6 +154,88 @@ export const Variants: Story = {
   ),
 }
 
+// Bright Color Variants
+export const BrightColors: Story = {
+  render: () => (
+    <div className="grid grid-cols-4 gap-4">
+      <Box variant="blue" className="p-4 text-center">
+        Blue
+      </Box>
+      <Box variant="red" className="p-4 text-center">
+        Red
+      </Box>
+      <Box variant="green" className="p-4 text-center">
+        Green
+      </Box>
+      <Box variant="yellow" className="p-4 text-center">
+        Yellow
+      </Box>
+      <Box variant="purple" className="p-4 text-center">
+        Purple
+      </Box>
+      <Box variant="orange" className="p-4 text-center">
+        Orange
+      </Box>
+      <Box variant="pink" className="p-4 text-center">
+        Pink
+      </Box>
+      <Box variant="emerald" className="p-4 text-center">
+        Emerald
+      </Box>
+      <Box variant="teal" className="p-4 text-center">
+        Teal
+      </Box>
+      <Box variant="cyan" className="p-4 text-center">
+        Cyan
+      </Box>
+      <Box variant="sky" className="p-4 text-center">
+        Sky
+      </Box>
+      <Box variant="indigo" className="p-4 text-center">
+        Indigo
+      </Box>
+      <Box variant="violet" className="p-4 text-center">
+        Violet
+      </Box>
+      <Box variant="fuchsia" className="p-4 text-center">
+        Fuchsia
+      </Box>
+      <Box variant="rose" className="p-4 text-center">
+        Rose
+      </Box>
+      <Box variant="amber" className="p-4 text-center">
+        Amber
+      </Box>
+      <Box variant="lime" className="p-4 text-center">
+        Lime
+      </Box>
+    </div>
+  ),
+}
+
+// Neutral Color Variants
+export const NeutralColors: Story = {
+  render: () => (
+    <div className="grid grid-cols-5 gap-4">
+      <Box variant="zinc" className="p-4 text-center">
+        Zinc
+      </Box>
+      <Box variant="slate" className="p-4 text-center">
+        Slate
+      </Box>
+      <Box variant="gray" className="p-4 text-center">
+        Gray
+      </Box>
+      <Box variant="neutral" className="p-4 text-center">
+        Neutral
+      </Box>
+      <Box variant="stone" className="p-4 text-center">
+        Stone
+      </Box>
+    </div>
+  ),
+}
+
 // Shadow Stories
 export const Shadows: Story = {
   render: () => (
@@ -156,22 +263,22 @@ export const Shadows: Story = {
 export const Widths: Story = {
   render: () => (
     <div className="space-y-4 w-full">
-      <Box variant="card" width="xs" className="p-2 text-center">
+      <Box variant="blue" width="xs" className="p-2 text-center">
         XS Width
       </Box>
-      <Box variant="card" width="sm" className="p-2 text-center">
+      <Box variant="green" width="sm" className="p-2 text-center">
         SM Width
       </Box>
-      <Box variant="card" width="md" className="p-2 text-center">
+      <Box variant="purple" width="md" className="p-2 text-center">
         MD Width
       </Box>
-      <Box variant="card" width="lg" className="p-2 text-center">
+      <Box variant="orange" width="lg" className="p-2 text-center">
         LG Width
       </Box>
-      <Box variant="card" width="xl" className="p-2 text-center">
+      <Box variant="pink" width="xl" className="p-2 text-center">
         XL Width
       </Box>
-      <Box variant="card" width="2xl" className="p-2 text-center">
+      <Box variant="cyan" width="2xl" className="p-2 text-center">
         2XL Width
       </Box>
     </div>
@@ -182,22 +289,22 @@ export const Widths: Story = {
 export const Heights: Story = {
   render: () => (
     <div className="grid grid-cols-6 gap-4">
-      <Box variant="card" height="xs" className="p-2 text-center flex items-center justify-center">
+      <Box variant="red" height="xs" className="p-2 text-center flex items-center justify-center">
         XS
       </Box>
-      <Box variant="card" height="sm" className="p-2 text-center flex items-center justify-center">
+      <Box variant="yellow" height="sm" className="p-2 text-center flex items-center justify-center">
         SM
       </Box>
-      <Box variant="card" height="md" className="p-2 text-center flex items-center justify-center">
+      <Box variant="emerald" height="md" className="p-2 text-center flex items-center justify-center">
         MD
       </Box>
-      <Box variant="card" height="lg" className="p-2 text-center flex items-center justify-center">
+      <Box variant="sky" height="lg" className="p-2 text-center flex items-center justify-center">
         LG
       </Box>
-      <Box variant="card" height="xl" className="p-2 text-center flex items-center justify-center">
+      <Box variant="violet" height="xl" className="p-2 text-center flex items-center justify-center">
         XL
       </Box>
-      <Box variant="card" height="2xl" className="p-2 text-center flex items-center justify-center">
+      <Box variant="rose" height="2xl" className="p-2 text-center flex items-center justify-center">
         2XL
       </Box>
     </div>
@@ -209,26 +316,26 @@ export const Combined: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-8 p-8">
       <Box
-        variant="primary"
+        variant="blue"
         shadow="lg"
         width="lg"
         height="md"
-        className="p-4 text-center text-primary-foreground flex items-center justify-center"
+        className="p-4 text-center flex items-center justify-center"
       >
-        Primary Card
+        Blue Box
         <br />
         Large Shadow
         <br />
         LG Width × MD Height
       </Box>
       <Box
-        variant="destructive"
+        variant="emerald"
         shadow="md"
         width="xl"
         height="sm"
-        className="p-4 text-center text-destructive-foreground flex items-center justify-center"
+        className="p-4 text-center flex items-center justify-center"
       >
-        Destructive Alert
+        Emerald Box
         <br />
         Medium Shadow
         <br />
@@ -238,23 +345,49 @@ export const Combined: Story = {
   ),
 }
 
+// Color with Shadows
+export const ColoredWithShadows: Story = {
+  render: () => (
+    <div className="grid grid-cols-3 gap-6 p-8">
+      <Box variant="blue" shadow="lg" className="p-6 text-center">
+        Blue with Shadow
+      </Box>
+      <Box variant="purple" shadow="lg" className="p-6 text-center">
+        Purple with Shadow
+      </Box>
+      <Box variant="emerald" shadow="lg" className="p-6 text-center">
+        Emerald with Shadow
+      </Box>
+      <Box variant="orange" shadow="lg" className="p-6 text-center">
+        Orange with Shadow
+      </Box>
+      <Box variant="pink" shadow="lg" className="p-6 text-center">
+        Pink with Shadow
+      </Box>
+      <Box variant="cyan" shadow="lg" className="p-6 text-center">
+        Cyan with Shadow
+      </Box>
+    </div>
+  ),
+}
+
 // Semantic HTML Elements
 export const SemanticElements: Story = {
   render: () => (
     <div className="space-y-4">
-      <Box as="header" variant="primary" className="p-4 text-primary-foreground">
+      <Box as="header" variant="blue" className="p-4">
         Header Element
       </Box>
       <Box as="main" variant="card" shadow="sm" className="p-4">
         Main Content Area
       </Box>
-      <Box as="aside" variant="muted" className="p-4">
+      <Box as="aside" variant="zinc" className="p-4">
         Sidebar Content
       </Box>
-      <Box as="section" variant="secondary" className="p-4 text-secondary-foreground">
+      <Box as="section" variant="emerald" className="p-4">
         Section Element
       </Box>
-      <Box as="footer" variant="accent" className="p-4 text-accent-foreground">
+      <Box as="footer" variant="slate" className="p-4">
         Footer Element
       </Box>
     </div>
@@ -264,7 +397,7 @@ export const SemanticElements: Story = {
 // Interactive Playground
 export const Playground: Story = {
   args: {
-    variant: 'card',
+    variant: 'blue',
     shadow: 'md',
     width: 'lg',
     height: 'md',

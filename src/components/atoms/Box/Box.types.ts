@@ -6,6 +6,7 @@ import type React from 'react'
  * Controls the background color and visual appearance.
  */
 export type BoxVariant =
+  // System colors
   | 'default'
   | 'muted'
   | 'primary'
@@ -18,6 +19,30 @@ export type BoxVariant =
   | 'sidebar'
   | 'sidebar-primary'
   | 'sidebar-accent'
+  // Bright colors
+  | 'blue'
+  | 'red'
+  | 'green'
+  | 'yellow'
+  | 'purple'
+  | 'orange'
+  | 'pink'
+  | 'emerald'
+  | 'teal'
+  | 'cyan'
+  | 'sky'
+  | 'indigo'
+  | 'violet'
+  | 'fuchsia'
+  | 'rose'
+  | 'amber'
+  | 'lime'
+  // Neutral colors
+  | 'zinc'
+  | 'slate'
+  | 'gray'
+  | 'neutral'
+  | 'stone'
 
 /**
  * Shadow variant options for the Box component.
@@ -97,8 +122,8 @@ export interface BoxVariants {
  *
  * @example
  * ```tsx
- * <Box as="section" variant="primary" width="full">
- *   Rendered as a section element
+ * <Box variant="blue" width="full">
+ *   Blue colored box
  * </Box>
  * ```
  */

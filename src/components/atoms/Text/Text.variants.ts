@@ -31,7 +31,8 @@ export const textVariants = cva('', {
       900: 'font-black',
     },
     tone: {
-      default: 'text-foreground',
+      default: '',
+      foreground: 'text-foreground',
       muted: 'text-muted-foreground',
       success: 'text-green-600 dark:text-green-400',
       warning: 'text-yellow-600 dark:text-yellow-400',

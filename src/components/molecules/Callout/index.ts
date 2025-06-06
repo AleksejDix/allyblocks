@@ -1,3 +1,3 @@
-export * from './Callout'
+export { Callout, CalloutBody, CalloutClose } from './Callout'
 export * from './Callout.variants'
-export * from './Callout.types'
+export type { CalloutProps, CalloutBodyProps, CalloutCloseProps } from './Callout.types'
