@@ -20,33 +20,37 @@ export type TableProps = React.ComponentProps<'table'> &
     containerClassName?: string
   }
 
-export type TableHeaderProps = React.ComponentProps<'thead'> & {
-  /**
-   * Additional CSS classes for the table header
-   */
-  className?: string
-}
+export type TableHeaderProps = React.ComponentProps<'thead'> &
+  VariantProps<typeof tableHeaderVariants> & {
+    /**
+     * Additional CSS classes for the table header
+     */
+    className?: string
+  }
 
-export type TableBodyProps = React.ComponentProps<'tbody'> & {
-  /**
-   * Additional CSS classes for the table body
-   */
-  className?: string
-}
+export type TableBodyProps = React.ComponentProps<'tbody'> &
+  VariantProps<typeof tableBodyVariants> & {
+    /**
+     * Additional CSS classes for the table body
+     */
+    className?: string
+  }
 
-export type TableFooterProps = React.ComponentProps<'tfoot'> & {
-  /**
-   * Additional CSS classes for the table footer
-   */
-  className?: string
-}
+export type TableFooterProps = React.ComponentProps<'tfoot'> &
+  VariantProps<typeof tableFooterVariants> & {
+    /**
+     * Additional CSS classes for the table footer
+     */
+    className?: string
+  }
 
-export type TableRowProps = React.ComponentProps<'tr'> & {
-  /**
-   * Additional CSS classes for the table row
-   */
-  className?: string
-}
+export type TableRowProps = React.ComponentProps<'tr'> &
+  VariantProps<typeof tableRowVariants> & {
+    /**
+     * Additional CSS classes for the table row
+     */
+    className?: string
+  }
 
 export type TableHeadProps = React.ComponentProps<'th'> &
   VariantProps<typeof tableHeadVariants> & {
@@ -64,16 +68,18 @@ export type TableCellProps = React.ComponentProps<'td'> &
     className?: string
   }
 
-export type TableCaptionProps = React.ComponentProps<'caption'> & {
-  /**
-   * Additional CSS classes for the table caption
-   */
-  className?: string
-}
+export type TableCaptionProps = React.ComponentProps<'caption'> &
+  VariantProps<typeof tableCaptionVariants> & {
+    /**
+     * Additional CSS classes for the table caption
+     */
+    className?: string
+  }
 
-export type TableContainerProps = React.ComponentProps<'div'> & {
-  /**
-   * Additional CSS classes for the table container
-   */
-  className?: string
-}
+export type TableContainerProps = React.ComponentProps<'div'> &
+  VariantProps<typeof tableContainerVariants> & {
+    /**
+     * Additional CSS classes for the table container
+     */
+    className?: string
+  }

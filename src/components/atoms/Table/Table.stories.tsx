@@ -1,5 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from './Table'
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+  TableContainer,
+} from './Table'
 import { Checkbox } from '@/components/atoms/Checkbox'
 import { IconButton } from '@/components/atoms/IconButton'
 import { Icon } from '@/components/atoms/Icon'
@@ -356,5 +366,86 @@ export const TextAlignment: Story = {
         </TableRow>
       </TableBody>
     </Table>
+  ),
+}
+
+export const WithOverflowContainer: Story = {
+  args: {
+    size: 'md',
+    variant: 'bordered',
+  },
+  render: (args) => (
+    <div className="w-full max-w-lg mx-auto p-4 border border-dashed border-muted-foreground/50 rounded-lg">
+      <div className="mb-4 text-sm text-muted-foreground">
+        Container width is limited to demonstrate horizontal scrolling on wide tables
+      </div>
+      <TableContainer>
+        <Table {...args}>
+          <TableCaption>
+            User data table with horizontal scroll for responsive design. The table will scroll horizontally when
+            content exceeds container width.
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>
+                <Checkbox aria-label="Select all" />
+              </TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead>Role</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead align="right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {sampleData.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>
+                  <Checkbox aria-label={`Select ${user.name}`} />
+                </TableCell>
+                <TableCell className="font-medium">{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.role}</TableCell>
+                <TableCell>
+                  <span
+                    className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                      user.status === 'Active'
+                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+                        : 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300'
+                    }`}
+                  >
+                    {user.status}
+                  </span>
+                </TableCell>
+                <TableCell align="right">
+                  <ActionMenu>
+                    <ActionMenuTrigger asChild>
+                      <IconButton variant="ghost" size="sm" aria-label={`Actions for ${user.name}`}>
+                        <Icon name="more-horizontal" />
+                      </IconButton>
+                    </ActionMenuTrigger>
+                    <ActionMenuContent>
+                      <ActionMenuItem onAction={() => console.log(`Edit ${user.name}`)}>
+                        <Icon name="edit" />
+                        Edit
+                      </ActionMenuItem>
+                      <ActionMenuItem onAction={() => console.log(`View ${user.name}`)}>
+                        <Icon name="eye" />
+                        View
+                      </ActionMenuItem>
+                      <ActionMenuSeparator />
+                      <ActionMenuItem className="text-destructive" onAction={() => console.log(`Delete ${user.name}`)}>
+                        <Icon name="trash" />
+                        Delete
+                      </ActionMenuItem>
+                    </ActionMenuContent>
+                  </ActionMenu>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   ),
 }

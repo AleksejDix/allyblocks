@@ -20,6 +20,7 @@ import {
   type TableHeadProps,
   type TableCellProps,
   type TableCaptionProps,
+  type TableContainerProps,
 } from './Table.types'
 
 function Table({ className, containerClassName, size, variant, ...props }: TableProps) {
@@ -58,4 +59,8 @@ function TableCaption({ className, ...props }: TableCaptionProps) {
   return <caption data-slot="table-caption" className={cn(tableCaptionVariants(), className)} {...props} />
 }
 
-export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption }
+function TableContainer({ className, ...props }: TableContainerProps) {
+  return <div data-slot="table-container" className={cn(tableContainerVariants(), className)} {...props} />
+}
+
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption, TableContainer }

@@ -1,5 +1,5 @@
 import '../src/styles/index.css'
-import { withBrand, withNuqs, withI18next } from './decorators'
+import { withBrand, withNuqs, withI18next, withQuery } from './decorators'
 import i18n from '../src/i18n/i18n'
 import type { Preview } from '@storybook/react-vite'
 // import { themes } from 'storybook/theming'
@@ -81,7 +81,7 @@ const globalTypes: Preview['globalTypes'] = {
 }
 
 const preview: Preview = {
-  decorators: [withBrand, withNuqs, withI18next],
+  decorators: [withBrand, withNuqs, withI18next, withQuery],
   globalTypes,
   parameters,
 }
