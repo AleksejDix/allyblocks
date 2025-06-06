@@ -1,53 +1,137 @@
-import { cva } from "class-variance-authority";
+import { cva } from 'class-variance-authority'
 
-export const tableVariants = cva(
-  ["w-full caption-bottom isolate border-collapse -mx-[1px]"],
+export const tableVariants = cva('w-full caption-bottom text-sm', {
+  variants: {
+    size: {
+      sm: [
+        // Header styling
+        '[&_th]:h-8',
+        '[&_th]:px-2',
+        '[&_th]:py-0.5',
+        // Cell styling
+        '[&_td]:px-2',
+        '[&_td]:py-0.5',
+        // Row height
+        '[&_tr]:h-9',
+        // Checkbox positioning - header
+        '[&_th:has([role=checkbox])_[role=checkbox]]:translate-y-[2px]',
+        '[&_th:has([role=checkbox])_[role=checkbox]]:translate-x-[1.5px]',
+        // Cell padding - header
+        '[&_th:has([role=checkbox])]:pl-2',
+        // Checkbox positioning - cell
+        '[&_td:has([role=checkbox])_[role=checkbox]]:translate-y-[2px]',
+        '[&_td:has([role=checkbox])_[role=checkbox]]:translate-x-[1.5px]',
+      ].join(' '),
+
+      md: [
+        // Header styling
+        '[&_th]:h-10',
+        '[&_th]:px-3',
+        '[&_th]:py-1',
+        // Cell styling
+        '[&_td]:px-3',
+        '[&_td]:py-1',
+        // Row height
+        '[&_tr]:h-10',
+        // Checkbox positioning - header
+        '[&_th:has([role=checkbox])_[role=checkbox]]:translate-y-[2px]',
+        '[&_th:has([role=checkbox])_[role=checkbox]]:translate-x-[0px]',
+        // Cell padding - header
+        '[&_th:has([role=checkbox])]:pl-3',
+        // Checkbox positioning - cell
+        '[&_td:has([role=checkbox])_[role=checkbox]]:translate-y-[2px]',
+        '[&_td:has([role=checkbox])_[role=checkbox]]:translate-x-[0px]',
+      ].join(' '),
+
+      lg: [
+        // Header styling
+        '[&_th]:h-12',
+        '[&_th]:px-3',
+        '[&_th]:py-1',
+        // Cell styling
+        '[&_td]:px-3',
+        '[&_td]:py-1',
+        // Row height
+        '[&_tr]:h-12',
+        // Checkbox positioning - header
+        '[&_th:has([role=checkbox])_[role=checkbox]]:translate-y-[2px]',
+        '[&_th:has([role=checkbox])_[role=checkbox]]:translate-x-[-2px]',
+        // Cell padding - header
+        '[&_th:has([role=checkbox])]:pl-4',
+        '[&_td:has([role=checkbox])]:pl-4',
+        // Checkbox positioning - cell
+        '[&_td:has([role=checkbox])_[role=checkbox]]:translate-y-[2px]',
+        '[&_td:has([role=checkbox])_[role=checkbox]]:translate-x-[-2px]',
+      ].join(' '),
+    },
+    variant: {
+      striped: '[&_tbody_tr:nth-child(even)]:bg-muted/25 [&_thead]:bg-muted/50',
+      bordered:
+        'border border-border [&_th]:border-r [&_td]:border-r [&_th:last-child]:border-r-0 [&_td:last-child]:border-r-0 [&_thead]:bg-muted/50',
+      'striped-bordered':
+        '[&_tbody_tr:nth-child(even)]:bg-muted/25 [&_thead]:bg-muted/50 border border-border [&_th]:border-r [&_td]:border-r [&_th:last-child]:border-r-0 [&_td:last-child]:border-r-0',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+})
+
+export const tableContainerVariants = cva('relative w-full overflow-x-auto', {
+  variants: {},
+  defaultVariants: {},
+})
+
+export const tableHeaderVariants = cva('[&_tr]:border-b', {
+  variants: {},
+  defaultVariants: {},
+})
+
+export const tableBodyVariants = cva('[&_tr:last-child]:border-0', {
+  variants: {},
+  defaultVariants: {},
+})
+
+export const tableRowVariants = cva('border-b ', {
+  variants: {},
+  defaultVariants: {},
+})
+
+export const tableFooterVariants = cva('bg-muted/50 border-t font-medium [&>tr]:last:border-b-0', {
+  variants: {},
+  defaultVariants: {},
+})
+
+export const tableHeadVariants = cva(
+  'text-left align-middle font-medium text-foreground [&:has([role=checkbox])]:w-9',
   {
     variants: {
-      variant: {
-        default:
-          "[&>[role=rowgroup]>[role=cell]]:border [&>[role=rowgroup]>[role=cell]]:border [&>[role=rowgroup]>[role=cell]]:border",
-        striped: [
-          "[&>[role=rowgroup]+[role=rowgroup]>[role=row]:nth-child(odd)]:bg-muted",
-        ],
-        divided:
-          "[&>[role=rowgroup]_[role=row]:not(:last-child)]:shadow-[inset_0_-1px_0_0_var(--color-input)]",
-        bordered: [
-          `[&_tr]:border dark:border-zinc-800`,
-          `[&>[role=rowgroup]+[role=rowgroup]_[role=row]:first-child]:rounded-t-md`,
-        ],
-        spectrum: [
-          "[&>[role=rowgroup]>[role=cell]]:border [&>[role=rowgroup]>[role=cell]]:border [&>[role=rowgroup]>tr::before]:size-15",
-          "[&>[role=rowgroup]>tr::before]:bg-muted [&>[role=rowgroup]>tr::before]:rounded-full ",
-        ],
-      },
-      size: {
-        sm: "text-sm",
-        md: "text-base",
-        lg: "text-lg",
-      },
-      density: {
-        compact: [
-          "[&>[role=rowgroup]_[role=columnheader]]:px-3 [&>[role=rowgroup]_[role=columnheader]]:py-2",
-          "[&>[role=rowgroup]_[role=cell]]:px-3 [&>[role=rowgroup]_[role=cell]]:py-2",
-          "[&>[role=rowgroup]_[role=cell]:has([data-slot=button])]:p-0.5",
-        ],
-        default: [
-          "[&>[role=rowgroup]_[role=columnheader]]:px-3 [&>[role=rowgroup]_[role=columnheader]]:py-3",
-          "[&>[role=rowgroup]_[role=cell]]:px-3 [&>[role=rowgroup]_[role=cell]]:py-3",
-          "[&>[role=rowgroup]_[role=cell]:has([data-slot=button])]:py-1 [&>[role=rowgroup]_[role=cell]:has([data-slot=button])]:px-1",
-        ],
-        relaxed: [
-          "[&>[role=rowgroup]_[role=columnheader]]:px-4 [&>[role=rowgroup]_[role=columnheader]]:py-4",
-          "[&>[role=rowgroup]_[role=cell]]:px-4 [&>[role=rowgroup]_[role=cell]]:py-4",
-          "[&>[role=rowgroup]_[role=cell]:has([data-slot=button])]:py-2 [&>[role=rowgroup]_[role=cell]:has([data-slot=button])]:px-2",
-        ],
+      align: {
+        left: 'text-left',
+        center: 'text-center',
+        right: 'text-right',
       },
     },
     defaultVariants: {
-      variant: "bordered",
-      size: "sm",
-      density: "default",
+      align: 'left',
     },
-  }
-);
+  },
+)
+
+export const tableCellVariants = cva('align-middle [&:has([role=checkbox])]:w-9', {
+  variants: {
+    align: {
+      left: 'text-left',
+      center: 'text-center',
+      right: 'text-right',
+    },
+  },
+  defaultVariants: {
+    align: 'left',
+  },
+})
+
+export const tableCaptionVariants = cva('text-muted-foreground mt-4 text-sm', {
+  variants: {},
+  defaultVariants: {},
+})

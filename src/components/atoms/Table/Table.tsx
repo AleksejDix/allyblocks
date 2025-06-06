@@ -1,5 +1,16 @@
-import { cn } from "@/lib/utils";
-import { tableVariants } from "./Table.variants";
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import {
+  tableVariants,
+  tableContainerVariants,
+  tableHeaderVariants,
+  tableBodyVariants,
+  tableRowVariants,
+  tableFooterVariants,
+  tableCellVariants,
+  tableHeadVariants,
+  tableCaptionVariants,
+} from './Table.variants'
 import {
   type TableProps,
   type TableHeaderProps,
@@ -8,102 +19,43 @@ import {
   type TableRowProps,
   type TableHeadProps,
   type TableCellProps,
-} from "./Table.types";
+  type TableCaptionProps,
+} from './Table.types'
 
-function Table({ className, variant, size, density, ...props }: TableProps) {
+function Table({ className, containerClassName, size, variant, ...props }: TableProps) {
   return (
-    <div
-      data-slot="table-container"
-      className="relative w-full overflow-x-auto border-l border-r"
-    >
-      <table
-        data-slot="table"
-        role="grid"
-        className={cn(tableVariants({ variant, size, density, className }))}
-        {...props}
-      />
+    <div data-slot="table-container" className={cn(tableContainerVariants(), containerClassName)}>
+      <table data-slot="table" className={cn(tableVariants({ size, variant }), className)} {...props} />
     </div>
-  );
+  )
 }
 
 function TableHeader({ className, ...props }: TableHeaderProps) {
-  return (
-    <thead
-      data-slot="table-header"
-      role="rowgroup"
-      className={cn(" border-collapse", className)}
-      {...props}
-    />
-  );
+  return <thead data-slot="table-header" className={cn(tableHeaderVariants(), className)} {...props} />
 }
 
 function TableBody({ className, ...props }: TableBodyProps) {
-  return (
-    <tbody
-      data-slot="table-body"
-      role="rowgroup"
-      className={cn("", className)}
-      {...props}
-    />
-  );
+  return <tbody data-slot="table-body" className={cn(tableBodyVariants(), className)} {...props} />
 }
 
 function TableFooter({ className, ...props }: TableFooterProps) {
-  return (
-    <div
-      data-slot="table-footer"
-      role="rowgroup"
-      className={cn(" font-medium", className)}
-      {...props}
-    />
-  );
+  return <tfoot data-slot="table-footer" className={cn(tableFooterVariants(), className)} {...props} />
 }
 
 function TableRow({ className, ...props }: TableRowProps) {
-  return (
-    <tr
-      data-slot="table-row"
-      role="row"
-      className={cn("", "transition-colors", className)}
-      {...props}
-    />
-  );
+  return <tr data-slot="table-row" className={cn(tableRowVariants(), className)} {...props} />
 }
 
-function TableHead({ className, ...props }: TableHeadProps) {
-  return (
-    <th
-      role="columnheader"
-      data-slot="table-head"
-      className={cn(
-        "text-foreground text-left font-medium whitespace-nowrap",
-        className
-      )}
-      {...props}
-    />
-  );
+function TableHead({ className, align, ...props }: TableHeadProps) {
+  return <th data-slot="table-head" className={cn(tableHeadVariants({ align }), className)} {...props} />
 }
 
-function TableCell({ className, ...props }: TableCellProps) {
-  return (
-    <td
-      role="cell"
-      data-slot="table-cell"
-      className={cn(
-        "align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
-        className
-      )}
-      {...props}
-    />
-  );
+function TableCell({ className, align, ...props }: TableCellProps) {
+  return <td data-slot="table-cell" className={cn(tableCellVariants({ align }), className)} {...props} />
 }
 
-export {
-  Table,
-  TableHeader,
-  TableBody,
-  TableFooter,
-  TableHead,
-  TableRow,
-  TableCell,
-};
+function TableCaption({ className, ...props }: TableCaptionProps) {
+  return <caption data-slot="table-caption" className={cn(tableCaptionVariants(), className)} {...props} />
+}
+
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption }

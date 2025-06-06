@@ -726,89 +726,91 @@ export const AnalyticsCard: Story = {
       </CardHeader>
 
       <CardBody>
-        <Stack gap="xl">
-          <Stack gap="md">
-            <Stack justify="between" align="center" direction="row">
-              <Text type="body" weight={500}>
-                Top Products
-              </Text>
-              <Button variant="ghost" size="sm">
-                View All
-              </Button>
+        <Bleed>
+          <Stack gap="xl">
+            <Stack gap="md">
+              <Stack justify="between" align="center" direction="row">
+                <Text type="body" weight={500}>
+                  Top Products
+                </Text>
+                <Button variant="ghost" size="sm">
+                  View All
+                </Button>
+              </Stack>
+              <Table variant="striped">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Product</TableHead>
+                    <TableHead>Sales</TableHead>
+                    <TableHead>Revenue</TableHead>
+                    <TableHead>Growth</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Wireless Headphones</TableCell>
+                    <TableCell>1,234</TableCell>
+                    <TableCell>$369,966</TableCell>
+                    <TableCell className="text-green-600">+12.5%</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Smartphone Case</TableCell>
+                    <TableCell>856</TableCell>
+                    <TableCell>$25,680</TableCell>
+                    <TableCell className="text-green-600">+8.2%</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>USB Cable</TableCell>
+                    <TableCell>2,143</TableCell>
+                    <TableCell>$42,860</TableCell>
+                    <TableCell className="text-red-600">-3.1%</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Stack>
-            <Table variant="striped" density="compact">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Product</TableHead>
-                  <TableHead>Sales</TableHead>
-                  <TableHead>Revenue</TableHead>
-                  <TableHead>Growth</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Wireless Headphones</TableCell>
-                  <TableCell>1,234</TableCell>
-                  <TableCell>$369,966</TableCell>
-                  <TableCell className="text-green-600">+12.5%</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Smartphone Case</TableCell>
-                  <TableCell>856</TableCell>
-                  <TableCell>$25,680</TableCell>
-                  <TableCell className="text-green-600">+8.2%</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>USB Cable</TableCell>
-                  <TableCell>2,143</TableCell>
-                  <TableCell>$42,860</TableCell>
-                  <TableCell className="text-red-600">-3.1%</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </Stack>
 
-          <Stack gap="md">
-            <Stack justify="between" align="center" direction="row">
-              <Text type="body" weight={500}>
-                Regional Performance
-              </Text>
-              <Button variant="ghost" size="sm">
-                Export
-              </Button>
+            <Stack gap="md">
+              <Stack justify="between" align="center" direction="row">
+                <Text type="body" weight={500}>
+                  Regional Performance
+                </Text>
+                <Button variant="ghost" size="sm">
+                  Export
+                </Button>
+              </Stack>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Region</TableHead>
+                    <TableHead>Orders</TableHead>
+                    <TableHead>Revenue</TableHead>
+                    <TableHead>Avg. Order Value</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>North America</TableCell>
+                    <TableCell>5,467</TableCell>
+                    <TableCell>$1,634,010</TableCell>
+                    <TableCell>$298.89</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Europe</TableCell>
+                    <TableCell>3,892</TableCell>
+                    <TableCell>$1,167,600</TableCell>
+                    <TableCell>$299.95</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Asia Pacific</TableCell>
+                    <TableCell>2,156</TableCell>
+                    <TableCell>$646,800</TableCell>
+                    <TableCell>$300.00</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
             </Stack>
-            <Table variant="divided" density="default">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Region</TableHead>
-                  <TableHead>Orders</TableHead>
-                  <TableHead>Revenue</TableHead>
-                  <TableHead>Avg. Order Value</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>North America</TableCell>
-                  <TableCell>5,467</TableCell>
-                  <TableCell>$1,634,010</TableCell>
-                  <TableCell>$298.89</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Europe</TableCell>
-                  <TableCell>3,892</TableCell>
-                  <TableCell>$1,167,600</TableCell>
-                  <TableCell>$299.95</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Asia Pacific</TableCell>
-                  <TableCell>2,156</TableCell>
-                  <TableCell>$646,800</TableCell>
-                  <TableCell>$300.00</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
           </Stack>
-        </Stack>
+        </Bleed>
       </CardBody>
     </Card>
   ),

@@ -59,6 +59,7 @@ export const Default: Story = {
 export const WithCheckboxes: Story = {
   args: {
     size: 'sm',
+    variant: 'striped-bordered',
   },
   render: (args) => (
     <Table {...args}>
@@ -189,6 +190,93 @@ export const Large: Story = {
           <TableRow key={user.id}>
             <TableCell>{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+}
+
+export const Striped: Story = {
+  args: {
+    variant: 'striped',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Table with alternating row background colors for improved readability</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Role</TableHead>
+          <TableHead>Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {sampleData.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.role}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+}
+
+export const Bordered: Story = {
+  args: {
+    variant: 'bordered',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Table with borders around all cells for clear data separation</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Role</TableHead>
+          <TableHead>Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {sampleData.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.role}</TableCell>
+            <TableCell>{user.status}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  ),
+}
+
+export const StripedBordered: Story = {
+  args: {
+    variant: 'striped-bordered',
+  },
+  render: (args) => (
+    <Table {...args}>
+      <TableCaption>Table with both alternating row colors and cell borders for maximum clarity</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Role</TableHead>
+          <TableHead>Status</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {sampleData.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
+            <TableCell>{user.role}</TableCell>
             <TableCell>{user.status}</TableCell>
           </TableRow>
         ))}
