@@ -199,6 +199,52 @@ export const Colors: Story = {
   },
 }
 
+export const InvertedTheme: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6 p-4">
+      <div className="p-4 bg-white rounded-md">
+        <h3 className="text-sm font-medium mb-3 text-gray-900">Default Theme (Light Backgrounds)</h3>
+        <div className="flex flex-wrap gap-3">
+          <Badge color="blue">Most popular</Badge>
+          <Badge color="green">Available</Badge>
+          <Badge color="red">Limited</Badge>
+          <Badge color="purple">Premium</Badge>
+          <Badge color="gray">Default</Badge>
+        </div>
+      </div>
+
+      <div className="p-4 bg-gray-900 rounded-md">
+        <h3 className="text-sm font-medium mb-3 text-white">Inverted Theme (Dark Backgrounds)</h3>
+        <div className="flex flex-wrap gap-3">
+          <Badge color="blue" theme="inverted">
+            Most popular
+          </Badge>
+          <Badge color="green" theme="inverted">
+            Available
+          </Badge>
+          <Badge color="red" theme="inverted">
+            Limited
+          </Badge>
+          <Badge color="purple" theme="inverted">
+            Premium
+          </Badge>
+          <Badge color="gray" theme="inverted">
+            Default
+          </Badge>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Badge themes for different background contexts. Use `theme="inverted"` for badges on dark backgrounds like callouts, price cards, or modals. The inverted theme uses dark mode colors to ensure proper contrast.',
+      },
+    },
+  },
+}
+
 // Story showcasing a badge with an icon
 export const WithIcon: Story = {
   args: {

@@ -10,6 +10,7 @@ import type { BadgeProps } from './Badge.types'
  * Features:
  * - 22+ color variants with WCAG AAA contrast compliance
  * - 3 size variants (sm, md, lg)
+ * - Theme variants (default, inverted) for different backgrounds
  * - Automatic dark mode support
  * - Can render as child element via asChild prop
  * - Optimized for icons and text content
@@ -18,6 +19,9 @@ import type { BadgeProps } from './Badge.types'
  * ```tsx
  * // Basic usage
  * <Badge color="blue" size="md">New</Badge>
+ *
+ * // Inverted for dark backgrounds
+ * <Badge color="blue" theme="inverted">Most popular</Badge>
  *
  * // With icon
  * <Badge color="green">
@@ -31,7 +35,15 @@ import type { BadgeProps } from './Badge.types'
  * </Badge>
  * ```
  */
-export const Badge = memo(function Badge({ className, color, size, asChild = false, children, ...props }: BadgeProps) {
+export const Badge = memo(function Badge({
+  className,
+  color,
+  size,
+  theme,
+  asChild = false,
+  children,
+  ...props
+}: BadgeProps) {
   const Comp = asChild ? Slot : 'span'
 
   // Edge case: Handle empty children gracefully
@@ -45,7 +57,7 @@ export const Badge = memo(function Badge({ className, color, size, asChild = fal
   }
 
   return (
-    <Comp data-slot="badge" className={cn(badgeVariants({ color, size }), className)} {...props}>
+    <Comp data-slot="badge" className={cn(badgeVariants({ color, size, theme }), className)} {...props}>
       {children}
     </Comp>
   )

@@ -50,6 +50,10 @@ export const badgeVariants = cva(
   ],
   {
     variants: {
+      theme: {
+        default: '',
+        inverted: '',
+      },
       color: {
         // Bright Colors - Standard Pattern
         blue: [
@@ -320,13 +324,89 @@ export const badgeVariants = cva(
         ],
       },
       size: {
-        sm: ['px-1.5', 'py-0.5', 'min-w-5.5', 'text-xs', '[&>svg]:size-3'],
-        md: ['px-2', 'py-1', 'text-xs', '[&>svg]:size-4'],
-        lg: ['px-2.5', 'py-1.5', 'text-xs', '[&>svg]:size-5'],
+        sm: ['px-2', 'py-0.5', 'text-xs', '[&>svg]:size-3'],
+        md: ['px-2.5', 'py-0.5', 'text-sm', '[&>svg]:size-3.5'],
+        lg: ['px-3', 'py-1', 'text-sm', '[&>svg]:size-4'],
       },
     },
+    compoundVariants: [
+      // Inverted theme variants - vibrant colors for dark backgrounds
+      {
+        theme: 'inverted',
+        color: 'blue',
+        className: [
+          'bg-blue-500',
+          'text-white',
+          'border-blue-400',
+          '[a&]:hover:bg-blue-600',
+          '[button&]:hover:bg-blue-600',
+          '[button&]:disabled:hover:bg-blue-500',
+        ],
+      },
+      {
+        theme: 'inverted',
+        color: 'green',
+        className: [
+          'bg-green-500',
+          'text-white',
+          'border-green-400',
+          '[a&]:hover:bg-green-600',
+          '[button&]:hover:bg-green-600',
+          '[button&]:disabled:hover:bg-green-500',
+        ],
+      },
+      {
+        theme: 'inverted',
+        color: 'red',
+        className: [
+          'bg-red-500',
+          'text-white',
+          'border-red-400',
+          '[a&]:hover:bg-red-600',
+          '[button&]:hover:bg-red-600',
+          '[button&]:disabled:hover:bg-red-500',
+        ],
+      },
+      {
+        theme: 'inverted',
+        color: 'purple',
+        className: [
+          'bg-purple-500',
+          'text-white',
+          'border-purple-400',
+          '[a&]:hover:bg-purple-600',
+          '[button&]:hover:bg-purple-600',
+          '[button&]:disabled:hover:bg-purple-500',
+        ],
+      },
+      {
+        theme: 'inverted',
+        color: 'yellow',
+        className: [
+          'bg-yellow-400',
+          'text-yellow-900',
+          'border-yellow-300',
+          '[a&]:hover:bg-yellow-500',
+          '[button&]:hover:bg-yellow-500',
+          '[button&]:disabled:hover:bg-yellow-400',
+        ],
+      },
+      {
+        theme: 'inverted',
+        color: 'gray',
+        className: [
+          'bg-white',
+          'text-gray-900',
+          'border-gray-200',
+          '[a&]:hover:bg-gray-100',
+          '[button&]:hover:bg-gray-100',
+          '[button&]:disabled:hover:bg-white',
+        ],
+      },
+    ],
     defaultVariants: {
-      color: 'zinc',
+      theme: 'default',
+      color: 'blue',
       size: 'md',
     },
   },
