@@ -6,6 +6,7 @@ import { ActionGroup } from '../ActionGroup'
 import { Button } from '../../atoms/Button'
 import { Text } from '../../atoms/Text'
 import { Stack } from '../../atoms/Stack'
+import { Badge } from '../../atoms/Badge'
 
 const meta = {
   component: Callout,
@@ -87,11 +88,14 @@ export const WithSecondaryAction: Story = {
 // Callout with primary, secondary, and tertiary actions
 export const WithTertiaryAction: Story = {
   render: () => (
-    <Callout>
+    <Callout className="bg-linear-[-70deg] from-black from-[200px] to-[201px] to-white">
       <Stack gap="xs">
-        <Text as="h2" type="heading" size="lg">
-          Complete your health profile
-        </Text>
+        <div className="flex items-center justify-between">
+          <Text as="h2" type="heading" size="lg">
+            Complete your health profile
+          </Text>
+          <Badge color="yellow">2 minutes to complete</Badge>
+        </div>
         <Text tone="muted">
           Help us provide better care by completing your medical history and current medications list.
         </Text>
