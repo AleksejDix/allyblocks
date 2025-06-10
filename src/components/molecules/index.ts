@@ -17,4 +17,5 @@ export * from './Choice'
 export * from './Masonry'
 export * from './BulletList'
 export * from './PriceCard'
+export * from './ImageComparison'
 // Add other molecule components as needed
