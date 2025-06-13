@@ -1,5 +1,5 @@
-import { useFormContext } from "react-hook-form";
-import type { TextareaFieldProps } from "../Field.types";
+import { useFormContext } from 'react-hook-form'
+import type { TextareaFieldProps } from '../Field.types'
 import {
   FormField,
   FormItem,
@@ -7,14 +7,14 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { Required } from "@/components/atoms/Required";
-import { Textarea } from "@/components/atoms/Textarea";
+} from '@/components/molecules/Form/Form'
+import { Required } from '@/components/atoms/Required'
+import { Textarea } from '@/components/atoms/Textarea'
 
 // Add CSS property type definition for field-sizing
-declare module "react" {
+declare module 'react' {
   interface CSSProperties {
-    "field-sizing"?: "content" | "normal";
+    'field-sizing'?: 'content' | 'normal'
   }
 }
 
@@ -30,14 +30,13 @@ export function FieldTextarea({
   style,
   ...props
 }: TextareaFieldProps) {
-  const { control, getFieldState } = useFormContext();
-  const fieldState = getFieldState(name);
+  const { control } = useFormContext()
 
   return (
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel>
             <div className="flex items-center">
@@ -52,8 +51,8 @@ export function FieldTextarea({
                 ...style,
                 minHeight: minHeight ? `${minHeight}px` : undefined,
                 maxHeight: maxHeight ? `${maxHeight}px` : undefined,
-                resize: autoResize ? "none" : "vertical",
-                "field-sizing": autoResize ? "content" : "normal",
+                resize: autoResize ? 'none' : 'vertical',
+                'field-sizing': autoResize ? 'content' : 'normal',
               }}
               aria-invalid={!!fieldState.error}
               aria-required={required}
@@ -66,5 +65,5 @@ export function FieldTextarea({
         </FormItem>
       )}
     />
-  );
+  )
 }
