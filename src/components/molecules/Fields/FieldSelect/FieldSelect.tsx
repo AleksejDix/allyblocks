@@ -1,6 +1,6 @@
-import { useFormContext } from "react-hook-form";
-import { type SelectFieldProps } from "../Field.types";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { type SelectFieldProps } from '../Field.types'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -8,14 +8,8 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/atoms/Select";
+} from '@/components/molecules/Form/Form'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms/Select'
 
 export function FieldSelect({
   name,
@@ -27,8 +21,8 @@ export function FieldSelect({
   disabled = false,
   className,
 }: SelectFieldProps) {
-  const { control, getFieldState } = useFormContext();
-  const fieldState = getFieldState(name);
+  const { control, getFieldState } = useFormContext()
+  const fieldState = getFieldState(name)
 
   return (
     <FormField
@@ -46,15 +40,8 @@ export function FieldSelect({
             </div>
           </FormLabel>
           <FormControl>
-            <Select
-              onValueChange={field.onChange}
-              defaultValue={field.value}
-              disabled={disabled}
-            >
-              <SelectTrigger
-                className={className}
-                aria-invalid={!!fieldState.error}
-              >
+            <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
+              <SelectTrigger className={className} aria-invalid={!!fieldState.error}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent>
@@ -71,5 +58,5 @@ export function FieldSelect({
         </FormItem>
       )}
     />
-  );
+  )
 }

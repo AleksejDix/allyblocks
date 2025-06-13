@@ -1,237 +1,126 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { within, expect } from "storybook/test";
-import { useForm } from "react-hook-form";
-import { Form } from "@/components/molecules/Form/Form";
-import { FieldUpload } from "./FieldUpload";
-import { Button } from "@/components/atoms/Button/Button";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { within, expect } from 'storybook/test'
+import { FieldUpload } from './FieldUpload'
+import { withForm } from '../decorators/FormDecorator'
 
 const meta: Meta<typeof FieldUpload> = {
   component: FieldUpload,
   parameters: {},
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     name: {
-      control: "text",
-      description: "The name of the field",
+      control: 'text',
+      description: 'The name of the field',
     },
     label: {
-      control: "text",
-      description: "The label text for the field",
+      control: 'text',
+      description: 'The label text for the field',
     },
     description: {
-      control: "text",
-      description: "Optional description text",
+      control: 'text',
+      description: 'Optional description text',
     },
     required: {
-      control: "boolean",
-      description: "Whether the field is required",
+      control: 'boolean',
+      description: 'Whether the field is required',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the field is disabled",
+      control: 'boolean',
+      description: 'Whether the field is disabled',
     },
     accept: {
-      control: "text",
+      control: 'text',
       description: "Accepted file types (e.g., '.jpg,.png,.pdf')",
     },
     multiple: {
-      control: "boolean",
-      description: "Allow multiple file uploads",
+      control: 'boolean',
+      description: 'Allow multiple file uploads',
     },
     maxSize: {
-      control: "number",
-      description: "Maximum file size in bytes",
+      control: 'number',
+      description: 'Maximum file size in bytes',
     },
     helpText: {
-      control: "text",
-      description: "Help text for upload instructions",
+      control: 'text',
+      description: 'Help text for upload instructions',
     },
   },
-};
-
-export default meta;
-type Story = StoryObj<typeof FieldUpload>;
-
-type SingleFileFormValues = {
-  document: File | null;
-};
-
-type MultiFileFormValues = {
-  documents: FileList | null;
-};
-
-function BasicUploadForm() {
-  const schema = z.object({
-    document: z
-      .instanceof(File, { message: "Please upload a file" })
-      .refine((file) => file.size <= 5 * 1024 * 1024, {
-        message: "File size must be less than 5MB",
-      }),
-  });
-
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
-  });
-
-  function onSubmit(values: z.infer<typeof schema>) {
-    alert(
-      JSON.stringify({
-        name: values.document.name,
-        size: values.document.size,
-      }),
-    );
-  }
-
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[400px]"
-      >
-        <FieldUpload
-          name="document"
-          label="Upload Document"
-          description="Upload your document in PDF format"
-          accept=".pdf"
-          required
-          maxSize={5 * 1024 * 1024} // 5MB
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  );
 }
 
-function MultipleUploadForm() {
-  const form = useForm<MultiFileFormValues>();
+export default meta
+type Story = StoryObj<typeof FieldUpload>
 
-  function onSubmit(values: MultiFileFormValues) {
-    if (values.documents) {
-      const files = Array.from(values.documents).map((file) => ({
-        name: file.name,
-        size: file.size,
-      }));
-      alert(JSON.stringify(files));
-    }
-  }
-
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[400px]"
-      >
-        <FieldUpload
-          name="documents"
-          label="Upload Images"
-          description="Upload one or more image files"
-          accept=".jpg,.jpeg,.png,.gif"
-          multiple
-          helpText="Drag and drop image files or click to browse"
-        />
-        <Button type="submit">Upload Images</Button>
-      </form>
-    </Form>
-  );
-}
-
-function DisabledUploadForm() {
-  const form = useForm<SingleFileFormValues>();
-
-  function onSubmit(values: SingleFileFormValues) {
-    // This won't be called since the form is disabled
-    alert(JSON.stringify(values));
-  }
-
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[400px]"
-      >
-        <FieldUpload
-          name="document"
-          label="Upload Document"
-          description="This upload field is disabled"
-          disabled
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  );
-}
-
-function CustomUploadForm() {
-  const form = useForm<SingleFileFormValues>();
-
-  function onSubmit(values: SingleFileFormValues) {
-    alert(
-      values.document
-        ? JSON.stringify({ name: values.document.name })
-        : "No file",
-    );
-  }
-
-  function validateFile(file: File) {
-    // Only allow PDF files that start with "report-"
-    if (!file.name.startsWith("report-")) {
-      return "Filename must start with 'report-'";
-    }
-    return null;
-  }
-
-  return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[400px]"
-      >
-        <FieldUpload
-          name="document"
-          label="Upload Report"
-          description="Upload a report file (must start with 'report-')"
-          accept=".pdf"
-          validateFile={validateFile}
-          helpText="File name must start with 'report-'"
-        />
-        <Button type="submit">Submit Report</Button>
-      </form>
-    </Form>
-  );
-}
-
-// Basic file upload
-export const Basic: Story = {
-  render: () => <BasicUploadForm />,
+export const Default: Story = {
+  decorators: [withForm],
+  args: {
+    name: 'document',
+    label: 'Upload Document',
+    description: 'Upload your document in PDF format',
+    accept: '.pdf',
+    required: true,
+    maxSize: 5 * 1024 * 1024, // 5MB
+  },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const uploadField = canvas.getByLabelText(/Upload Document/i);
+    const canvas = within(canvasElement)
+    const uploadField = canvas.getByLabelText(/Upload Document/i)
 
     // Check that the upload field is accessible and can be interacted with
-    await expect(uploadField).toBeInTheDocument();
+    await expect(uploadField).toBeInTheDocument()
   },
-};
+}
 
-// Multiple file upload
 export const MultipleFiles: Story = {
-  render: () => <MultipleUploadForm />,
-};
+  decorators: [withForm],
+  args: {
+    name: 'documents',
+    label: 'Upload Images',
+    description: 'Upload one or more image files',
+    accept: '.jpg,.jpeg,.png,.gif',
+    multiple: true,
+    helpText: 'Drag and drop image files or click to browse',
+  },
+}
 
-// Disabled upload
+export const WithHelpText: Story = {
+  decorators: [withForm],
+  args: {
+    name: 'file',
+    label: 'Upload File',
+    helpText: 'Drag and drop your file here or click to browse',
+  },
+}
+
+export const Required: Story = {
+  decorators: [withForm],
+  args: {
+    name: 'document',
+    label: 'Required Document',
+    required: true,
+  },
+}
+
+export const WithDescription: Story = {
+  decorators: [withForm],
+  args: {
+    name: 'document',
+    label: 'Upload Document',
+    description: 'Please upload a valid document file',
+  },
+}
+
 export const Disabled: Story = {
-  render: () => <DisabledUploadForm />,
+  decorators: [withForm],
+  args: {
+    name: 'document',
+    label: 'Upload Document',
+    description: 'This upload field is disabled',
+    disabled: true,
+  },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const uploadField = canvas.getByLabelText(/Upload Document/i);
+    const canvas = within(canvasElement)
+    const uploadField = canvas.getByLabelText(/Upload Document/i)
 
     // Check that the field is properly disabled
-    await expect(uploadField).toBeDisabled();
+    await expect(uploadField).toBeDisabled()
   },
-};
-
-// Custom validation
-export const CustomValidation: Story = {
-  render: () => <CustomUploadForm />,
-};
+}

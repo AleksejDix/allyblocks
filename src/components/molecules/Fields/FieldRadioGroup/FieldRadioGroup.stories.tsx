@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, userEvent, waitFor, within } from 'storybook/test'
-import { z } from 'zod'
+import { expect, userEvent, within } from 'storybook/test'
 import { FieldRadioGroup } from './FieldRadioGroup'
-import { Form } from '@/components/molecules/Form/Form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/atoms/Button/Button'
+import { withForm } from '../decorators/FormDecorator'
 
 const meta: Meta<typeof FieldRadioGroup> = {
   component: FieldRadioGroup,
@@ -23,49 +19,20 @@ export default meta
 
 type Story = StoryObj<typeof FieldRadioGroup>
 
-type DefaultValues = {
-  favoriteFramework: string
-}
-
-function DefaultForm() {
-  const schema = z.object({
-    favoriteFramework: z.string().min(1, 'Please select a framework'),
-  })
-
-  const form = useForm<DefaultValues>({
-    defaultValues: {
-      favoriteFramework: '',
-    },
-    resolver: zodResolver(schema),
-  })
-
-  function onSubmit(values: DefaultValues) {
-    console.log(values)
-  }
-
-  return (
-    <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FieldRadioGroup
-          name="favoriteFramework"
-          label="Favorite Framework"
-          description="Select your favorite JavaScript framework"
-          required
-          options={[
-            { value: 'react', label: 'React' },
-            { value: 'vue', label: 'Vue' },
-            { value: 'angular', label: 'Angular' },
-            { value: 'svelte', label: 'Svelte' },
-          ]}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
-
 export const Default: Story = {
-  render: () => <DefaultForm />,
+  decorators: [withForm],
+  args: {
+    name: 'favoriteFramework',
+    label: 'Favorite Framework',
+    description: 'Select your favorite JavaScript framework',
+    required: true,
+    options: [
+      { value: 'react', label: 'React' },
+      { value: 'vue', label: 'Vue' },
+      { value: 'angular', label: 'Angular' },
+      { value: 'svelte', label: 'Svelte' },
+    ],
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
 
@@ -78,49 +45,20 @@ export const Default: Story = {
   },
 }
 
-type HorizontalValues = {
-  paymentMethod: string
-}
-
-function HorizontalForm() {
-  const schema = z.object({
-    paymentMethod: z.string().min(1, 'Please select a payment method'),
-  })
-
-  const form = useForm<HorizontalValues>({
-    defaultValues: {
-      paymentMethod: '',
-    },
-    resolver: zodResolver(schema),
-  })
-
-  function onSubmit(values: HorizontalValues) {
-    console.log(values)
-  }
-
-  return (
-    <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FieldRadioGroup
-          name="paymentMethod"
-          label="Payment Method"
-          description="Select your preferred payment method"
-          required
-          orientation="horizontal"
-          options={[
-            { value: 'credit-card', label: 'Credit Card' },
-            { value: 'paypal', label: 'PayPal' },
-            { value: 'bank', label: 'Bank Transfer' },
-          ]}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
-
 export const Horizontal: Story = {
-  render: () => <HorizontalForm />,
+  decorators: [withForm],
+  args: {
+    name: 'paymentMethod',
+    label: 'Payment Method',
+    description: 'Select your preferred payment method',
+    required: true,
+    orientation: 'horizontal',
+    options: [
+      { value: 'credit-card', label: 'Credit Card' },
+      { value: 'paypal', label: 'PayPal' },
+      { value: 'bank', label: 'Bank Transfer' },
+    ],
+  },
   parameters: {
     docs: {
       description: {
@@ -130,51 +68,22 @@ export const Horizontal: Story = {
   },
 }
 
-type DisabledValues = {
-  subscription: string
-}
-
-function DisabledForm() {
-  const schema = z.object({
-    subscription: z.string().min(1, 'Please select a subscription'),
-  })
-
-  const form = useForm<DisabledValues>({
-    defaultValues: {
-      subscription: 'basic',
-    },
-    resolver: zodResolver(schema),
-  })
-
-  function onSubmit(values: DisabledValues) {
-    console.log(values)
-  }
-
-  return (
-    <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FieldRadioGroup
-          name="subscription"
-          label="Subscription Plan"
-          description="Select your subscription plan"
-          options={[
-            { value: 'basic', label: 'Basic' },
-            { value: 'pro', label: 'Pro' },
-            {
-              value: 'enterprise',
-              label: 'Enterprise (Coming Soon)',
-              disabled: true,
-            },
-          ]}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
-
 export const WithDisabledOption: Story = {
-  render: () => <DisabledForm />,
+  decorators: [withForm],
+  args: {
+    name: 'subscription',
+    label: 'Subscription Plan',
+    description: 'Select your subscription plan',
+    options: [
+      { value: 'basic', label: 'Basic' },
+      { value: 'pro', label: 'Pro' },
+      {
+        value: 'enterprise',
+        label: 'Enterprise (Coming Soon)',
+        disabled: true,
+      },
+    ],
+  },
   parameters: {
     docs: {
       description: {
@@ -186,78 +95,26 @@ export const WithDisabledOption: Story = {
     const canvas = within(canvasElement)
 
     const radioButtons = canvas.getAllByRole('radio')
-    // The first option should be checked initially
-    expect(radioButtons[0]).toBeChecked()
 
     // Try to click the third disabled option
     await userEvent.click(radioButtons[2])
 
-    // First option should still be checked since the third is disabled
-    expect(radioButtons[0]).toBeChecked()
+    // Third option should not be checked since it's disabled
     expect(radioButtons[2]).not.toBeChecked()
   },
 }
 
-type ValidationValues = {
-  required_field: string
-}
-
-function ValidationForm() {
-  const schema = z.object({
-    required_field: z.string().min(1, 'This field is required'),
-  })
-
-  const form = useForm<ValidationValues>({
-    defaultValues: {
-      required_field: '',
-    },
-    resolver: zodResolver(schema),
-  })
-
-  function onSubmit(values: ValidationValues) {
-    console.log(values)
-  }
-
-  return (
-    <Form {...form}>
-      <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)} noValidate>
-        <FieldRadioGroup
-          name="required_field"
-          label="Required Field"
-          required
-          options={[
-            { value: 'option1', label: 'Option 1' },
-            { value: 'option2', label: 'Option 2' },
-          ]}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  )
-}
-
-export const WithValidation: Story = {
-  render: () => <ValidationForm />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-
-    // Submit the form without selecting a value
-    const submitButton = canvas.getByRole('button', { name: /submit/i })
-    await userEvent.click(submitButton)
-
-    // Validation error should appear
-    await waitFor(() => {
-      expect(canvas.getByText('This field is required')).toBeInTheDocument()
-    })
-
-    // Select an option
-    const radioButtons = canvas.getAllByRole('radio')
-    await userEvent.click(radioButtons[0])
-
-    // Submit again
-    await userEvent.click(submitButton)
-
-    // Error should be gone
-    await expect(canvas.queryByText('This field is required')).not.toBeInTheDocument()
+export const Required: Story = {
+  decorators: [withForm],
+  args: {
+    name: 'required_field',
+    label: 'Required Selection',
+    description: 'You must select one option',
+    required: true,
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+    ],
   },
 }

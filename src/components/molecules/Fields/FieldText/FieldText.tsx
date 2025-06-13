@@ -1,6 +1,6 @@
-import { useFormContext } from "react-hook-form";
-import { Input } from "@/components/atoms/Input";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { Input } from '@/components/atoms/Input'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -8,8 +8,8 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import type { InputFieldProps } from "../Field.types";
+} from '@/components/molecules/Form/Form'
+import type { InputFieldProps } from '../Field.types'
 
 export function FieldText({
   name,
@@ -20,7 +20,7 @@ export function FieldText({
   placeholder,
   ...props
 }: InputFieldProps) {
-  const context = useFormContext();
+  const context = useFormContext()
 
   return (
     <FormField
@@ -52,7 +52,7 @@ export function FieldText({
         </FormItem>
       )}
     />
-  );
+  )
 }
 
-export default FieldText;
+export default FieldText
