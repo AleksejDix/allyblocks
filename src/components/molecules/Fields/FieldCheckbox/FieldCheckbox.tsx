@@ -1,6 +1,7 @@
-import { useFormContext } from "react-hook-form";
-import type { CheckboxFieldProps } from "../Field.types";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import type { CheckboxFieldProps } from '../Field.types'
+import { Required } from '@/components/atoms/Required'
+import { Checkbox } from '@/components/atoms/Checkbox'
 
 import {
   FormField,
@@ -9,7 +10,7 @@ import {
   FormMessage,
   FormLabel,
   FormDescription,
-} from "@/components/molecules/Form/Form";
+} from '@/components/molecules/Form/Form'
 
 export function FieldCheckbox({
   name,
@@ -18,10 +19,9 @@ export function FieldCheckbox({
   required = false,
   disabled = false,
   className,
-  ...props
+  size,
 }: CheckboxFieldProps) {
-  const { control, getFieldState } = useFormContext();
-  const fieldState = getFieldState(name);
+  const { control } = useFormContext()
 
   return (
     <FormField
@@ -30,16 +30,12 @@ export function FieldCheckbox({
       render={({ field }) => (
         <FormItem className="flex flex-row items-start space-x-3 space-y-0">
           <FormControl>
-            <input
-              type="checkbox"
+            <Checkbox
               checked={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
+              onCheckedChange={field.onChange}
               disabled={disabled}
-              aria-invalid={!!fieldState.error}
-              aria-required={required}
-              className={`mt-1 ${className || ""}`}
-              {...props}
+              size={size}
+              className={className}
             />
           </FormControl>
           <div className="space-y-1 leading-none">
@@ -55,5 +51,5 @@ export function FieldCheckbox({
         </FormItem>
       )}
     />
-  );
+  )
 }
