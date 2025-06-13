@@ -26,7 +26,7 @@ export function FieldText({
     <FormField
       control={context.control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel>
             <div>
@@ -44,7 +44,7 @@ export function FieldText({
               placeholder={placeholder}
               required={required}
               disabled={disabled}
-              aria-invalid={!!context.getFieldState(name).error}
+              aria-invalid={!!fieldState.error}
             />
           </FormControl>
 

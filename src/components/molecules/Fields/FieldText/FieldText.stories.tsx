@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { within, userEvent, expect } from 'storybook/test'
+import { within, userEvent } from 'storybook/test'
 import { FieldText } from './FieldText'
 import { withForm } from '../decorators/FormDecorator'
 
@@ -79,6 +79,13 @@ export const Required: Story = {
     name: 'text',
     label: 'Text Input',
     required: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+
+    // Try to submit without filling the required field to trigger error
+    const submitButton = canvas.getByRole('button', { name: /submit/i })
+    await userEvent.click(submitButton)
   },
 }
 
