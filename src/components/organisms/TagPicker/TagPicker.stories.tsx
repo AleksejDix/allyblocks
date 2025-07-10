@@ -409,8 +409,8 @@ export const AccessibilityTest: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement)
 
-    // Check for accessible trigger button
-    const trigger = canvas.getByRole('button')
+    // Check for accessible trigger button (the main dropdown trigger)
+    const trigger = canvas.getByRole('button', { expanded: false })
     await expect(trigger).toBeInTheDocument()
 
     // Check for tag remove buttons

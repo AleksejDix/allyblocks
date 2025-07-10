@@ -52,7 +52,7 @@ export const Disabled: Story = {
     <InputOTP maxLength={6} disabled>
       <InputOTPGroup>
         {Array.from({ length: 6 }).map((_, i) => (
-          <InputOTPSlot index={i} />
+          <InputOTPSlot key={i} index={i} />
         ))}
       </InputOTPGroup>
     </InputOTP>
@@ -64,7 +64,7 @@ export const InvalidState: Story = {
     <InputOTP maxLength={6}>
       <InputOTPGroup>
         {Array.from({ length: 6 }).map((_, i) => (
-          <InputOTPSlot index={i} aria-invalid={true} />
+          <InputOTPSlot key={i} index={i} aria-invalid={true} />
         ))}
       </InputOTPGroup>
     </InputOTP>
@@ -83,7 +83,7 @@ export const WithAutoFocus: Story = {
     <InputOTP maxLength={6} autoFocus>
       <InputOTPGroup>
         {Array.from({ length: 6 }).map((_, i) => (
-          <InputOTPSlot index={i} />
+          <InputOTPSlot key={i} index={i} />
         ))}
       </InputOTPGroup>
     </InputOTP>
@@ -100,7 +100,7 @@ export const WithOnComplete: Story = {
       <InputOTP maxLength={6} onComplete={handleComplete}>
         <InputOTPGroup>
           {Array.from({ length: 6 }).map((_, i) => (
-            <InputOTPSlot index={i} />
+            <InputOTPSlot key={i} index={i} />
           ))}
         </InputOTPGroup>
       </InputOTP>

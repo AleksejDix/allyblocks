@@ -11,10 +11,10 @@ import {
 import { Required } from '@/components/atoms/Required'
 import { Textarea } from '@/components/atoms/Textarea'
 
-// Add CSS property type definition for field-sizing
+// Add CSS property type definition for fieldSizing
 declare module 'react' {
   interface CSSProperties {
-    'field-sizing'?: 'content' | 'normal'
+    fieldSizing?: 'content' | 'normal'
   }
 }
 
@@ -52,7 +52,7 @@ export function FieldTextarea({
                 minHeight: minHeight ? `${minHeight}px` : undefined,
                 maxHeight: maxHeight ? `${maxHeight}px` : undefined,
                 resize: autoResize ? 'none' : 'vertical',
-                'field-sizing': autoResize ? 'content' : 'normal',
+                fieldSizing: autoResize ? 'content' : 'normal',
               }}
               aria-invalid={!!fieldState.error}
               aria-required={required}

@@ -277,28 +277,30 @@ export const Navite: Story = {
     return (
       <div className="">
         <table>
-          <tr>
-            <td>
-              <input type="checkbox" className="size-3" />
-            </td>
-            <td>
-              <input type="checkbox" />
-            </td>
-            <td className="text-lg">
-              <input type="checkbox" className="size-5" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Checkbox size="sm" />
-            </td>
-            <td>
-              <Checkbox />
-            </td>
-            <td>
-              <Checkbox size="lg" />
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>
+                <input type="checkbox" className="size-3" />
+              </td>
+              <td>
+                <input type="checkbox" />
+              </td>
+              <td className="text-lg">
+                <input type="checkbox" className="size-5" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Checkbox size="sm" />
+              </td>
+              <td>
+                <Checkbox />
+              </td>
+              <td>
+                <Checkbox size="lg" />
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     )
