@@ -1,0 +1,54 @@
+{
+  "$schema": "https://oxc.rs/schema/oxlint.json",
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "warn",
+    "style": "warn",
+    "nursery": "warn"
+  },
+  "rules": {
+    "import/no-cycle": "error",
+    "import/no-unused-modules": "warn",
+    "import/no-default-export": "off",
+    "react/jsx-key": "error",
+    "react/jsx-no-duplicate-props": "error",
+    "react/jsx-no-undef": "error",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
+    "react/no-deprecated": "warn",
+    "react/no-direct-mutation-state": "error",
+    "react/no-find-dom-node": "error",
+    "react/no-is-mounted": "error",
+    "react/no-render-return-value": "error",
+    "react/no-string-refs": "error",
+    "react/no-unescaped-entities": "warn",
+    "react/no-unknown-property": "warn",
+    "react/require-render-return": "error",
+    "react/void-dom-elements-no-children": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "unicorn/filename-case": "off",
+    "unicorn/no-null": "off",
+    "unicorn/prefer-module": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "no-unused-vars": "warn",
+    "no-undef": "error"
+  },
+  "ignore": [
+    "dist/**",
+    "node_modules/**",
+    "storybook-static/**",
+    "**/*.d.ts",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "vitest.workspace.ts",
+    ".storybook/**"
+  ],
+  "paths": [
+    "src/**/*.{ts,tsx,js,jsx}",
+    "*.{ts,tsx,js,jsx}"
+  ]
+}
