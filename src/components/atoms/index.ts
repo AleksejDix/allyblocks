@@ -20,5 +20,6 @@ export * from './Table'
 export * from './Bullet'
 export * from './Terms'
 export * from './MultiSelect'
+export * from './ProgressBar'
 
 // Add other atom components as needed
