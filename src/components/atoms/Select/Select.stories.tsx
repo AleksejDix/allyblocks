@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, userEvent, waitFor, within, screen } from 'storybook/test'
+import { expect, userEvent, waitFor, within } from 'storybook/test'
 import {
   Select,
   SelectContent,
@@ -54,10 +54,10 @@ export const Default: Story = {
     await userEvent.click(selectTrigger)
 
     await waitFor(() => {
-      const listbox = screen.getByRole('listbox')
+      const listbox = within(canvasElement).getByRole('listbox')
       expect(listbox).toBeInTheDocument()
 
-      const selectItem = screen.getByRole('option', { name: 'Apple' })
+      const selectItem = within(canvasElement).getByRole('option', { name: 'Apple' })
       expect(selectItem).toBeInTheDocument()
     })
   },

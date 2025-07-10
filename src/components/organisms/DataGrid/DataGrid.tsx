@@ -363,7 +363,7 @@ export function DataGridColumnSorter() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
-            <MoveHorizontal className="mr-2 h-4 w-4" />
+            <Icon name="move-horizontal" className="mr-2 h-4 w-4" />
             Reorder Columns
           </Button>
         </DropdownMenuTrigger>

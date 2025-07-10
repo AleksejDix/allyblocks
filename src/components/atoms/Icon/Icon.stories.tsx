@@ -94,6 +94,13 @@ export const FailedToLoad: Story = {
     // @ts-expect-error - This should fail to load
     name: "non-existent-icon",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tests icon fallback behavior when an icon fails to load. Console errors are expected.',
+      },
+    },
+  },
 };
 
 export const AllSizeVariants: Story = {

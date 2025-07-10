@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { within, userEvent, expect, waitFor, screen } from "storybook/test";
+import { within, userEvent, expect, waitFor } from "storybook/test";
 import { LanguageMenu } from "./LanguageMenu";
 import i18n from "@/i18n/i18n";
 
@@ -63,7 +63,7 @@ export const Interactive: Story = {
         const languages = ["Deutsch", "English", "Français", "Italiano"];
         for (const language of languages) {
           expect(
-            screen.getByRole("menuitemradio", {
+            within(canvasElement).getByRole("menuitemradio", {
               name: new RegExp(`Sprache ändern zu ${language}`, "i"),
             }),
           ).toBeVisible();
@@ -71,7 +71,7 @@ export const Interactive: Story = {
       });
 
       // 4. Test changing language to English
-      const englishOption = screen.getByRole("menuitemradio", {
+      const englishOption = within(canvasElement).getByRole("menuitemradio", {
         name: /Sprache ändern zu English/i,
       });
       await userEvent.click(englishOption);
