@@ -166,10 +166,10 @@ export const Default: Story = {
     await userEvent.click(trigger)
 
     await waitFor(() => {
-      expect(screen.getByRole('menu')).toBeInTheDocument()
+      expect(canvas.getByRole('menu')).toBeInTheDocument()
     })
 
-    const appleOption = screen.getByRole('menuitemcheckbox', { name: 'Apple' })
+    const appleOption = canvas.getByRole('menuitemcheckbox', { name: 'Apple' })
     await userEvent.click(appleOption)
 
     await expect(trigger).toHaveTextContent('Apple')

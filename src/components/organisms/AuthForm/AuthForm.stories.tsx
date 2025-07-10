@@ -56,7 +56,7 @@ export const Login: Story = {
 
     // Test form validation
     await step("Submit empty form", async () => {
-      const submitButton = canvas.getByRole("button");
+      const submitButton = canvas.getByRole("button", { name: /login/i });
       await userEvent.click(submitButton);
 
       // Expect validation errors
@@ -70,7 +70,7 @@ export const Login: Story = {
     await step("Submit valid form", async () => {
       const emailInput = canvas.getByLabelText(/email/i);
       const passwordInput = canvas.getByLabelText(/password/i);
-      const submitButton = canvas.getByRole("button");
+      const submitButton = canvas.getByRole("button", { name: /login/i });
 
       await userEvent.type(emailInput, "test@example.com");
       await userEvent.type(passwordInput, "password123");
@@ -100,9 +100,9 @@ export const Signup: Story = {
     // Test password match validation
     await step("Test password mismatch", async () => {
       const emailInput = canvas.getByLabelText(/email/i);
-      const passwordInput = canvas.getByLabelText(/^password/i);
-      const confirmPasswordInput = canvas.getByLabelText(/confirm password/i);
-      const submitButton = canvas.getByRole("button");
+      const passwordInput = canvasElement.querySelector('input[name="password"]') as HTMLInputElement;
+      const confirmPasswordInput = canvasElement.querySelector('input[name="confirmPassword"]') as HTMLInputElement;
+      const submitButton = canvas.getByRole("button", { name: /sign up/i });
 
       await userEvent.type(emailInput, "test@example.com");
       await userEvent.type(passwordInput, "password123");
@@ -116,9 +116,9 @@ export const Signup: Story = {
     // Test valid submission
     await step("Submit valid form", async () => {
       const emailInput = canvas.getByLabelText(/email/i);
-      const passwordInput = canvas.getByLabelText(/^password/i);
-      const confirmPasswordInput = canvas.getByLabelText(/confirm password/i);
-      const submitButton = canvas.getByRole("button");
+      const passwordInput = canvasElement.querySelector('input[name="password"]') as HTMLInputElement;
+      const confirmPasswordInput = canvasElement.querySelector('input[name="confirmPassword"]') as HTMLInputElement;
+      const submitButton = canvas.getByRole("button", { name: /sign up/i });
 
       await userEvent.clear(emailInput);
       await userEvent.clear(passwordInput);

@@ -2,8 +2,9 @@ import { X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { calloutVariants } from './Callout.variants'
-import type { CalloutProps, CalloutCloseProps } from './Callout.types'
+import type { CalloutProps, CalloutBodyProps, CalloutCloseProps } from './Callout.types'
 import { IconButton } from '@/components/atoms/IconButton'
+import { Box } from '@/components/atoms/Box'
 
 import { Stack } from '@/components/atoms/Stack'
 
@@ -34,6 +35,14 @@ function Callout({ className, children, ...props }: CalloutProps) {
   )
 }
 
+function CalloutBody({ className, variant, children, ...props }: CalloutBodyProps) {
+  return (
+    <Box variant={variant} data-slot="callout-body" className={cn('relative', className)} {...props}>
+      {children}
+    </Box>
+  )
+}
+
 function CalloutClose({ className, onClick, ...props }: CalloutCloseProps) {
   return (
     <IconButton
@@ -54,4 +63,4 @@ function CalloutClose({ className, onClick, ...props }: CalloutCloseProps) {
   )
 }
 
-export { Callout, CalloutClose }
+export { Callout, CalloutBody, CalloutClose }

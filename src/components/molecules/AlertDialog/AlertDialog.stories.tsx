@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { within, userEvent, expect, waitFor } from 'storybook/test'
+import { within, userEvent, expect, waitFor, screen } from 'storybook/test'
 import { Button } from '@/components/atoms/Button'
 import {
   AlertDialog,
@@ -67,17 +67,16 @@ export const Default: Story = {
     await userEvent.click(button)
 
     await waitFor(() => {
-      const alertDialog = within(canvasElement).getByRole('alertdialog')
+      const alertDialog = screen.getByRole('alertdialog')
       expect(alertDialog).toBeInTheDocument()
     })
 
-    const cancelButton = within(canvasElement).getByRole('button', { name: /cancel/i })
+    const cancelButton = screen.getByRole('button', { name: /cancel/i })
 
     await userEvent.click(cancelButton)
 
     await waitFor(() => {
-      const alertDialog = within(canvasElement).getByRole('alertdialog')
-      expect(alertDialog).not.toBeVisible()
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
     })
   },
 }
@@ -147,14 +146,14 @@ export const Keyboard: Story = {
     await userEvent.click(triggerButton)
 
     await waitFor(() => {
-      const alertDialog = within(canvasElement).getByRole('alertdialog')
+      const alertDialog = screen.getByRole('alertdialog')
       expect(alertDialog).toBeInTheDocument()
     })
 
     await userEvent.keyboard('{Escape}')
 
     await waitFor(() => {
-      expect(within(canvasElement).queryByRole('alertdialog')).not.toBeInTheDocument()
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
     })
 
     await expect(triggerButton).toHaveFocus()
@@ -192,11 +191,11 @@ export const FocusLock: Story = {
     await userEvent.click(triggerButton)
 
     await waitFor(() => {
-      const alertDialog = within(canvasElement).getByRole('alertdialog')
+      const alertDialog = screen.getByRole('alertdialog')
       expect(alertDialog).toBeInTheDocument()
     })
 
-    const buttons = within(canvasElement).getAllByRole('button')
+    const buttons = screen.getAllByRole('button')
 
     expect(buttons[0]).toHaveFocus()
 
@@ -212,7 +211,7 @@ export const FocusLock: Story = {
     await userEvent.keyboard('{Escape}')
 
     await waitFor(() => {
-      expect(within(canvasElement).queryByRole('alertdialog')).not.toBeInTheDocument()
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
     })
 
     await expect(triggerButton).toHaveFocus()
@@ -274,15 +273,15 @@ export const WithActions: Story = {
     await userEvent.click(triggerButton)
 
     await waitFor(() => {
-      const alertDialog = within(canvasElement).getByRole('alertdialog')
+      const alertDialog = screen.getByRole('alertdialog')
       expect(alertDialog).toBeInTheDocument()
     })
 
-    const confirmButton = within(canvasElement).getByRole('button', { name: /confirm/i })
+    const confirmButton = screen.getByRole('button', { name: /confirm/i })
     await userEvent.click(confirmButton)
 
     await waitFor(() => {
-      expect(within(canvasElement).queryByRole('alertdialog')).not.toBeInTheDocument()
+      expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
     })
   },
 }

@@ -214,9 +214,9 @@ export const AddAction: Story = {
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
     const canvas = within(canvasElement)
 
-    // Test keyboard navigation
+    // Test keyboard navigation - get the first "Add Action" button (the IconButton)
     await userEvent.tab()
-    const firstButton = canvas.getByRole('button', { name: 'First Button' })
-    await expect(firstButton).toHaveFocus()
+    const addButtons = canvas.getAllByRole('button', { name: 'Add Action' })
+    await expect(addButtons[0]).toHaveFocus()
   },
 }

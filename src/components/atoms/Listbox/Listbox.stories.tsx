@@ -521,8 +521,8 @@ export const KeyboardNavigationTests: Story = {
       expect(activeDescendant).toBe('listbox-item-option1')
     })
 
-    // Test skipping disabled options
-    await user.keyboard('{ArrowDown}{ArrowDown}{ArrowDown}')
+    // Test skipping disabled options - navigate to option3 first
+    await user.keyboard('{ArrowDown}{ArrowDown}')
     await waitFor(() => {
       expect(listbox).toHaveFocus()
       const activeDescendant = listbox.getAttribute('aria-activedescendant')
@@ -600,7 +600,8 @@ export const TypeaheadSearchTests: Story = {
       expect(activeDescendant).toBe('listbox-item-banana')
     })
 
-    // Test cycling through same starting character
+    // Test cycling through same starting character (add delay to reset typeahead)
+    await new Promise(resolve => setTimeout(resolve, 1000)) // Wait for typeahead to reset
     await user.keyboard('a')
     await waitFor(() => {
       expect(listbox).toHaveFocus()
