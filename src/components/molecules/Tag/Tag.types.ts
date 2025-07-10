@@ -1,4 +1,3 @@
-import * as React from 'react'
 import type { BadgeProps } from '@/components/atoms/Badge'
 
 /**

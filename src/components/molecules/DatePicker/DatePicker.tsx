@@ -219,7 +219,6 @@ export function DatePickerInput({
  * DatePickerTrigger - Trigger button for date picker
  */
 export function DatePickerTrigger({
-  isOpen,
   onClick,
   disabled,
   className,

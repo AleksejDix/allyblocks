@@ -32,12 +32,14 @@ export const withForm: Decorator = (Story, context) => {
     defaultValues: name && typeof name === 'string' ? { [name]: '' } : {},
   })
 
-  const onSubmit = (data: any) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const onSubmit = (data: Record<string, unknown>) => {
     // Validation passed - prevent actual submission in Storybook
     console.log('Form data:', data)
   }
 
-  const onError = (errors: any) => {
+  const onError = (errors: Record<string, unknown>) => {
     // Validation failed - errors will be displayed
     console.log('Form errors:', errors)
   }

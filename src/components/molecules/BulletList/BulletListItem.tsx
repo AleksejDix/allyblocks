@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils'
 import { Icon } from '@/components/atoms/Icon'
 import type { ComponentProps } from 'react'
 import type { IconProps } from '@/components/atoms/Icon/Icon.types'
-import { Box } from '@/components/atoms/Box'
 
 export type BulletListItemProps = ComponentProps<'li'> & {
   /**
@@ -33,7 +32,7 @@ export type BulletListItemProps = ComponentProps<'li'> & {
  *   Real-time contact syncing
  * </BulletListItem>
  */
-function BulletListItem({ icon = 'check', disabled = false, className, children, ...props }: BulletListItemProps) {
+function BulletListItem({ icon = 'check', className, children, ...props }: BulletListItemProps) {
   return (
     <li className={cn('flex items-start gap-2', className)} {...props}>
       <div className="flex-shrink-0 mt-1">

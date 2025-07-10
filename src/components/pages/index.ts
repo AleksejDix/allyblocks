@@ -1,3 +1,2 @@
-// Export all page components
-
-// Add other page components as needed
+// Placeholder export to prevent empty file error
+export {}

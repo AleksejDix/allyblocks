@@ -10,7 +10,6 @@ import {
   choiceContentVariants,
   choiceLabelVariants,
   choiceDescriptionVariants,
-  choiceInputVariants,
 } from './Choice.variants'
 import type {
   ChoiceProps,
@@ -110,10 +109,8 @@ function ChoiceItem({
   children,
   value,
   id,
-  name: propName,
   defaultChecked,
-  disabled,
-  ...props
+  disabled
 }: ChoiceItemProps) {
   const context = useContext(ChoiceContext)
   const generatedId = useId()

@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { BulletList } from './BulletList'
 import { BulletListItem } from './BulletListItem'
 import { Text } from '@/components/atoms/Text'
-import { Card } from '@/components/molecules/Card'
 
 const meta: Meta<typeof BulletList> = {
   component: BulletList,

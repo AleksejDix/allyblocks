@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { within, userEvent, expect } from 'storybook/test'
+import { within, userEvent } from 'storybook/test'
 import { FieldPhone } from './FieldPhone'
 import { withForm } from '../decorators/FormDecorator'
 

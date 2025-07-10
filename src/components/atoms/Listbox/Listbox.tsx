@@ -56,7 +56,6 @@ const Listbox = React.forwardRef<ListboxRef, ListboxProps>(
     ref,
   ) => {
     const {
-      itemsRef,
       registerItem,
       unregisterItem,
       highlightedValue,
@@ -192,7 +191,7 @@ const ListboxItem = React.forwardRef<ListboxItemRef, ListboxItemProps>(
     }, [itemValue, registerItem, unregisterItem, finalTextValue, disabled])
 
     const handleClick = useCallback(
-      (event: React.MouseEvent<HTMLDivElement>) => {
+      () => {
         if (disabled) return
 
         let newValue: string | string[]

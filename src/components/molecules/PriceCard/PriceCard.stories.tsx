@@ -5,7 +5,6 @@ import { Button } from '@/components/atoms/Button'
 import { Badge } from '@/components/atoms/Badge'
 import { Price } from '@/components/atoms/Price'
 import { BulletList, BulletListItem } from '@/components/molecules/BulletList'
-import { Stack } from '@/components/atoms/Stack'
 
 const meta: Meta<typeof PriceCard> = {
   component: PriceCard,

@@ -8,7 +8,6 @@ import {
 } from '@/components/atoms/MultiSelect'
 import { Tag } from '@/components/molecules/Tag'
 import { Icon } from '@/components/atoms/Icon'
-import { Button } from '@/components/atoms/Button'
 import { cn } from '@/lib/utils'
 import {
   tagPickerVariants,
@@ -58,7 +57,6 @@ export const TagPicker = memo(function TagPicker({
   defaultValue,
   onValueChange,
   placeholder = 'Select options...',
-  loadingText = 'Loading...',
   emptyText = 'No options available',
   maxVisibleTags = 10,
   showDropdown = true,

@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useRef, useState } from 'react'
-import { composeEventHandlers } from '@radix-ui/primitive'
 import { useCallbackRef } from '@radix-ui/react-use-callback-ref'
 import React from 'react'
 
@@ -217,10 +216,6 @@ export const useListboxKeyboard = (
   orientation: 'horizontal' | 'vertical' = 'vertical',
   disabled: boolean = false,
 ) => {
-  const SELECTION_KEYS = ['Enter', ' ']
-  const FIRST_KEYS = ['ArrowDown', 'PageUp', 'Home']
-  const LAST_KEYS = ['ArrowUp', 'PageDown', 'End']
-  const FIRST_LAST_KEYS = [...FIRST_KEYS, ...LAST_KEYS]
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {

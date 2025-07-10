@@ -2,7 +2,7 @@ import { X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { calloutVariants } from './Callout.variants'
-import type { CalloutProps, CalloutCloseProps, CalloutBodyProps } from './Callout.types'
+import type { CalloutProps, CalloutCloseProps } from './Callout.types'
 import { IconButton } from '@/components/atoms/IconButton'
 
 import { Stack } from '@/components/atoms/Stack'

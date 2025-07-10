@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Banner, BannerIcon, BannerContent, BannerActions } from './Banner'
 import { Button } from '@/components/atoms/Button'
-import { IconButton } from '@/components/atoms/IconButton'
 import { Icon } from '@/components/atoms/Icon'
 import { Text } from '@/components/atoms/Text'
 import { Stack } from '@/components/atoms/Stack'
-import { Badge } from '@/components/atoms/Badge'
 
 const meta: Meta<typeof Banner> = {
   component: Banner,

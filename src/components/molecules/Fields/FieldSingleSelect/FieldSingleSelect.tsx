@@ -1,5 +1,5 @@
-import { useFormContext } from "react-hook-form";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -7,29 +7,29 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type BaseFieldProps } from "../Field.types";
+} from '@/components/molecules/Form/Form'
+import { type BaseFieldProps } from '../Field.types'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@/components/molecules/DropdownMenu";
-import { Button } from "@/components/atoms/Button";
-import { Icon } from "@/components/atoms/Icon/Icon";
-import { cn } from "@/lib/utils";
+} from '@/components/molecules/DropdownMenu'
+import { Button } from '@/components/atoms/Button'
+import { Icon } from '@/components/atoms/Icon/Icon'
+import { cn } from '@/lib/utils'
 
 export type DropdownRadioOption = {
-  label: string;
-  value: string;
-  disabled?: boolean;
-};
+  label: string
+  value: string
+  disabled?: boolean
+}
 
 export type FieldSingleSelectProps = BaseFieldProps & {
-  options: DropdownRadioOption[];
-  placeholder?: string;
-};
+  options: DropdownRadioOption[]
+  placeholder?: string
+}
 
 export function FieldSingleSelect({
   name,
@@ -38,18 +38,16 @@ export function FieldSingleSelect({
   required = false,
   disabled = false,
   options,
-  placeholder = "Select an option",
+  placeholder = 'Select an option',
 }: FieldSingleSelectProps) {
-  const context = useFormContext();
+  const context = useFormContext()
 
   return (
     <FormField
       control={context.control}
       name={name}
       render={({ field }) => {
-        const selectedOption = options.find(
-          (option) => option.value === field.value
-        );
+        const selectedOption = options.find((option) => option.value === field.value)
 
         return (
           <FormItem>
@@ -65,7 +63,7 @@ export function FieldSingleSelect({
                 <DropdownMenuTrigger asChild disabled={disabled}>
                   <Button
                     variant="outline"
-                    className={cn(!field.value && "text-muted-foreground")}
+                    className={cn(!field.value && 'text-muted-foreground')}
                     aria-invalid={!!context.getFieldState(name).error}
                   >
                     {selectedOption ? selectedOption.label : placeholder}
@@ -74,16 +72,9 @@ export function FieldSingleSelect({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuRadioGroup
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
+                  <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
                     {options.map((option) => (
-                      <DropdownMenuRadioItem
-                        key={option.value}
-                        value={option.value}
-                        disabled={option.disabled}
-                      >
+                      <DropdownMenuRadioItem key={option.value} value={option.value} disabled={option.disabled}>
                         {option.label}
                       </DropdownMenuRadioItem>
                     ))}
@@ -94,8 +85,8 @@ export function FieldSingleSelect({
 
             <FormMessage />
           </FormItem>
-        );
+        )
       }}
     />
-  );
+  )
 }
