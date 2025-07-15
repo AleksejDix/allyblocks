@@ -1,52 +1,48 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { UserStatus } from "./UserStatus";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { UserStatus } from './UserStatus'
 
 const meta: Meta<typeof UserStatus> = {
   component: UserStatus,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {},
   argTypes: {
     status: {
-      control: "select",
-      options: ["online", "offline", "away", "busy"],
+      control: 'select',
+      options: ['online', 'offline', 'away', 'busy'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof UserStatus>;
+export default meta
+type Story = StoryObj<typeof UserStatus>
 
 export const Default: Story = {
   args: {
-    status: "online",
-    avatarSrc: "https://github.com/shadcn.png",
+    status: 'online',
+    avatarSrc: 'https://github.com/shadcn.png',
   },
-};
+}
 
 export const WithInitials: Story = {
   args: {
-    status: "online",
-    avatarFallback: "JS",
+    status: 'online',
+    avatarFallback: 'JS',
   },
-};
+}
 
 export const WithoutAvatar: Story = {
   args: {
-    status: "online",
+    status: 'online',
   },
-};
+}
 
 export const StatusVariants: Story = {
   render: (args) => (
     <div className="flex flex-col gap-4">
-      <UserStatus
-        {...args}
-        status="online"
-        avatarSrc="https://github.com/shadcn.png"
-      />
+      <UserStatus {...args} status="online" avatarSrc="https://github.com/shadcn.png" />
       <UserStatus {...args} status="offline" avatarFallback="JS" />
       <UserStatus {...args} status="away" avatarFallback="AJ" />
       <UserStatus {...args} status="busy" avatarFallback="BB" />
     </div>
   ),
-};
+}

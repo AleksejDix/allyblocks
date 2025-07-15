@@ -190,29 +190,26 @@ const ListboxItem = React.forwardRef<ListboxItemRef, ListboxItemProps>(
       }
     }, [itemValue, registerItem, unregisterItem, finalTextValue, disabled])
 
-    const handleClick = useCallback(
-      () => {
-        if (disabled) return
+    const handleClick = useCallback(() => {
+      if (disabled) return
 
-        let newValue: string | string[]
+      let newValue: string | string[]
 
-        if (multiple) {
-          const currentArray = Array.isArray(selectedValue) ? selectedValue : []
-          if (currentArray.includes(itemValue)) {
-            newValue = currentArray.filter((v) => v !== itemValue)
-          } else {
-            newValue = [...currentArray, itemValue]
-          }
+      if (multiple) {
+        const currentArray = Array.isArray(selectedValue) ? selectedValue : []
+        if (currentArray.includes(itemValue)) {
+          newValue = currentArray.filter((v) => v !== itemValue)
         } else {
-          newValue = itemValue
+          newValue = [...currentArray, itemValue]
         }
+      } else {
+        newValue = itemValue
+      }
 
-        onValueChange?.(newValue)
-        // Set highlighted value when clicking
-        setHighlightedValue?.(itemValue)
-      },
-      [disabled, multiple, selectedValue, itemValue, onValueChange, setHighlightedValue],
-    )
+      onValueChange?.(newValue)
+      // Set highlighted value when clicking
+      setHighlightedValue?.(itemValue)
+    }, [disabled, multiple, selectedValue, itemValue, onValueChange, setHighlightedValue])
 
     // Generate consistent ID for aria-activedescendant
     const itemId = `listbox-item-${itemValue}`

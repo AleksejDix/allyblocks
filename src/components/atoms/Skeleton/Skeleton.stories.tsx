@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { within, expect } from 'storybook/test'
+import { expect } from 'storybook/test'
 import { useState } from 'react'
 
 import { Skeleton } from './Skeleton'
@@ -49,9 +49,10 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => <Skeleton width="200px" height="20px" />,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
-    const skeleton = canvas.getByRole('generic')
+    // Skeleton has aria-hidden="true" so can't be accessed by role
+    const skeleton = canvasElement.querySelector('[data-slot="skeleton"]')
 
+    await expect(skeleton).toBeInTheDocument()
     await expect(skeleton).toHaveAttribute('data-slot', 'skeleton')
     await expect(skeleton).toHaveAttribute('aria-hidden', 'true')
   },

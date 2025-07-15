@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ActionGroup } from "./ActionGroup";
-import { Button } from "@/components/atoms/Button";
-import { ChevronDown } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { ActionGroup } from './ActionGroup'
+import { Button } from '@/components/atoms/Button'
+import { ChevronDown } from 'lucide-react'
 
 const meta: Meta<typeof ActionGroup> = {
   component: ActionGroup,
@@ -10,22 +10,22 @@ const meta: Meta<typeof ActionGroup> = {
       disabled: true,
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     direction: {
-      control: "radio",
-      options: ["horizontal", "vertical"],
-      description: "Controls the layout direction of buttons",
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
+      description: 'Controls the layout direction of buttons',
     },
     className: {
-      control: "text",
-      description: "Custom CSS classes to apply custom styling",
+      control: 'text',
+      description: 'Custom CSS classes to apply custom styling',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof ActionGroup>;
+export default meta
+type Story = StoryObj<typeof ActionGroup>
 
 export const Default: Story = {
   render: () => (
@@ -34,7 +34,7 @@ export const Default: Story = {
       <Button>Next</Button>
     </ActionGroup>
   ),
-};
+}
 
 export const Centered: Story = {
   render: () => (
@@ -43,7 +43,7 @@ export const Centered: Story = {
       <Button variant="secondary">Next</Button>
     </ActionGroup>
   ),
-};
+}
 
 export const EndAlignment: Story = {
   render: () => (
@@ -52,7 +52,7 @@ export const EndAlignment: Story = {
       <Button>Save</Button>
     </ActionGroup>
   ),
-};
+}
 
 export const SpaceBetween: Story = {
   render: () => (
@@ -61,7 +61,7 @@ export const SpaceBetween: Story = {
       <Button>Save</Button>
     </ActionGroup>
   ),
-};
+}
 
 export const CustomSpacing: Story = {
   render: () => (
@@ -71,7 +71,7 @@ export const CustomSpacing: Story = {
       <Button variant="outline">Third</Button>
     </ActionGroup>
   ),
-};
+}
 
 export const VerticalLayout: Story = {
   render: () => (
@@ -81,7 +81,7 @@ export const VerticalLayout: Story = {
       <Button variant="outline">Third Option</Button>
     </ActionGroup>
   ),
-};
+}
 
 export const ActionButtons: Story = {
   render: () => (
@@ -92,4 +92,4 @@ export const ActionButtons: Story = {
       </Button>
     </ActionGroup>
   ),
-};
+}

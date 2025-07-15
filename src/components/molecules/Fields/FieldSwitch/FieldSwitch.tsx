@@ -1,5 +1,5 @@
-import { useFormContext } from "react-hook-form";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -7,18 +7,18 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type BaseFieldProps } from "../Field.types";
-import { Switch } from "@/components/atoms/Switch/Switch";
+} from '@/components/molecules/Form/Form'
+import { type BaseFieldProps } from '../Field.types'
+import { Switch } from '@/components/atoms/Switch/Switch'
 
 export type FieldSwitchProps = BaseFieldProps & {
   /** Label to show when switch is on */
-  onLabel?: string;
+  onLabel?: string
   /** Label to show when switch is off */
-  offLabel?: string;
+  offLabel?: string
   /** Whether the switch should appear on the right side of the label */
-  alignRight?: boolean;
-};
+  alignRight?: boolean
+}
 
 export function FieldSwitch({
   name,
@@ -30,7 +30,7 @@ export function FieldSwitch({
   offLabel,
   alignRight = false,
 }: FieldSwitchProps) {
-  const context = useFormContext();
+  const context = useFormContext()
 
   return (
     <FormField
@@ -38,17 +38,11 @@ export function FieldSwitch({
       name={name}
       render={({ field }) => {
         // Convert boolean value to be compatible with the Switch component
-        const checked = !!field.value;
-        const onValueChange = (checked: boolean) => field.onChange(checked);
+        const checked = !!field.value
+        const onValueChange = (checked: boolean) => field.onChange(checked)
 
         return (
-          <FormItem
-            className={
-              alignRight
-                ? "flex flex-row items-center justify-between gap-2"
-                : ""
-            }
-          >
+          <FormItem className={alignRight ? 'flex flex-row items-center justify-between gap-2' : ''}>
             <div className="flex flex-col">
               <FormLabel htmlFor={name}>
                 <div className="flex items-center">
@@ -60,11 +54,7 @@ export function FieldSwitch({
             </div>
             <FormControl>
               <div className="flex items-center gap-2">
-                {!alignRight && offLabel && (
-                  <span className="text-sm text-muted-foreground">
-                    {offLabel}
-                  </span>
-                )}
+                {!alignRight && offLabel && <span className="text-sm text-muted-foreground">{offLabel}</span>}
                 <Switch
                   id={name}
                   checked={checked}
@@ -72,24 +62,18 @@ export function FieldSwitch({
                   disabled={disabled}
                   aria-invalid={!!context.getFieldState(name).error}
                 />
-                {!alignRight && onLabel && (
-                  <span className="text-sm text-muted-foreground">
-                    {onLabel}
-                  </span>
-                )}
+                {!alignRight && onLabel && <span className="text-sm text-muted-foreground">{onLabel}</span>}
                 {alignRight && (checked ? onLabel : offLabel) && (
-                  <span className="text-sm text-muted-foreground">
-                    {checked ? onLabel : offLabel}
-                  </span>
+                  <span className="text-sm text-muted-foreground">{checked ? onLabel : offLabel}</span>
                 )}
               </div>
             </FormControl>
             <FormMessage />
           </FormItem>
-        );
+        )
       }}
     />
-  );
+  )
 }
 
-export default FieldSwitch;
+export default FieldSwitch

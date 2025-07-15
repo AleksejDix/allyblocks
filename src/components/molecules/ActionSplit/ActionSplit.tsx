@@ -1,15 +1,7 @@
-import { cn } from "@/lib/utils";
-import type { ActionSplitProps } from "./ActionSplit.types";
-import { ActionSplitVariants } from "./ActionSplit.variants";
+import { cn } from '@/lib/utils'
+import type { ActionSplitProps } from './ActionSplit.types'
+import { ActionSplitVariants } from './ActionSplit.variants'
 
-export function ActionSplit({
-  children,
-  variant,
-  className,
-}: ActionSplitProps) {
-  return (
-    <div className={cn(ActionSplitVariants({ variant }), className)}>
-      {children}
-    </div>
-  );
+export function ActionSplit({ children, variant, className }: ActionSplitProps) {
+  return <div className={cn(ActionSplitVariants({ variant }), className)}>{children}</div>
 }

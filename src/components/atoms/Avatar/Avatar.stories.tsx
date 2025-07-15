@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { within, expect, waitFor } from "storybook/test";
-import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { within, expect, waitFor } from 'storybook/test'
+import { Avatar, AvatarFallback, AvatarImage } from './Avatar'
 
 const meta: Meta<typeof Avatar> = {
   component: Avatar,
@@ -12,32 +12,31 @@ const meta: Meta<typeof Avatar> = {
     },
     docs: {
       description: {
-        component:
-          "Avatar component for displaying user images with fallback support",
+        component: 'Avatar component for displaying user images with fallback support',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: { type: "inline-radio" },
-      options: ["sm", "md", "lg", "xl"],
+      control: { type: 'inline-radio' },
+      options: ['sm', 'md', 'lg', 'xl'],
     },
     shape: {
-      control: { type: "inline-radio" },
-      options: ["circle", "square"],
+      control: { type: 'inline-radio' },
+      options: ['circle', 'square'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Avatar>;
+export default meta
+type Story = StoryObj<typeof Avatar>
 
 export const WithImage: Story = {
-  name: "With Image",
+  name: 'With Image',
   args: {
-    size: "md",
-    shape: "circle",
+    size: 'md',
+    shape: 'circle',
   },
   render: (args) => (
     <Avatar {...args}>
@@ -46,19 +45,19 @@ export const WithImage: Story = {
     </Avatar>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
     await waitFor(() => {
-      expect(canvas.getByRole("img")).toBeInTheDocument();
-    });
+      expect(canvas.getByRole('img')).toBeInTheDocument()
+    })
   },
-};
+}
 
 export const WithFallback: Story = {
-  name: "With Fallback Only",
+  name: 'With Fallback Only',
   args: {
-    size: "md",
-    shape: "circle",
+    size: 'md',
+    shape: 'circle',
   },
   render: (args) => (
     <Avatar {...args}>
@@ -66,15 +65,15 @@ export const WithFallback: Story = {
     </Avatar>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText("OM")).toBeInTheDocument();
+    const canvas = within(canvasElement)
+    await expect(canvas.getByText('OM')).toBeInTheDocument()
   },
-};
+}
 
 export const AllSizes: Story = {
-  name: "All Sizes",
+  name: 'All Sizes',
   args: {
-    shape: "circle",
+    shape: 'circle',
   },
   render: () => (
     <div className="flex items-center gap-4">
@@ -91,18 +90,15 @@ export const AllSizes: Story = {
         <AvatarFallback>LG</AvatarFallback>
       </Avatar>
       <Avatar size="xl">
-        <AvatarImage
-          src="https://github.com/shadcn.png"
-          alt="Extra large avatar"
-        />
+        <AvatarImage src="https://github.com/shadcn.png" alt="Extra large avatar" />
         <AvatarFallback>XL</AvatarFallback>
       </Avatar>
     </div>
   ),
-};
+}
 
 export const AllShapes: Story = {
-  name: "All Shapes",
+  name: 'All Shapes',
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar shape="circle">
@@ -115,4 +111,4 @@ export const AllShapes: Story = {
       </Avatar>
     </div>
   ),
-};
+}

@@ -1,16 +1,16 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@/lib/utils";
-import { iconButtonVariants } from "./IconButton.variants";
-import type { IconButtonProps } from "./IconButton.types";
+import * as React from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import { cn } from '@/lib/utils'
+import { iconButtonVariants } from './IconButton.variants'
+import type { IconButtonProps } from './IconButton.types'
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   ({ className, variant, size, asChild = false, children, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
+    const Comp = asChild ? Slot : 'button'
 
     // Ensure aria-label is provided
-    if (!props["aria-label"]) {
-      console.warn("IconButton: aria-label is required for accessibility");
+    if (!props['aria-label']) {
+      console.warn('IconButton: aria-label is required for accessibility')
     }
 
     return (
@@ -22,8 +22,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       >
         {children}
       </Comp>
-    );
-  }
-);
+    )
+  },
+)
 
-IconButton.displayName = "IconButton";
+IconButton.displayName = 'IconButton'

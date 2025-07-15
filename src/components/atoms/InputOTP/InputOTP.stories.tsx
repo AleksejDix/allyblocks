@@ -1,30 +1,30 @@
-import * as React from "react";
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "./InputOTP";
+import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { InputOTP, InputOTPGroup, InputOTPSlot } from './InputOTP'
 
 const meta: Meta<typeof InputOTP> = {
   component: InputOTP,
   parameters: {},
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     maxLength: {
-      control: "number",
-      description: "Maximum length of the OTP",
+      control: 'number',
+      description: 'Maximum length of the OTP',
       defaultValue: 6,
     },
     containerClassName: {
-      control: "text",
-      description: "Additional CSS classes for the container",
+      control: 'text',
+      description: 'Additional CSS classes for the container',
     },
     className: {
-      control: "text",
-      description: "Additional CSS classes",
+      control: 'text',
+      description: 'Additional CSS classes',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof InputOTP>;
+export default meta
+type Story = StoryObj<typeof InputOTP>
 
 // Helper function to render OTP with different configurations
 const renderOTP = (maxLength: number) => (
@@ -37,15 +37,15 @@ const renderOTP = (maxLength: number) => (
       ))}
     </InputOTPGroup>
   </InputOTP>
-);
+)
 
 export const Default: Story = {
   render: () => renderOTP(6),
-};
+}
 
 export const FourDigits: Story = {
   render: () => renderOTP(4),
-};
+}
 
 export const Disabled: Story = {
   render: () => (
@@ -57,7 +57,7 @@ export const Disabled: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-};
+}
 
 export const InvalidState: Story = {
   render: () => (
@@ -72,11 +72,11 @@ export const InvalidState: Story = {
   parameters: {
     docs: {
       description: {
-        story: "OTP input in an error state, indicated by red highlighting.",
+        story: 'OTP input in an error state, indicated by red highlighting.',
       },
     },
   },
-};
+}
 
 export const WithAutoFocus: Story = {
   render: () => (
@@ -88,13 +88,13 @@ export const WithAutoFocus: Story = {
       </InputOTPGroup>
     </InputOTP>
   ),
-};
+}
 
 export const WithOnComplete: Story = {
   render: () => {
     const handleComplete = (value: string) => {
-      console.log("OTP completed:", value);
-    };
+      console.log('OTP completed:', value)
+    }
 
     return (
       <InputOTP maxLength={6} onComplete={handleComplete}>
@@ -104,9 +104,9 @@ export const WithOnComplete: Story = {
           ))}
         </InputOTPGroup>
       </InputOTP>
-    );
+    )
   },
-};
+}
 
 export const WithPlaceholders: Story = {
   render: () => (
@@ -121,8 +121,8 @@ export const WithPlaceholders: Story = {
   parameters: {
     docs: {
       description: {
-        story: "OTP input with numbered placeholders to indicate position.",
+        story: 'OTP input with numbered placeholders to indicate position.',
       },
     },
   },
-};
+}

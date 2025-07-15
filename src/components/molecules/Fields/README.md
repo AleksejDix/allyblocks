@@ -28,17 +28,17 @@ This directory contains a collection of form field components built with React H
 All field components are designed to work with React Hook Form. Each component requires a `name` prop and should be used within a `FormProvider` context.
 
 ```jsx
-import { useForm, FormProvider } from "react-hook-form";
-import { FieldEmail } from "../Fields/FieldEmail";
+import { useForm, FormProvider } from 'react-hook-form'
+import { FieldEmail } from '../Fields/FieldEmail'
 
 function MyForm() {
   const methods = useForm({
     defaultValues: {
-      email: "",
+      email: '',
     },
-  });
+  })
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => console.log(data)
 
   return (
     <FormProvider {...methods}>
@@ -52,7 +52,7 @@ function MyForm() {
         <button type="submit">Submit</button>
       </form>
     </FormProvider>
-  );
+  )
 }
 ```
 

@@ -126,7 +126,8 @@ export const Disabled: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const slider = canvas.getByRole('slider')
-    await expect(slider).toBeDisabled()
+    // Slider uses data-disabled attribute instead of disabled
+    await expect(slider).toHaveAttribute('data-disabled', '')
   },
 }
 

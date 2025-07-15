@@ -601,7 +601,7 @@ export const TypeaheadSearchTests: Story = {
     })
 
     // Test cycling through same starting character (add delay to reset typeahead)
-    await new Promise(resolve => setTimeout(resolve, 1000)) // Wait for typeahead to reset
+    await new Promise((resolve) => setTimeout(resolve, 1000)) // Wait for typeahead to reset
     await user.keyboard('a')
     await waitFor(() => {
       expect(listbox).toHaveFocus()

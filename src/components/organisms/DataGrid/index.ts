@@ -6,5 +6,5 @@ export {
   DataGridFooter,
   DataGridColumnVisibility,
   DataGridColumnSorter,
-} from "./DataGrid";
-export { type RowData, type LblColumnDef } from "./DataGrid.types";
+} from './DataGrid'
+export { type RowData, type LblColumnDef } from './DataGrid.types'

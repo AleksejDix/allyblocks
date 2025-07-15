@@ -1,45 +1,39 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "./Carousel";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './Carousel'
 
 const meta: Meta<typeof Carousel> = {
   component: Carousel,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {},
   argTypes: {
     orientation: {
-      control: "select",
-      options: ["horizontal", "vertical"],
+      control: 'select',
+      options: ['horizontal', 'vertical'],
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Carousel>;
+export default meta
+type Story = StoryObj<typeof Carousel>
 
 const items = [
   {
-    title: "Slide 1",
-    content: "This is the first slide content",
+    title: 'Slide 1',
+    content: 'This is the first slide content',
   },
   {
-    title: "Slide 2",
-    content: "This is the second slide content",
+    title: 'Slide 2',
+    content: 'This is the second slide content',
   },
   {
-    title: "Slide 3",
-    content: "This is the third slide content",
+    title: 'Slide 3',
+    content: 'This is the third slide content',
   },
   {
-    title: "Slide 4",
-    content: "This is the fourth slide content",
+    title: 'Slide 4',
+    content: 'This is the fourth slide content',
   },
-];
+]
 
 export const Default: Story = {
   render: (args) => (
@@ -57,7 +51,7 @@ export const Default: Story = {
       <CarouselNext />
     </Carousel>
   ),
-};
+}
 
 export const Vertical: Story = {
   render: (args) => (
@@ -75,7 +69,7 @@ export const Vertical: Story = {
       <CarouselNext />
     </Carousel>
   ),
-};
+}
 
 export const WithCustomButtons: Story = {
   render: (args) => (
@@ -93,7 +87,7 @@ export const WithCustomButtons: Story = {
       <CarouselNext className="right-2" />
     </Carousel>
   ),
-};
+}
 
 export const WithMultipleItems: Story = {
   render: (args) => (
@@ -111,7 +105,7 @@ export const WithMultipleItems: Story = {
       <CarouselNext />
     </Carousel>
   ),
-};
+}
 
 export const WithTextContent: Story = {
   render: (args) => (
@@ -121,9 +115,7 @@ export const WithTextContent: Story = {
           <CarouselItem key={index}>
             <div className="flex flex-col aspect-square items-center justify-center p-6 border rounded-lg bg-background">
               <h3 className="text-2xl font-semibold">{item.title}</h3>
-              <p className="text-sm text-muted-foreground mt-2">
-                {item.content}
-              </p>
+              <p className="text-sm text-muted-foreground mt-2">{item.content}</p>
             </div>
           </CarouselItem>
         ))}
@@ -132,4 +124,4 @@ export const WithTextContent: Story = {
       <CarouselNext />
     </Carousel>
   ),
-};
+}

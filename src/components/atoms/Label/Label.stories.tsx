@@ -1,57 +1,57 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, within, userEvent } from "storybook/test";
-import { Label } from "./Label";
-import { Input } from "../Input/Input";
-import { Checkbox } from "../Checkbox/Checkbox";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, within, userEvent } from 'storybook/test'
+import { Label } from './Label'
+import { Input } from '../Input/Input'
+import { Checkbox } from '../Checkbox/Checkbox'
 
 const meta: Meta<typeof Label> = {
   component: Label,
   parameters: {
     docs: {
       description: {
-        component: "A form label component with accessibility features.",
+        component: 'A form label component with accessibility features.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     className: {
-      control: "text",
+      control: 'text',
     },
     htmlFor: {
-      control: "text",
-      description: "Associates the label with a form control using its ID",
+      control: 'text',
+      description: 'Associates the label with a form control using its ID',
     },
     asChild: {
-      control: "boolean",
-      description: "When true, component will render as its child element",
+      control: 'boolean',
+      description: 'When true, component will render as its child element',
       table: {
-        defaultValue: { summary: "false" },
+        defaultValue: { summary: 'false' },
       },
     },
   },
-};
-export default meta;
+}
+export default meta
 
-type Story = StoryObj<typeof Label>;
+type Story = StoryObj<typeof Label>
 
 export const RendersTextContent: Story = {
   args: {
-    children: "Email address",
+    children: 'Email address',
   },
   parameters: {
     docs: {
       description: {
-        story: "A basic label that can be used to label form fields.",
+        story: 'A basic label that can be used to label form fields.',
       },
     },
   },
-};
+}
 
 export const WithHtmlFor: Story = {
   args: {
-    children: "Your email",
-    htmlFor: "email",
+    children: 'Your email',
+    htmlFor: 'email',
   },
   render: (args) => (
     <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -62,12 +62,11 @@ export const WithHtmlFor: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Using htmlFor to associate the label with a form control by ID.",
+        story: 'Using htmlFor to associate the label with a form control by ID.',
       },
     },
   },
-};
+}
 
 export const WrappingControl: Story = {
   render: () => (
@@ -81,11 +80,11 @@ export const WrappingControl: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Labels can wrap controls to automatically associate them.",
+        story: 'Labels can wrap controls to automatically associate them.',
       },
     },
   },
-};
+}
 
 export const SupportsPolymorphism: Story = {
   args: {
@@ -108,28 +107,28 @@ export const SupportsPolymorphism: Story = {
     docs: {
       description: {
         story:
-          "When using asChild, use a real label element as the child to maintain proper semantics. This is the correct pattern for customizing label appearance while preserving accessibility.",
+          'When using asChild, use a real label element as the child to maintain proper semantics. This is the correct pattern for customizing label appearance while preserving accessibility.',
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
     // Find elements using accessible queries
-    const label = canvas.getByText("Custom styled label");
-    const input = canvas.getByLabelText("Custom styled label");
+    const label = canvas.getByText('Custom styled label')
+    const input = canvas.getByLabelText('Custom styled label')
 
     // Test the key accessibility behavior - clicking label focuses input
-    await userEvent.click(label);
-    await expect(input).toHaveFocus();
+    await userEvent.click(label)
+    await expect(input).toHaveFocus()
   },
-};
+}
 
 // Rename the FocusesAssociatedInput story
 export const AccessibleLabelInputAssociation: Story = {
   args: {
-    children: "Username",
-    htmlFor: "username-input",
+    children: 'Username',
+    htmlFor: 'username-input',
   },
   render: (args) => (
     <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -140,20 +139,19 @@ export const AccessibleLabelInputAssociation: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Demonstrates proper label-input association using the htmlFor attribute matched with the input's id.",
+        story: "Demonstrates proper label-input association using the htmlFor attribute matched with the input's id.",
       },
     },
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
     // Find elements using accessible querxies
-    const label = canvas.getByText("Username");
-    const input = canvas.getByLabelText("Username");
+    const label = canvas.getByText('Username')
+    const input = canvas.getByLabelText('Username')
 
     // Test the key accessibility behavior - clicking label focuses input
-    await userEvent.click(label);
-    await expect(input).toHaveFocus();
+    await userEvent.click(label)
+    await expect(input).toHaveFocus()
   },
-};
+}

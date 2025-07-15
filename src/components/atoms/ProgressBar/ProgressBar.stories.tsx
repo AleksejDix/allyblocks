@@ -197,11 +197,7 @@ export const AnimatedProgress: Story = {
     return (
       <div className="space-y-4">
         <p>Watch the progress animate automatically</p>
-        <ProgressBar 
-          value={progress} 
-          label="Animated progress" 
-          showValue 
-        />
+        <ProgressBar value={progress} label="Animated progress" showValue />
       </div>
     )
   },
@@ -266,13 +262,13 @@ export const AccessibilityTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const progressBar = canvas.getByRole('progressbar')
-    
+
     // Check ARIA attributes
     await expect(progressBar).toHaveAttribute('aria-valuenow', '80')
     await expect(progressBar).toHaveAttribute('aria-valuemin', '0')
     await expect(progressBar).toHaveAttribute('aria-valuemax', '100')
     await expect(progressBar).toHaveAttribute('aria-labelledby', 'upload-progress-label')
-    
+
     // Check proper labeling
     const label = canvas.getByText('Upload progress')
     await expect(label).toHaveAttribute('id', 'upload-progress-label')

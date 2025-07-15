@@ -7,15 +7,11 @@ export {
   MultiSelectGroup,
   MultiSelectLabel,
   MultiSelectSeparator,
-} from "./MultiSelect";
+} from './MultiSelect'
 
-export {
-  multiSelectTriggerVariants,
-  multiSelectContentVariants,
-  multiSelectItemVariants,
-} from "./MultiSelect.variants";
+export { multiSelectTriggerVariants, multiSelectContentVariants, multiSelectItemVariants } from './MultiSelect.variants'
 
-export { MultiSelectContext, useMultiSelect } from "./MultiSelect.context";
+export { MultiSelectContext, useMultiSelect } from './MultiSelect.context'
 
 export type {
   MultiSelectProps,
@@ -31,6 +27,6 @@ export type {
   MultiSelectGroupProps,
   MultiSelectLabelProps,
   MultiSelectSeparatorProps,
-} from "./MultiSelect.types";
+} from './MultiSelect.types'
 
-export type { MultiSelectContextValue } from "./MultiSelect.context"; 
+export type { MultiSelectContextValue } from './MultiSelect.context'

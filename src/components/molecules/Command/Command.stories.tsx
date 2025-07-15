@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { expect, userEvent, within } from "storybook/test";
-import { useState } from "react";
-import { Icon } from "@/components/atoms/Icon";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
+import { useState } from 'react'
+import { Icon } from '@/components/atoms/Icon'
 import {
   Command,
   CommandDialog,
@@ -12,8 +12,8 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "./Command";
-import { Button } from "@/components/atoms/Button";
+} from './Command'
+import { Button } from '@/components/atoms/Button'
 
 const meta: Meta<typeof Command> = {
   component: Command,
@@ -27,19 +27,19 @@ const meta: Meta<typeof Command> = {
     CommandShortcut,
     CommandSeparator,
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["default", "sm", "md", "lg"],
-      description: "Size of the command palette",
+      control: 'select',
+      options: ['default', 'sm', 'md', 'lg'],
+      description: 'Size of the command palette',
     },
   },
-};
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof Command>;
+type Story = StoryObj<typeof Command>
 
 export const Default: Story = {
   render: () => (
@@ -83,20 +83,20 @@ export const Default: Story = {
     </Command>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
     // Check if command palette is visible
-    const commandElement = canvas.getByRole("search");
-    expect(commandElement).toBeInTheDocument();
+    const commandElement = canvas.getByRole('combobox')
+    expect(commandElement).toBeInTheDocument()
 
     // Type in search
-    const input = canvas.getByPlaceholderText("Type a command or search...");
-    await userEvent.type(input, "pro");
+    const input = canvas.getByPlaceholderText('Type a command or search...')
+    await userEvent.type(input, 'pro')
 
     // Check that we can see filtered results
-    await expect(canvas.getByText("Profile")).toBeVisible();
+    await expect(canvas.getByText('Profile')).toBeVisible()
   },
-};
+}
 
 export const WithSizes: Story = {
   render: () => (
@@ -159,7 +159,7 @@ export const WithSizes: Story = {
       </div>
     </div>
   ),
-};
+}
 
 export const WithEmptyState: Story = {
   render: () => (
@@ -168,15 +168,9 @@ export const WithEmptyState: Story = {
       <CommandList>
         <CommandEmpty>
           <div className="flex flex-col items-center justify-center py-6">
-            <Icon
-              name="rocket"
-              className="text-muted-foreground mb-2"
-              size={32}
-            />
+            <Icon name="rocket" className="text-muted-foreground mb-2" size={32} />
             <p className="text-sm text-muted-foreground">No results found.</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Try searching for something else.
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">Try searching for something else.</p>
           </div>
         </CommandEmpty>
         <CommandGroup heading="Suggestions">
@@ -192,7 +186,7 @@ export const WithEmptyState: Story = {
       </CommandList>
     </Command>
   ),
-};
+}
 
 export const WithDestructiveItems: Story = {
   render: () => (
@@ -216,7 +210,7 @@ export const WithDestructiveItems: Story = {
       </CommandList>
     </Command>
   ),
-};
+}
 
 export const WithDisabledItems: Story = {
   render: () => (
@@ -237,12 +231,12 @@ export const WithDisabledItems: Story = {
       </CommandList>
     </Command>
   ),
-};
+}
 
 export const WithSelection: Story = {
   render: () => {
     function SelectionDemo() {
-      const [selectedItem, setSelectedItem] = useState("");
+      const [selectedItem, setSelectedItem] = useState('')
 
       return (
         <div className="space-y-4">
@@ -251,13 +245,13 @@ export const WithSelection: Story = {
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Items">
-                <CommandItem onSelect={() => setSelectedItem("Item 1")}>
+                <CommandItem onSelect={() => setSelectedItem('Item 1')}>
                   <span>Item 1</span>
                 </CommandItem>
-                <CommandItem onSelect={() => setSelectedItem("Item 2")}>
+                <CommandItem onSelect={() => setSelectedItem('Item 2')}>
                   <span>Item 2</span>
                 </CommandItem>
-                <CommandItem onSelect={() => setSelectedItem("Item 3")}>
+                <CommandItem onSelect={() => setSelectedItem('Item 3')}>
                   <span>Item 3</span>
                 </CommandItem>
               </CommandGroup>
@@ -270,17 +264,17 @@ export const WithSelection: Story = {
             </div>
           )}
         </div>
-      );
+      )
     }
 
-    return <SelectionDemo />;
+    return <SelectionDemo />
   },
-};
+}
 
 export const WithDialog: Story = {
   render: () => {
     function DialogDemo() {
-      const [open, setOpen] = useState(false);
+      const [open, setOpen] = useState(false)
 
       return (
         <>
@@ -306,9 +300,9 @@ export const WithDialog: Story = {
             </CommandList>
           </CommandDialog>
         </>
-      );
+      )
     }
 
-    return <DialogDemo />;
+    return <DialogDemo />
   },
-};
+}

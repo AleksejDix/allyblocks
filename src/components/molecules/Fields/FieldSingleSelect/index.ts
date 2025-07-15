@@ -1,1 +1,1 @@
-export { FieldSingleSelect } from "./FieldSingleSelect";
+export { FieldSingleSelect } from './FieldSingleSelect'

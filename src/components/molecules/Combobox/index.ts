@@ -7,7 +7,7 @@ export {
   ComboboxEmpty,
   ComboboxGroup,
   ComboboxItem,
-} from "./Combobox";
+} from './Combobox'
 
 export type {
   ComboboxOption,
@@ -20,4 +20,4 @@ export type {
   ComboboxEmptyProps,
   ComboboxGroupProps,
   ComboboxItemProps,
-} from "./Combobox.types";
+} from './Combobox.types'

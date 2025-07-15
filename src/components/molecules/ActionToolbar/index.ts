@@ -1,17 +1,10 @@
-export {
-  ActionToolbar,
-  ActionToolbarButton,
-  ActionToolbarContent,
-} from "./ActionToolbar";
+export { ActionToolbar, ActionToolbarButton, ActionToolbarContent } from './ActionToolbar'
 
-export {
-  useActionToolbar,
-  ActionToolbarContext,
-} from "./ActionToolbar.context";
+export { useActionToolbar, ActionToolbarContext } from './ActionToolbar.context'
 
 export type {
   ActionToolbarProps,
   ActionToolbarRootProps,
   ActionToolbarButtonProps,
   ActionToolbarContextType,
-} from "./ActionToolbar.types";
+} from './ActionToolbar.types'

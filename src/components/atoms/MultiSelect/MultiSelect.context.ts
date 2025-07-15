@@ -7,19 +7,19 @@ import type { MultiSelectOption } from './MultiSelect.types'
 export type MultiSelectContextValue = {
   /** Currently selected values */
   value: string[]
-  
+
   /** Callback to update selected values */
   onValueChange: (value: string[]) => void
-  
+
   /** Available options */
   options?: MultiSelectOption[]
-  
+
   /** Whether the select is disabled */
   disabled?: boolean
-  
+
   /** Whether the field is required */
   required?: boolean
-  
+
   /** ID for accessibility */
   id: string
 }
@@ -39,4 +39,4 @@ export function useMultiSelect(): MultiSelectContextValue {
     throw new Error('MultiSelect components must be used within a MultiSelect root')
   }
   return context
-} 
+}

@@ -81,7 +81,8 @@ export const WithStrengthIndicator: Story = {
 
     const input = canvas.getByLabelText(/password/i)
     await userEvent.type(input, 'weak')
-    await userEvent.selectAll()
+    // Select all and replace
+    await userEvent.tripleClick(input)
     await userEvent.type(input, 'StrongPassword123!')
   },
 }

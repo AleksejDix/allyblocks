@@ -1,1 +1,1 @@
-export * from "./FieldSelect";
+export * from './FieldSelect'

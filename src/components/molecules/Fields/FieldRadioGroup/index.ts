@@ -1,5 +1,1 @@
-export {
-  FieldRadioGroup as default,
-  type FieldRadioGroupProps,
-  type RadioOption,
-} from "./FieldRadioGroup";
+export { FieldRadioGroup as default, type FieldRadioGroupProps, type RadioOption } from './FieldRadioGroup'

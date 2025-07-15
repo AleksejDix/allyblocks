@@ -104,14 +104,7 @@ function Choice({ className, children, name, defaultValue, multiselect = false, 
 /**
  * ChoiceItem - Individual choice card
  */
-function ChoiceItem({
-  className,
-  children,
-  value,
-  id,
-  defaultChecked,
-  disabled
-}: ChoiceItemProps) {
+function ChoiceItem({ className, children, value, id, defaultChecked, disabled }: ChoiceItemProps) {
   const context = useContext(ChoiceContext)
   const generatedId = useId()
   const itemId = id || `${generatedId}-${value}`

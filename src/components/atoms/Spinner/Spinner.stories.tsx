@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Spinner } from "./Spinner";
-import { RefreshCw } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { Spinner } from './Spinner'
+import { RefreshCw } from 'lucide-react'
 
 const meta: Meta<typeof Spinner> = {
   component: Spinner,
@@ -38,63 +38,63 @@ The Spinner component includes the \`role="status"\` attribute to indicate that 
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "default", "lg", "xl"],
-      description: "Size of the spinner",
+      control: 'select',
+      options: ['sm', 'default', 'lg', 'xl'],
+      description: 'Size of the spinner',
     },
     children: {
-      control: "text",
-      description: "Label text or content to display next to the spinner",
+      control: 'text',
+      description: 'Label text or content to display next to the spinner',
     },
   },
   args: {
-    size: "default",
+    size: 'default',
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Spinner>;
+export default meta
+type Story = StoryObj<typeof Spinner>
 
 export const Default: Story = {
   args: {},
-};
+}
 
 export const WithLabel: Story = {
   args: {
-    children: "Loading...",
+    children: 'Loading...',
   },
-};
+}
 
 export const Small: Story = {
   args: {
-    size: "sm",
-    children: "Small",
+    size: 'sm',
+    children: 'Small',
   },
-};
+}
 
 export const Large: Story = {
   args: {
-    size: "lg",
-    children: "Large",
+    size: 'lg',
+    children: 'Large',
   },
-};
+}
 
 export const ExtraLarge: Story = {
   args: {
-    size: "xl",
-    children: "Extra Large",
+    size: 'xl',
+    children: 'Extra Large',
   },
-};
+}
 
 export const CustomIcon: Story = {
   args: {
     icon: <RefreshCw className="animate-spin" />,
-    children: "Refreshing...",
+    children: 'Refreshing...',
   },
-};
+}
 
 export const AllSizes: Story = {
   render: () => (
@@ -105,4 +105,4 @@ export const AllSizes: Story = {
       <Spinner size="xl">Extra Large</Spinner>
     </div>
   ),
-};
+}

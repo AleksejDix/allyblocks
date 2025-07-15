@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconButton } from "@/components/atoms/IconButton";
-import { Button } from "@/components/atoms/Button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./Tooltip";
-import { PlusIcon } from "lucide-react";
-import React, { useState, useEffect } from "react";
-import { Label } from "@/components/atoms/Label";
-import { Checkbox } from "@/components/atoms/Checkbox";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { IconButton } from '@/components/atoms/IconButton'
+import { Button } from '@/components/atoms/Button'
+import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip'
+import { PlusIcon } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Label } from '@/components/atoms/Label'
+import { Checkbox } from '@/components/atoms/Checkbox'
 
 const meta: Meta<typeof Tooltip> = {
   component: Tooltip,
   parameters: {},
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof Tooltip>;
+export default meta
+type Story = StoryObj<typeof Tooltip>
 
 export const Default: Story = {
   render: () => (
@@ -28,7 +28,7 @@ export const Default: Story = {
       </TooltipContent>
     </Tooltip>
   ),
-};
+}
 
 export const WithDelay: Story = {
   render: () => (
@@ -41,7 +41,7 @@ export const WithDelay: Story = {
       </TooltipContent>
     </Tooltip>
   ),
-};
+}
 
 export const WithPlacement: Story = {
   render: () => {
@@ -50,12 +50,12 @@ export const WithPlacement: Story = {
       side,
       align,
       label,
-      className = "",
+      className = '',
     }: {
-      side: "top" | "right" | "bottom" | "left";
-      align?: "start" | "center" | "end";
-      label: string;
-      className?: string;
+      side: 'top' | 'right' | 'bottom' | 'left'
+      align?: 'start' | 'center' | 'end'
+      label: string
+      className?: string
     }) => (
       <div className={`absolute ${className}`}>
         <Tooltip>
@@ -65,119 +65,63 @@ export const WithPlacement: Story = {
             </IconButton>
           </TooltipTrigger>
           <TooltipContent side={side} align={align}>
-            <p>{`${side}${align ? `-${align}` : ""}`}</p>
+            <p>{`${side}${align ? `-${align}` : ''}`}</p>
           </TooltipContent>
         </Tooltip>
       </div>
-    );
+    )
 
     return (
       <div className="grid place-content-center border border-yellow-400 h-[50vmin] w-[50vmin]">
         <div className="relative h-32 w-32 border border-dashed">
           {/* Top row */}
-          <TooltipExample
-            side="top"
-            align="start"
-            label="top start tooltip"
-            className="left-0 bottom-full"
-          />
-          <TooltipExample
-            side="top"
-            label="top center tooltip"
-            className="left-1/2 bottom-full -translate-x-1/2"
-          />
-          <TooltipExample
-            side="top"
-            align="end"
-            label="top end tooltip"
-            className="right-0 bottom-full"
-          />
+          <TooltipExample side="top" align="start" label="top start tooltip" className="left-0 bottom-full" />
+          <TooltipExample side="top" label="top center tooltip" className="left-1/2 bottom-full -translate-x-1/2" />
+          <TooltipExample side="top" align="end" label="top end tooltip" className="right-0 bottom-full" />
 
           {/* Right column */}
-          <TooltipExample
-            side="right"
-            align="start"
-            label="right start tooltip"
-            className="left-full top-0"
-          />
-          <TooltipExample
-            side="right"
-            label="right center tooltip"
-            className="left-full top-1/2 -translate-y-1/2"
-          />
-          <TooltipExample
-            side="right"
-            align="end"
-            label="right end tooltip"
-            className="left-full bottom-0"
-          />
+          <TooltipExample side="right" align="start" label="right start tooltip" className="left-full top-0" />
+          <TooltipExample side="right" label="right center tooltip" className="left-full top-1/2 -translate-y-1/2" />
+          <TooltipExample side="right" align="end" label="right end tooltip" className="left-full bottom-0" />
 
           {/* Bottom row */}
-          <TooltipExample
-            side="bottom"
-            align="end"
-            label="bottom end tooltip"
-            className="top-full right-0"
-          />
-          <TooltipExample
-            side="bottom"
-            label="bottom center tooltip"
-            className="top-full left-1/2 -translate-x-1/2"
-          />
-          <TooltipExample
-            side="bottom"
-            align="start"
-            label="bottom start tooltip"
-            className="top-full left-0"
-          />
+          <TooltipExample side="bottom" align="end" label="bottom end tooltip" className="top-full right-0" />
+          <TooltipExample side="bottom" label="bottom center tooltip" className="top-full left-1/2 -translate-x-1/2" />
+          <TooltipExample side="bottom" align="start" label="bottom start tooltip" className="top-full left-0" />
 
           {/* Left column */}
-          <TooltipExample
-            side="left"
-            align="end"
-            label="left end tooltip"
-            className="right-full bottom-0"
-          />
-          <TooltipExample
-            side="left"
-            label="left center tooltip"
-            className="right-full top-1/2 -translate-y-1/2"
-          />
-          <TooltipExample
-            side="left"
-            align="start"
-            label="left start tooltip"
-            className="right-full top-0"
-          />
+          <TooltipExample side="left" align="end" label="left end tooltip" className="right-full bottom-0" />
+          <TooltipExample side="left" label="left center tooltip" className="right-full top-1/2 -translate-y-1/2" />
+          <TooltipExample side="left" align="start" label="left start tooltip" className="right-full top-0" />
         </div>
       </div>
-    );
+    )
   },
-};
+}
 
 export const WithCollisionBoundary: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          "Demonstrates how tooltips reposition when they would overflow their custom collision boundary (red dashed box).",
+          'Demonstrates how tooltips reposition when they would overflow their custom collision boundary (red dashed box).',
       },
     },
   },
   render: function TooltipCollisionDemo() {
-    const boundaryRef = React.useRef<HTMLDivElement>(null);
-    const [boundary, setBoundary] = useState<HTMLElement | null>(null);
-    const [boundaryEnabled, setBoundaryEnabled] = useState(true);
+    const boundaryRef = React.useRef<HTMLDivElement>(null)
+    const [boundary, setBoundary] = useState<HTMLElement | null>(null)
+    const [boundaryEnabled, setBoundaryEnabled] = useState(true)
 
     // Update boundary when ref is available
     useEffect(() => {
       if (boundaryRef.current) {
-        setBoundary(boundaryRef.current);
+        setBoundary(boundaryRef.current)
       }
-    }, []);
+    }, [])
 
     // The actual boundary to use based on if it's enabled
-    const activeBoundary = boundaryEnabled ? boundary : undefined;
+    const activeBoundary = boundaryEnabled ? boundary : undefined
 
     return (
       <div className="flex flex-col gap-4 items-center">
@@ -207,9 +151,7 @@ export const WithCollisionBoundary: Story = {
                   <PlusIcon size={16} />
                 </IconButton>
               </TooltipTrigger>
-              <TooltipContent collisionBoundary={activeBoundary}>
-                Top Left
-              </TooltipContent>
+              <TooltipContent collisionBoundary={activeBoundary}>Top Left</TooltipContent>
             </Tooltip>
           </div>
 
@@ -220,9 +162,7 @@ export const WithCollisionBoundary: Story = {
                   <PlusIcon size={16} />
                 </IconButton>
               </TooltipTrigger>
-              <TooltipContent collisionBoundary={activeBoundary}>
-                Top Center
-              </TooltipContent>
+              <TooltipContent collisionBoundary={activeBoundary}>Top Center</TooltipContent>
             </Tooltip>
           </div>
 
@@ -233,9 +173,7 @@ export const WithCollisionBoundary: Story = {
                   <PlusIcon size={16} />
                 </IconButton>
               </TooltipTrigger>
-              <TooltipContent collisionBoundary={activeBoundary}>
-                Top Right
-              </TooltipContent>
+              <TooltipContent collisionBoundary={activeBoundary}>Top Right</TooltipContent>
             </Tooltip>
           </div>
 
@@ -246,9 +184,7 @@ export const WithCollisionBoundary: Story = {
                   <PlusIcon size={16} />
                 </IconButton>
               </TooltipTrigger>
-              <TooltipContent collisionBoundary={activeBoundary}>
-                Center Right
-              </TooltipContent>
+              <TooltipContent collisionBoundary={activeBoundary}>Center Right</TooltipContent>
             </Tooltip>
           </div>
 
@@ -320,33 +256,30 @@ export const WithCollisionBoundary: Story = {
 
         <p className="text-xs text-muted-foreground mt-2">
           {boundaryEnabled
-            ? "Boundary is ON - tooltips will stay within the red box"
-            : "Boundary is OFF - tooltips can overflow the red box"}
+            ? 'Boundary is ON - tooltips will stay within the red box'
+            : 'Boundary is OFF - tooltips can overflow the red box'}
         </p>
       </div>
-    );
+    )
   },
-};
+}
 
 export const InlineTooltip: Story = {
   render: () => (
     <div className="p-4 max-w-md">
       <p className="text-sm">
-        This paragraph contains an{" "}
+        This paragraph contains an{' '}
         <Tooltip>
           <TooltipTrigger asChild>
-            <span className="border-b border-dotted border-primary text-primary cursor-help">
-              inline tooltip{" "}
-            </span>
+            <span className="border-b border-dotted border-primary text-primary cursor-help">inline tooltip </span>
           </TooltipTrigger>
           <TooltipContent>
             <p>Additional information about this specific term</p>
           </TooltipContent>
         </Tooltip>
-        that appears when you hover over the highlighted text. Inline tooltips
-        are useful for providing additional context without interrupting the
-        reading flow.
+        that appears when you hover over the highlighted text. Inline tooltips are useful for providing additional
+        context without interrupting the reading flow.
       </p>
     </div>
   ),
-};
+}

@@ -1,6 +1,6 @@
-import { useFormContext } from "react-hook-form";
-import { SelectNative } from "@/components/atoms/SelectNative";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { SelectNative } from '@/components/atoms/SelectNative'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -8,16 +8,16 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type BaseFieldProps } from "../Field.types";
-import React from "react";
+} from '@/components/molecules/Form/Form'
+import { type BaseFieldProps } from '../Field.types'
+import React from 'react'
 
 export type FieldSelectNativeProps = BaseFieldProps &
   React.SelectHTMLAttributes<HTMLSelectElement> & {
     /** Placeholder text for the select field */
-    placeholder?: string;
-    children: React.ReactNode;
-  };
+    placeholder?: string
+    children: React.ReactNode
+  }
 
 export function FieldSelectNative({
   name,
@@ -30,7 +30,7 @@ export function FieldSelectNative({
   children,
   ...props
 }: FieldSelectNativeProps) {
-  const context = useFormContext();
+  const context = useFormContext()
 
   return (
     <FormField
@@ -38,13 +38,11 @@ export function FieldSelectNative({
       name={name}
       render={({ field }) => {
         // Handle multiple select values
-        const handleMultipleChange = (
-          e: React.ChangeEvent<HTMLSelectElement>
-        ) => {
-          const options = Array.from(e.target.selectedOptions);
-          const values = options.map((option) => option.value);
-          field.onChange(values);
-        };
+        const handleMultipleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+          const options = Array.from(e.target.selectedOptions)
+          const values = options.map((option) => option.value)
+          field.onChange(values)
+        }
 
         return (
           <FormItem>
@@ -59,13 +57,7 @@ export function FieldSelectNative({
                 {...field}
                 {...props}
                 // For multiple select, we need special handling
-                value={
-                  multiple
-                    ? Array.isArray(field.value)
-                      ? field.value
-                      : []
-                    : field.value || ""
-                }
+                value={multiple ? (Array.isArray(field.value) ? field.value : []) : field.value || ''}
                 onChange={multiple ? handleMultipleChange : field.onChange}
                 onBlur={field.onBlur}
                 name={field.name}
@@ -75,19 +67,17 @@ export function FieldSelectNative({
                 disabled={disabled}
                 aria-invalid={!!context.getFieldState(name).error}
               >
-                {!multiple && placeholder && (
-                  <option value="">{placeholder}</option>
-                )}
+                {!multiple && placeholder && <option value="">{placeholder}</option>}
                 {children}
               </SelectNative>
             </FormControl>
             {description && <FormDescription>{description}</FormDescription>}
             <FormMessage />
           </FormItem>
-        );
+        )
       }}
     />
-  );
+  )
 }
 
-export default FieldSelectNative;
+export default FieldSelectNative

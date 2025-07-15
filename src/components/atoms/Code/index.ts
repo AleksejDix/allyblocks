@@ -1,2 +1,2 @@
-export { Code } from "./Code";
-export type { CodeProps } from "./Code.types"; 
+export { Code } from './Code'
+export type { CodeProps } from './Code.types'

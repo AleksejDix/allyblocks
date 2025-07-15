@@ -1,45 +1,37 @@
-import { z, type ZodRawShape } from "zod";
+import { z, type ZodRawShape } from 'zod'
 
 function isOptionalField(fieldSchema: z.ZodTypeAny): boolean {
   // If the field is wrapped with .optional()
-  if (fieldSchema._def?.typeName === "ZodOptional") {
-    return true;
+  if (fieldSchema._def?.typeName === 'ZodOptional') {
+    return true
   }
 
   // If the field is nullable but not optional
-  if (fieldSchema._def?.typeName === "ZodNullable") {
-    return isOptionalField(fieldSchema._def.innerType);
+  if (fieldSchema._def?.typeName === 'ZodNullable') {
+    return isOptionalField(fieldSchema._def.innerType)
   }
 
   // Other complex cases like union types that include undefined
-  if (fieldSchema._def?.typeName === "ZodUnion") {
+  if (fieldSchema._def?.typeName === 'ZodUnion') {
     return fieldSchema._def.options.some(
-      (option: z.ZodTypeAny) =>
-        option._def.typeName === "ZodUndefined" ||
-        option._def.typeName === "ZodNull"
-    );
+      (option: z.ZodTypeAny) => option._def.typeName === 'ZodUndefined' || option._def.typeName === 'ZodNull',
+    )
   }
 
-  return false;
+  return false
 }
 
-export function isRequired(
-  schema: z.ZodObject<ZodRawShape>,
-  fieldName: string
-): boolean {
+export function isRequired(schema: z.ZodObject<ZodRawShape>, fieldName: string): boolean {
   try {
-    const shape =
-      typeof schema._def.shape === "function"
-        ? schema._def.shape()
-        : schema._def.shape;
+    const shape = typeof schema._def.shape === 'function' ? schema._def.shape() : schema._def.shape
 
     if (!shape || !(fieldName in shape)) {
-      return false;
+      return false
     }
 
-    const fieldSchema = shape[fieldName];
-    return !isOptionalField(fieldSchema);
+    const fieldSchema = shape[fieldName]
+    return !isOptionalField(fieldSchema)
   } catch {
-    return false;
+    return false
   }
 }

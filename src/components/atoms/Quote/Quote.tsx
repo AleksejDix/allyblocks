@@ -1,10 +1,10 @@
-import type { QuoteProps, QuoteSyntax } from "./Quote.types";
-import { cn } from "@/lib/utils";
+import type { QuoteProps, QuoteSyntax } from './Quote.types'
+import { cn } from '@/lib/utils'
 
 export type LocalizedQuoteProps = QuoteProps & {
-  quoteOpen?: string;
-  quoteClose?: string;
-};
+  quoteOpen?: string
+  quoteClose?: string
+}
 
 // Unicode reference for quotation marks:
 // U+201C/U+201D: "..." (English double curly)
@@ -21,21 +21,21 @@ export type LocalizedQuoteProps = QuoteProps & {
 // U+00A0: Non-breaking space
 
 const guillemets: QuoteSyntax = {
-  open: "\u00AB",
-  close: "\u00BB",
-};
+  open: '\u00AB',
+  close: '\u00BB',
+}
 
 const guillemetsWithSpace: QuoteSyntax = {
-  open: "\u00AB\u00A0",
-  close: "\u00A0\u00BB",
-};
+  open: '\u00AB\u00A0',
+  close: '\u00A0\u00BB',
+}
 
 // Base language quote styles
 export const QUOTE_SYNTAX: Record<string, QuoteSyntax> = {
   // English style (curly)
   en: {
-    open: "\u201C",
-    close: "\u201D",
+    open: '\u201C',
+    close: '\u201D',
   },
 
   // French style (with non-breaking spaces)
@@ -43,8 +43,8 @@ export const QUOTE_SYNTAX: Record<string, QuoteSyntax> = {
 
   // German style (low-high)
   de: {
-    open: "\u201E",
-    close: "\u201C",
+    open: '\u201E',
+    close: '\u201C',
   },
 
   // Guillemets style
@@ -57,76 +57,66 @@ export const QUOTE_SYNTAX: Record<string, QuoteSyntax> = {
 
   // Polish, Czech, Slovak (German style)
   pl: {
-    open: "\u201E",
-    close: "\u201C",
+    open: '\u201E',
+    close: '\u201C',
   },
   cs: {
-    open: "\u201E",
-    close: "\u201C",
+    open: '\u201E',
+    close: '\u201C',
   },
   sk: {
-    open: "\u201E",
-    close: "\u201C",
+    open: '\u201E',
+    close: '\u201C',
   },
 
   // Scandinavian style (straight)
   sv: {
-    open: "\u0022",
-    close: "\u0022",
+    open: '\u0022',
+    close: '\u0022',
   },
   fi: {
-    open: "\u0022",
-    close: "\u0022",
+    open: '\u0022',
+    close: '\u0022',
   },
 
   // Asian style
   ja: {
-    open: "\u300C",
-    close: "\u300D",
+    open: '\u300C',
+    close: '\u300D',
   },
   zh: {
-    open: "\u300C",
-    close: "\u300D",
+    open: '\u300C',
+    close: '\u300D',
   },
 
   // Hebrew (using English style as per common practice)
   he: {
-    open: "\u201C",
-    close: "\u201D",
+    open: '\u201C',
+    close: '\u201D',
   },
 
   // Default fallback
   default: {
-    open: "\u201C",
-    close: "\u201D",
+    open: '\u201C',
+    close: '\u201D',
   },
-};
+}
 
-export function Quote({
-  className,
-  lang = "en",
-  quoteOpen,
-  quoteClose,
-  children,
-  ...props
-}: LocalizedQuoteProps) {
-  const baseLang = lang.split("_")[0];
-  const syntax = QUOTE_SYNTAX[baseLang] || QUOTE_SYNTAX.default;
-  const open = quoteOpen ?? syntax.open;
-  const close = quoteClose ?? syntax.close;
+export function Quote({ className, lang = 'en', quoteOpen, quoteClose, children, ...props }: LocalizedQuoteProps) {
+  const baseLang = lang.split('_')[0]
+  const syntax = QUOTE_SYNTAX[baseLang] || QUOTE_SYNTAX.default
+  const open = quoteOpen ?? syntax.open
+  const close = quoteClose ?? syntax.close
 
   return (
     <q
       data-slot="quote"
-      className={cn(
-        "font-serif italic before:content-[attr(data-before)] after:content-[attr(data-after)]",
-        className
-      )}
+      className={cn('font-serif italic before:content-[attr(data-before)] after:content-[attr(data-after)]', className)}
       data-before={open}
       data-after={close}
       {...props}
     >
       {children}
     </q>
-  );
+  )
 }

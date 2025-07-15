@@ -1,9 +1,6 @@
-import { createActionContext, createActionHook } from "@/lib/useAction";
-import type { DialogAction } from "./Dialog.types";
+import { createActionContext, createActionHook } from '@/lib/useAction'
+import type { DialogAction } from './Dialog.types'
 
-export const DialogContext = createActionContext<DialogAction>();
+export const DialogContext = createActionContext<DialogAction>()
 
-export const useDialog = createActionHook<DialogAction>(
-  DialogContext,
-  "useDialog"
-);
+export const useDialog = createActionHook<DialogAction>(DialogContext, 'useDialog')

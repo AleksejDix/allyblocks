@@ -1,14 +1,14 @@
-import React from "react";
-import { ChevronDownIcon, PhoneIcon } from "lucide-react";
-import PhoneInputLib from "react-phone-number-input";
-import type { Country } from "react-phone-number-input";
-import flags from "react-phone-number-input/flags";
-import { useFormContext } from "react-hook-form";
-import "react-phone-number-input/style.css";
+import React from 'react'
+import { ChevronDownIcon, PhoneIcon } from 'lucide-react'
+import PhoneInputLib from 'react-phone-number-input'
+import type { Country } from 'react-phone-number-input'
+import flags from 'react-phone-number-input/flags'
+import { useFormContext } from 'react-hook-form'
+import 'react-phone-number-input/style.css'
 
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/atoms/Input";
-import { Required } from "@/components/atoms/Required";
+import { cn } from '@/lib/utils'
+import { Input } from '@/components/atoms/Input'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -16,22 +16,22 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type BaseFieldProps } from "../Field.types";
+} from '@/components/molecules/Form/Form'
+import { type BaseFieldProps } from '../Field.types'
 
 export type PhoneFieldProps = BaseFieldProps & {
-  defaultCountry?: Country;
-};
+  defaultCountry?: Country
+}
 
 export function FieldPhone({
   name,
-  label = "Phone Number",
+  label = 'Phone Number',
   description,
   required = false,
   disabled = false,
   defaultCountry,
 }: PhoneFieldProps) {
-  const { control } = useFormContext();
+  const { control } = useFormContext()
 
   return (
     <FormField
@@ -66,26 +66,20 @@ export function FieldPhone({
         </FormItem>
       )}
     />
-  );
+  )
 }
 
-const PhoneInput = ({
-  className,
-  ...props
-}: Omit<React.ComponentProps<"input">, "size">) => {
+const PhoneInput = ({ className, ...props }: Omit<React.ComponentProps<'input'>, 'size'>) => {
   return (
     <Input
       data-slot="phone-input"
-      className={cn(
-        "-ms-px rounded-s-none shadow-none focus-visible:z-10",
-        className
-      )}
+      className={cn('-ms-px rounded-s-none shadow-none focus-visible:z-10', className)}
       {...props}
     />
-  );
-};
+  )
+}
 
-PhoneInput.displayName = "PhoneInput";
+PhoneInput.displayName = 'PhoneInput'
 
 const CountrySelect = ({
   disabled,
@@ -93,14 +87,14 @@ const CountrySelect = ({
   onChange,
   options,
 }: {
-  disabled?: boolean;
-  value: string;
-  onChange: (value: string) => void;
-  options: Array<{ value: string; label: string }>;
+  disabled?: boolean
+  value: string
+  onChange: (value: string) => void
+  options: Array<{ value: string; label: string }>
 }) => {
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(event.target.value);
-  };
+    onChange(event.target.value)
+  }
 
   return (
     <div
@@ -130,28 +124,18 @@ outline-zinc-950/5 border-input bg-background text-muted-foreground focus-within
         ))}
       </select>
     </div>
-  );
-};
+  )
+}
 
 // Simplified FlagComponent
-const FlagComponent = ({
-  country,
-  countryName,
-}: {
-  country: string;
-  countryName: string;
-}) => {
-  const Flag = country && flags[country as keyof typeof flags];
+const FlagComponent = ({ country, countryName }: { country: string; countryName: string }) => {
+  const Flag = country && flags[country as keyof typeof flags]
 
   return (
     <span className="w-5 overflow-hidden rounded-sm">
-      {Flag ? (
-        <Flag title={countryName} />
-      ) : (
-        <PhoneIcon size={16} aria-hidden="true" />
-      )}
+      {Flag ? <Flag title={countryName} /> : <PhoneIcon size={16} aria-hidden="true" />}
     </span>
-  );
-};
+  )
+}
 
-export default FieldPhone;
+export default FieldPhone

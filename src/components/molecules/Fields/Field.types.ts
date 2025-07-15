@@ -1,30 +1,29 @@
-import type { InputSize } from "@/components/atoms/Input/Input.types";
-import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
-import React from "react";
+import type { InputSize } from '@/components/atoms/Input/Input.types'
+import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
+import React from 'react'
 
 /**
  * Base type for all form field props
  */
 export type BaseFieldProps = {
   /** The name of the field, used for form submission and validation */
-  name: string;
+  name: string
   /** The label text for the field */
-  label?: string;
+  label?: string
   /** A description or helper text for the field */
-  description?: string;
+  description?: string
   /** Whether the field is required */
-  required?: boolean;
+  required?: boolean
   /** Whether the field is disabled */
-  disabled?: boolean;
+  disabled?: boolean
   /** The size of the field */
-  size?: InputSize;
-};
+  size?: InputSize
+}
 
 /**
  * Type for input-based form fields (extends HTML input attributes)
  */
-export type InputFieldProps = BaseFieldProps &
-  InputHTMLAttributes<HTMLInputElement>;
+export type InputFieldProps = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>
 
 /**
  * Type for textarea-based form fields
@@ -32,12 +31,12 @@ export type InputFieldProps = BaseFieldProps &
 export type TextareaFieldProps = BaseFieldProps &
   TextareaHTMLAttributes<HTMLTextAreaElement> & {
     /** Minimum height of the textarea */
-    minHeight?: number;
+    minHeight?: number
     /** Maximum height of the textarea (for auto-resize) */
-    maxHeight?: number;
+    maxHeight?: number
     /** Whether the textarea should auto-resize */
-    autoResize?: boolean;
-  };
+    autoResize?: boolean
+  }
 
 /**
  * Type for select-based form fields
@@ -45,56 +44,55 @@ export type TextareaFieldProps = BaseFieldProps &
 export type SelectFieldProps = BaseFieldProps &
   React.SelectHTMLAttributes<HTMLSelectElement> & {
     /** Placeholder text for the select field */
-    placeholder?: string;
+    placeholder?: string
     /** Array of options for the select field */
-    options: SelectOption[];
-  };
+    options: SelectOption[]
+  }
 
 /**
  * Type for OTP-based form fields
  */
 export type OTPFieldProps = BaseFieldProps & {
   /** Maximum length of the OTP code */
-  maxLength?: number;
-};
+  maxLength?: number
+}
 
 /**
  * Type for password-based form fields
  */
 export type PasswordFieldProps = InputFieldProps & {
   /** Whether to show password strength indicator */
-  showStrength?: boolean;
-};
+  showStrength?: boolean
+}
 
 /**
  * Type for upload-based form fields
  */
 export type UploadFieldProps = BaseFieldProps &
-  Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
+  Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
     /** Accepted file types */
-    accept?: string;
+    accept?: string
     /** Allow multiple file uploads */
-    multiple?: boolean;
+    multiple?: boolean
     /** Maximum file size in bytes */
-    maxSize?: number;
+    maxSize?: number
     /** Custom validation function */
-    validateFile?: (file: File) => string | null;
+    validateFile?: (file: File) => string | null
     /** Help text for upload instructions */
-    helpText?: string;
-  };
+    helpText?: string
+  }
 
 /**
  * Type for select options
  */
 export type SelectOption = {
   /** The value of the option */
-  value: string;
+  value: string
   /** The display label of the option */
-  label: string;
-};
+  label: string
+}
 
 /**
  * Type for checkbox-based form fields
  */
-export type CheckboxFieldProps = BaseFieldProps &
-  InputHTMLAttributes<HTMLInputElement>;
+export type CheckboxFieldProps = BaseFieldProps & InputHTMLAttributes<HTMLInputElement>

@@ -1,9 +1,5 @@
-import { useFormContext } from "react-hook-form";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/atoms/InputOTP";
+import { useFormContext } from 'react-hook-form'
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/atoms/InputOTP'
 import {
   FormField,
   FormItem,
@@ -11,12 +7,12 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type OTPFieldProps } from "../Field.types";
+} from '@/components/molecules/Form/Form'
+import { type OTPFieldProps } from '../Field.types'
 
 export function FieldOTP({
   name,
-  label = "Verification Code",
+  label = 'Verification Code',
   description,
   required = true,
   disabled = false,
@@ -25,23 +21,23 @@ export function FieldOTP({
   size: _, // Destructure and ignore size
   ...props
 }: OTPFieldProps) {
-  const { control, getFieldState } = useFormContext();
-  const fieldState = getFieldState(name);
+  const { control, getFieldState } = useFormContext()
+  const fieldState = getFieldState(name)
 
   const renderOTP = () => {
-    const slots = [];
+    const slots = []
     for (let i = 0; i < maxLength; i++) {
-      slots.push(<InputOTPSlot key={i} index={i} />);
+      slots.push(<InputOTPSlot key={i} index={i} />)
     }
-    return slots;
-  };
+    return slots
+  }
 
   return (
     <FormField
       control={control}
       name={name}
       rules={{
-        required: required ? "Verification code is required" : false,
+        required: required ? 'Verification code is required' : false,
       }}
       render={({ field }) => (
         <FormItem>
@@ -70,5 +66,5 @@ export function FieldOTP({
         </FormItem>
       )}
     />
-  );
+  )
 }

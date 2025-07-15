@@ -1,116 +1,110 @@
-import * as React from "react";
-import type { ButtonProps } from "@/components/atoms/Button/Button.types";
-import type { 
+import * as React from 'react'
+import type { ButtonProps } from '@/components/atoms/Button/Button.types'
+import type {
   ActionMenuContentProps as BaseActionMenuContentProps,
   ActionMenuGroupProps as BaseActionMenuGroupProps,
   ActionMenuLabelProps as BaseActionMenuLabelProps,
   ActionMenuSeparatorProps as BaseActionMenuSeparatorProps,
   ActionMenuCheckboxItemProps as BaseActionMenuCheckboxItemProps,
-} from "@/components/molecules/ActionMenu";
+} from '@/components/molecules/ActionMenu'
 
-export type MultiSelectSize = "sm" | "default" | "lg" | "icon";
-export type MultiSelectVariant =
-  | "default"
-  | "ghost"
-  | "outline"
-  | "destructive"
-  | "secondary"
-  | "link";
-export type MultiSelectWidth = "auto" | "full";
+export type MultiSelectSize = 'sm' | 'default' | 'lg' | 'icon'
+export type MultiSelectVariant = 'default' | 'ghost' | 'outline' | 'destructive' | 'secondary' | 'link'
+export type MultiSelectWidth = 'auto' | 'full'
 
 export type MultiSelectOption = {
-  label: string;
-  value: string;
-  disabled?: boolean;
-};
+  label: string
+  value: string
+  disabled?: boolean
+}
 
 export type MultiSelectRootProps = {
   /** The currently selected values */
-  value?: string[];
+  value?: string[]
 
   /** Default selected values */
-  defaultValue?: string[];
+  defaultValue?: string[]
 
   /** Callback when values change */
-  onValueChange?: (value: string[]) => void;
+  onValueChange?: (value: string[]) => void
 
   /** Whether the select is disabled */
-  disabled?: boolean;
+  disabled?: boolean
 
   /** Additional CSS classes */
-  className?: string;
+  className?: string
 
   /** ID used for accessibility */
-  id?: string;
+  id?: string
 
   /** Whether the field is required */
-  required?: boolean;
+  required?: boolean
 
   /** Children elements */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /** Options to render in the dropdown */
-  options?: MultiSelectOption[];
-};
+  options?: MultiSelectOption[]
+}
 
-export type MultiSelectTriggerProps = Omit<ButtonProps, "onChange"> & {
+export type MultiSelectTriggerProps = Omit<ButtonProps, 'onChange'> & {
   /** Children elements */
-  children?: React.ReactNode;
-};
+  children?: React.ReactNode
+}
 
 export type MultiSelectValueProps = {
   /** Placeholder text when no options are selected */
-  placeholder?: string;
+  placeholder?: string
 
   /** Text to show before the selected count */
-  selectedText?: string;
+  selectedText?: string
 
   /** Maximum number of visible selected items before truncation */
-  maxDisplayItems?: number;
+  maxDisplayItems?: number
 
   /** Whether to show item labels or just count */
-  showSelectedLabels?: boolean;
+  showSelectedLabels?: boolean
 
   /** Additional CSS classes */
-  className?: string;
-};
+  className?: string
+}
 
 export type MultiSelectGroupProps = BaseActionMenuGroupProps & {
   /** Children elements */
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
-export type MultiSelectContentProps = Omit<BaseActionMenuContentProps, "onAnimationEnd"> & {
+export type MultiSelectContentProps = Omit<BaseActionMenuContentProps, 'onAnimationEnd'> & {
   /** Children elements */
-  children?: React.ReactNode;
+  children?: React.ReactNode
 
   /** Width variant */
-  width?: "auto" | "trigger";
+  width?: 'auto' | 'trigger'
 
   /** Side of the trigger to render content */
-  side?: "top" | "right" | "bottom" | "left";
+  side?: 'top' | 'right' | 'bottom' | 'left'
 
   /** Alignment of content relative to trigger */
-  align?: "start" | "center" | "end";
+  align?: 'start' | 'center' | 'end'
 
   /** Offset distance from the trigger */
-  sideOffset?: number;
-};
+  sideOffset?: number
+}
 
 export type MultiSelectLabelProps = BaseActionMenuLabelProps & {
   /** Children elements */
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export type MultiSelectSeparatorProps = BaseActionMenuSeparatorProps & {
   /** Additional CSS classes */
-  className?: string;
-};
+  className?: string
+}
 
 export type MultiSelectItemContext = {
   /** Item value */
   itemValue: string
-  
+
   /** Whether the item is checked */
   checked?: boolean
 
@@ -133,4 +127,4 @@ export type MultiSelectItemProps = Omit<BaseActionMenuCheckboxItemProps, 'contex
 }
 
 // Aliased for cleaner imports
-export type MultiSelectProps = MultiSelectRootProps;
+export type MultiSelectProps = MultiSelectRootProps

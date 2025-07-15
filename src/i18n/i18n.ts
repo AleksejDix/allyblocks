@@ -1,41 +1,41 @@
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
+import i18n from 'i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
 i18n.use(LanguageDetector).init({
   detection: {
-    order: ["htmlTag", "navigator"],
+    order: ['htmlTag', 'navigator'],
   },
-  lng: "de",
-  fallbackLng: "de",
-  supportedLngs: ["de", "en", "fr", "it"],
+  lng: 'de',
+  fallbackLng: 'de',
+  supportedLngs: ['de', 'en', 'fr', 'it'],
   debug: false,
   interpolation: {
     escapeValue: false,
   },
-  defaultNS: "translation",
-  ns: ["translation", "language-switcher"],
+  defaultNS: 'translation',
+  ns: ['translation', 'language-switcher'],
   resources: {
     en: {
       translation: {
-        hello: "Hello",
+        hello: 'Hello',
       },
     },
     de: {
       translation: {
-        hello: "Hallo",
+        hello: 'Hallo',
       },
     },
     fr: {
       translation: {
-        hello: "Bonjour",
+        hello: 'Bonjour',
       },
     },
     it: {
       translation: {
-        hello: "Ciao",
+        hello: 'Ciao',
       },
     },
   },
-});
+})
 
-export default i18n;
+export default i18n

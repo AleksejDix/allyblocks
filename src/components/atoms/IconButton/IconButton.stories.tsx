@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconButton } from "./IconButton";
-import { Icon } from "@/components/atoms/Icon";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { IconButton } from './IconButton'
+import { Icon } from '@/components/atoms/Icon'
 
 const meta: Meta<typeof IconButton> = {
   component: IconButton,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   parameters: {
     nuqs: {
       disabled: true,
@@ -12,38 +12,31 @@ const meta: Meta<typeof IconButton> = {
   },
   argTypes: {
     variant: {
-      control: "select",
-      options: [
-        "default",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
-      description: "The visual variant of the button",
+      control: 'select',
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+      description: 'The visual variant of the button',
     },
     size: {
-      control: "select",
-      options: ["sm", "md", "lg"],
-      description: "The size of the button",
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'The size of the button',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the button is disabled",
+      control: 'boolean',
+      description: 'Whether the button is disabled',
     },
   },
-};
+}
 
-export default meta;
-type Story = StoryObj<typeof IconButton>;
+export default meta
+type Story = StoryObj<typeof IconButton>
 
 export const Default: Story = {
   args: {
     children: <Icon name="chevron-right" />,
-    "aria-label": "Go to next page",
+    'aria-label': 'Go to next page',
   },
-};
+}
 
 export const Variants: Story = {
   render: () => (
@@ -68,7 +61,7 @@ export const Variants: Story = {
       </IconButton>
     </div>
   ),
-};
+}
 
 export const Sizes: Story = {
   render: () => (
@@ -84,15 +77,15 @@ export const Sizes: Story = {
       </IconButton>
     </div>
   ),
-};
+}
 
 export const Disabled: Story = {
   args: {
     children: <Icon name="trash" />,
-    "aria-label": "Delete item",
+    'aria-label': 'Delete item',
     disabled: true,
   },
-};
+}
 
 export const WithDifferentIcons: Story = {
   render: () => (
@@ -120,4 +113,4 @@ export const WithDifferentIcons: Story = {
       </IconButton>
     </div>
   ),
-};
+}

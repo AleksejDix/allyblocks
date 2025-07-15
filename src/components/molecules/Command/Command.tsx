@@ -1,14 +1,8 @@
-import React from "react";
-import { Command as CommandPrimitive } from "cmdk";
-import { cn } from "@/lib/utils";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/molecules/Dialog";
-import { Icon } from "@/components/atoms/Icon";
+import React from 'react'
+import { Command as CommandPrimitive } from 'cmdk'
+import { cn } from '@/lib/utils'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/molecules/Dialog'
+import { Icon } from '@/components/atoms/Icon'
 
 import {
   type CommandProps,
@@ -20,7 +14,7 @@ import {
   type CommandSeparatorProps,
   type CommandItemProps,
   type CommandShortcutProps,
-} from "./Command.types";
+} from './Command.types'
 
 import {
   commandVariants,
@@ -32,26 +26,24 @@ import {
   commandSeparatorVariants,
   commandItemVariants,
   commandShortcutVariants,
-} from "./Command.variants";
+} from './Command.variants'
 
 function Command({ className, size, ...props }: CommandProps) {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     // Let original handler run if present
     if (props.onKeyDown) {
-      props.onKeyDown(event);
+      props.onKeyDown(event)
     }
 
     // If Enter is pressed, find the selected item and trigger its onSelect
-    if (event.key === "Enter") {
-      const selectedItem = document.querySelector(
-        '[cmdk-item][data-selected="true"]'
-      );
+    if (event.key === 'Enter') {
+      const selectedItem = document.querySelector('[cmdk-item][data-selected="true"]')
       if (selectedItem) {
         // Simulate a click on the selected item
-        (selectedItem as HTMLElement).click();
+        ;(selectedItem as HTMLElement).click()
       }
     }
-  };
+  }
 
   return (
     <CommandPrimitive
@@ -60,12 +52,12 @@ function Command({ className, size, ...props }: CommandProps) {
       onKeyDown={handleKeyDown}
       {...props}
     />
-  );
+  )
 }
 
 function CommandDialog({
-  title = "Command Palette",
-  description = "Search for a command to run...",
+  title = 'Command Palette',
+  description = 'Search for a command to run...',
   children,
   ...props
 }: CommandDialogProps) {
@@ -79,7 +71,7 @@ function CommandDialog({
         <Command>{children}</Command>
       </DialogContent>
     </Dialog>
-  );
+  )
 }
 
 function CommandInput({
@@ -91,14 +83,11 @@ function CommandInput({
   size,
   ...props
 }: CommandInputProps & {
-  variant?: "default" | "subtle";
-  inputSize?: "default" | "sm" | "lg";
+  variant?: 'default' | 'subtle'
+  inputSize?: 'default' | 'sm' | 'lg'
 }) {
   return (
-    <div
-      data-slot="command-input-wrapper"
-      className={cn(commandInputWrapperVariants({ size: inputSize }))}
-    >
+    <div data-slot="command-input-wrapper" className={cn(commandInputWrapperVariants({ size: inputSize }))}>
       <Icon name="search" size={16} className="shrink-0" />
       <CommandPrimitive.Input
         data-slot="command-input"
@@ -106,41 +95,33 @@ function CommandInput({
         {...props}
       />
     </div>
-  );
+  )
 }
 
 function CommandList({
   className,
   maxHeight,
   ...props
-}: CommandListProps & { maxHeight?: "default" | "sm" | "lg" | "xl" }) {
+}: CommandListProps & { maxHeight?: 'default' | 'sm' | 'lg' | 'xl' }) {
   return (
     <CommandPrimitive.List
       data-slot="command-list"
       className={cn(commandListVariants({ maxHeight, className }))}
       {...props}
     />
-  );
+  )
 }
 
 function CommandEmpty({ className, ...props }: CommandEmptyProps) {
   return (
-    <CommandPrimitive.Empty
-      data-slot="command-empty"
-      className={cn(commandEmptyVariants(), className)}
-      {...props}
-    />
-  );
+    <CommandPrimitive.Empty data-slot="command-empty" className={cn(commandEmptyVariants(), className)} {...props} />
+  )
 }
 
 function CommandGroup({ className, ...props }: CommandGroupProps) {
   return (
-    <CommandPrimitive.Group
-      data-slot="command-group"
-      className={cn(commandGroupVariants(), className)}
-      {...props}
-    />
-  );
+    <CommandPrimitive.Group data-slot="command-group" className={cn(commandGroupVariants(), className)} {...props} />
+  )
 }
 
 function CommandSeparator({ className, ...props }: CommandSeparatorProps) {
@@ -150,7 +131,7 @@ function CommandSeparator({ className, ...props }: CommandSeparatorProps) {
       className={cn(commandSeparatorVariants(), className)}
       {...props}
     />
-  );
+  )
 }
 
 function CommandItem({
@@ -161,18 +142,17 @@ function CommandItem({
   onSelect,
   ...props
 }: CommandItemProps & {
-  variant?: "default" | "destructive";
+  variant?: 'default' | 'destructive'
 }) {
   // If no explicit value is provided, use children string as value
-  const itemValue =
-    value || (typeof children === "string" ? children : undefined);
+  const itemValue = value || (typeof children === 'string' ? children : undefined)
 
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
         commandItemVariants({ variant, className }),
-        "cursor-pointer" // Ensure cursor shows as pointer
+        'cursor-pointer', // Ensure cursor shows as pointer
       )}
       value={itemValue}
       onSelect={onSelect}
@@ -180,17 +160,11 @@ function CommandItem({
     >
       {children}
     </CommandPrimitive.Item>
-  );
+  )
 }
 
 function CommandShortcut({ className, ...props }: CommandShortcutProps) {
-  return (
-    <span
-      data-slot="command-shortcut"
-      className={cn(commandShortcutVariants(), className)}
-      {...props}
-    />
-  );
+  return <span data-slot="command-shortcut" className={cn(commandShortcutVariants(), className)} {...props} />
 }
 
 export {
@@ -203,4 +177,4 @@ export {
   CommandItem,
   CommandShortcut,
   CommandSeparator,
-};
+}

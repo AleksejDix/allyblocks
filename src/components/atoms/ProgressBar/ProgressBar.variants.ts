@@ -8,18 +8,18 @@ export const progressBarVariants = cva(
     'overflow-hidden',
     'bg-muted',
     'rounded-full',
-    
+
     // Accessibility
     'aria-invalid:ring-destructive/20',
     'dark:aria-invalid:ring-destructive/40',
     'aria-invalid:border-destructive',
-    
+
     // Focus States
     'focus-visible:outline-none',
     'focus-visible:ring-2',
     'focus-visible:ring-ring',
     'focus-visible:ring-offset-2',
-    
+
     // Transitions
     'transition-[color,box-shadow]',
   ],
@@ -52,7 +52,7 @@ export const progressBarFillVariants = cva(
     'transition-all',
     'duration-300',
     'ease-in-out',
-    
+
     // Animation for indeterminate state
     'data-[indeterminate=true]:animate-pulse',
     'data-[indeterminate=true]:w-1/3',
@@ -64,21 +64,10 @@ export const progressBarFillVariants = cva(
   {
     variants: {
       variant: {
-        default: [
-          'bg-primary',
-        ],
-        success: [
-          'bg-green-500',
-          'dark:bg-green-600',
-        ],
-        warning: [
-          'bg-yellow-500',
-          'dark:bg-yellow-600',
-        ],
-        error: [
-          'bg-red-500',
-          'dark:bg-red-600',
-        ],
+        default: ['bg-primary'],
+        success: ['bg-green-500', 'dark:bg-green-600'],
+        warning: ['bg-yellow-500', 'dark:bg-yellow-600'],
+        error: ['bg-red-500', 'dark:bg-red-600'],
       },
     },
     defaultVariants: {
@@ -87,27 +76,23 @@ export const progressBarFillVariants = cva(
   },
 )
 
-export const progressBarLabelVariants = cva(
-  [
-    // Layout
-    'flex',
-    'items-center',
-    'justify-between',
-    'mb-1',
-    
-    // Typography
-    'text-sm',
-    'font-medium',
-    'text-foreground',
-  ],
-)
+export const progressBarLabelVariants = cva([
+  // Layout
+  'flex',
+  'items-center',
+  'justify-between',
+  'mb-1',
 
-export const progressBarValueVariants = cva(
-  [
-    // Typography
-    'text-xs',
-    'font-medium',
-    'text-muted-foreground',
-    'tabular-nums',
-  ],
-)
+  // Typography
+  'text-sm',
+  'font-medium',
+  'text-foreground',
+])
+
+export const progressBarValueVariants = cva([
+  // Typography
+  'text-xs',
+  'font-medium',
+  'text-muted-foreground',
+  'tabular-nums',
+])

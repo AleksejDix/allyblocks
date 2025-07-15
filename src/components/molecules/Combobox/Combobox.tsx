@@ -1,8 +1,8 @@
-import React from "react";
-import * as Popover from "@radix-ui/react-popover";
-import { cn } from "@/lib/utils";
-import { Icon } from "@/components/atoms/Icon";
-import { Button } from "@/components/atoms/Button";
+import React from 'react'
+import * as Popover from '@radix-ui/react-popover'
+import { cn } from '@/lib/utils'
+import { Icon } from '@/components/atoms/Icon'
+import { Button } from '@/components/atoms/Button'
 import {
   Command,
   CommandEmpty,
@@ -12,40 +12,33 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@/components/molecules/Command";
-import {
-  type ComboboxTriggerProps,
-  type ComboboxContentProps,
-  type ComboboxInputProps,
-} from "./Combobox.types";
-import {
-  comboboxContentVariants,
-  comboboxInputVariants,
-} from "./Combobox.variants";
+} from '@/components/molecules/Command'
+import { type ComboboxTriggerProps, type ComboboxContentProps, type ComboboxInputProps } from './Combobox.types'
+import { comboboxContentVariants, comboboxInputVariants } from './Combobox.variants'
 
 function Combobox({
   className,
   children,
   ...props
-}: Omit<React.ComponentPropsWithoutRef<typeof Popover.Root>, "className"> & {
-  className?: string;
+}: Omit<React.ComponentPropsWithoutRef<typeof Popover.Root>, 'className'> & {
+  className?: string
 }) {
   return (
     <Popover.Root {...props}>
-      <div className={cn("relative", className)}>{children}</div>
+      <div className={cn('relative', className)}>{children}</div>
     </Popover.Root>
-  );
+  )
 }
 
 function ComboboxTrigger({
   className,
-  variant = "outline",
-  size = "default",
+  variant = 'outline',
+  size = 'default',
   children,
   ...props
 }: ComboboxTriggerProps & {
-  variant?: "default" | "outline" | "ghost";
-  size?: "default" | "sm" | "lg";
+  variant?: 'default' | 'outline' | 'ghost'
+  size?: 'default' | 'sm' | 'lg'
 }) {
   return (
     <Popover.Trigger asChild>
@@ -53,21 +46,21 @@ function ComboboxTrigger({
         type="button"
         variant={variant}
         size={size}
-        className={cn("w-full justify-between", className)}
+        className={cn('w-full justify-between', className)}
         {...props}
       >
         <Icon name="search" />
         {children}
       </Button>
     </Popover.Trigger>
-  );
+  )
 }
 
 function ComboboxContent({
   className,
-  width = "trigger",
-  align = "start",
-  side = "bottom",
+  width = 'trigger',
+  align = 'start',
+  side = 'bottom',
   sideOffset = 4,
   children,
   ...props
@@ -81,29 +74,26 @@ function ComboboxContent({
         className={cn(comboboxContentVariants({ width, className }))}
         {...props}
       >
-        <Command
-          className="overflow-hidden rounded-md bg-popover"
-          shouldFilter={true}
-        >
+        <Command className="overflow-hidden rounded-md bg-popover" shouldFilter={true}>
           {children}
         </Command>
       </Popover.Content>
     </Popover.Portal>
-  );
+  )
 }
 
 function ComboboxInput({
   className,
-  inputSize = "default",
+  inputSize = 'default',
   onChange,
   ...props
 }: ComboboxInputProps & {
-  inputSize?: "default" | "sm" | "lg";
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  inputSize?: 'default' | 'sm' | 'lg'
+  onChange?: React.ChangeEventHandler<HTMLInputElement>
 }) {
   // Extract value to handle it properly
-  const { value, ...restProps } = props;
-  const stringValue = typeof value === "string" ? value : "";
+  const { value, ...restProps } = props
+  const stringValue = typeof value === 'string' ? value : ''
 
   // If onChange is provided, use it along with CommandInput's onValueChange
   const handleValueChange = (newValue: string) => {
@@ -115,11 +105,11 @@ function ComboboxInput({
         currentTarget: { value: newValue },
         preventDefault: () => {},
         stopPropagation: () => {},
-      } as React.ChangeEvent<HTMLInputElement>;
+      } as React.ChangeEvent<HTMLInputElement>
 
-      onChange(syntheticEvent);
+      onChange(syntheticEvent)
     }
-  };
+  }
 
   return (
     <CommandInput
@@ -128,7 +118,7 @@ function ComboboxInput({
       onValueChange={handleValueChange}
       {...restProps}
     />
-  );
+  )
 }
 
 // Create a ComboboxItem component that uses a direct click handler
@@ -139,37 +129,33 @@ function ComboboxItem({
   children,
   ...props
 }: React.ComponentPropsWithoutRef<typeof CommandItem> & {
-  onSelect?: (value: string) => void;
-  value: string;
+  onSelect?: (value: string) => void
+  value: string
 }) {
   // Use a direct click handler
   const handleClick = React.useCallback(() => {
     if (onSelect && value) {
-      onSelect(value);
+      onSelect(value)
     }
-  }, [onSelect, value]);
+  }, [onSelect, value])
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent) => {
-      if (event.key === "Enter" && onSelect && value) {
-        console.log("Enter key pressed");
-        onSelect(value);
+      if (event.key === 'Enter' && onSelect && value) {
+        console.log('Enter key pressed')
+        onSelect(value)
       }
     },
-    [onSelect, value]
-  );
+    [onSelect, value],
+  )
 
   return (
-    <div
-      onClick={handleClick}
-      onKeyDown={handleKeyDown}
-      className="cursor-pointer"
-    >
+    <div onClick={handleClick} onKeyDown={handleKeyDown} className="cursor-pointer">
       <CommandItem className={className} value={value} {...props}>
         {children}
       </CommandItem>
     </div>
-  );
+  )
 }
 
 // Re-export the Command components directly
@@ -187,4 +173,4 @@ export {
   CommandShortcut as ComboboxShortcut,
   // Alias
   Combobox as ComboboxRoot,
-};
+}

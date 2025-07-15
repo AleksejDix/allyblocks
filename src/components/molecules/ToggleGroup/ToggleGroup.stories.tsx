@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ToggleGroup, ToggleGroupItem } from "./ToggleGroup";
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { ToggleGroup, ToggleGroupItem } from './ToggleGroup'
 
 const meta = {
   component: ToggleGroup,
@@ -8,39 +8,32 @@ const meta = {
       disable: true,
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 
   argTypes: {
     variant: {
-      control: "select",
-      options: [
-        "default",
-        "outline",
-        "ghost",
-        "default",
-        "outline",
-        "destructive",
-      ],
+      control: 'select',
+      options: ['default', 'outline', 'ghost', 'default', 'outline', 'destructive'],
     },
     size: {
-      control: "select",
-      options: ["default", "sm", "lg"],
+      control: 'select',
+      options: ['default', 'sm', 'lg'],
     },
     type: {
-      control: "select",
-      options: ["single", "multiple"],
+      control: 'select',
+      options: ['single', 'multiple'],
     },
   },
-} satisfies Meta<typeof ToggleGroup>;
+} satisfies Meta<typeof ToggleGroup>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    type: "single",
-    defaultValue: "center",
-    variant: "destructive",
+    type: 'single',
+    defaultValue: 'center',
+    variant: 'destructive',
     children: (
       <>
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
@@ -49,11 +42,11 @@ export const Default: Story = {
       </>
     ),
   },
-};
+}
 
 export const Multiple: Story = {
   args: {
-    type: "multiple",
+    type: 'multiple',
     children: (
       <>
         <ToggleGroupItem value="bold">Bold</ToggleGroupItem>
@@ -62,13 +55,13 @@ export const Multiple: Story = {
       </>
     ),
   },
-};
+}
 
 export const Outline: Story = {
   args: {
-    variant: "outline",
-    type: "single",
-    defaultValue: "center",
+    variant: 'outline',
+    type: 'single',
+    defaultValue: 'center',
     children: (
       <>
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
@@ -77,12 +70,12 @@ export const Outline: Story = {
       </>
     ),
   },
-};
+}
 
 export const Small: Story = {
   args: {
-    type: "single",
-    defaultValue: "center",
+    type: 'single',
+    defaultValue: 'center',
     children: (
       <>
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
@@ -91,12 +84,12 @@ export const Small: Story = {
       </>
     ),
   },
-};
+}
 
 export const Large: Story = {
   args: {
-    type: "single",
-    defaultValue: "center",
+    type: 'single',
+    defaultValue: 'center',
     children: (
       <>
         <ToggleGroupItem value="left">Left</ToggleGroupItem>
@@ -105,12 +98,12 @@ export const Large: Story = {
       </>
     ),
   },
-};
+}
 
 export const WithIcons: Story = {
   args: {
-    type: "single",
-    defaultValue: "center",
+    type: 'single',
+    defaultValue: 'center',
     children: (
       <>
         <ToggleGroupItem value="left">
@@ -167,12 +160,12 @@ export const WithIcons: Story = {
       </>
     ),
   },
-};
+}
 
 export const Disabled: Story = {
   args: {
-    type: "single",
-    defaultValue: "center",
+    type: 'single',
+    defaultValue: 'center',
     children: (
       <>
         <ToggleGroupItem value="left" disabled>
@@ -183,4 +176,4 @@ export const Disabled: Story = {
       </>
     ),
   },
-};
+}

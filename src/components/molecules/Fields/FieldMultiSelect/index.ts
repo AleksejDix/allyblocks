@@ -1,1 +1,1 @@
-export { FieldMultiSelect } from "./FieldMultiSelect";
+export { FieldMultiSelect } from './FieldMultiSelect'

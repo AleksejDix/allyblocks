@@ -1,17 +1,9 @@
-import { type ColumnDef, flexRender, type Row } from "@tanstack/react-table";
-import { type ReactNode, type PropsWithChildren } from "react";
-import { ChevronUp, ChevronDown } from "lucide-react";
-import { DataGridContextProvider } from "./DataGrid.context";
-import { type RowData, useDataGrid, type LblColumnDef } from "./DataGrid.types";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/atoms/Table";
+import { type ColumnDef, flexRender, type Row } from '@tanstack/react-table'
+import { type ReactNode, type PropsWithChildren } from 'react'
+import { ChevronUp, ChevronDown } from 'lucide-react'
+import { DataGridContextProvider } from './DataGrid.context'
+import { type RowData, useDataGrid, type LblColumnDef } from './DataGrid.types'
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@/components/atoms/Table'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -19,42 +11,33 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/molecules/DropdownMenu";
-import { Button } from "@/components/atoms/Button";
-import { useEffect, useState } from "react";
-import { Icon } from "@/components/atoms/Icon";
+} from '@/components/molecules/DropdownMenu'
+import { Button } from '@/components/atoms/Button'
+import { useEffect, useState } from 'react'
+import { Icon } from '@/components/atoms/Icon'
 
 // Main DataGrid Component
 type DataGridProps<TData extends RowData> = {
-  columns: ColumnDef<TData>[];
-  data: TData[];
-  totalCount?: number;
-  children: React.ReactNode;
-};
+  columns: ColumnDef<TData>[]
+  data: TData[]
+  totalCount?: number
+  children: React.ReactNode
+}
 
-export function DataGrid<TData extends RowData>({
-  columns,
-  data,
-  totalCount,
-  children,
-}: DataGridProps<TData>) {
+export function DataGrid<TData extends RowData>({ columns, data, totalCount, children }: DataGridProps<TData>) {
   return (
-    <DataGridContextProvider
-      columns={columns as ColumnDef<RowData>[]}
-      data={data}
-      totalCount={totalCount}
-    >
+    <DataGridContextProvider columns={columns as ColumnDef<RowData>[]} data={data} totalCount={totalCount}>
       {children}
     </DataGridContextProvider>
-  );
+  )
 }
 
 // DataGridTable Component
 export function DataGridTable({ children }: PropsWithChildren) {
-  const { tableInstance } = useDataGrid();
+  const { tableInstance } = useDataGrid()
 
   if (!tableInstance) {
-    return null;
+    return null
   }
 
   return (
@@ -67,13 +50,13 @@ export function DataGridTable({ children }: PropsWithChildren) {
         </>
       )}
     </Table>
-  );
+  )
 }
 
 // DataGridHeader Component
 export function DataGridHeader() {
-  const { tableInstance } = useDataGrid();
-  if (!tableInstance) return null;
+  const { tableInstance } = useDataGrid()
+  if (!tableInstance) return null
 
   return (
     <TableHeader>
@@ -87,29 +70,24 @@ export function DataGridHeader() {
               style={{ width: header.getSize() }}
               className="[&>[role=checkbox]]:translate-y-[-3px]"
             >
-              {header.isPlaceholder
-                ? null
-                : flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+              {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
             </TableHead>
           ))}
         </TableRow>
       ))}
     </TableHeader>
-  );
+  )
 }
 
 // DataGridBody Component
 type DataGridBodyProps = {
-  children?: (row: Row<RowData>) => ReactNode;
-};
+  children?: (row: Row<RowData>) => ReactNode
+}
 
 export function DataGridBody({ children }: DataGridBodyProps) {
-  const { tableInstance } = useDataGrid();
+  const { tableInstance } = useDataGrid()
 
-  if (!tableInstance) return null;
+  if (!tableInstance) return null
 
   return (
     <TableBody>
@@ -122,9 +100,9 @@ export function DataGridBody({ children }: DataGridBodyProps) {
           tabIndex={-1}
           onClick={() => row.toggleSelected(!row.getIsSelected())}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              row.toggleSelected(!row.getIsSelected());
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              row.toggleSelected(!row.getIsSelected())
             }
           }}
         >
@@ -142,29 +120,28 @@ export function DataGridBody({ children }: DataGridBodyProps) {
         </TableRow>
       ))}
     </TableBody>
-  );
+  )
 }
 
 // DataGridFooter Component
 export function DataGridFooter() {
-  const { tableInstance } = useDataGrid();
+  const { tableInstance } = useDataGrid()
 
-  if (!tableInstance) return null;
+  if (!tableInstance) return null
 
   const hasFooters = () => {
-    let hasFooters: boolean = false;
+    let hasFooters: boolean = false
     if (tableInstance) {
       tableInstance.getFooterGroups().map((footerGroup) => {
         footerGroup.headers.map((header) => {
-          hasFooters =
-            hasFooters || header.column.columnDef.footer != undefined;
-        });
-      });
+          hasFooters = hasFooters || header.column.columnDef.footer != undefined
+        })
+      })
     }
-    return hasFooters;
-  };
+    return hasFooters
+  }
 
-  if (!hasFooters()) return null;
+  if (!hasFooters()) return null
 
   return (
     <TableFooter>
@@ -176,67 +153,62 @@ export function DataGridFooter() {
               colSpan={header.colSpan}
               className="bg-primary text-primary-foreground border [&>[role=checkbox]]:translate-y-[-3px]"
             >
-              {header.isPlaceholder
-                ? null
-                : flexRender(
-                    header.column.columnDef.footer,
-                    header.getContext()
-                  )}
+              {header.isPlaceholder ? null : flexRender(header.column.columnDef.footer, header.getContext())}
             </TableCell>
           ))}
         </TableRow>
       ))}
     </TableFooter>
-  );
+  )
 }
 
 // DataGridColumnVisibility Component
-type IconPosition = "Leading" | "Trailing";
+type IconPosition = 'Leading' | 'Trailing'
 type ColumnVisibilityProps = {
-  label?: string;
-  iconName?: IconName;
-  iconPosition?: IconPosition;
-};
+  label?: string
+  iconName?: IconName
+  iconPosition?: IconPosition
+}
 
 export function DataGridColumnVisibility({
-  label = "Columns",
-  iconName = "columns",
-  iconPosition = "Leading",
+  label = 'Columns',
+  iconName = 'columns',
+  iconPosition = 'Leading',
 }: ColumnVisibilityProps) {
-  const { tableInstance } = useDataGrid();
+  const { tableInstance } = useDataGrid()
 
   if (!tableInstance) {
-    return null;
+    return null
   }
 
   // Get all leaf columns (columns that can be shown/hidden)
-  const columns = tableInstance.getAllLeafColumns();
+  const columns = tableInstance.getAllLeafColumns()
 
   // Toggle visibility for a single column
   const toggleColumnVisibility = (columnId: string, visible: boolean) => {
     tableInstance.setColumnVisibility((prev) => ({
       ...prev,
       [columnId]: visible,
-    }));
-  };
+    }))
+  }
 
   // Reset all columns to visible
   const resetColumnVisibility = () => {
-    const newState: Record<string, boolean> = {};
+    const newState: Record<string, boolean> = {}
     columns.forEach((column) => {
-      newState[column.id] = true;
-    });
-    tableInstance.setColumnVisibility(newState);
-  };
+      newState[column.id] = true
+    })
+    tableInstance.setColumnVisibility(newState)
+  }
 
   return (
     <div className="mb-5">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
-            {iconPosition === "Trailing" ? label : null}
+            {iconPosition === 'Trailing' ? label : null}
             <Icon name={iconName} />
-            {iconPosition === "Leading" ? label : null}
+            {iconPosition === 'Leading' ? label : null}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
@@ -244,15 +216,11 @@ export function DataGridColumnVisibility({
             <DropdownMenuCheckboxItem
               key={column.id}
               checked={column.getIsVisible()}
-              onCheckedChange={(value) =>
-                toggleColumnVisibility(column.id, !!value)
-              }
+              onCheckedChange={(value) => toggleColumnVisibility(column.id, !!value)}
             >
               <div className="flex items-center justify-between w-full">
-                {typeof column.columnDef.header !== "string"
-                  ? ((
-                      column.columnDef as LblColumnDef<never>
-                    ).headerLabel?.toString() ?? column.id)
+                {typeof column.columnDef.header !== 'string'
+                  ? ((column.columnDef as LblColumnDef<never>).headerLabel?.toString() ?? column.id)
                   : column.columnDef.header?.toString()}
               </div>
             </DropdownMenuCheckboxItem>
@@ -261,8 +229,8 @@ export function DataGridColumnVisibility({
           <DropdownMenuItem
             className="flex justify-center items-center text-sm text-gray-500"
             onSelect={(e) => {
-              e.preventDefault();
-              resetColumnVisibility();
+              e.preventDefault()
+              resetColumnVisibility()
             }}
           >
             <Icon name="rotate-ccw" />
@@ -271,93 +239,87 @@ export function DataGridColumnVisibility({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }
 
 // DataGridColumnSorter Component
 export function DataGridColumnSorter() {
-  const { tableInstance } = useDataGrid();
+  const { tableInstance } = useDataGrid()
   // Local state to track column order so we can update the UI immediately
-  const [localColumnOrder, setLocalColumnOrder] = useState<string[]>([]);
+  const [localColumnOrder, setLocalColumnOrder] = useState<string[]>([])
 
   // Update local order whenever the table's column order changes
-  const columnOrder = tableInstance?.getState().columnOrder;
+  const columnOrder = tableInstance?.getState().columnOrder
   useEffect(() => {
     if (tableInstance) {
-      const visibleColumns = tableInstance.getVisibleLeafColumns();
+      const visibleColumns = tableInstance.getVisibleLeafColumns()
       // If the table has an explicit column order, use it
-      const currentOrder = tableInstance.getState().columnOrder;
+      const currentOrder = tableInstance.getState().columnOrder
 
       if (currentOrder && currentOrder.length > 0) {
-        setLocalColumnOrder(currentOrder);
+        setLocalColumnOrder(currentOrder)
       } else {
         // Otherwise use the default order from visible columns
-        setLocalColumnOrder(visibleColumns.map((col) => col.id));
+        setLocalColumnOrder(visibleColumns.map((col) => col.id))
       }
     }
-  }, [tableInstance, columnOrder]);
+  }, [tableInstance, columnOrder])
 
   if (!tableInstance) {
-    return null;
+    return null
   }
 
-  const visibleColumns = tableInstance.getVisibleLeafColumns();
+  const visibleColumns = tableInstance.getVisibleLeafColumns()
 
   // Function to move a column up in order
   const moveColumnUp = (columnId: string) => {
-    const index = localColumnOrder.indexOf(columnId);
+    const index = localColumnOrder.indexOf(columnId)
 
     if (index > 0) {
-      const newOrder = [...localColumnOrder];
+      const newOrder = [...localColumnOrder]
       // Swap with previous column
-      [newOrder[index], newOrder[index - 1]] = [
-        newOrder[index - 1],
-        newOrder[index],
-      ];
+      ;[newOrder[index], newOrder[index - 1]] = [newOrder[index - 1], newOrder[index]]
 
       // Update both local state and table state
-      setLocalColumnOrder(newOrder);
-      tableInstance.setColumnOrder(newOrder);
+      setLocalColumnOrder(newOrder)
+      tableInstance.setColumnOrder(newOrder)
     }
-  };
+  }
 
   // Function to move a column down in order
   const moveColumnDown = (columnId: string) => {
-    const index = localColumnOrder.indexOf(columnId);
+    const index = localColumnOrder.indexOf(columnId)
 
     if (index < localColumnOrder.length - 1) {
-      const newOrder = [...localColumnOrder];
+      const newOrder = [...localColumnOrder]
       // Swap with next column
-      [newOrder[index], newOrder[index + 1]] = [
-        newOrder[index + 1],
-        newOrder[index],
-      ];
+      ;[newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]]
 
       // Update both local state and table state
-      setLocalColumnOrder(newOrder);
-      tableInstance.setColumnOrder(newOrder);
+      setLocalColumnOrder(newOrder)
+      tableInstance.setColumnOrder(newOrder)
     }
-  };
+  }
 
   // Reset column ordering to default
   const resetColumnOrder = () => {
     // Setting an empty array resets to default order
-    tableInstance.setColumnOrder([]);
+    tableInstance.setColumnOrder([])
     // Update local state to match
-    setLocalColumnOrder(visibleColumns.map((col) => col.id));
-  };
+    setLocalColumnOrder(visibleColumns.map((col) => col.id))
+  }
 
   // Sort visible columns based on localColumnOrder
   const sortedColumns = [...visibleColumns].sort((a, b) => {
-    const indexA = localColumnOrder.indexOf(a.id);
-    const indexB = localColumnOrder.indexOf(b.id);
+    const indexA = localColumnOrder.indexOf(a.id)
+    const indexB = localColumnOrder.indexOf(b.id)
 
     // If a column isn't in the localColumnOrder, put it at the end
-    if (indexA === -1) return 1;
-    if (indexB === -1) return -1;
+    if (indexA === -1) return 1
+    if (indexB === -1) return -1
 
-    return indexA - indexB;
-  });
+    return indexA - indexB
+  })
 
   return (
     <div className="mb-5">
@@ -382,8 +344,8 @@ export function DataGridColumnSorter() {
                   size="sm"
                   variant="ghost"
                   onClick={(e) => {
-                    e.stopPropagation();
-                    moveColumnUp(column.id);
+                    e.stopPropagation()
+                    moveColumnUp(column.id)
                   }}
                   disabled={localColumnOrder.indexOf(column.id) === 0}
                 >
@@ -393,13 +355,10 @@ export function DataGridColumnSorter() {
                   size="sm"
                   variant="ghost"
                   onClick={(e) => {
-                    e.stopPropagation();
-                    moveColumnDown(column.id);
+                    e.stopPropagation()
+                    moveColumnDown(column.id)
                   }}
-                  disabled={
-                    localColumnOrder.indexOf(column.id) ===
-                    localColumnOrder.length - 1
-                  }
+                  disabled={localColumnOrder.indexOf(column.id) === localColumnOrder.length - 1}
                 >
                   <ChevronDown />
                 </Button>
@@ -410,8 +369,8 @@ export function DataGridColumnSorter() {
           <DropdownMenuItem
             className="flex justify-center items-center text-sm text-gray-500"
             onSelect={(e) => {
-              e.preventDefault();
-              resetColumnOrder();
+              e.preventDefault()
+              resetColumnOrder()
             }}
           >
             <Icon name="rotate-ccw" />
@@ -420,5 +379,5 @@ export function DataGridColumnSorter() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }

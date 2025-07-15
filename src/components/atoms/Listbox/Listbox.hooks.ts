@@ -216,7 +216,6 @@ export const useListboxKeyboard = (
   orientation: 'horizontal' | 'vertical' = 'vertical',
   disabled: boolean = false,
 ) => {
-
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (disabled) return

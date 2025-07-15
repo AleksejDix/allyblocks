@@ -410,14 +410,14 @@ export const WithCustomValidation: Story = {
     const submitButton = canvas.getByRole('button', { name: /submit/i })
     await userEvent.click(submitButton)
 
-    // Check for validation messages
-    const ageError = canvas.getByText(/you must be at least 18 years old/i)
+    // Check for validation messages - use exact text to match error messages, not descriptions
+    const ageError = await canvas.findByText('You must be at least 18 years old.')
     await expect(ageError).toBeVisible()
 
-    const termsError = canvas.getByText(/you must accept the terms and conditions/i)
+    const termsError = await canvas.findByText('You must accept the terms and conditions.')
     await expect(termsError).toBeVisible()
 
-    const feedbackError = canvas.getByText(/feedback must be at least 20 characters long/i)
+    const feedbackError = await canvas.findByText('Feedback must be at least 20 characters long.')
     await expect(feedbackError).toBeVisible()
 
     // Fill in valid data

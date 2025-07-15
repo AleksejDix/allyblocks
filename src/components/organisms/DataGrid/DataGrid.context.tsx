@@ -1,38 +1,36 @@
-import React from "react";
+import React from 'react'
 import {
   useReactTable,
   getCoreRowModel,
   getFilteredRowModel,
   type VisibilityState,
   type ColumnResizeMode,
-} from "@tanstack/react-table";
-import {
-  DataGridContext,
-  type RowData,
-  type LblColumnDef,
-} from "./DataGrid.types";
+} from '@tanstack/react-table'
+import { DataGridContext, type RowData, type LblColumnDef } from './DataGrid.types'
 
 type DataGridContextProviderProps = {
-  children: React.ReactNode;
-  columns: LblColumnDef<RowData>[];
-  data: RowData[];
-  totalCount?: number;
-};
+  children: React.ReactNode
+  columns: LblColumnDef<RowData>[]
+  data: RowData[]
+  totalCount?: number
+}
 
-export const DataGridContextProvider: React.FC<
-  DataGridContextProviderProps
-> = ({ children, columns, data, totalCount }) => {
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnResizeMode] = React.useState<ColumnResizeMode>("onChange");
+export const DataGridContextProvider: React.FC<DataGridContextProviderProps> = ({
+  children,
+  columns,
+  data,
+  totalCount,
+}) => {
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [columnResizeMode] = React.useState<ColumnResizeMode>('onChange')
 
   // Enable resizing for all columns by default
   const columnsWithResizing = React.useMemo(() => {
     return columns.map((column) => ({
       ...column,
       enableResizing: true,
-    }));
-  }, [columns]);
+    }))
+  }, [columns])
 
   const tableInstance = useReactTable({
     columns: columnsWithResizing,
@@ -52,11 +50,7 @@ export const DataGridContextProvider: React.FC<
     manualFiltering: true,
     enableGlobalFilter: false,
     manualPagination: true,
-  });
+  })
 
-  return (
-    <DataGridContext.Provider value={{ tableInstance }}>
-      {children}
-    </DataGridContext.Provider>
-  );
-};
+  return <DataGridContext.Provider value={{ tableInstance }}>{children}</DataGridContext.Provider>
+}

@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react'
 
-import type { VariantProps } from "class-variance-authority";
-import { ActionSplitVariants } from "./ActionSplit.variants";
+import type { VariantProps } from 'class-variance-authority'
+import { ActionSplitVariants } from './ActionSplit.variants'
 
 /**
  * Props for the ActionSplit component
@@ -13,10 +13,10 @@ export type ActionSplitProps = {
   /**
    * The content of the ActionSplit (typically Button components)
    */
-  children: ReactNode;
+  children: ReactNode
 
   /**
    * Additional CSS classes to apply to the ActionSplit container
    */
-  className?: string;
-} & VariantProps<typeof ActionSplitVariants>;
+  className?: string
+} & VariantProps<typeof ActionSplitVariants>

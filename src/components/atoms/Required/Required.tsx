@@ -1,16 +1,16 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 type Props = {
-  required: boolean;
-  className?: string;
-};
+  required: boolean
+  className?: string
+}
 
 export const Required = ({ required, className }: Props) => {
-  if (!required) return null;
+  if (!required) return null
   return (
-    <span className={cn("text-destructive", className)}>
+    <span className={cn('text-destructive', className)}>
       <span aria-hidden="true">*</span>
       <span className="sr-only">is required</span>
     </span>
-  );
-};
+  )
+}

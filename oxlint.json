@@ -47,8 +47,5 @@
     "vitest.workspace.ts",
     ".storybook/**"
   ],
-  "paths": [
-    "src/**/*.{ts,tsx,js,jsx}",
-    "*.{ts,tsx,js,jsx}"
-  ]
+  "paths": ["src/**/*.{ts,tsx,js,jsx}", "*.{ts,tsx,js,jsx}"]
 }

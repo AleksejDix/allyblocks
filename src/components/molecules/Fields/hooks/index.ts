@@ -1,1 +1,1 @@
-export * from "./useRequired";
+export * from './useRequired'

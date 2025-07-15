@@ -91,7 +91,7 @@ export const Interactive: Story = {
           // Check if button text content shows "English"
           expect(button).toHaveTextContent('English')
         },
-        { timeout: 5000 }
+        { timeout: 5000 },
       )
     })
   },

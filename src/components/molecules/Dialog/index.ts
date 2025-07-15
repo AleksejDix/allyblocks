@@ -9,9 +9,9 @@ export {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from "./Dialog";
+} from './Dialog'
 
-export { useDialog, DialogContext } from "./Dialog.context";
+export { useDialog, DialogContext } from './Dialog.context'
 
 export type {
   DialogAction,
@@ -24,4 +24,4 @@ export type {
   DialogFooterProps,
   DialogTitleProps,
   DialogDescriptionProps,
-} from "./Dialog.types";
+} from './Dialog.types'

@@ -1,18 +1,13 @@
-import * as React from "react";
-import { Icon } from "@/components/atoms/Icon";
-import { cn } from "@/lib/utils";
-import { selectNativeVariants } from "./SelectNative.variants";
-import type { SelectNativeProps } from "./SelectNative.types";
+import * as React from 'react'
+import { Icon } from '@/components/atoms/Icon'
+import { cn } from '@/lib/utils'
+import { selectNativeVariants } from './SelectNative.variants'
+import type { SelectNativeProps } from './SelectNative.types'
 
 const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
-  (
-    { className, children, icon, variant, sizeVariant, width, ...props },
-    ref
-  ) => {
+  ({ className, children, icon, variant, sizeVariant, width, ...props }, ref) => {
     return (
-      <div
-        className={cn("relative", width === "full" ? "w-full" : "max-w-fit")}
-      >
+      <div className={cn('relative', width === 'full' ? 'w-full' : 'max-w-fit')}>
         <select
           ref={ref}
           data-slot="select-native"
@@ -24,7 +19,7 @@ const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
               multiple: !!props.multiple,
               className,
             }),
-            props.multiple && "[&_option:checked]:bg-accent py-1 *:px-3 *:py-1"
+            props.multiple && '[&_option:checked]:bg-accent py-1 *:px-3 *:py-1',
           )}
           {...props}
         >
@@ -39,10 +34,10 @@ const SelectNative = React.forwardRef<HTMLSelectElement, SelectNativeProps>(
           </span>
         )}
       </div>
-    );
-  }
-);
+    )
+  },
+)
 
-SelectNative.displayName = "SelectNative";
+SelectNative.displayName = 'SelectNative'
 
-export { SelectNative };
+export { SelectNative }

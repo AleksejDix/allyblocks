@@ -1,6 +1,6 @@
-import { useFormContext } from "react-hook-form";
-import { Input } from "@/components/atoms/Input";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { Input } from '@/components/atoms/Input'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -8,18 +8,13 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { type InputFieldProps } from "../Field.types";
-import {
-  handleNumberKeyDown,
-  handleNumberChange,
-  handleNumberPaste,
-  handleNumberBlur,
-} from "../utils/numberValidation";
+} from '@/components/molecules/Form/Form'
+import { type InputFieldProps } from '../Field.types'
+import { handleNumberKeyDown, handleNumberChange, handleNumberPaste, handleNumberBlur } from '../utils/numberValidation'
 
-export interface IntegerFieldProps extends Omit<InputFieldProps, "type"> {
-  min?: number;
-  max?: number;
+export interface IntegerFieldProps extends Omit<InputFieldProps, 'type'> {
+  min?: number
+  max?: number
 }
 
 export function FieldInteger({
@@ -33,7 +28,7 @@ export function FieldInteger({
   max,
   ...props
 }: IntegerFieldProps) {
-  const context = useFormContext();
+  const context = useFormContext()
 
   return (
     <FormField
@@ -60,25 +55,19 @@ export function FieldInteger({
                 step={1} // Force step to be 1 for integers
                 aria-invalid={!!context.getFieldState(name).error}
                 onKeyDown={(e) => handleNumberKeyDown(e, { integerOnly: true })}
-                onChange={(e) =>
-                  handleNumberChange(e, field, { integerOnly: true })
-                }
-                onPaste={(e) =>
-                  handleNumberPaste(e, field, { integerOnly: true })
-                }
-                onBlur={(e) =>
-                  handleNumberBlur(e, field, { integerOnly: true })
-                }
+                onChange={(e) => handleNumberChange(e, field, { integerOnly: true })}
+                onPaste={(e) => handleNumberPaste(e, field, { integerOnly: true })}
+                onBlur={(e) => handleNumberBlur(e, field, { integerOnly: true })}
                 {...props}
               />
             </FormControl>
             {description && <FormDescription>{description}</FormDescription>}
             <FormMessage />
           </FormItem>
-        );
+        )
       }}
     />
-  );
+  )
 }
 
-export default FieldInteger;
+export default FieldInteger

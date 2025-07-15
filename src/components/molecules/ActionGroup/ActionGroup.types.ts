@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import type { VariantProps } from "class-variance-authority";
-import { ActionGroupVariants } from "./ActionGroup.variants";
+import type { ReactNode } from 'react'
+import type { VariantProps } from 'class-variance-authority'
+import { ActionGroupVariants } from './ActionGroup.variants'
 
 /**
  * Props for the ActionGroup component
@@ -18,7 +18,7 @@ export type ActionGroupProps = VariantProps<typeof ActionGroupVariants> & {
    * The buttons to be rendered within the group
    * Typically Button components, but can be any React nodes
    */
-  children: ReactNode;
+  children: ReactNode
 
   /**
    * Additional CSS classes to apply to the ActionGroup
@@ -28,5 +28,5 @@ export type ActionGroupProps = VariantProps<typeof ActionGroupVariants> & {
    * - Spacing: gap-1, gap-2, gap-4, etc.
    * - Width: w-full, w-auto
    */
-  className?: string;
-};
+  className?: string
+}

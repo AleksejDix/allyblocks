@@ -1,6 +1,6 @@
-import { useFormContext } from "react-hook-form";
-import { type UploadFieldProps } from "../Field.types";
-import { Required } from "@/components/atoms/Required";
+import { useFormContext } from 'react-hook-form'
+import { type UploadFieldProps } from '../Field.types'
+import { Required } from '@/components/atoms/Required'
 import {
   FormField,
   FormItem,
@@ -8,16 +8,16 @@ import {
   FormControl,
   FormDescription,
   FormMessage,
-} from "@/components/molecules/Form/Form";
-import { useId, useState } from "react";
-import { Button } from "@/components/atoms/Button/Button";
-import { LucideUpload, LucideFile, LucideX } from "lucide-react";
+} from '@/components/molecules/Form/Form'
+import { useId, useState } from 'react'
+import { Button } from '@/components/atoms/Button/Button'
+import { LucideUpload, LucideFile, LucideX } from 'lucide-react'
 
 export function FieldUpload({
   name,
-  label = "Upload File",
+  label = 'Upload File',
   description,
-  helpText = "Drag and drop files here or click to browse",
+  helpText = 'Drag and drop files here or click to browse',
   required = false,
   disabled = false,
   accept,
@@ -27,33 +27,31 @@ export function FieldUpload({
   className,
   ...props
 }: UploadFieldProps) {
-  const { control, getFieldState, setValue } = useFormContext();
-  const fieldState = getFieldState(name);
-  const fileInputId = useId();
-  const [fileNames, setFileNames] = useState<string[]>([]);
-  const [dragActive, setDragActive] = useState(false);
+  const { control, getFieldState, setValue } = useFormContext()
+  const fieldState = getFieldState(name)
+  const fileInputId = useId()
+  const [fileNames, setFileNames] = useState<string[]>([])
+  const [dragActive, setDragActive] = useState(false)
 
   const handleDrag = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
 
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true)
+    } else if (e.type === 'dragleave') {
+      setDragActive(false)
     }
-  };
+  }
 
   const validateFiles = (files: FileList): string | null => {
-    if (!files || files.length === 0) return null;
+    if (!files || files.length === 0) return null
 
     // Check file size if maxSize is provided
     if (maxSize) {
       for (let i = 0; i < files.length; i++) {
         if (files[i].size > maxSize) {
-          return `File "${
-            files[i].name
-          }" exceeds the maximum size of ${formatBytes(maxSize)}`;
+          return `File "${files[i].name}" exceeds the maximum size of ${formatBytes(maxSize)}`
         }
       }
     }
@@ -61,79 +59,79 @@ export function FieldUpload({
     // Run custom validation if provided
     if (validateFile) {
       for (let i = 0; i < files.length; i++) {
-        const error = validateFile(files[i]);
-        if (error) return error;
+        const error = validateFile(files[i])
+        if (error) return error
       }
     }
 
-    return null;
-  };
+    return null
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
+    const files = e.target.files
+    if (!files || files.length === 0) return
 
-    const validationError = validateFiles(files);
+    const validationError = validateFiles(files)
     if (validationError) {
-      setValue(name, null);
-      setFileNames([]);
-      return;
+      setValue(name, null)
+      setFileNames([])
+      return
     }
 
-    setValue(name, multiple ? files : files[0], { shouldValidate: true });
+    setValue(name, multiple ? files : files[0], { shouldValidate: true })
 
     // Update file names for display
-    const names = [];
+    const names = []
     for (let i = 0; i < files.length; i++) {
-      names.push(files[i].name);
+      names.push(files[i].name)
     }
-    setFileNames(names);
-  };
+    setFileNames(names)
+  }
 
   const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
+    e.preventDefault()
+    e.stopPropagation()
+    setDragActive(false)
 
-    const files = e.dataTransfer.files;
-    if (!files || files.length === 0) return;
+    const files = e.dataTransfer.files
+    if (!files || files.length === 0) return
 
     // Check if multiple files are not allowed but multiple were dropped
     if (!multiple && files.length > 1) {
-      setValue(name, null);
-      setFileNames([]);
-      return;
+      setValue(name, null)
+      setFileNames([])
+      return
     }
 
-    const validationError = validateFiles(files);
+    const validationError = validateFiles(files)
     if (validationError) {
-      setValue(name, null);
-      setFileNames([]);
-      return;
+      setValue(name, null)
+      setFileNames([])
+      return
     }
 
-    setValue(name, multiple ? files : files[0], { shouldValidate: true });
+    setValue(name, multiple ? files : files[0], { shouldValidate: true })
 
     // Update file names for display
-    const names = [];
+    const names = []
     for (let i = 0; i < files.length; i++) {
-      names.push(files[i].name);
+      names.push(files[i].name)
     }
-    setFileNames(names);
-  };
+    setFileNames(names)
+  }
 
   const clearFiles = () => {
-    setValue(name, null, { shouldValidate: true });
-    setFileNames([]);
-  };
+    setValue(name, null, { shouldValidate: true })
+    setFileNames([])
+  }
 
   const formatBytes = (bytes: number): string => {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
-  };
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+  }
 
   return (
     <FormField
@@ -150,19 +148,15 @@ export function FieldUpload({
           <FormControl>
             <div
               className={`relative border-2 border-dashed rounded-md p-6 transition-colors ${
-                dragActive ? "border-primary bg-primary/5" : "border-input"
-              } ${fieldState.error ? "border-destructive" : ""} ${
-                disabled ? "bg-muted cursor-not-allowed" : "cursor-pointer"
+                dragActive ? 'border-primary bg-primary/5' : 'border-input'
+              } ${fieldState.error ? 'border-destructive' : ''} ${
+                disabled ? 'bg-muted cursor-not-allowed' : 'cursor-pointer'
               } ${className}`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
               onDrop={disabled ? undefined : handleDrop}
-              onClick={
-                disabled
-                  ? undefined
-                  : () => document.getElementById(fileInputId)?.click()
-              }
+              onClick={disabled ? undefined : () => document.getElementById(fileInputId)?.click()}
               aria-invalid={!!fieldState.error}
             >
               <input
@@ -181,14 +175,10 @@ export function FieldUpload({
                 <LucideUpload className="h-8 w-8 text-muted-foreground" />
                 <div className="text-sm text-muted-foreground">{helpText}</div>
                 {maxSize && (
-                  <div className="text-xs text-muted-foreground">
-                    Maximum file size: {formatBytes(maxSize)}
-                  </div>
+                  <div className="text-xs text-muted-foreground">Maximum file size: {formatBytes(maxSize)}</div>
                 )}
                 {accept && (
-                  <div className="text-xs text-muted-foreground">
-                    Accepted formats: {accept.split(",").join(", ")}
-                  </div>
+                  <div className="text-xs text-muted-foreground">Accepted formats: {accept.split(',').join(', ')}</div>
                 )}
               </div>
 
@@ -210,8 +200,8 @@ export function FieldUpload({
                           variant="ghost"
                           size="sm"
                           onClick={(e) => {
-                            e.stopPropagation();
-                            clearFiles();
+                            e.stopPropagation()
+                            clearFiles()
                           }}
                           disabled={disabled}
                           aria-label={`Remove ${name}`}
@@ -230,5 +220,5 @@ export function FieldUpload({
         </FormItem>
       )}
     />
-  );
+  )
 }

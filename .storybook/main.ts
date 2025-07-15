@@ -41,10 +41,7 @@ const config: StorybookConfig = {
         ...config.define,
         global: 'window',
       },
-      plugins: [
-        ...(config.plugins || []),
-        oxlint(),
-      ],
+      plugins: [...(config.plugins || []), oxlint()],
       optimizeDeps: {
         include: ['remark-gfm'],
       },
