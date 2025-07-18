@@ -1,23 +1,58 @@
+/// <reference types="vitest" />
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
-import path from 'path'
 
 export default defineConfig({
-  plugins: [react()],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
-    include: ['src/**/*.{test,spec}.{js,jsx,ts,tsx}'],
-    exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
-    coverage: {
-      reporter: ['text', 'json', 'html'],
-      exclude: ['node_modules/', 'src/test/', 'src/**/*.stories.{ts,tsx}', 'src/**/*.d.ts'],
-    },
-  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  test: {
+    name: 'unit',
+    globals: true,
+    testTimeout: 5000,
+    hookTimeout: 10000,
+    environment: 'node',
+
+    include: [
+      'src/**/*.unit.test.{js,ts,tsx}',
+      'src/**/*.unit.spec.{js,ts,tsx}',
+      'src/**/*.test.{js,ts,tsx}', // Keep compatibility with existing tests
+    ],
+    exclude: [
+      'src/**/*.stories.{js,ts,tsx}', 
+      'node_modules', 
+      'dist', 
+      '.idea', 
+      '.git', 
+      '.cache'
+    ],
+
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html', 'lcov'],
+      reportsDirectory: './coverage/unit',
+
+      thresholds: {
+        branches: 50,
+        functions: 50,
+        lines: 50,
+        statements: 50,
+      },
+
+      include: ['src/**/*.{js,ts,tsx}'],
+      exclude: [
+        'src/**/*.d.ts',
+        'src/**/*.{test,spec}.{js,ts,tsx}',
+        'src/**/*.stories.{js,ts,tsx}',
+        'src/**/*.types.ts',
+        'src/main.tsx',
+        'src/App.tsx',
+        '**/index.ts',
+      ],
+    },
+
+    reporters: ['verbose'],
   },
 })
