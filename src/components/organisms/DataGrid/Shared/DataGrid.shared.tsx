@@ -27,8 +27,8 @@ export function DataGridColumnVisibility<TData = unknown>({
   iconName = 'columns',
   iconPosition = 'Leading',
 }: ColumnVisibilityProps<TData>) {
-  // Get all leaf columns (columns that can be shown/hidden)
-  const columns = tableInstance.getAllLeafColumns()
+  // Get all leaf columns that can be hidden (respecting enableHiding setting)
+  const columns = tableInstance.getAllLeafColumns().filter(column => column.getCanHide())
 
   // Toggle visibility for a single column
   const toggleColumnVisibility = (columnId: string, visible: boolean) => {
@@ -38,11 +38,14 @@ export function DataGridColumnVisibility<TData = unknown>({
     }))
   }
 
-  // Reset all columns to visible
+  // Reset all hideable columns to visible
   const resetColumnVisibility = () => {
     const newState: Record<string, boolean> = {}
-    columns.forEach((column) => {
-      newState[column.id] = true
+    tableInstance.getAllLeafColumns().forEach((column) => {
+      // Only reset columns that can be hidden
+      if (column.getCanHide()) {
+        newState[column.id] = true
+      }
     })
     tableInstance.setColumnVisibility(newState)
   }

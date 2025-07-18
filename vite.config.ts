@@ -3,13 +3,12 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
-import oxlint from 'vite-plugin-oxlint'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    oxlint(),
+    // Note: oxlint removed from production builds - it's only needed during development
     dts({
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       exclude: ['src/**/*.stories.tsx', 'src/**/*.test.tsx', 'src/main.tsx', 'src/App.tsx', 'src/vite-env.d.ts'],

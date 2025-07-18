@@ -36,7 +36,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --config vite.config.dev.ts",
     "build": "vite build",
     "lint": "oxlint",
     "lint:format": "prettier --write .",

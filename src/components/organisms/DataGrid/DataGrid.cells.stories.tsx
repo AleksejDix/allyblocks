@@ -115,12 +115,13 @@ const ProductTableWithReusableCells = () => {
   const locale = useLocale()
   
   const columns = [
-    // Checkbox column
+    // Checkbox column - cannot be hidden
     columnHelper.display({
       id: 'select',
       header: ({ table }) => <CheckboxHeaderCell table={table} />,
       cell: ({ row }) => <CheckboxCell row={row} ariaLabel={(product) => `Select ${product.name}`} />,
       size: 40,
+      enableHiding: false, // This column cannot be hidden
       meta: {
         label: 'Select All', // Translation for column visibility dropdown
       },
@@ -150,11 +151,12 @@ const ProductTableWithReusableCells = () => {
       },
     }),
 
-    // Product name column
+    // Product name column - cannot be hidden
     columnHelper.accessor('name', {
       header: ({ column }) => <SortableHeaderCell column={column}>Product</SortableHeaderCell>,
       cell: ({ getValue }) => getValue(),
       size: 200,
+      enableHiding: false, // Primary identifier should always be visible
     }),
 
     // Price CHF column
@@ -312,7 +314,7 @@ const ProductTableWithReusableCells = () => {
       cell: ({ getValue }) => <FileSize bytes={getValue()} />,
     }),
 
-    // Actions column
+    // Actions column - cannot be hidden
     columnHelper.display({
       id: 'actions',
       header: '',
@@ -341,6 +343,7 @@ const ProductTableWithReusableCells = () => {
         />
       ),
       size: 50,
+      enableHiding: false, // Actions should always be accessible
     }),
   ]
 

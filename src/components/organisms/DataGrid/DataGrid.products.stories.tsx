@@ -114,6 +114,10 @@ const productColumns = [
       />
     ),
     size: 40,
+    enableHiding: false, // Selection column should always be visible
+    meta: {
+      label: 'Select', // Label for column visibility dropdown
+    },
   }),
   columnHelper.accessor('name', {
     header: ({ column }) => (
@@ -141,10 +145,19 @@ const productColumns = [
       </div>
     ),
     size: 300,
+    enableHiding: false, // Product name is essential and should not be hidden
+    meta: {
+      label: 'Product Name', // Better label than just "name"
+      align: 'left',
+    },
   }),
   columnHelper.accessor('category', {
     header: 'Category',
     cell: ({ row }) => <Badge color="gray">{row.getValue('category')}</Badge>,
+    meta: {
+      label: 'Product Category',
+      align: 'left',
+    },
   }),
   columnHelper.accessor('price', {
     header: ({ column }) => (
@@ -163,6 +176,10 @@ const productColumns = [
       </button>
     ),
     cell: ({ row }) => <PriceCell value={row.getValue('price')} />,
+    meta: {
+      label: 'Price (CHF)',
+      align: 'right',
+    },
   }),
   columnHelper.accessor('stock', {
     header: ({ column }) => (
@@ -181,16 +198,29 @@ const productColumns = [
       </button>
     ),
     cell: ({ row }) => <StockStatus status={row.original.status} stock={row.getValue('stock')} />,
+    meta: {
+      label: 'Stock Status',
+      align: 'center',
+    },
   }),
   columnHelper.accessor('rating', {
     header: 'Rating',
     cell: ({ row }) => <ProductRating rating={row.getValue('rating')} reviews={row.original.reviews} />,
+    meta: {
+      label: 'Customer Rating',
+      align: 'left',
+    },
   }),
   columnHelper.display({
     id: 'actions',
     header: '',
     cell: ({ row }) => <ProductActions product={row.original} />,
     size: 50,
+    enableHiding: false, // Actions should always be accessible
+    meta: {
+      label: 'Actions',
+      align: 'right',
+    },
   }),
 ]
 
@@ -364,12 +394,12 @@ export const ProductInventoryManagement = () => {
                   </TabsTrigger>
                 </TabsList>
                 <ActionGroup>
-                  <Button variant="outline" size="sm">
-                    <Icon name="bar-chart-3" className="mr-2 h-4 w-4" />
+                  <Button variant="outline">
+                    <Icon name="bar-chart-3" />
                     Analytics
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <Icon name="download" className="mr-2 h-4 w-4" />
+                  <Button variant="outline">
+                    <Icon name="download" />
                     Export
                   </Button>
                   <DataGridClientColumnVisibility label="Columns" />

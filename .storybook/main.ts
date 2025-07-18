@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 import remarkGfm from 'remark-gfm'
-import oxlint from 'vite-plugin-oxlint'
+
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
@@ -41,7 +41,7 @@ const config: StorybookConfig = {
         ...config.define,
         global: 'window',
       },
-      plugins: [...(config.plugins || []), oxlint()],
+      // Remove oxlint from Storybook build - it's not needed for production builds
       optimizeDeps: {
         include: ['remark-gfm'],
       },
