@@ -1,4 +1,5 @@
-import React, { Suspense, useEffect, ReactNode } from 'react'
+import * as React from 'react'
+import { Suspense, useEffect, ReactNode } from 'react'
 import type { Decorator } from '@storybook/react-vite'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../../src/i18n/i18n'

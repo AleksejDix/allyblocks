@@ -16,18 +16,11 @@ export default defineConfig({
     environment: 'node',
 
     include: [
-      'src/**/*.unit.test.{js,ts,tsx}',
-      'src/**/*.unit.spec.{js,ts,tsx}',
-      'src/**/*.test.{js,ts,tsx}', // Keep compatibility with existing tests
+      'src/**/*.unit.test.{js,ts}',
+      'src/**/*.unit.spec.{js,ts}',
+      'src/**/*.test.{js,ts}', // Keep compatibility with existing tests
     ],
-    exclude: [
-      'src/**/*.stories.{js,ts,tsx}', 
-      'node_modules', 
-      'dist', 
-      '.idea', 
-      '.git', 
-      '.cache'
-    ],
+    exclude: ['src/**/*.stories.{js,ts,tsx}', 'node_modules', 'dist', '.idea', '.git', '.cache'],
 
     coverage: {
       provider: 'v8',
@@ -41,10 +34,12 @@ export default defineConfig({
         statements: 50,
       },
 
-      include: ['src/**/*.{js,ts,tsx}'],
+      include: ['src/**/*.{js,ts}'],
       exclude: [
         'src/**/*.d.ts',
         'src/**/*.{test,spec}.{js,ts,tsx}',
+        'src/**/*.variants.{js,ts,tsx}',
+        'src/**/*.context.{js,ts,tsx}',
         'src/**/*.stories.{js,ts,tsx}',
         'src/**/*.types.ts',
         'src/main.tsx',

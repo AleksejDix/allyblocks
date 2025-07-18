@@ -13,7 +13,7 @@ import {
   alertDialogHeaderVariants,
   alertDialogOverlayVariants,
   alertDialogTitleVariants,
-} from './AlertDialog.variant'
+} from './AlertDialog.variants'
 import type {
   AlertDialogActionProps,
   AlertDialogCancelProps,

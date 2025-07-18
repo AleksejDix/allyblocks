@@ -12,6 +12,6 @@ export {
   AlertDialogCancel,
 } from './AlertDialog'
 
-export * from './AlertDialog.variant'
+export * from './AlertDialog.variants'
 export type * from './AlertDialog.types'
 export { useAlertDialog, AlertDialogContext } from './AlertDialog.context'
