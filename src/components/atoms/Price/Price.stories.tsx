@@ -105,8 +105,8 @@ export const InternationalCurrencies: Story = {
   render: () => (
     <div className="space-y-4 p-4">
       <div className="flex flex-col items-center gap-2">
-        <span className="text-xs text-muted-foreground">US Dollar (en-US)</span>
-        <Price amount={299.99} currency="USD" locale="en-US" period="/year" />
+        <span className="text-xs text-muted-foreground">Swiss Franc (de-CH)</span>
+        <Price amount={299.99} currency="CHF" locale="de-CH" period="/year" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Euro (de-DE)</span>
@@ -145,7 +145,7 @@ export const CustomFormatting: Story = {
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Currency Code Instead of Symbol</span>
-        <Price amount={299} currency="USD" period="/year" formatOptions={{ currencyDisplay: 'code' }} />
+        <Price amount={299} currency="CHF" period="/year" formatOptions={{ currencyDisplay: 'code' }} />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Number Only (No Currency)</span>
@@ -175,7 +175,7 @@ export const PricingCardUsage: Story = {
   render: () => (
     <div className="max-w-sm p-6 border rounded-lg bg-gray-900 text-white">
       <h3 className="text-lg font-semibold mb-4">Startup Plan</h3>
-      <Price amount={55} originalAmount={69} discounted currency="USD" period="/year" theme="inverted" />
+      <Price amount={55} originalAmount={69} discounted currency="CHF" period="/year" theme="inverted" />
       <p className="text-sm text-gray-400 mt-2">Per user/month, billed annually</p>
       <button className="w-full mt-4 bg-white text-black py-2 px-4 rounded-md font-medium">Buy plan</button>
     </div>
@@ -187,15 +187,15 @@ export const LargeNumbers: Story = {
     <div className="space-y-4 p-4">
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Thousands</span>
-        <Price amount={1299} currency="USD" period="/year" />
+        <Price amount={1299} currency="CHF" period="/year" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">Millions</span>
-        <Price amount={1299999} currency="USD" period="/year" />
+        <Price amount={1299999} currency="CHF" period="/year" />
       </div>
       <div className="flex flex-col items-center gap-2">
         <span className="text-xs text-muted-foreground">With Custom Decimals</span>
-        <Price amount={12999.5} currency="USD" period="/year" formatOptions={{ minimumFractionDigits: 2 }} />
+        <Price amount={12999.5} currency="CHF" period="/year" formatOptions={{ minimumFractionDigits: 2 }} />
       </div>
     </div>
   ),

@@ -1,8 +1,7 @@
 import { type ReactNode } from 'react'
 import { Input } from '../../atoms/Input'
-import { DataGrid, DataGridTable, DataGridColumnVisibility } from '../../organisms/DataGrid'
+import { DataGridClient, DataGridClientTable, DataGridClientColumnVisibility } from '../../organisms/DataGrid'
 import type { ColumnDef } from '@tanstack/react-table'
-import type { RowData } from '../../organisms/DataGrid/DataGrid.types'
 import { Card, CardBody, CardHeader } from '@/components/molecules/Card'
 import { ActionGroup } from '@/components/molecules/ActionGroup'
 import { Text } from '@/components/atoms/Text'
@@ -95,7 +94,7 @@ export function TableTemplate<TData extends RowData>(props: TableTemplatePropsWi
         )}
 
         {/* DataGrid component */}
-        <DataGrid columns={columns} data={data} totalCount={totalCount}>
+        <DataGridClient columns={columns} data={data} totalCount={totalCount}>
           {/* Controls Section */}
           <CardBody className="flex justify-between items-center" data-slot="table-template-controls">
             {/* Search - left side */}
@@ -113,11 +112,11 @@ export function TableTemplate<TData extends RowData>(props: TableTemplatePropsWi
             {/* Actions and Column Visibility - right side */}
             <ActionGroup className="flex items-center space-x-2" data-slot="table-template-actions">
               {actions}
-              <DataGridColumnVisibility />
+              <DataGridClientColumnVisibility />
             </ActionGroup>
           </CardBody>
 
-          {tableComponents || <DataGridTable />}
+          {tableComponents || <DataGridClientTable />}
 
           {/* Pagination Section */}
           {pagination && (
@@ -125,7 +124,7 @@ export function TableTemplate<TData extends RowData>(props: TableTemplatePropsWi
               {pagination}
             </div>
           )}
-        </DataGrid>
+        </DataGridClient>
       </Card>
     </div>
   )

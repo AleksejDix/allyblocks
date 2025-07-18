@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { TableTemplate } from './TableTemplate'
 import { Button } from '../../atoms/Button'
-import type { RowData } from '../../organisms/DataGrid/DataGrid.types'
 import { type ColumnDef, createColumnHelper } from '@tanstack/react-table'
 
-// Define the data type that extends RowData
-interface User extends RowData {
+// Define the data type
+interface User {
   name: string
   email: string
   role: string

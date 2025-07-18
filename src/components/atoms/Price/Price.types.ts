@@ -11,13 +11,13 @@ export type PriceProps = ComponentProps<'div'> &
 
     /**
      * Currency code (ISO 4217) for proper internationalization
-     * @default "USD"
+     * @default "CHF"
      */
     currency?: string
 
     /**
      * Locale for number formatting
-     * @default "en-US"
+     * @default "de-CH"
      */
     locale?: string
 

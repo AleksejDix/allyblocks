@@ -20,8 +20,8 @@ import type { PriceProps } from './Price.types'
  *
  * @example
  * ```tsx
- * // Basic price with USD
- * <Price amount={299} period="/year" />
+ * // Basic price with CHF
+ * <Price amount={299} currency="CHF" period="/year" />
  *
  * // Vertical discount layout with red price
  * <Price
@@ -39,8 +39,8 @@ import type { PriceProps } from './Price.types'
  */
 export const Price = memo(function Price({
   amount,
-  currency = 'USD',
-  locale = 'en-US',
+  currency = 'CHF',
+  locale = 'de-CH',
   period,
   originalAmount,
   discounted = false,

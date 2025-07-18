@@ -684,18 +684,18 @@ export const MultiSelectKeyboardTests: Story = {
     // Instead of Space, click to toggle selection
     const item3 = canvas.getByRole('option', { name: 'Item 3' })
     await user.click(item3)
-    
+
     // Wait for React state update and re-render
-    await new Promise(resolve => setTimeout(resolve, 200))
-    
+    await new Promise((resolve) => setTimeout(resolve, 200))
+
     await expect(item3).toHaveAttribute('aria-selected', 'true')
 
     // Click again should deselect
     await user.click(item3)
-    
+
     // Wait for React state update and re-render
-    await new Promise(resolve => setTimeout(resolve, 200))
-    
+    await new Promise((resolve) => setTimeout(resolve, 200))
+
     await expect(item3).toHaveAttribute('aria-selected', 'false')
   },
 }
@@ -816,27 +816,27 @@ export const SelectionKeyTests: Story = {
 
     // Focus the listbox
     await user.click(listbox)
-    
+
     // Wait for initialization
     await waitFor(() => {
       expect(listbox).toHaveFocus()
       const activeDescendant = listbox.getAttribute('aria-activedescendant')
       expect(activeDescendant).toBeTruthy()
     })
-    
+
     // Test keyboard navigation works
     await user.keyboard('{ArrowDown}')
     await waitFor(() => {
       const activeDescendant = listbox.getAttribute('aria-activedescendant')
       expect(activeDescendant).toBeTruthy()
     })
-    
+
     // Test clicking works for selection
     const option1 = canvas.getByRole('option', { name: 'Option 1' })
     await user.click(option1)
-    await new Promise(resolve => setTimeout(resolve, 200))
+    await new Promise((resolve) => setTimeout(resolve, 200))
     await expect(option1).toHaveAttribute('aria-selected', 'true')
-    
+
     // Verify disabled options display correctly
     const option4 = canvas.getByRole('option', { name: 'Option 4 (Disabled)' })
     await expect(option4).toHaveAttribute('aria-disabled', 'true')
