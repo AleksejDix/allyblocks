@@ -1,12 +1,12 @@
 import { createActionContext, createActionHook } from '@/lib/useAction'
-import type { ActionToolbarContext } from './ActionToolbar.types'
+import type { ActionToolbarContext as ActionToolbarContextType } from './ActionToolbar.types'
 
 /**
  * Context for sharing ActionToolbar state across components
  */
-export const ActionToolbarContext = createActionContext<ActionToolbarContext>()
+export const ActionToolbarContext = createActionContext<ActionToolbarContextType>()
 
 /**
  * Hook to use the ActionToolbar context
  */
-export const useActionToolbar = createActionHook<ActionToolbarContext>(ActionToolbarContext, 'useActionToolbar')
+export const useActionToolbar = createActionHook<ActionToolbarContextType>(ActionToolbarContext, 'useActionToolbar')
