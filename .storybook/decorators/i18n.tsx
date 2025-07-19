@@ -21,8 +21,10 @@ const I18nProvider = ({ children, locale }: I18nProviderProps) => {
   // Handle document updates and initialization
   useEffect(() => {
     const onChange = (lng: string) => {
-      document.documentElement.lang = lng
-      document.dir = i18n.dir(lng)
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = lng
+        document.dir = i18n.dir(lng)
+      }
     }
 
     i18n.on('languageChanged', onChange)
@@ -40,6 +42,11 @@ const I18nProvider = ({ children, locale }: I18nProviderProps) => {
 
 export const withI18next: Decorator = (StoryFn, context) => {
   const locale = context.globals.locale || 'de'
+
+  // Ensure we're in a browser environment
+  if (typeof window === 'undefined') {
+    return <StoryFn />
+  }
 
   return (
     <I18nProvider locale={locale}>

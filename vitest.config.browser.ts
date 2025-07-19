@@ -74,7 +74,7 @@ export default defineConfig({
     // prebundle common js modules
     server: {
       deps: {
-        inline: ['react', 'react-dom', /@radix-ui\/.*/],
+        inline: ['react', 'react-dom', 'react-i18next', 'i18next', /@radix-ui\/.*/],
       },
     },
 
