@@ -1,4 +1,3 @@
-import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import type { SelectFieldProps } from './FieldSelect.types'
 import { Required } from '@/components/atoms/Required'
@@ -59,7 +58,9 @@ export function FieldSelect({
                   <SelectValue placeholder={placeholder} selectedText={selectedText} />
                   <Icon name="chevron-down" size={16} />
                 </SelectTrigger>
-                <SelectContent width="trigger" side="bottom" align="start">{children}</SelectContent>
+                <SelectContent width="trigger" side="bottom" align="start">
+                  {children}
+                </SelectContent>
               </Select>
             </FormControl>
 
