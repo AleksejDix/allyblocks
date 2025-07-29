@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { userEvent, within, expect } from '@storybook/test'
+import { userEvent, within, expect, waitFor } from '@storybook/test'
 import { ImageComparison, Before, After } from './ImageComparison'
 
 const meta: Meta<typeof ImageComparison> = {
@@ -73,14 +73,14 @@ export const Default: Story = {
 
     // Test home/end keys
     await userEvent.keyboard('{Home}')
-    await expect(slider).toHaveAttribute('aria-valuenow', '0')
+    await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '0'))
 
     await userEvent.keyboard('{End}')
-    await expect(slider).toHaveAttribute('aria-valuenow', '100')
+    await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '100'))
 
     // Test center with space/enter
     await userEvent.keyboard('{Enter}')
-    await expect(slider).toHaveAttribute('aria-valuenow', '50')
+    await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '50'))
   },
 }
 
@@ -135,7 +135,7 @@ export const WithLabels: Story = {
     // Test Enter key for centering
     await userEvent.click(slider)
     await userEvent.keyboard('{Enter}')
-    await expect(slider).toHaveAttribute('aria-valuenow', '50')
+    await waitFor(() => expect(slider).toHaveAttribute('aria-valuenow', '50'))
   },
 }
 

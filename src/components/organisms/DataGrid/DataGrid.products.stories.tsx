@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/molecules/DropdownMenu'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/atoms/Select'
+import { RadixSelect, RadixSelectContent, RadixSelectItem, RadixSelectTrigger, RadixSelectValue } from '@/components/atoms/RadixSelect'
 import { Tabs, TabsList, TabsTrigger } from '@/components/molecules/Tabs'
 import { Empty } from '@/components/molecules/Empty'
 import { Stack } from '@/components/atoms/Stack'
@@ -413,31 +413,31 @@ export const ProductInventoryManagement = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="max-w-sm"
                 />
-                <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-                  <SelectTrigger className="w-[150px]">
+                <RadixSelect value={categoryFilter} onValueChange={setCategoryFilter}>
+                  <RadixSelectTrigger className="w-[150px]">
                     <Icon name="filter" className="mr-2 h-4 w-4" />
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
-                    <SelectItem value="Electronics">Electronics</SelectItem>
-                    <SelectItem value="Clothing">Clothing</SelectItem>
-                    <SelectItem value="Food">Food</SelectItem>
-                    <SelectItem value="Books">Books</SelectItem>
-                    <SelectItem value="Home">Home</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select value={stockFilter} onValueChange={setStockFilter}>
-                  <SelectTrigger className="w-[150px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Stock</SelectItem>
-                    <SelectItem value="in_stock">In Stock</SelectItem>
-                    <SelectItem value="low_stock">Low Stock</SelectItem>
-                    <SelectItem value="out_of_stock">Out of Stock</SelectItem>
-                  </SelectContent>
-                </Select>
+                    <RadixSelectValue />
+                  </RadixSelectTrigger>
+                  <RadixSelectContent>
+                    <RadixSelectItem value="all">All Categories</RadixSelectItem>
+                    <RadixSelectItem value="Electronics">Electronics</RadixSelectItem>
+                    <RadixSelectItem value="Clothing">Clothing</RadixSelectItem>
+                    <RadixSelectItem value="Food">Food</RadixSelectItem>
+                    <RadixSelectItem value="Books">Books</RadixSelectItem>
+                    <RadixSelectItem value="Home">Home</RadixSelectItem>
+                  </RadixSelectContent>
+                </RadixSelect>
+                <RadixSelect value={stockFilter} onValueChange={setStockFilter}>
+                  <RadixSelectTrigger className="w-[150px]">
+                    <RadixSelectValue />
+                  </RadixSelectTrigger>
+                  <RadixSelectContent>
+                    <RadixSelectItem value="all">All Stock</RadixSelectItem>
+                    <RadixSelectItem value="in_stock">In Stock</RadixSelectItem>
+                    <RadixSelectItem value="low_stock">Low Stock</RadixSelectItem>
+                    <RadixSelectItem value="out_of_stock">Out of Stock</RadixSelectItem>
+                  </RadixSelectContent>
+                </RadixSelect>
               </div>
             </Tabs>
           </CardHeader>

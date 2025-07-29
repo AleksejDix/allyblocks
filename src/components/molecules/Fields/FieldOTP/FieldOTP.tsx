@@ -8,7 +8,7 @@ import {
   FormDescription,
   FormMessage,
 } from '@/components/molecules/Form/Form'
-import { type OTPFieldProps } from '../Field.types'
+import type { OTPFieldProps } from './FieldOTP.types'
 
 export function FieldOTP({
   name,

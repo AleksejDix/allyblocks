@@ -17,7 +17,7 @@ import {
   FormDescription,
   FormMessage,
 } from '@/components/molecules/Form/Form'
-import { type BaseFieldProps } from '../Field.types'
+import type { BaseFieldProps } from '../BaseField.types'
 
 export type PhoneFieldProps = BaseFieldProps & {
   defaultCountry?: Country

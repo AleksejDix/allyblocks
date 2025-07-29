@@ -1,143 +1,335 @@
-import * as SelectPrimitive from '@radix-ui/react-select'
-import { Icon } from '@/components/atoms/Icon'
+'use client'
 
+import { useId, useState, useCallback } from 'react'
 import { cn } from '@/lib/utils'
-import { selectTriggerVariants, selectContentVariants, selectItemVariants } from './Select.variants'
+import { Button } from '@/components/atoms/Button'
+import {
+  ActionMenu,
+  ActionMenuContent,
+  ActionMenuTrigger,
+  ActionMenuGroup,
+  ActionMenuLabel,
+  ActionMenuSeparator,
+  ActionMenuCheckboxItem,
+  ActionMenuRadioGroup,
+  ActionMenuRadioItem,
+} from '@/components/molecules/ActionMenu'
+
 import type {
   SelectProps,
-  SelectGroupProps,
-  SelectValueProps,
   SelectTriggerProps,
   SelectContentProps,
-  SelectLabelProps,
   SelectItemProps,
+  SelectValueProps,
+  SelectGroupProps,
+  SelectLabelProps,
   SelectSeparatorProps,
-  SelectScrollUpButtonProps,
-  SelectScrollDownButtonProps,
 } from './Select.types'
 
-function Select({ ...props }: SelectProps) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
-}
+import { selectContentVariants, selectItemVariants } from './Select.variants'
 
-function SelectGroup({ ...props }: SelectGroupProps) {
-  return <SelectPrimitive.Group data-slot="select-group" {...props} />
-}
+import { SelectContext, useSelect } from './Select.context'
 
-function SelectValue({ ...props }: SelectValueProps) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />
-}
+export function Select({
+  mode = 'multiple',
+  value,
+  defaultValue,
+  onValueChange,
+  disabled,
+  id: customId,
+  required,
+  children,
+  className,
+  ...props
+}: SelectProps) {
+  // Initialize with proper default based on mode
+  const getDefaultValue = () => {
+    if (defaultValue !== undefined) return defaultValue
+    return mode === 'single' ? '' : []
+  }
+  
+  const [internalValue, setInternalValue] = useState<string | string[]>(getDefaultValue())
+  const generatedId = useId()
+  const id = customId ?? generatedId
 
-function SelectTrigger({ className, variant, size = 'md', width, children, ...props }: SelectTriggerProps) {
+  // Use provided value if controlled, internal state if uncontrolled
+  const currentValue = value !== undefined ? value : internalValue
+
+  const handleValueChange = useCallback(
+    (newValue: string | string[]) => {
+      setInternalValue(newValue)
+      onValueChange?.(newValue)
+    },
+    [onValueChange],
+  )
+
+  // Handle state changes from ActionMenu
+  const handleActionMenuValueChange = useCallback(
+    (_value: string, _event: Event, context?: Record<string, unknown>) => {
+      if (context?.itemValue && typeof context.itemValue === 'string') {
+        const itemValue = context.itemValue
+        const isSelected = context.checked as boolean
+
+        if (mode === 'single') {
+          // For single mode, just set the value directly
+          handleValueChange(itemValue)
+        } else {
+          // For multiple mode, handle as array
+          const currentArray = currentValue as string[]
+          if (isSelected) {
+            // Add value if checked and not already selected
+            if (!currentArray.includes(itemValue)) {
+              handleValueChange([...currentArray, itemValue])
+            }
+          } else {
+            // Remove value if unchecked
+            if (currentArray.includes(itemValue)) {
+              handleValueChange(currentArray.filter((v) => v !== itemValue))
+            }
+          }
+        }
+      }
+    },
+    [currentValue, handleValueChange, mode],
+  )
+
   return (
-    <SelectPrimitive.Trigger
-      data-slot="select-trigger"
-      role="combobox"
-      aria-expanded={props['aria-expanded']}
-      aria-invalid={props['aria-invalid']}
-      aria-describedby={props['aria-describedby']}
-      className={cn(selectTriggerVariants({ variant, size, width, className }))}
+    <SelectContext.Provider
+      value={{
+        mode,
+        value: currentValue,
+        onValueChange: handleValueChange,
+        disabled,
+        required,
+        id,
+      }}
+    >
+      <ActionMenu onValueChange={handleActionMenuValueChange}>
+        <div className={cn('relative', className)} data-slot="select-container" {...props}>
+          {children}
+        </div>
+      </ActionMenu>
+    </SelectContext.Provider>
+  )
+}
+
+export function SelectTrigger({
+  className,
+  children,
+  variant = 'outline',
+  size = 'default',
+  ...props
+}: SelectTriggerProps) {
+  const { disabled, id, required } = useSelect()
+
+  return (
+    <ActionMenuTrigger asChild>
+      <Button
+        id={id}
+        type="button"
+        variant={variant}
+        size={size}
+        className={cn('justify-between', className)}
+        data-slot="select-trigger"
+        aria-required={required}
+        disabled={disabled}
+        {...props}
+      >
+        {children}
+      </Button>
+    </ActionMenuTrigger>
+  )
+}
+
+export function SelectValue({
+  className,
+  placeholder = 'Select options',
+  selectedText = 'Selected',
+  maxDisplayItems = 2,
+  showSelectedLabels = true,
+}: SelectValueProps) {
+  const { mode, value } = useSelect()
+
+  const getDisplayText = () => {
+    if (mode === 'single') {
+      // For single mode, value is a string
+      if (!value || value === '') return placeholder
+      
+      // Just capitalize the value
+      return (value as string).charAt(0).toUpperCase() + (value as string).slice(1)
+    } else {
+      // For multiple mode, value is an array
+      const valueArray = value as string[]
+      const selectedCount = valueArray.length
+      
+      if (selectedCount === 0) return placeholder
+
+      if (!showSelectedLabels) {
+        return `${selectedText}: ${selectedCount}`
+      }
+
+      const selectedLabels = valueArray
+        .map((val) => {
+          // Just capitalize the value
+          return val.charAt(0).toUpperCase() + val.slice(1)
+        })
+        .filter(Boolean)
+
+      if (selectedLabels.length <= maxDisplayItems) {
+        return selectedLabels.join(', ')
+      } else {
+        const visibleLabels = selectedLabels.slice(0, maxDisplayItems)
+        const remainingCount = selectedLabels.length - maxDisplayItems
+        return `${visibleLabels.join(', ')} +${remainingCount} more`
+      }
+    }
+  }
+
+  const hasValue = mode === 'single' ? !!value && value !== '' : (value as string[]).length > 0
+
+  return (
+    <span className={cn('text-left', !hasValue && 'text-muted-foreground', 'truncate', className)}>{getDisplayText()}</span>
+  )
+}
+
+export function SelectGroup({ className, children, ...props }: SelectGroupProps) {
+  return (
+    <ActionMenuGroup className={className} data-slot="select-group" {...props}>
+      {children}
+    </ActionMenuGroup>
+  )
+}
+
+export function SelectContent({
+  className,
+  children,
+  width = 'auto',
+  side = 'bottom',
+  align,
+  sideOffset,
+  ...props
+}: SelectContentProps) {
+  const { mode, value, onValueChange } = useSelect()
+  
+  return (
+    <ActionMenuContent
+      className={cn(selectContentVariants({ width, className }))}
+      data-slot="select-content"
+      side={side}
+      align={align}
+      sideOffset={sideOffset}
+      {...props}
+    >
+      {mode === 'single' ? (
+        <ActionMenuRadioGroup value={value as string} onValueChange={onValueChange}>
+          {children}
+        </ActionMenuRadioGroup>
+      ) : (
+        children
+      )}
+    </ActionMenuContent>
+  )
+}
+
+export function SelectLabel({ className, children, ...props }: SelectLabelProps) {
+  return (
+    <ActionMenuLabel
+      className={cn('px-2 py-1.5 text-xs text-muted-foreground', className)}
+      data-slot="select-label"
       {...props}
     >
       {children}
-      <SelectPrimitive.Icon asChild>
-        <Icon name="chevron-down" className="size-4 opacity-50" />
-      </SelectPrimitive.Icon>
-    </SelectPrimitive.Trigger>
+    </ActionMenuLabel>
   )
 }
 
-function SelectContent({ className, children, position = 'popper', ...props }: SelectContentProps) {
+export function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
   return (
-    <SelectPrimitive.Portal>
-      <SelectPrimitive.Content
-        data-slot="select-content"
-        className={cn(selectContentVariants({ position, className }))}
-        position={position}
+    <ActionMenuSeparator
+      className={cn('bg-border -mx-1 my-1 h-px', className)}
+      data-slot="select-separator"
+      {...props}
+    />
+  )
+}
+
+export function SelectItem({
+  className,
+  children,
+  value: itemValue,
+  disabled,
+  context: _externalContext, // Unused, we handle context internally
+  onCheckedChange: _onCheckedChange, // Exclude from props spread
+  checked: _checked, // Exclude from props spread
+  onAction: _onAction, // Exclude from props spread
+  ...props
+}: SelectItemProps) {
+  const { mode, value, onValueChange } = useSelect()
+  
+  // Check if selected based on mode
+  const isSelected = mode === 'single' 
+    ? value === itemValue 
+    : (value as string[]).includes(itemValue)
+
+  // Handle immediate checked state change
+  const handleCheckedChange = (checked: boolean) => {
+    if (mode === 'single') {
+      // For single mode, just set the value
+      if (checked) {
+        onValueChange(itemValue)
+      }
+    } else {
+      // For multiple mode, handle as array
+      const currentArray = value as string[]
+      if (checked) {
+        // Add value if checked and not already selected
+        if (!currentArray.includes(itemValue)) {
+          onValueChange([...currentArray, itemValue])
+        }
+      } else {
+        // Remove value if unchecked
+        if (currentArray.includes(itemValue)) {
+          onValueChange(currentArray.filter((v) => v !== itemValue))
+        }
+      }
+    }
+  }
+
+  // Determine display text from children if they're a string
+  const displayText = typeof children === 'string' ? children : undefined
+
+  // Create internal context
+  const itemContext = {
+    itemValue,
+    checked: isSelected,
+    displayText,
+  }
+
+  // Use radio item for single mode, checkbox for multiple
+  if (mode === 'single') {
+    return (
+      <ActionMenuRadioItem
+        className={cn(selectItemVariants({ className }))}
+        value={itemValue}
+        disabled={disabled}
         {...props}
       >
-        <SelectScrollUpButton />
-        <SelectPrimitive.Viewport
-          className={cn(
-            'p-1',
-            position === 'popper' &&
-              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1',
-          )}
-        >
-          {children}
-        </SelectPrimitive.Viewport>
-        <SelectScrollDownButton />
-      </SelectPrimitive.Content>
-    </SelectPrimitive.Portal>
-  )
-}
+        {children}
+      </ActionMenuRadioItem>
+    )
+  }
 
-function SelectLabel({ className, ...props }: SelectLabelProps) {
   return (
-    <SelectPrimitive.Label
-      data-slot="select-label"
-      className={cn('text-muted-foreground px-2 py-1.5 text-xs', className)}
-      {...props}
-    />
-  )
-}
-
-function SelectItem({ className, children, variant, ...props }: SelectItemProps) {
-  return (
-    <SelectPrimitive.Item data-slot="select-item" className={cn(selectItemVariants({ variant, className }))} {...props}>
-      <span className="absolute left-2 flex size-3.5 items-center justify-center">
-        <SelectPrimitive.ItemIndicator>
-          <Icon name="check" />
-        </SelectPrimitive.ItemIndicator>
-      </span>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-    </SelectPrimitive.Item>
-  )
-}
-
-function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
-  return (
-    <SelectPrimitive.Separator
-      data-slot="select-separator"
-      className={cn('bg-border pointer-events-none -mx-1 my-1 h-px', className)}
-      {...props}
-    />
-  )
-}
-
-function SelectScrollUpButton({ className, ...props }: SelectScrollUpButtonProps) {
-  return (
-    <SelectPrimitive.ScrollUpButton
-      data-slot="select-scroll-up-button"
-      className={cn('flex cursor-default items-center justify-center py-1', className)}
+    <ActionMenuCheckboxItem
+      className={cn(selectItemVariants({ className }))}
+      checked={isSelected}
+      disabled={disabled}
+      onCheckedChange={handleCheckedChange}
+      data-slot="select-item"
+      context={itemContext}
       {...props}
     >
-      <Icon name="chevron-up" />
-    </SelectPrimitive.ScrollUpButton>
+      {children}
+    </ActionMenuCheckboxItem>
   )
-}
-
-function SelectScrollDownButton({ className, ...props }: SelectScrollDownButtonProps) {
-  return (
-    <SelectPrimitive.ScrollDownButton
-      data-slot="select-scroll-down-button"
-      className={cn('flex cursor-default items-center justify-center py-1', className)}
-      {...props}
-    >
-      <Icon name="chevron-down" />
-    </SelectPrimitive.ScrollDownButton>
-  )
-}
-
-export {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
 }

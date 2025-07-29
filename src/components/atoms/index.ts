@@ -13,7 +13,7 @@ export * from './Label'
 export * from './Listbox'
 export * from './RadioGroup'
 export * from './Required'
-export * from './Select'
+export * from './RadixSelect' // @deprecated - Use Select with mode="single" instead
 export * from './Input'
 export * from './Hidden'
 export * from './KeyboardKey'
@@ -25,7 +25,7 @@ export * from './Text'
 export * from './Table'
 export * from './Bullet'
 export * from './Terms'
-export * from './MultiSelect'
+export * from './Select'
 export * from './ProgressBar'
 
 // Add other atom components as needed

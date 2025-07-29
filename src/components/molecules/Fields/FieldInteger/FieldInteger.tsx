@@ -9,7 +9,7 @@ import {
   FormDescription,
   FormMessage,
 } from '@/components/molecules/Form/Form'
-import { type InputFieldProps } from '../Field.types'
+import type { InputFieldProps } from '../InputField.types'
 import { handleNumberKeyDown, handleNumberChange, handleNumberPaste, handleNumberBlur } from '../utils/numberValidation'
 
 export interface IntegerFieldProps extends Omit<InputFieldProps, 'type'> {

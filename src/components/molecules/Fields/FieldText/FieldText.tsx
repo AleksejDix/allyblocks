@@ -9,7 +9,7 @@ import {
   FormDescription,
   FormMessage,
 } from '@/components/molecules/Form/Form'
-import type { InputFieldProps } from '../Field.types'
+import type { InputFieldProps } from '../InputField.types'
 
 export function FieldText({
   name,

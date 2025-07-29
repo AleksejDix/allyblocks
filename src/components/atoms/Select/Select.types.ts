@@ -1,67 +1,124 @@
 import * as React from 'react'
-import * as SelectPrimitive from '@radix-ui/react-select'
-import type { VariantProps } from 'class-variance-authority'
-import { selectTriggerVariants, selectContentVariants, selectItemVariants } from './Select.variants'
+import type { ButtonProps } from '@/components/atoms/Button/Button.types'
+import type {
+  ActionMenuContentProps as BaseActionMenuContentProps,
+  ActionMenuGroupProps as BaseActionMenuGroupProps,
+  ActionMenuLabelProps as BaseActionMenuLabelProps,
+  ActionMenuSeparatorProps as BaseActionMenuSeparatorProps,
+  ActionMenuCheckboxItemProps as BaseActionMenuCheckboxItemProps,
+} from '@/components/molecules/ActionMenu'
 
-/**
- * Base Select component props
- */
-export type SelectProps = React.ComponentProps<typeof SelectPrimitive.Root>
+export type SelectSize = 'sm' | 'default' | 'lg' | 'icon'
+export type SelectVariant = 'default' | 'ghost' | 'outline' | 'destructive' | 'secondary' | 'link'
+export type SelectWidth = 'auto' | 'full'
 
-/**
- * SelectGroup component props
- */
-export type SelectGroupProps = React.ComponentProps<typeof SelectPrimitive.Group>
+export type SelectRootProps = {
+  /** Selection mode - single or multiple */
+  mode?: 'single' | 'multiple'
 
-/**
- * SelectValue component props
- */
-export type SelectValueProps = React.ComponentProps<typeof SelectPrimitive.Value>
+  /** The currently selected values */
+  value?: string | string[]
 
-/**
- * SelectTrigger component props with variant support
- */
-export type SelectTriggerProps = React.ComponentProps<typeof SelectPrimitive.Trigger> &
-  VariantProps<typeof selectTriggerVariants> & {
-    /**
-     * The content to display within the trigger
-     */
-    children?: React.ReactNode
-  }
+  /** Default selected values */
+  defaultValue?: string | string[]
 
-/**
- * SelectContent component props with variant support
- */
-export type SelectContentProps = React.ComponentProps<typeof SelectPrimitive.Content> &
-  VariantProps<typeof selectContentVariants>
+  /** Callback when values change */
+  onValueChange?: (value: string | string[]) => void
 
-/**
- * SelectLabel component props
- */
-export type SelectLabelProps = React.ComponentProps<typeof SelectPrimitive.Label>
+  /** Whether the select is disabled */
+  disabled?: boolean
 
-/**
- * SelectItem component props with variant support
- */
-export type SelectItemProps = React.ComponentProps<typeof SelectPrimitive.Item> &
-  VariantProps<typeof selectItemVariants> & {
-    /**
-     * The content to display within the item
-     */
-    children: React.ReactNode
-  }
+  /** Additional CSS classes */
+  className?: string
 
-/**
- * SelectSeparator component props
- */
-export type SelectSeparatorProps = React.ComponentProps<typeof SelectPrimitive.Separator>
+  /** ID used for accessibility */
+  id?: string
 
-/**
- * SelectScrollUpButton component props
- */
-export type SelectScrollUpButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>
+  /** Whether the field is required */
+  required?: boolean
 
-/**
- * SelectScrollDownButton component props
- */
-export type SelectScrollDownButtonProps = React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>
+  /** Children elements */
+  children?: React.ReactNode
+}
+
+export type SelectTriggerProps = Omit<ButtonProps, 'onChange'> & {
+  /** Children elements */
+  children?: React.ReactNode
+}
+
+export type SelectValueProps = {
+  /** Placeholder text when no options are selected */
+  placeholder?: string
+
+  /** Text to show before the selected count */
+  selectedText?: string
+
+  /** Maximum number of visible selected items before truncation */
+  maxDisplayItems?: number
+
+  /** Whether to show item labels or just count */
+  showSelectedLabels?: boolean
+
+  /** Additional CSS classes */
+  className?: string
+}
+
+export type SelectGroupProps = BaseActionMenuGroupProps & {
+  /** Children elements */
+  children: React.ReactNode
+}
+
+export type SelectContentProps = Omit<BaseActionMenuContentProps, 'onAnimationEnd'> & {
+  /** Children elements */
+  children?: React.ReactNode
+
+  /** Width variant */
+  width?: 'auto' | 'trigger' | 'full'
+
+  /** Side of the trigger to render content */
+  side?: 'top' | 'right' | 'bottom' | 'left'
+
+  /** Alignment of content relative to trigger */
+  align?: 'start' | 'center' | 'end'
+
+  /** Offset distance from the trigger */
+  sideOffset?: number
+}
+
+export type SelectLabelProps = BaseActionMenuLabelProps & {
+  /** Children elements */
+  children: React.ReactNode
+}
+
+export type SelectSeparatorProps = BaseActionMenuSeparatorProps & {
+  /** Additional CSS classes */
+  className?: string
+}
+
+export type SelectItemContext = {
+  /** Item value */
+  itemValue: string
+
+  /** Whether the item is checked */
+  checked?: boolean
+
+  /** Display text to use when this item is selected */
+  displayText?: string
+}
+
+export type SelectItemProps = Omit<BaseActionMenuCheckboxItemProps, 'context'> & {
+  /** Label content */
+  children: React.ReactNode
+
+  /** Whether the item is disabled */
+  disabled?: boolean
+
+  /** Item value */
+  value: string
+
+  /** Context passed to ActionMenu system */
+  context?: Record<string, unknown>
+}
+
+// Aliased for cleaner imports
+export type SelectProps = SelectRootProps

@@ -1,22 +1,242 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { expect, userEvent, waitFor, within, screen } from 'storybook/test'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from './Select'
+import { expect, userEvent, within, screen } from 'storybook/test'
+import { useState } from 'react'
+import { Icon } from '@/components/atoms/Icon'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+  SelectLabel,
+  SelectSeparator,
+} from './Select'
+import { waitFor } from '@testing-library/react'
 
 const meta: Meta<typeof Select> = {
   component: Select,
-  parameters: {},
+  subcomponents: {
+    SelectContent: SelectContent,
+    SelectItem: SelectItem,
+    SelectTrigger: SelectTrigger,
+    SelectValue: SelectValue,
+    SelectGroup: SelectGroup,
+    SelectLabel: SelectLabel,
+    SelectSeparator: SelectSeparator,
+  },
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    mode: {
+      control: 'radio',
+      options: ['single', 'multiple'],
+      description: 'Selection mode - single or multiple',
+      defaultValue: 'multiple',
+    },
+    value: {
+      control: 'object',
+      description: 'The value of the select (string for single mode, string[] for multiple mode)',
+    },
+    defaultValue: {
+      control: 'object',
+      description: 'The default value of the select',
+    },
+    onValueChange: {
+      action: 'value changed',
+      description: 'Callback when the selection changes',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the select is disabled',
+    },
+    required: {
+      control: 'boolean',
+      description: 'Whether the select is required',
+    },
+  },
 }
+
 export default meta
 
 type Story = StoryObj<typeof Select>
 
-export const Default: Story = {
+const fruitOptions = [
+  { label: 'Apple', value: 'apple' },
+  { label: 'Banana', value: 'banana' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Grape', value: 'grape' },
+  { label: 'Strawberry', value: 'strawberry' },
+]
+
+export const InteractiveTest: Story = {
+  render: () => {
+    const [selectedValues, setSelectedValues] = useState<string[]>([])
+
+    const handleValueChange = (newValues: string | string[]) => {
+      console.log('Value changed:', newValues)
+      setSelectedValues(newValues as string[])
+    }
+
+    return (
+      <div className="p-4">
+        <h3 className="font-medium mb-4">Interactive Select Test</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Selected: {selectedValues.length > 0 ? selectedValues.join(', ') : 'None'}
+        </p>
+
+        <Select value={selectedValues} onValueChange={handleValueChange}>
+          <SelectTrigger>
+            <SelectValue placeholder="Select fruits..." />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+
+        <div className="mt-4 text-xs text-muted-foreground">
+          <p>Debug: Check browser console for selection events</p>
+          <p>Values: {JSON.stringify(selectedValues)}</p>
+        </div>
+      </div>
+    )
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Interactive test to verify Select dropdown and selection functionality.',
+      },
+    },
+  },
+}
+
+export const CustomTriggerText: Story = {
   render: () => (
-    <Select defaultValue="apple">
+    <Select defaultValue={['apple', 'orange']}>
       <SelectTrigger>
-        <SelectValue placeholder="Select a fruit" />
+        <SelectValue placeholder="Select fruits" showSelectedLabels={false} selectedText="Fruits" />
+        <Icon name="chevron-down" size={16} className="opacity-50" />
+      </SelectTrigger>
+      <SelectContent width="trigger">
+        <SelectGroup>
+          {fruitOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value} context={{ displayText: option.label }}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
+
+    // Check that the trigger text shows the custom text
+    await expect(trigger).toHaveTextContent('Fruits: 2')
+  },
+}
+
+export const Default: Story = {
+  render: (args) => {
+    return (
+      <Select {...args}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select fruits" showSelectedLabels={true} maxDisplayItems={2} />
+          <Icon name="chevron-down" size={16} className="opacity-50" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {fruitOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    )
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
+
+    await expect(trigger).toBeInTheDocument()
+
+    await userEvent.click(trigger)
+
+    await waitFor(() => {
+      expect(screen.getByRole('menu')).toBeInTheDocument()
+    })
+
+    const appleOption = screen.getByRole('menuitemcheckbox', { name: 'Apple' })
+    await userEvent.click(appleOption)
+
+    await expect(trigger).toHaveTextContent('Apple')
+  },
+}
+
+export const Disabled: Story = {
+  render: () => (
+    <Select disabled>
+      <SelectTrigger>
+        <SelectValue placeholder="Disabled select" />
+        <Icon name="chevron-down" size={16} className="opacity-50" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {fruitOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const trigger = canvas.getByRole('button')
+
+    await expect(trigger).toBeDisabled()
+  },
+}
+
+export const DisabledOptions: Story = {
+  render: () => (
+    <Select>
+      <SelectTrigger>
+        <SelectValue placeholder="Some options disabled" />
+        <Icon name="chevron-down" size={16} className="opacity-50" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana" disabled>
+            Banana (Unavailable)
+          </SelectItem>
+          <SelectItem value="orange">Orange</SelectItem>
+          <SelectItem value="grape" disabled>
+            Grape (Unavailable)
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  ),
+}
+
+export const Groups: Story = {
+  render: () => (
+    <Select>
+      <SelectTrigger>
+        <SelectValue placeholder="Select fruits or vegetables" />
+        <Icon name="chevron-down" size={16} className="opacity-50" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -24,212 +244,417 @@ export const Default: Story = {
           <SelectItem value="apple">Apple</SelectItem>
           <SelectItem value="banana">Banana</SelectItem>
           <SelectItem value="orange">Orange</SelectItem>
-          <SelectItem value="grape">Grape</SelectItem>
+        </SelectGroup>
+        <SelectSeparator />
+        <SelectGroup>
+          <SelectLabel>Vegetables</SelectLabel>
+          <SelectItem value="carrot">Carrot</SelectItem>
+          <SelectItem value="broccoli">Broccoli</SelectItem>
+          <SelectItem value="spinach">Spinach</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Default select with basic functionality and interaction testing.',
-      },
-    },
+}
+
+export const Prefilled: Story = {
+  render: () => {
+    return (
+      <Select defaultValue={['apple', 'orange']}>
+        <SelectTrigger>
+          <SelectValue placeholder="Select fruits" />
+          <Icon name="chevron-down" size={16} className="opacity-50" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {fruitOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    )
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const selectTrigger = canvas.getByRole('combobox')
+    const trigger = canvas.getByRole('button')
 
-    await expect(selectTrigger).toBeInTheDocument()
-    await expect(selectTrigger).not.toBeDisabled()
-
-    await userEvent.click(selectTrigger)
-
-    await waitFor(() => {
-      const listbox = screen.getByRole('listbox')
-      expect(listbox).toBeInTheDocument()
-
-      const selectItem = screen.getByRole('option', { name: 'Apple' })
-      expect(selectItem).toBeInTheDocument()
-    })
+    // Check that the trigger text shows the correct count
+    await expect(trigger).toHaveTextContent('Apple, Orange')
   },
 }
 
-export const SizeVariants: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium mb-1">Small</label>
-        <Select defaultValue="apple">
-          <SelectTrigger size="sm">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="orange">Orange</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Medium (Default)</label>
-        <Select defaultValue="apple">
-          <SelectTrigger size="md">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="orange">Orange</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Large</label>
-        <Select defaultValue="apple">
-          <SelectTrigger size="lg">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="orange">Orange</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Different size variants: sm, md (default), and lg.',
-      },
-    },
-  },
-}
-
-export const VariantStyles: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium mb-1">Default</label>
-        <Select defaultValue="apple">
-          <SelectTrigger>
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="orange">Orange</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Ghost</label>
-        <Select defaultValue="apple">
-          <SelectTrigger variant="ghost">
-            <SelectValue placeholder="Select a fruit" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="orange">Orange</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Different visual variants: default and ghost.',
-      },
-    },
-  },
-}
-
-export const StateMatrix: Story = {
+export const SelectionDisplay: Story = {
   render: () => {
-    const baseStates = [
-      { name: 'Default', props: {} },
-      { name: 'Disabled', props: { disabled: true } },
-      { name: 'Invalid', props: { 'aria-invalid': true } },
-      { name: 'Read-only', props: { readOnly: true } },
-      { name: 'With Value', props: { defaultValue: 'apple' } },
-    ]
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <h3 className="font-medium mb-2">Show Selected Items (Default)</h3>
+          <Select defaultValue={['apple', 'orange', 'grape']}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select fruits" showSelectedLabels={true} maxDisplayItems={2} />
+              <Icon name="chevron-down" size={16} className="opacity-50" />
+            </SelectTrigger>
+            <SelectContent width="trigger">
+              <SelectGroup>
+                {fruitOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <p className="text-sm text-muted-foreground mt-1">Shows selected item labels with truncation</p>
+        </div>
 
-    const interactiveStates = [
-      { name: 'Default', dataState: undefined },
-      { name: 'Focus', dataState: 'focus' },
-      { name: 'Active', dataState: 'active' },
+        <div>
+          <h3 className="font-medium mb-2">Show More Items</h3>
+          <Select defaultValue={['apple', 'orange', 'grape', 'strawberry']}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select fruits" showSelectedLabels={true} maxDisplayItems={3} />
+              <Icon name="chevron-down" size={16} className="opacity-50" />
+            </SelectTrigger>
+            <SelectContent width="trigger">
+              <SelectGroup>
+                {fruitOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <p className="text-sm text-muted-foreground mt-1">Shows more selected items before truncating</p>
+        </div>
+
+        <div>
+          <h3 className="font-medium mb-2">Count Only</h3>
+          <Select defaultValue={['apple', 'orange', 'grape']}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select fruits" showSelectedLabels={false} selectedText="Selected" />
+              <Icon name="chevron-down" size={16} className="opacity-50" />
+            </SelectTrigger>
+            <SelectContent width="trigger">
+              <SelectGroup>
+                {fruitOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <p className="text-sm text-muted-foreground mt-1">Shows only the count of selected items</p>
+        </div>
+      </div>
+    )
+  },
+}
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h3 className="font-medium mb-2">Small</h3>
+        <Select>
+          <SelectTrigger size="sm">
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-2">Medium (Default)</h3>
+        <Select>
+          <SelectTrigger size="default">
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-2">Large</h3>
+        <Select>
+          <SelectTrigger size="lg">
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  ),
+}
+
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h3 className="font-medium mb-2">Default</h3>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-2">Ghost</h3>
+        <Select>
+          <SelectTrigger variant="ghost">
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  ),
+}
+
+export const Widths: Story = {
+  render: () => (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h3 className="font-medium mb-2">Auto Width (Default)</h3>
+        <Select>
+          <SelectTrigger>
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <h3 className="font-medium mb-2">Full Width</h3>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select fruits" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent width="trigger">
+            <SelectGroup>
+              {fruitOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  ),
+}
+
+export const Descriptions: Story = {
+  render: () => {
+    // Define options for better reuse
+    const frameworks = [
+      {
+        value: 'react',
+        label: 'React',
+        description: 'A JavaScript library for building user interfaces',
+      },
+      {
+        value: 'vue',
+        label: 'Vue',
+        description: 'Progressive JavaScript framework for building UIs',
+      },
+      {
+        value: 'angular',
+        label: 'Angular',
+        description: 'Platform for building mobile and desktop web applications',
+      },
+      {
+        value: 'svelte',
+        label: 'Svelte',
+        description: 'Compiler that creates reactive components',
+      },
     ]
 
     return (
       <div className="space-y-4">
-        <div className="text-sm font-medium text-muted-foreground mb-4">
-          State Matrix: Base states (rows) × Interactive states (columns)
-        </div>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select with descriptions" />
+            <Icon name="chevron-down" size={16} className="opacity-50" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {frameworks.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  <div>
+                    <span className="font-medium line-clamp-1">{option.label}</span>
+                    <span className="text-xs text-muted-foreground">{option.description}</span>
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
 
-        {/* Header row */}
-        <div className="grid grid-cols-4 gap-4">
-          <div className="text-xs font-medium text-muted-foreground"></div>
-          {interactiveStates.map((interactiveState) => (
-            <div key={interactiveState.name} className="text-xs font-medium text-muted-foreground text-center">
-              {interactiveState.name}
-            </div>
-          ))}
-        </div>
-
-        {/* Matrix rows */}
-        {baseStates.map((baseState) => (
-          <div key={baseState.name} className="grid grid-cols-4 gap-4 items-center">
-            <div className="text-xs font-medium text-muted-foreground">{baseState.name}</div>
-            {interactiveStates.map((interactiveState) => (
-              <div key={`${baseState.name}-${interactiveState.name}`}>
-                <Select {...baseState.props}>
-                  <SelectTrigger data-state={interactiveState.dataState}>
-                    <SelectValue placeholder={`${baseState.name} + ${interactiveState.name}`} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="orange">Orange</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            ))}
-          </div>
-        ))}
+        <p className="text-sm text-muted-foreground">
+          Items with descriptions provide additional context about each option. The trigger will show the option value
+          when selected.
+        </p>
       </div>
     )
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Comprehensive state matrix showing all combinations of base states (disabled, invalid, read-only, with value) and interactive states (focus, active). Form inputs typically do not have hover states, focusing on keyboard and click interactions instead.',
-      },
-    },
+}
+
+export const EmptyOptions: Story = {
+  render: () => (
+    <div className="max-w-sm space-y-4">
+      <h3 className="text-sm font-medium">Empty state</h3>
+      <Select>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="No options available" />
+          <Icon name="chevron-down" size={16} className="opacity-50" />
+        </SelectTrigger>
+        <SelectContent width="trigger">
+          <div className="flex flex-col items-center justify-center p-6 text-center">
+            <Icon name="x-circle" size={24} className="text-muted-foreground" />
+            <p className="mt-2 text-sm text-muted-foreground">No options available</p>
+          </div>
+        </SelectContent>
+      </Select>
+      <p className="text-sm text-muted-foreground">Custom empty state when no options are available</p>
+    </div>
+  ),
+}
+
+export const SingleSelection: Story = {
+  render: () => {
+    const [value, setValue] = useState<string>('')
+
+    return (
+      <div className="max-w-2xl space-y-8">
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium">Single Selection Mode</h3>
+          <p className="text-sm text-muted-foreground">
+            When mode="single", the component behaves like a traditional select with radio buttons.
+          </p>
+
+          <Select mode="single" value={value} onValueChange={(newValue) => setValue(newValue as string)}>
+            <SelectTrigger className="w-[280px]">
+              <SelectValue placeholder="Select a framework" />
+              <Icon name="chevron-down" size={16} className="opacity-50" />
+            </SelectTrigger>
+            <SelectContent side="bottom" width="trigger">
+              <SelectGroup>
+                <SelectItem value="react">React</SelectItem>
+                <SelectItem value="vue">Vue</SelectItem>
+                <SelectItem value="angular">Angular</SelectItem>
+                <SelectItem value="svelte">Svelte</SelectItem>
+                <SelectItem value="solid">Solid</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          <div className="text-sm">
+            <span className="font-medium">Selected value:</span>{' '}
+            <code className="rounded bg-muted px-1.5 py-0.5">{value || 'none'}</code>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-medium">Multiple Selection Mode (Default)</h3>
+          <p className="text-sm text-muted-foreground">
+            When mode="multiple" or not specified, the component allows multiple selections with checkboxes.
+          </p>
+
+          <SelectExampleControlled />
+        </div>
+      </div>
+    )
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement)
+}
 
-    // Test a few key combinations using text content instead of display value
-    const defaultFocus = canvas.getByText('Default + Focus').closest('button')
-    await expect(defaultFocus).toHaveAttribute('data-state', 'focus')
+// Helper component for controlled multiple selection example
+function SelectExampleControlled() {
+  const [value, setValue] = useState<string[]>(['react', 'typescript'])
 
-    const invalidFocus = canvas.getByText('Invalid + Focus').closest('button')
-    // Note: aria-invalid might not be properly forwarded to the SelectTrigger button
-    // await expect(invalidFocus).toHaveAttribute('aria-invalid', 'true')
-    await expect(invalidFocus).toHaveAttribute('data-state', 'focus')
+  return (
+    <>
+      <Select value={value} onValueChange={(newValue) => setValue(newValue as string[])}>
+        <SelectTrigger className="w-[280px]">
+          <SelectValue placeholder="Select technologies" />
+          <Icon name="chevron-down" size={16} className="opacity-50" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectItem value="react">React</SelectItem>
+            <SelectItem value="typescript">TypeScript</SelectItem>
+            <SelectItem value="tailwind">Tailwind CSS</SelectItem>
+            <SelectItem value="vite">Vite</SelectItem>
+            <SelectItem value="storybook">Storybook</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
 
-    const disabledActive = canvas.getByText('Disabled + Active').closest('button')
-    await expect(disabledActive).toBeDisabled()
-    await expect(disabledActive).toHaveAttribute('data-state', 'active')
-
-    const readOnlyFocus = canvas.getByText('Read-only + Focus').closest('button')
-    // Note: readonly might not be properly forwarded to the SelectTrigger button
-    // await expect(readOnlyFocus).toHaveAttribute('readonly')
-    await expect(readOnlyFocus).toHaveAttribute('data-state', 'focus')
-  },
+      <div className="text-sm">
+        <span className="font-medium">Selected values:</span>{' '}
+        <code className="rounded bg-muted px-1.5 py-0.5">{value.join(', ') || 'none'}</code>
+      </div>
+    </>
+  )
 }

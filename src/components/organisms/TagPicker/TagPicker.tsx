@@ -1,11 +1,11 @@
 import { memo, useMemo } from 'react'
 import {
-  MultiSelect,
-  MultiSelectTrigger,
-  MultiSelectContent,
-  MultiSelectItem,
-  MultiSelectGroup,
-} from '@/components/atoms/MultiSelect'
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectGroup,
+} from '@/components/atoms/Select'
 import { Tag } from '@/components/molecules/Tag'
 import { Icon } from '@/components/atoms/Icon'
 import { cn } from '@/lib/utils'
@@ -132,15 +132,15 @@ export const TagPicker = memo(function TagPicker({
 
       {/* Selection Dropdown */}
       {showDropdown && (
-        <MultiSelect
+        <Select
+          mode="multiple"
           value={value}
           defaultValue={defaultValue}
           onValueChange={onValueChange}
-          options={options}
           disabled={disabled}
           {...props}
         >
-          <MultiSelectTrigger
+          <SelectTrigger
             variant="outline"
             size={size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'default'}
             className={cn(tagPickerTriggerVariants({ hasSelection }), triggerClassName)}
@@ -149,22 +149,22 @@ export const TagPicker = memo(function TagPicker({
               <span className="truncate">{hasSelection ? `${selectedOptions.length} selected` : placeholder}</span>
               <Icon name="chevron-down" className="h-4 w-4 shrink-0 opacity-50" />
             </div>
-          </MultiSelectTrigger>
+          </SelectTrigger>
 
-          <MultiSelectContent className="w-[--radix-popover-trigger-width] max-h-[300px]">
+          <SelectContent className="w-[--radix-dropdown-menu-trigger-width] max-h-[300px]">
             {options.length === 0 ? (
               <div className="py-6 text-center text-sm text-muted-foreground">{emptyText}</div>
             ) : (
-              <MultiSelectGroup>
+              <SelectGroup>
                 {options.map((option) => (
-                  <MultiSelectItem key={option.value} value={option.value} disabled={option.disabled}>
+                  <SelectItem key={option.value} value={option.value} disabled={option.disabled}>
                     {option.label}
-                  </MultiSelectItem>
+                  </SelectItem>
                 ))}
-              </MultiSelectGroup>
+              </SelectGroup>
             )}
-          </MultiSelectContent>
-        </MultiSelect>
+          </SelectContent>
+        </Select>
       )}
     </div>
   )

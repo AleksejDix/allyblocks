@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { within, expect, userEvent } from 'storybook/test'
 import { addDays } from 'date-fns'
+import * as React from 'react'
 
 import { Calendar } from '@/components/organisms/Calendar/'
 
@@ -71,10 +72,18 @@ export const Default: Story = {
 
 // Calendar with selected date
 export const WithSelectedDate: Story = {
-  args: {
-    mode: 'single',
-    selected: new Date(),
-    className: 'rounded-md border',
+  render: (args) => {
+    const [selected, setSelected] = React.useState<Date | undefined>(new Date())
+    
+    return (
+      <Calendar
+        {...args}
+        mode="single"
+        selected={selected}
+        onSelect={setSelected}
+        className="rounded-md border"
+      />
+    )
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -83,35 +92,52 @@ export const WithSelectedDate: Story = {
     const calendar = canvas.getByRole('grid')
     await expect(calendar).toBeInTheDocument()
 
+    // Wait for the calendar to stabilize
+    await new Promise(resolve => setTimeout(resolve, 100))
+
     // Find today's date as a number
     const todayNum = new Date().getDate()
-
-    // Find button with today's date
-    const todayButtons = canvas.getAllByText(todayNum.toString())
-
-    // Find the selected button (should have aria-selected="true")
-    let selectedButton = null
-    for (const button of todayButtons) {
-      if (button.getAttribute('aria-selected') === 'true') {
-        selectedButton = button
-        break
+    
+    // Find all grid cells
+    const gridCells = canvas.getAllByRole('gridcell')
+    
+    // Find the cell containing today's date and check if it's selected
+    let selectedCell = null
+    for (const cell of gridCells) {
+      const button = cell.querySelector('button')
+      if (button && button.textContent === todayNum.toString()) {
+        // In react-day-picker v9, selection is on the gridcell
+        if (cell.getAttribute('aria-selected') === 'true' || 
+            cell.getAttribute('data-selected') === 'true') {
+          selectedCell = cell
+          break
+        }
       }
     }
 
-    await expect(selectedButton).not.toBeNull()
-    await expect(selectedButton).toHaveClass('bg-primary')
+    await expect(selectedCell).not.toBeNull()
+    // Check for selected class on the cell
+    await expect(selectedCell).toHaveClass('bg-primary')
   },
 }
 
 // Calendar in range selection mode
 export const RangeSelection: Story = {
-  args: {
-    mode: 'range',
-    selected: {
+  render: (args) => {
+    const [selected, setSelected] = React.useState<{ from?: Date; to?: Date } | undefined>({
       from: new Date(),
       to: addDays(new Date(), 5),
-    },
-    className: 'rounded-md border',
+    })
+    
+    return (
+      <Calendar
+        {...args}
+        mode="range"
+        selected={selected}
+        onSelect={setSelected}
+        className="rounded-md border"
+      />
+    )
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -120,31 +146,51 @@ export const RangeSelection: Story = {
     const calendar = canvas.getByRole('grid')
     await expect(calendar).toBeInTheDocument()
 
+    // Wait for the calendar to stabilize
+    await new Promise(resolve => setTimeout(resolve, 100))
+
     // Find today's date as a number
     const todayNum = new Date().getDate()
-
-    // Find button with today's date
-    const todayButtons = canvas.getAllByText(todayNum.toString())
-
-    // At least one button should be part of the range (aria-selected="true")
-    let selectedButton = null
-    for (const button of todayButtons) {
-      if (button.getAttribute('aria-selected') === 'true') {
-        selectedButton = button
-        break
+    
+    // Find all grid cells
+    const gridCells = canvas.getAllByRole('gridcell')
+    
+    // Find the cell containing today's date and check if it's part of the range
+    let selectedCell = null
+    for (const cell of gridCells) {
+      const button = cell.querySelector('button')
+      if (button && button.textContent === todayNum.toString()) {
+        // Check if this cell is selected (part of range)
+        if (cell.getAttribute('aria-selected') === 'true' || 
+            cell.getAttribute('data-selected') === 'true') {
+          selectedCell = cell
+          break
+        }
       }
     }
 
-    await expect(selectedButton).not.toBeNull()
+    await expect(selectedCell).not.toBeNull()
   },
 }
 
 // Calendar in multiple selection mode
 export const MultipleSelection: Story = {
-  args: {
-    mode: 'multiple',
-    selected: [new Date(), addDays(new Date(), 2), addDays(new Date(), 5)],
-    className: 'rounded-md border',
+  render: (args) => {
+    const [selected, setSelected] = React.useState<Date[] | undefined>([
+      new Date(),
+      addDays(new Date(), 2),
+      addDays(new Date(), 5),
+    ])
+    
+    return (
+      <Calendar
+        {...args}
+        mode="multiple"
+        selected={selected}
+        onSelect={setSelected}
+        className="rounded-md border"
+      />
+    )
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
@@ -153,22 +199,30 @@ export const MultipleSelection: Story = {
     const calendar = canvas.getByRole('grid')
     await expect(calendar).toBeInTheDocument()
 
+    // Wait for the calendar to stabilize
+    await new Promise(resolve => setTimeout(resolve, 100))
+
     // Find today's date as a number
     const todayNum = new Date().getDate()
-
-    // Find button with today's date
-    const todayButtons = canvas.getAllByText(todayNum.toString())
-
-    // At least one button should be selected
-    let selectedButton = null
-    for (const button of todayButtons) {
-      if (button.getAttribute('aria-selected') === 'true') {
-        selectedButton = button
-        break
+    
+    // Find all grid cells
+    const gridCells = canvas.getAllByRole('gridcell')
+    
+    // Find the cell containing today's date and check if it's selected
+    let selectedCell = null
+    for (const cell of gridCells) {
+      const button = cell.querySelector('button')
+      if (button && button.textContent === todayNum.toString()) {
+        // Check if this cell is selected
+        if (cell.getAttribute('aria-selected') === 'true' || 
+            cell.getAttribute('data-selected') === 'true') {
+          selectedCell = cell
+          break
+        }
       }
     }
 
-    await expect(selectedButton).not.toBeNull()
+    await expect(selectedCell).not.toBeNull()
   },
 }
 
