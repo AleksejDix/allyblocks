@@ -244,6 +244,50 @@ export const WithDisabledOptions: Story = {
       </SelectAutocomplete>
     )
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    
+    // Wait for component to be ready
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
+    // Open dropdown
+    const trigger = canvas.getByRole('combobox')
+    await userEvent.click(trigger)
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
+    // Press arrow down - should highlight Apple (index 0)
+    await userEvent.keyboard('{ArrowDown}')
+    await new Promise(resolve => setTimeout(resolve, 50))
+    
+    const appleOption = canvas.getByText('Apple')
+    const appleParent = appleOption.parentElement
+    expect(appleParent).toHaveClass('bg-accent')
+    
+    // Press arrow down - should skip disabled "Banana" and go to "Cherry"
+    await userEvent.keyboard('{ArrowDown}')
+    await new Promise(resolve => setTimeout(resolve, 50))
+    
+    // Check that Cherry is highlighted
+    const cherryOption = canvas.getByText('Cherry')
+    const cherryParent = cherryOption.parentElement
+    expect(cherryParent).toHaveClass('bg-accent')
+    
+    // Press arrow down again - should skip disabled "Date" and go to "Elderberry"
+    await userEvent.keyboard('{ArrowDown}')
+    await new Promise(resolve => setTimeout(resolve, 50))
+    
+    // Check that Elderberry is highlighted
+    const elderberryOption = canvas.getByText('Elderberry')
+    const elderberryParent = elderberryOption.parentElement
+    expect(elderberryParent).toHaveClass('bg-accent')
+    
+    // Press arrow up - should skip disabled "Date" and go back to "Cherry"
+    await userEvent.keyboard('{ArrowUp}')
+    await new Promise(resolve => setTimeout(resolve, 50))
+    
+    // Check that Cherry is highlighted again
+    expect(cherryParent).toHaveClass('bg-accent')
+  },
 }
 
 // Disabled state

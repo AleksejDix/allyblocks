@@ -9,23 +9,30 @@ import type { DatePickerMode, DatePickerValue, UseDatePickerReturn } from './Dat
 export function useDatePicker<T extends DatePickerMode = 'single'>({
   mode = 'single' as T,
   defaultValue,
+  value: controlledValue,
   onValueChange,
   dateFormat = 'PPP',
 }: {
   mode?: T
   defaultValue?: DatePickerValue<T>
+  value?: DatePickerValue<T>
   onValueChange?: (value: DatePickerValue<T>) => void
   dateFormat?: string
 } = {}): UseDatePickerReturn<T> {
-  const [value, setValueState] = useState<DatePickerValue<T>>(defaultValue as DatePickerValue<T>)
+  const [uncontrolledValue, setUncontrolledValue] = useState<DatePickerValue<T>>(defaultValue as DatePickerValue<T>)
   const [isOpen, setIsOpen] = useState(false)
+  
+  const isControlled = controlledValue !== undefined
+  const value = isControlled ? controlledValue : uncontrolledValue
 
   const setValue = useCallback(
     (newValue: DatePickerValue<T>) => {
-      setValueState(newValue)
+      if (!isControlled) {
+        setUncontrolledValue(newValue)
+      }
       onValueChange?.(newValue)
     },
-    [onValueChange],
+    [isControlled, onValueChange],
   )
 
   const open = useCallback(() => setIsOpen(true), [])

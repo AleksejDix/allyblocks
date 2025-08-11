@@ -2,25 +2,34 @@ import React from 'react'
 import { useForm, type FieldValues, type UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useFacetFilters } from './FacetFilter.context'
 import { Form } from '@/components/molecules/Form/Form'
 
+// oxlint-disable-next-line no-explicit-any
 type FacetFilterProps<TSchema extends z.ZodObject<any, any>> = {
   children: React.ReactNode
   schema: TSchema
   onSubmit?: (data: z.infer<TSchema>) => void
   className?: string
   debug?: boolean
+  useFacetFilters: () => {
+    // oxlint-disable-next-line no-explicit-any
+    queryStates: [any, (value: any) => void]
+    // oxlint-disable-next-line no-explicit-any
+    defaultValues: Partial<any>
+  }
 }
 
+// oxlint-disable-next-line no-explicit-any
 export function FacetFilter<TSchema extends z.ZodObject<any, any>>({
   children,
   schema,
   onSubmit,
   className,
   debug = false,
+  useFacetFilters,
 }: FacetFilterProps<TSchema>) {
-  const { urlValues, setUrlValues, defaultValues } = useFacetFilters()
+  const { queryStates, defaultValues } = useFacetFilters()
+  const [urlValues, setUrlValues] = queryStates
 
   // Merge URL values with defaults for controlled form behavior
   const formValues = React.useMemo(() => {

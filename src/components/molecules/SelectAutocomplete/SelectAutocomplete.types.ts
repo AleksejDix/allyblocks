@@ -63,24 +63,12 @@ export interface SelectAutocompleteInputProps extends ComponentPropsWithoutRef<'
 
 export interface SelectAutocompleteContextValue {
   options: SelectAutocompleteOption[]
-  allOptions: SelectAutocompleteOption[]
-  selectedOptions: SelectAutocompleteOption[]
-  inputValue: string
+  selectedItem: SelectAutocompleteOption | null
   isOpen: boolean
+  setIsOpen: (open: boolean) => void
   highlightedIndex: number
-  multiple: boolean
   disabled: boolean
-  inputRef: React.RefObject<HTMLInputElement>
-  getItemProps: (options: any) => any
-  getInputProps: (options?: any) => any
   getToggleButtonProps: (options?: any) => any
   getMenuProps: (options?: any) => any
-  getLabelProps: (options?: any) => any
-  selectOption: (option: SelectAutocompleteOption | null) => void
-  openMenu: () => void
-  closeMenu: () => void
-  setInputValue: (value: string) => void
-  setIsOpen: (open: boolean) => void
-  reset: () => void
-  removeOption: (option: SelectAutocompleteOption) => void
+  getItemProps: (options: any) => any
 }

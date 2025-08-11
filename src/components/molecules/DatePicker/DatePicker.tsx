@@ -84,7 +84,8 @@ export function DatePicker<T extends DatePickerMode = 'single'>({
     hasValue,
   } = useDatePicker({
     mode,
-    defaultValue: value || defaultValue,
+    value,
+    defaultValue,
     onValueChange,
     dateFormat,
   })
@@ -121,7 +122,7 @@ export function DatePicker<T extends DatePickerMode = 'single'>({
 
   return (
     <div className={cn(datePickerVariants({ size, variant }), className)} {...props}>
-      <PopoverPrimitive.Root open={isOpen} onOpenChange={(open) => (open ? open() : close())}>
+      <PopoverPrimitive.Root open={isOpen} onOpenChange={(isOpen) => (isOpen ? open() : close())}>
         <PopoverPrimitive.Trigger asChild>
           <DatePickerInput
             value={displayValue}
@@ -142,7 +143,6 @@ export function DatePicker<T extends DatePickerMode = 'single'>({
         </PopoverPrimitive.Trigger>
 
         <DatePickerTrigger
-          isOpen={isOpen}
           disabled={disabled}
           onClick={handleInputClick}
           className={cn(datePickerTriggerVariants({ size }))}

@@ -22,22 +22,22 @@ export function Calendar({
         nav: 'flex items-center gap-1',
         nav_button: cn(
           buttonVariants({ variant: 'outline' }),
-          'size-7 bg-transparent p-0 opacity-50 hover:opacity-100',
+          'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
         ),
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
         table: 'w-full border-collapse space-x-1',
-        head_row: 'flex',
-        head_cell: 'text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2',
+        head_row: 'flex gap-1',
+        head_cell: 'text-muted-foreground rounded-md w-8 flex-1 font-normal text-[0.8rem] text-center',
+        row: 'flex w-full mt-2 gap-1',
         cell: cn(
-          'relative  w-1/7 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-range-end)]:rounded-r-md',
+          'relative flex-1 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-range-end)]:rounded-r-md',
           props.mode === 'range'
             ? '[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md'
             : '[&:has([aria-selected])]:rounded-md',
         ),
-        day: cn(buttonVariants({ variant: 'ghost' }), 'size-8 p-0 font-normal max-w-full'),
-        day_button: cn(buttonVariants({ variant: 'ghost' }), 'size-8 p-0 font-normal w-full'),
+        day: cn(buttonVariants({ variant: 'ghost' }), 'h-8 w-8 p-0 font-normal'),
+        day_button: cn(buttonVariants({ variant: 'ghost' }), 'h-8 w-8 p-0 font-normal'),
         range_start: 'aria-selected:bg-primary aria-selected:text-primary-foreground',
         range_end: 'aria-selected:bg-primary aria-selected:text-primary-foreground',
         selected:

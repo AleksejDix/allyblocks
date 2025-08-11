@@ -1,43 +1,65 @@
-import React, { createContext, useContext } from "react";
-import {
-  useQueryStates,
-  type UseQueryStatesOptions,
-  type UseQueryStatesKeysMap,
-} from "nuqs";
+import { createContext, useContext, type ReactNode } from 'react'
+import { type UseQueryStatesKeysMap, type UseQueryStatesReturn, type Values } from 'nuqs'
 
-const FacetFilterContext = createContext<any>(null);
-
-type FacetFilterProviderProps<T extends UseQueryStatesKeysMap> = {
-  children: React.ReactNode;
-  parsers: T;
-  defaultValues?: Record<string, any>;
-  options?: UseQueryStatesOptions<T>;
-};
-
-export function FacetFilterProvider<T extends UseQueryStatesKeysMap>({
-  children,
-  parsers,
-  defaultValues = {},
-  options,
-}: FacetFilterProviderProps<T>) {
-  const [urlValues, setUrlValues] = useQueryStates(parsers, {
-    history: "replace",
-    clearOnDefault: true,
-    ...options,
-  });
-
-
-  return (
-    <FacetFilterContext.Provider value={{ urlValues, setUrlValues, defaultValues }}>
-      {children}
-    </FacetFilterContext.Provider>
-  );
+type FacetFilterContextValue<T extends UseQueryStatesKeysMap> = {
+  queryStates: UseQueryStatesReturn<T>
+  defaultValues: Partial<Values<T>>
 }
 
-export function useFacetFilters() {
-  const context = useContext(FacetFilterContext);
-  if (!context) {
-    throw new Error("useFacetFilters must be used within FacetFilterProvider");
+/**
+ * Creates a type-safe FacetFilter provider and hook pair
+ *
+ * @example
+ * ```tsx
+ * // Define your parsers
+ * const filterParsers = {
+ *   status: parseAsString,
+ *   datefrom: parseAsString,
+ *   dateto: parseAsString,
+ * } as const;
+ *
+ * // Create typed provider and hook
+ * const { FacetFilterProvider, useFacetFilters } = createFacetFilter<typeof filterParsers>();
+ *
+ * // Use in your app
+ * function App() {
+ *   const queryStates = useQueryStates(filterParsers);
+ *
+ *   return (
+ *     <FacetFilterProvider queryStates={queryStates}>
+ *       <MyFilters />
+ *     </FacetFilterProvider>
+ *   );
+ * }
+ *
+ * // In child components - fully typed!
+ * function MyFilters() {
+ *   const { queryStates, defaultValues } = useFacetFilters();
+ *   const [values, setValues] = queryStates;
+ *   // values is typed as { status?: string | null, datefrom?: string | null, dateto?: string | null }
+ * }
+ * ```
+ */
+export function createFacetFilter<T extends UseQueryStatesKeysMap>() {
+  const Context = createContext<FacetFilterContextValue<T> | null>(null)
+
+  function FacetFilterProvider(props: {
+    children: ReactNode
+    queryStates: UseQueryStatesReturn<T>
+    defaultValues?: Partial<Values<T>>
+  }) {
+    const { children, queryStates, defaultValues = {} } = props
+
+    return <Context.Provider value={{ queryStates, defaultValues }}>{children}</Context.Provider>
   }
-  return context;
+
+  function useFacetFilters(): FacetFilterContextValue<T> {
+    const context = useContext(Context)
+    if (!context) {
+      throw new Error('useFacetFilters must be used within FacetFilterProvider')
+    }
+    return context
+  }
+
+  return { FacetFilterProvider, useFacetFilters }
 }

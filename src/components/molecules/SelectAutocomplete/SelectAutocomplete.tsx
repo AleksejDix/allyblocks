@@ -54,6 +54,8 @@ export function SelectAutocomplete({
         onChange?.(newSelectedItem.value)
       }
     },
+    // Skip disabled items during keyboard navigation
+    isItemDisabled: (item) => item?.disabled || false,
   })
 
   const contextValue = {
